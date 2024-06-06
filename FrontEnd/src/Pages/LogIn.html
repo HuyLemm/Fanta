@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Sign Up</title>
+    <link rel="stylesheet" href="/FrontEnd/Style/logIn.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <section>
+        <form action="/Pages/index.html">
+            <h1>Login</h1>
+            <div class="inputbox">
+                <ion-icon name="mail-outline"></ion-icon>
+                <input type="text" required>
+                <label for="">Username</label>
+            </div>
+
+            <div class="inputbox">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <input type="password" required>
+                <label for="">Password</label>
+            </div>
+
+            <div class="forget">
+                <label for=""><input type="checkbox">Remember Me</label>
+                <a href="">Forget Password</a>
+            </div>
+
+            <button>Log in</button>
+
+            <div class="register">
+                <p>Don't have an account <a href="">Register</a></p>
+            </div>
+
+            <!-- Add social login buttons here -->
+            <div class="social-login">
+                <p>Or log in with:</p>
+                <button type="button" class="google-login">
+                    <i class="fab fa-google"></i> 
+                </button>
+                <button type="button" class="facebook-login">
+                    <i class="fab fa-facebook-f"></i> 
+                </button>
+                <button type="button" class="twitter-login">
+                    <i class="fab fa-twitter"></i>
+                </button>
+                <!-- Add more login buttons as needed -->
+            </div>
+        </div>
+        </form>
+    </section>
+    <script src="/components/logIn.js"></script>
+</body>
+</html>
