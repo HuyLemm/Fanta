@@ -4,6 +4,7 @@ import './assets/styles/app.css';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
+
 function App() {
     return (
         <Router>
