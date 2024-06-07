@@ -74,7 +74,7 @@
   }
   
   .forget {
-    margin: 35px 0;
+    margin: 25px 0 0 0;
     font-size: 0.85rem;
     color: white;
     display: flex;
@@ -90,19 +90,27 @@
     margin-right: 3px;
   }
   
-  .forget a {
+  .forget1 a {
     color: #fb5607;
     text-decoration: none;
     font-weight: 600;
     margin-left: 5px;
   }
-  
-  .forget a:hover {
+
+  .forget1 {
+    margin: 25px 0 35px 0;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .forget1 a:hover {
     text-decoration: underline;
   }
   
+
   button {
-    width: 100px;
+    width: 140px;
     height: 40px;
     border-radius: 40px;
     background-color: white;

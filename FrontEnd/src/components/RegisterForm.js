@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
-import '../assets/styles/Login.css';
+import '../assets/styles/Register.css';
 
 const RegisterForm = () => {
+    const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -45,6 +46,17 @@ const RegisterForm = () => {
                     <ion-icon name="mail-outline"></ion-icon>
                     <input
                         type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <label>Email</label>
+                </div>
+
+                <div className="inputbox">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input
+                        type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
@@ -74,27 +86,7 @@ const RegisterForm = () => {
                     <label>Confirm Password</label>
                 </div>
 
-                <div className="forget">
-                    <label>
-                        <input type="checkbox" />
-                        Remember Me
-                    </label>
-                </div>
-
-                <button type="submit">Sign Up</button>
-
-                <div className="social-login">
-                    <p>Or Sign Up with:</p>
-                    <button type="button" className="google-login">
-                        <FaGoogle />
-                    </button>
-                    <button type="button" className="facebook-login">
-                        <FaFacebookF />
-                    </button>
-                    <button type="button" className="twitter-login">
-                        <FaTwitter />
-                    </button>
-                </div>
+                <button type="submit" className='.button2'>Sign Up</button>
 
                 {message && <p className="message">{message}</p>}
             </form>

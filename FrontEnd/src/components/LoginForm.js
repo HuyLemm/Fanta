@@ -65,13 +65,16 @@ const LoginForm = () => {
                         <input type="checkbox" />
                         Remember Me
                     </label>
-                    <a href="">Forget Password</a>
                 </div>
 
-                <button type="submit">Log in</button>
+                <div className="forget1">
+                    <a href="">Forget Password?</a>
+                </div>
+
+                <button type="submit" className='.button1'>Log in</button>
 
                 <div className="register">
-                    <p>Don't have an account <a href="">Register</a></p>
+                    <p>Don't have an account? <a href="">Register</a></p>
                 </div>
 
                 <div className="social-login">
