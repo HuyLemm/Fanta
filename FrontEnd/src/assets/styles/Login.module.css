@@ -1,0 +1,189 @@
+.login-section {
+    position: relative;
+    max-width: 400px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 20px;
+    backdrop-filter: blur(55px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 3rem;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-form h1 {
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+  }
+  
+  .login-form .inputbox {
+    position: relative;
+    margin: 30px 0;
+    max-width: 310px;
+    margin-bottom: 20px;
+  }
+  
+  .login-form .inputbox label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.75rem;
+    pointer-events: none;
+    transition: all 0.25s ease-in-out;
+  }
+  
+  .login-form input:focus ~ label,
+  .login-form input:valid ~ label {
+    top: -5px;
+  }
+  
+  .login-form .inputbox input {
+    width: 100%;
+    height: 60px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 0 35px 0 5px;
+    color: white;
+    border-bottom: 2px solid white;
+  }
+  
+  .login-form .inputbox ion-icon {
+    position: absolute;
+    right: 8px;
+    color: white;
+    font-size: 1.2rem;
+    top: 20px;
+  }
+  
+  .login-form .forget {
+    margin: 25px 0 0 0;
+    font-size: 0.85rem;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .login-form .forget label {
+    display: flex;
+    align-items: center;
+  }
+  
+  .login-form .forget label input {
+    margin-right: 3px;
+  }
+  
+  .login-form .forget1 a {
+    color: #fb5607;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 5px;
+  }
+  
+  .login-form .forget1 {
+    margin: 25px 0 35px 0;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .login-form .forget1 a:hover {
+    text-decoration: underline;
+  }
+  
+  .login-form button {
+    width: 100px;
+    height: 40px;
+    border-radius: 40px;
+    background-color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.4s ease;
+    margin-top: -10px;
+  }
+  
+  .login-form button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .login-form .register {
+    font-size: 0.9rem;
+    color: white;
+    text-align: center;
+    margin: 25px 0 10px;
+  }
+  
+  .login-form .register p a {
+    text-decoration: none;
+    color: #fb5607;
+    font-weight: 600;
+  }
+  
+  .login-form .register p a:hover {
+    text-decoration: underline;
+  }
+  
+  .login-form .social-login {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+  }
+  
+  .login-form .social-login p {
+    margin-bottom: 10px;
+  }
+  
+  .login-form .social-login button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    font-size: 20px;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-form .social-login button i {
+    margin: 10px;
+  }
+  
+  .login-form .google-login {
+    background-color: #db4437;
+  }
+  
+  .login-form .facebook-login {
+    background-color: #3b5998;
+  }
+  
+  .login-form .twitter-login {
+    background-color: #1da1f2;
+  }
+  
+  .login-form .social-login button:hover {
+    opacity: 0.9;
+  }
+  
+  .login-form .message {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: white;
+    text-align: center;
+  }
