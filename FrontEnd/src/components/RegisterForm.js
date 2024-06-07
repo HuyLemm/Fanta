@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
-import '../assets/styles/Register.css';
+import styles from '../assets/styles/Register.module.css';
 
 const RegisterForm = () => {
     const [email, setEmail] = useState('');
@@ -39,10 +39,10 @@ const RegisterForm = () => {
     };
 
     return (
-        <section>
-            <form onSubmit={handleSubmit}>
-                <h1>Sign Up</h1>
-                <div className="inputbox">
+        <section className={styles['register-section']}>
+            <form className={styles['register-form']} onSubmit={handleSubmit}>
+                <h1>Register</h1>
+                <div className={styles['inputbox']}>
                     <ion-icon name="mail-outline"></ion-icon>
                     <input
                         type="text"
@@ -53,7 +53,7 @@ const RegisterForm = () => {
                     <label>Email</label>
                 </div>
 
-                <div className="inputbox">
+                <div className={styles['inputbox']}>
                     <ion-icon name="mail-outline"></ion-icon>
                     <input
                         type="text"
@@ -64,7 +64,7 @@ const RegisterForm = () => {
                     <label>Username</label>
                 </div>
 
-                <div className="inputbox">
+                <div className={styles['inputbox']}>
                     <ion-icon name="lock-closed-outline"></ion-icon>
                     <input
                         type="password"
@@ -75,7 +75,7 @@ const RegisterForm = () => {
                     <label>Password</label>
                 </div>
 
-                <div className="inputbox">
+                <div className={styles['inputbox']}>
                     <ion-icon name="lock-closed-outline"></ion-icon>
                     <input
                         type="password"
@@ -86,9 +86,9 @@ const RegisterForm = () => {
                     <label>Confirm Password</label>
                 </div>
 
-                <button type="submit" className='.button2'>Sign Up</button>
+                <button type="submit" className={styles['button2']}>Sign Up</button>
 
-                {message && <p className="message">{message}</p>}
+                {message && <p className={styles['message']}>{message}</p>}
             </form>
         </section>
     );
