@@ -1,36 +1,38 @@
 import React, { useState } from 'react';
 import '../Style/logIn.css';
 import { FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
-
+import { setCookie, getCookie } from '../cookies';
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-
+  
     const handleSubmit = async (e) => {
-        e.preventDefault();
+      e.preventDefault();
+  
+      try {
+        const response = await fetch('http://localhost:5000/user/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        });
 
-        try {
-            const response = await fetch('http://localhost:5000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                setMessage(data);
-            } else {
-                setMessage(data);
-            }
-        } catch (error) {
-            console.error('Error during login:', error);
-            setMessage('An error occurred. Please try again later.');
+        if (response.ok) {
+          const data = await response.json();
+          setMessage(data.message);
+          setCookie('token', data.token, 1);
+        } else {
+          const errorMessage = await response.text();
+          setMessage(errorMessage);
         }
+      } catch (error) {
+        console.error('Error during login:', error);
+        setMessage('An error occurred. Please try again later.');
+      }
     };
-
+  
     return (
         <section>
             <form onSubmit={handleSubmit}>

@@ -6,3 +6,6 @@ mongoose
 dotenv
 bcryptjs
 cors
+jsonwebtoken
+cookie-parser
+express-session
