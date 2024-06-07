@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import '../Style/logIn.css';
+import '../assets/styles/Login.css';
 import { FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
-import { setCookie, getCookie } from '../cookies';
-const Login = () => {
+import { setCookie, getCookie } from '../utils/Cookies';
+
+const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -92,4 +93,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginForm;

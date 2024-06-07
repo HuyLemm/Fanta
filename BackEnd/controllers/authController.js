@@ -60,3 +60,9 @@ exports.login = async (req, res) => {
     res.status(500).json('Server error');
   }
 };
+
+
+exports.logout = (req, res) => {
+  res.clearCookie('jwt');
+  res.json({ message: 'Logged out successfully' });
+};

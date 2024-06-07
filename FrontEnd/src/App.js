@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import './App.css';
-import Login from './components/logIn';
-import SignUp from './components/SignUp';
-
+import './assets/styles/app.css';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/RegisterPage';
 function App() {
     return (
         <Router>
@@ -11,7 +10,7 @@ function App() {
                 <nav>
                     <ul>
                         <li>
-                            <Link to="/">Login</Link>
+                            <Link to="/login">Login</Link>
                         </li>
                         <li>
                             <Link to="/signup">Sign Up</Link>
@@ -19,8 +18,8 @@ function App() {
                     </ul>
                 </nav>
                 <Routes>
-                    <Route exact path="/" element={<Login />} />
-                    <Route path="/signup" element={<SignUp />} />
+                    <Route exact path="/login" element={<LoginPage />} />
+                    <Route path="/signup" element={<SignUpPage />} />
                 </Routes>
             </div>
         </Router>

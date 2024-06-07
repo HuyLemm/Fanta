@@ -6,7 +6,7 @@
   }
   
   .App {
-    background-image: url('./assets/RT_300EssentialMovies_700X250_faded.jpg');
+    background-image: url('../images/RT_300EssentialMovies_700X250_faded.jpg');
     background-position: center;
     display: flex;
     align-items: center;
