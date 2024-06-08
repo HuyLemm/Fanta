@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../assets/styles/Register.module.css';
+import { setCookie, getCookie } from '../utils/Cookies';
 
 const RegisterForm = () => {
     const [email, setEmail] = useState('');
@@ -9,7 +10,8 @@ const RegisterForm = () => {
     const [verificationCode, setVerificationCode] = useState('');
     const [message, setMessage] = useState('');
     const [isCodeSent, setIsCodeSent] = useState(false);
-    const [timer, setTimer] = useState(60);
+    const [isLoading, setIsLoading] = useState(false);
+    const [timer, setTimer] = useState(15);
 
     useEffect(() => {
         let countdown;
@@ -23,9 +25,11 @@ const RegisterForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
         if (password !== confirmPassword) {
             setMessage('Passwords do not match.');
+            setIsLoading(false);
             return;
         }
 
@@ -42,18 +46,21 @@ const RegisterForm = () => {
             if (response.ok) {
                 setMessage('Verification code sent to your email.');
                 setIsCodeSent(true);
-                setTimer(60);
+                setTimer(15);
             } else {
                 setMessage(data);
             }
         } catch (error) {
             console.error('Error during registration:', error);
             setMessage('An error occurred. Please try again later.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const handleVerify = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
         try {
             const response = await fetch('http://localhost:5000/user/verify', {
@@ -67,16 +74,20 @@ const RegisterForm = () => {
             const data = await response.json();
             if (response.ok) {
                 setMessage('Account created successfully.');
+                setCookie('jwt', data.token, 1);
             } else {
                 setMessage(data);
             }
         } catch (error) {
             console.error('Error during verification:', error);
             setMessage('An error occurred. Please try again later.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const handleResendCode = async () => {
+        setIsLoading(true);
         try {
             const response = await fetch('http://localhost:5000/user/resend', {
                 method: 'POST',
@@ -89,18 +100,21 @@ const RegisterForm = () => {
             const data = await response.json();
             if (response.ok) {
                 setMessage('Verification code resent to your email.');
-                setTimer(60);
+                setTimer(15);
             } else {
                 setMessage(data);
             }
         } catch (error) {
             console.error('Error during resending code:', error);
             setMessage('An error occurred. Please try again later.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <section className={styles['register-section']}>
+            {isLoading && <p className={styles['loading']}>Processing...</p>}
             {!isCodeSent ? (
                 <form className={styles['register-form']} onSubmit={handleSubmit}>
                     <h1>Register</h1>

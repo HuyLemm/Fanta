@@ -53,19 +53,24 @@ exports.register = async (req, res) => {
 
      // Gửi mã xác nhận
     const verificationCode = generateVerificationCode();
-    verificationCodes[email] = { code: verificationCode, expires: Date.now() + 60000 }; // 60 giây
+    verificationCodes[email] = { code: verificationCode, expires: Date.now() + 15000 }; // 15 giây
 
     const hashedPassword = await bcrypt.hash(password, 10);
     user = new AccountModel({ username, password: hashedPassword });
 
-    await transporter.sendMail({
+    transporter.sendMail({
       from: process.env.EMAIL,
       to: email,
-      subject: 'Email Verification Code to Register Fanta <3',
+      subject: 'Email Verification Code',
       text: `Your verification code is: ${verificationCode}`
+    }, (err, info) => {
+      if (err) {
+        console.error('Error sending email:', err);
+        return res.status(500).json('Failed to send verification code');
+      }
+      res.status(200).json('Verification code sent to email.');
     });
-
-    res.status(200).json('Verification code sent to email.');
+    
   } catch (err) {
     console.error('Register error:', err);
     res.status(500).json('Failed to create account');
@@ -85,7 +90,12 @@ exports.verifyCode = async (req, res) => {
 
     await user.save();
     delete verificationCodes[email];
-    res.status(201).json('Account created successfully');
+
+    const token = jwt.sign({_id: user._id}, process.env.SESSION_SECRET, { expiresIn: '1d' });
+    tokenStore.addToken(token);
+    res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+
+    res.status(201).json({ message: 'Account created successfully', token });
   } catch (err) {
     console.error('Verification error:', err);
     res.status(500).json('Failed to verify account');
@@ -102,7 +112,7 @@ exports.resendCode = async (req, res) => {
     }
 
     const verificationCode = generateVerificationCode();
-    verificationCodes[email] = { code: verificationCode, expires: Date.now() + 60000 }; // 60 giây
+    verificationCodes[email] = { code: verificationCode, expires: Date.now() + 15000 }; // 15 giây
 
     await transporter.sendMail({
       from: process.env.EMAIL,
