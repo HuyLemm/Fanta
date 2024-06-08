@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import hook useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import styles from '../assets/styles/Login.module.css';
 import { FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
 import { setCookie, getCookie } from '../utils/Cookies';
 
 const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [message, setMessage] = useState('');
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate(); 
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -26,16 +28,16 @@ const LoginForm = () => {
           const data = await response.json();
           setMessage(data.message);
           setCookie('jwt', data.token, 1);
-          navigate('/Home'); // Redirect to Home page
+          navigate('/Home'); 
         } else {
           const errorMessage = await response.text();
           setMessage(errorMessage);
-          setPassword('');  // Clear the password field on error
+          setPassword('');  
         }
       } catch (error) {
         console.error('Error during login:', error);
         setMessage('An error occurred. Please try again later.');
-        setPassword('');  // Clear the password field on error
+        setPassword('');  
       }
     };
   
@@ -57,12 +59,19 @@ const LoginForm = () => {
                 <div className={styles['inputbox']}>
                     <ion-icon name="lock-closed-outline"></ion-icon>
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}// Toggle input type based on showPassword state
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <label>Password</label>
+
+                    <span
+                        className={styles['show-password']} // Ensure className is set correctly
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
                 </div>
 
                 <div className={styles['forget']}>

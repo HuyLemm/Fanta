@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../assets/styles/Register.module.css';
 import { setCookie, getCookie } from '../utils/Cookies';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const RegisterForm = () => {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false); 
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
     const [verificationCode, setVerificationCode] = useState('');
     const [message, setMessage] = useState('');
     const [isCodeSent, setIsCodeSent] = useState(false);
@@ -145,23 +148,37 @@ const RegisterForm = () => {
                     <div className={styles['inputbox']}>
                         <ion-icon name="lock-closed-outline"></ion-icon>
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
                         <label>Password</label>
+
+                        <span
+                            className={styles['show-password']} // Ensure className is set correctly
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
                     </div>
 
                     <div className={styles['inputbox']}>
                         <ion-icon name="lock-closed-outline"></ion-icon>
                         <input
-                            type="password"
+                            type={showConfirmPassword ? "text" : "password"}
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
                         />
                         <label>Confirm Password</label>
+
+                        <span
+                            className={styles['show-password']} // Ensure className is set correctly
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        >
+                            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
                     </div>
 
                     <button type="submit" className={styles['button2']}>Sign Up</button>

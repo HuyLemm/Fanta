@@ -188,3 +188,17 @@
     text-align: center;
   }
   
+  .show-password { /* Added CSS for the show password icon */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    outline: none;
+    transition: color 0.3s;
+}
+
