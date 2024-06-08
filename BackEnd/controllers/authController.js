@@ -53,7 +53,7 @@ exports.register = async (req, res) => {
 
      // Gửi mã xác nhận
     const verificationCode = generateVerificationCode();
-    verificationCodes[email] = { code: verificationCode, expires: Date.now() + 15000 }; // 15 giây
+    verificationCodes[email] = { code: verificationCode, expires: Date.now() + 20000 }; // 20 giây
 
     const hashedPassword = await bcrypt.hash(password, 10);
     user = new AccountModel({ username, password: hashedPassword });
@@ -112,7 +112,7 @@ exports.resendCode = async (req, res) => {
     }
 
     const verificationCode = generateVerificationCode();
-    verificationCodes[email] = { code: verificationCode, expires: Date.now() + 15000 }; // 15 giây
+    verificationCodes[email] = { code: verificationCode, expires: Date.now() + 20000 }; // 20 giây
 
     await transporter.sendMail({
       from: process.env.EMAIL,
