@@ -5,6 +5,8 @@ const tokenStore = require('../utils/tokenStore');
 
 // Define routes for login and register
 router.post('/register', authController.register);
+router.post('/verify', authController.verifyCode);
+router.post('/resend', authController.resendCode);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 

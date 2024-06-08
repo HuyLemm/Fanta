@@ -1,13 +1,35 @@
 const AccountModel = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 const tokenStore = require('../utils/tokenStore');
-exports.register = async (req, res) => {
-  const { username, password } = req.body;
 
-  // Kiểm tra username và password theo các quy tắc
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth:{
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD
+  }
+
+})
+
+const generateVerificationCode = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+};
+
+const verificationCodes = {};
+
+exports.register = async (req, res) => {
+  const { email, username, password } = req.body;
+
+  // Kiểm tra email, username và password theo các quy tắc
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const usernameRegex = /^[a-zA-Z0-9_]{4,19}$/;
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
+  if (!emailRegex.test(email)) {
+    return res.status(400).json('Invalid email address.');
+  }
 
   if (!usernameRegex.test(username)) {
     return res.status(400).json('Username must be 4-19 characters long.');
@@ -24,16 +46,78 @@ exports.register = async (req, res) => {
       return res.status(400).json('Username already exists');
     }
 
+    user = await AccountModel.findOne({ email });
+    if (user) {
+      return res.status(400).json('Email already exists');
+    }
+
+     // Gửi mã xác nhận
+    const verificationCode = generateVerificationCode();
+    verificationCodes[email] = { code: verificationCode, expires: Date.now() + 60000 }; // 60 giây
+
     const hashedPassword = await bcrypt.hash(password, 10);
     user = new AccountModel({ username, password: hashedPassword });
 
-    await user.save();
-    res.status(201).json('Account created successfully');
+    await transporter.sendMail({
+      from: process.env.EMAIL,
+      to: email,
+      subject: 'Email Verification Code to Register Fanta <3',
+      text: `Your verification code is: ${verificationCode}`
+    });
+
+    res.status(200).json('Verification code sent to email.');
   } catch (err) {
     console.error('Register error:', err);
     res.status(500).json('Failed to create account');
   }
 };
+
+exports.verifyCode = async (req, res) => {
+  const { email, username, password, code } = req.body;
+
+  if (!verificationCodes[email] || verificationCodes[email].code !== code || verificationCodes[email].expires < Date.now()) {
+    return res.status(400).json('Invalid or expired verification code');
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new AccountModel({ email, username, password: hashedPassword });
+
+    await user.save();
+    delete verificationCodes[email];
+    res.status(201).json('Account created successfully');
+  } catch (err) {
+    console.error('Verification error:', err);
+    res.status(500).json('Failed to verify account');
+  }
+};
+
+exports.resendCode = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    let user = await AccountModel.findOne({ email });
+    if (user) {
+      return res.status(400).json('Email already exists');
+    }
+
+    const verificationCode = generateVerificationCode();
+    verificationCodes[email] = { code: verificationCode, expires: Date.now() + 60000 }; // 60 giây
+
+    await transporter.sendMail({
+      from: process.env.EMAIL,
+      to: email,
+      subject: 'Your new email Verification Code',
+      text: `Your verification code is: ${verificationCode}`
+    });
+
+    res.status(200).json('Verification code resent to email.');
+  } catch (err) {
+    console.error('Resend code error:', err);
+    res.status(500).json('Failed to resend code');
+  }
+};
+
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;
