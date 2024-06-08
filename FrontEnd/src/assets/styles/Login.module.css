@@ -195,10 +195,11 @@
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: white;
+    color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1rem;
     outline: none;
     transition: color 0.3s;
 }
+
 
