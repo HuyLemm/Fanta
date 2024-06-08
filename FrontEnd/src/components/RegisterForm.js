@@ -11,7 +11,7 @@ const RegisterForm = () => {
     const [message, setMessage] = useState('');
     const [isCodeSent, setIsCodeSent] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [timer, setTimer] = useState(15);
+    const [timer, setTimer] = useState(20);
 
     useEffect(() => {
         let countdown;
@@ -48,7 +48,7 @@ const RegisterForm = () => {
             if (response.ok) {
                 setMessage('Verification code sent to your email.');
                 setIsCodeSent(true);
-                setTimer(15);
+                setTimer(20);
             } else {
                 setMessage(data);
             }
@@ -102,7 +102,7 @@ const RegisterForm = () => {
             const data = await response.json();
             if (response.ok) {
                 setMessage('Verification code resent to your email.');
-                setTimer(15);
+                setTimer(20);
             } else {
                 setMessage(data);
             }
