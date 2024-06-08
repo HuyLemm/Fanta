@@ -27,29 +27,19 @@ exports.register = async (req, res) => {
   const usernameRegex = /^[a-zA-Z0-9_]{4,19}$/;
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
-  if (!emailRegex.test(email)) {
-    return res.status(400).json('Invalid email address.');
-  }
+  if (!emailRegex.test(email)) return res.status(400).json('Invalid email address.');
 
-  if (!usernameRegex.test(username)) {
-    return res.status(400).json('Username must be 4-19 characters long.');
-  }
+  if (!usernameRegex.test(username)) return res.status(400).json('Username must be 4-19 characters long.');
 
-  if (!passwordRegex.test(password)) {
-    return res.status(400).json('Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number');
-  }
+  if (!passwordRegex.test(password)) return res.status(400).json('Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number');
 
   console.log("I did it");
   try {
     let user = await AccountModel.findOne({ username });
-    if (user) {
-      return res.status(400).json('Username already exists');
-    }
+    if (user) return res.status(400).json('Username already exists');
 
     user = await AccountModel.findOne({ email });
-    if (user) {
-      return res.status(400).json('Email already exists');
-    }
+    if (user) return res.status(400).json('Email already exists');
 
      // Gửi mã xác nhận
     const verificationCode = generateVerificationCode();
@@ -64,10 +54,8 @@ exports.register = async (req, res) => {
       subject: 'Email Verification Code',
       text: `Your verification code is: ${verificationCode}`
     }, (err, info) => {
-      if (err) {
-        console.error('Error sending email:', err);
-        return res.status(500).json('Failed to send verification code');
-      }
+      if (err) return res.status(500).json('Failed to send verification code');
+      
       res.status(200).json('Verification code sent to email.');
     });
     
@@ -77,7 +65,7 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.verifyCode = async (req, res) => {
+exports.verifyCodeRegister = async (req, res) => {
   const { email, username, password, code } = req.body;
 
   if (!verificationCodes[email] || verificationCodes[email].code !== code || verificationCodes[email].expires < Date.now()) {
@@ -102,7 +90,32 @@ exports.verifyCode = async (req, res) => {
   }
 };
 
-exports.resendCode = async (req, res) => {
+exports.resendCodeForgot = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    let user = await AccountModel.findOne({ email });
+    if (!user) {
+      return res.status(400).json('Email already exists');
+    }
+
+    const verificationCode = generateVerificationCode();
+    verificationCodes[email] = { code: verificationCode, expires: Date.now() + 20000 }; // 20 giây
+
+    await transporter.sendMail({
+      from: process.env.EMAIL,
+      to: email,
+      subject: 'Your new email Verification Code',
+      text: `Your verification code is: ${verificationCode}`
+    });
+
+    res.status(200).json('Verification code resent to email.');
+  } catch (err) {
+    console.error('Resend code error:', err);
+    res.status(500).json('Failed to resend code');
+  }
+}
+exports.resendCodeRegister = async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -178,5 +191,70 @@ exports.logout = async (req, res) => {
   } catch (error) {
     console.error('Logout error:', error);
     res.status(500).json({ message: 'Server error' });
+  }
+};
+
+exports.forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+      const user = await AccountModel.findOne({ email });
+      if (!user) {
+          return res.status(404).json('Email not found');
+      }
+
+      const verificationCode = generateVerificationCode();
+      verificationCodes[email] = { code: verificationCode, expires: Date.now() + 20000 }; // 20 giây
+
+      await transporter.sendMail({
+          from: process.env.EMAIL,
+          to: email,
+          subject: 'Password Reset Verification Code',
+          text: `Your verification code is: ${verificationCode}`
+      });
+
+      res.status(200).json('Verification code sent to email.');
+  } catch (err) {
+      console.error('Forgot password error:', err);
+      res.status(500).json('Failed to send verification code');
+  }
+};
+
+
+exports.verifyCodeForgot = async (req, res) => {
+  const { email, verificationCode } = req.body;
+
+  if (!verificationCodes[email] || verificationCodes[email].code !== verificationCode || verificationCodes[email].expires < Date.now()) {
+      return res.status(400).json('Invalid or expired verification code');
+  }
+
+  res.status(200).json('Verification code verified.');
+};
+
+
+exports.resetPassword = async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  try {
+      const user = await AccountModel.findOne({ email });
+      if (!user) {
+          return res.status(404).json('Account not found');
+      }
+
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
+      if (!passwordRegex.test(newPassword)) {
+        return res.status(400).json('Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number');
+      }
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+      await user.save();
+      delete verificationCodes[email];
+
+      res.status(200).json('Password reset successfully');
+  } catch (err) {
+      console.error('Reset password error:', err);
+      res.status(500).json('Failed to reset password');
   }
 };

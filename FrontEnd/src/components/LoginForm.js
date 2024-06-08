@@ -41,7 +41,7 @@ const LoginForm = () => {
       }
     };
   
-    return (
+   return (
         <section className={styles['login-section']}>
             <form className={styles['login-form']} onSubmit={handleSubmit}>
                 <h1>Login</h1>
@@ -59,18 +59,17 @@ const LoginForm = () => {
                 <div className={styles['inputbox']}>
                     <ion-icon name="lock-closed-outline"></ion-icon>
                     <input
-                        type={showPassword ? "text" : "password"}// Toggle input type based on showPassword state
+                        type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <label>Password</label>
-
                     <span
-                        className={styles['show-password']} // Ensure className is set correctly
-                        onClick={() => setShowPassword(!showPassword)}
-                    >
-                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            className={styles['show-password']} // Ensure className is set correctly
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
                     </span>
                 </div>
 
@@ -82,7 +81,7 @@ const LoginForm = () => {
                 </div>
 
                 <div className={styles['forget1']}>
-                    <a href="">Forget Password?</a>
+                    <a href="/forgot-password">Forget Password?</a>
                 </div>
 
                 <button type="submit" className={styles['button1']}>Log in</button>
@@ -111,4 +110,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
