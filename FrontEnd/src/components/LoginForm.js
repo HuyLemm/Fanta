@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import hook useNavigate
 import styles from '../assets/styles/Login.module.css';
 import { FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
 import { setCookie, getCookie } from '../utils/Cookies';
@@ -7,6 +8,7 @@ const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate(); // Initialize useNavigate
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -24,13 +26,16 @@ const LoginForm = () => {
           const data = await response.json();
           setMessage(data.message);
           setCookie('jwt', data.token, 1);
+          navigate('/Home'); // Redirect to Home page
         } else {
           const errorMessage = await response.text();
           setMessage(errorMessage);
+          setPassword('');  // Clear the password field on error
         }
       } catch (error) {
         console.error('Error during login:', error);
         setMessage('An error occurred. Please try again later.');
+        setPassword('');  // Clear the password field on error
       }
     };
   

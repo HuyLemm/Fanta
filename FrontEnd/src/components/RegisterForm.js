@@ -29,6 +29,8 @@ const RegisterForm = () => {
 
         if (password !== confirmPassword) {
             setMessage('Passwords do not match.');
+            setPassword(''); // Clear the password field
+            setConfirmPassword(''); // Clear the confirmPassword field
             setIsLoading(false);
             return;
         }
