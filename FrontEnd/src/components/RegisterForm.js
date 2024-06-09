@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../assets/styles/Register.module.css';
 import { setCookie, getCookie } from '../utils/Cookies';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
 
 const RegisterForm = () => {
     const [email, setEmail] = useState('');
@@ -119,7 +119,11 @@ const RegisterForm = () => {
 
     return (
         <section className={styles['register-section']}>
-            {isLoading && <p className={styles['loading']}>Processing...</p>}
+            {isLoading && (
+                <div className={styles['loading-container']}>
+                    <FaSpinner className={styles['loading-icon']} />
+                </div>
+            )}
             {!isCodeSent ? (
                 <form className={styles['register-form']} onSubmit={handleSubmit}>
                     <h1>Register</h1>

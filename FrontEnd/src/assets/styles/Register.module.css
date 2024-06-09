@@ -9,6 +9,7 @@
     justify-content: center;
     align-items: center;
     padding: 2rem 3rem;
+    overflow: hidden;
 }
 
 .register-form {
@@ -111,3 +112,31 @@
     transition: color 0.3s;
 }
 
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Chiều cao của vùng hiển thị loading */
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.8); /* Màu nền mờ để hiển thị overlay */
+    z-index: 9999; /* Đảm bảo nó hiển thị trên cùng */
+    border-radius: 20px;
+}
+
+.loading-icon {
+    font-size: 3rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.timer{
+    margin-top: 15px;
+    color: white;
+}
