@@ -69,8 +69,7 @@ const ForgotPassword = () => {
                 setMessage('Verification code verified. You can now reset your password.');
                 setStep(3);
             } else {
-                const errorMessage = await response.text();
-                setMessage(errorMessage);
+                setMessage('Invalid or expired code.');
             }
         } catch (error) {
             console.error('Error during code submission:', error);

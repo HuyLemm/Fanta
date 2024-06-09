@@ -109,7 +109,7 @@ exports.resendCodeForgot = async (req, res) => {
       text: `Your verification code is: ${verificationCode}`
     });
 
-    res.status(200).json('Verification code resent to email.');
+    res.status(200).json('Verification code resent to your email.');
   } catch (err) {
     console.error('Resend code error:', err);
     res.status(500).json('Failed to resend code');

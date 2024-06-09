@@ -1,47 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import styles from '../assets/styles/Login.module.css';
-import { FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { setCookie, getCookie } from '../utils/Cookies';
+import SocialButton from './SocialButton';
 
 const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
     const [message, setMessage] = useState('');
     const navigate = useNavigate(); 
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      try {
-        const response = await fetch('http://localhost:5000/user/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, password }),
-        });
 
-        if (response.ok) {
-          const data = await response.json();
-          setMessage(data.message);
-          setCookie('jwt', data.token, 1);
-          navigate('/Home'); 
-        } else {
-          const errorMessage = await response.text();
-          setMessage(errorMessage);
-          setPassword('');  
+    useEffect(() => {
+        const savedUsername = localStorage.getItem('username');
+        const savedPassword = localStorage.getItem('password');
+        if (savedUsername && savedPassword) {
+            setUsername(savedUsername);
+            setPassword(savedPassword);
+            setRememberMe(true);
         }
-      } catch (error) {
-        console.error('Error during login:', error);
-        setMessage('An error occurred. Please try again later.');
-        setPassword('');  
-      }
-    };
+    }, []);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
   
-   return (
+        try {
+            const response = await fetch('http://localhost:5000/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                setMessage(data.message);
+                setCookie('jwt', data.token, 1);
+                if (rememberMe) {
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('password', password);
+                } else {
+                    localStorage.removeItem('username');
+                    localStorage.removeItem('password');
+                }
+                navigate('/Home'); 
+            } else {
+                setMessage(data.message);
+                setPassword('');  
+            }
+        } catch (error) {
+            setMessage('An error occurred. Please try again later.');
+            setPassword('');  
+        }
+    };
+
+    return (
         <section className={styles['login-section']}>
             <form className={styles['login-form']} onSubmit={handleSubmit}>
                 <h1>Login</h1>
@@ -66,16 +82,20 @@ const LoginForm = () => {
                     />
                     <label>Password</label>
                     <span
-                            className={styles['show-password']} // Ensure className is set correctly
-                            onClick={() => setShowPassword(!showPassword)}
-                        >
-                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        className={styles['show-password']}
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
                     </span>
                 </div>
 
                 <div className={styles['forget']}>
                     <label>
-                        <input type="checkbox" />
+                        <input 
+                            type="checkbox"
+                            checked={rememberMe}
+                            onChange={() => setRememberMe(!rememberMe)}
+                        />
                         Remember Me
                     </label>
                 </div>
@@ -90,18 +110,8 @@ const LoginForm = () => {
                     <p>Don't have an account? <a href="/signup">Register</a></p>
                 </div>
 
-                <div className={styles['social-login']}>
-                    <p>Or log in with:</p>
-                    <button type="button" className={styles['google-login']}>
-                        <FaGoogle />
-                    </button>
-                    <button type="button" className={styles['facebook-login']}>
-                        <FaFacebookF />
-                    </button>
-                    <button type="button" className={styles['twitter-login']}>
-                        <FaTwitter />
-                    </button>
-                </div>
+                <SocialButton/>
+
 
                 {message && <p className={styles['message']}>{message}</p>}
             </form>

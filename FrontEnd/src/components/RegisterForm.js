@@ -104,13 +104,13 @@ const RegisterForm = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage('Verification code resent to your email.');
+                setMessage(data);
                 setTimer(20);
             } else {
                 setMessage(data);
             }
         } catch (error) {
-            console.error('Error during resending code:', error);
+
             setMessage('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
