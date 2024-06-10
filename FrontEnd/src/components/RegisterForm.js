@@ -77,9 +77,11 @@ const RegisterForm = () => {
                 setCookie('jwt', data.token, 1);
             } else {
                 setMessage(data);
+                setVerificationCode('');
             }
         } catch (error) {
             setMessage('An error occurred. Please try again later.');
+            setVerificationCode('');
         } finally {
             setIsLoading(false);
         }

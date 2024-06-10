@@ -21,7 +21,7 @@ function App() {
                             <Link to="/signup">Sign Up</Link>
                         </li>
                         <li>
-                            <Link to="/home">Home</Link> {/* Thêm link đến homepage */}
+                            <Link to="/home">Home</Link> 
                         </li>
                     </ul>
                 </nav>
@@ -29,7 +29,7 @@ function App() {
                     <Route path="/forgot-password" element={<ForgotPasswordForm />} />
                     <Route exact path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignUpPage />} />
-                    <Route path="/home" element={<HomePage />} /> {/* Thêm route cho homepage */}
+                    <Route path="/home" element={<HomePage />} /> 
                 </Routes>
             </div>
         </Router>

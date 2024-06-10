@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../assets/styles/Login.module.css';
+import { FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa'; 
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showNewPassword, setShowNewPassword] = useState(false); 
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
     const [message, setMessage] = useState('');
     const [step, setStep] = useState(1);
     const [isCodeSent, setIsCodeSent] = useState(false);
@@ -133,9 +136,13 @@ const ForgotPassword = () => {
         }
     };
 
-    return (
+    return  (
         <section className={styles['login-section']}>
-            {isLoading && <p className={styles['loading']}>Processing...</p>}
+            {isLoading && (
+                <div className={styles['loading-container']}>
+                    <FaSpinner className={styles['loading-icon']} />
+                </div>
+            )}
             {step === 1 && (
                 <form className={styles['login-form']} onSubmit={handleEmailSubmit}>
                     <h1>Forgot Password</h1>
@@ -189,6 +196,13 @@ const ForgotPassword = () => {
                             required
                         />
                         <label>New Password</label>
+
+                        <span
+                            className={styles['show-password']}
+                            onClick={() => setShowNewPassword(!showNewPassword)} 
+                        >
+                            {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
                     </div>
                     <div className={styles['inputbox']}>
                         <ion-icon name="lock-closed-outline"></ion-icon>
@@ -199,6 +213,13 @@ const ForgotPassword = () => {
                             required
                         />
                         <label>Confirm Password</label>
+
+                        <span
+                            className={styles['show-password']}
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)} 
+                        >
+                            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
                     </div>
                     <button type="submit" className={styles['button2']}>Reset Password</button>
                     {message && <p className={styles['message']}>{message}</p>}

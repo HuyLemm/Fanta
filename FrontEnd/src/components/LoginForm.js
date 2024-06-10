@@ -57,7 +57,7 @@ const LoginForm = () => {
         }
     };
 
-    return (
+    return(
         <section className={styles['login-section']}>
             <form className={styles['login-form']} onSubmit={handleSubmit}>
                 <h1>Login</h1>
