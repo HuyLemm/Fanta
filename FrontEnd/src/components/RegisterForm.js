@@ -30,13 +30,7 @@ const RegisterForm = () => {
         e.preventDefault();
         setIsLoading(true);
 
-        if (password !== confirmPassword) {
-            setMessage('Passwords do not match.');
-            setPassword(''); // Clear the password field
-            setConfirmPassword(''); // Clear the confirmPassword field
-            setIsLoading(false);
-            return;
-        }
+       
 
         try {
             const response = await fetch('http://localhost:5000/user/register', {
@@ -44,19 +38,20 @@ const RegisterForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, username, password }),
+                body: JSON.stringify({ email, username, password, confirmPassword}),
             });
 
             const data = await response.json();
             if (response.ok) {
-                setMessage('Verification code sent to your email.');
+                setMessage(data);
                 setIsCodeSent(true);
                 setTimer(20);
             } else {
                 setMessage(data);
             }
+            setPassword('');
+            setConfirmPassword('');
         } catch (error) {
-            console.error('Error during registration:', error);
             setMessage('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
@@ -78,13 +73,12 @@ const RegisterForm = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage('Account created successfully.');
+                setMessage(data.message);
                 setCookie('jwt', data.token, 1);
             } else {
                 setMessage(data);
             }
         } catch (error) {
-            console.error('Error during verification:', error);
             setMessage('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);

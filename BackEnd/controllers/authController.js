@@ -20,7 +20,7 @@ const generateVerificationCode = () => {
 const verificationCodes = {};
 
 exports.register = async (req, res) => {
-  const { email, username, password } = req.body;
+  const { email, username, password, confirmPassword } = req.body;
 
   // Kiểm tra email, username và password theo các quy tắc
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,6 +33,9 @@ exports.register = async (req, res) => {
 
   if (!passwordRegex.test(password)) return res.status(400).json('Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one number');
 
+  if (password !== confirmPassword) {
+    return res.status(400).json('Passwords do not match');
+  }
   console.log("I did it");
   try {
     let user = await AccountModel.findOne({ username });
@@ -56,7 +59,7 @@ exports.register = async (req, res) => {
     }, (err, info) => {
       if (err) return res.status(500).json('Failed to send verification code');
       
-      res.status(200).json('Verification code sent to email.');
+      res.status(200).json('Verification code sent to your email.');
     });
     
   } catch (err) {
@@ -215,7 +218,6 @@ exports.forgotPassword = async (req, res) => {
 
       res.status(200).json('Verification code sent to email.');
   } catch (err) {
-      console.error('Forgot password error:', err);
       res.status(500).json('Failed to send verification code');
   }
 };
@@ -228,7 +230,7 @@ exports.verifyCodeForgot = async (req, res) => {
       return res.status(400).json('Invalid or expired verification code');
   }
 
-  res.status(200).json('Verification code verified.');
+  res.status(200).json('Verification code verified. You can now reset your password.');
 };
 
 

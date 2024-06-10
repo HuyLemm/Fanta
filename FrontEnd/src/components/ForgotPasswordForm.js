@@ -36,16 +36,14 @@ const ForgotPassword = () => {
             });
 
             if (response.ok) {
-                setMessage('Verification code sent to your email.');
+                setMessage(data);
                 setIsCodeSent(true);
                 setTimer(20);
                 setStep(2);
             } else {
-                const errorMessage = await response.text();
-                setMessage(errorMessage);
+                setMessage(data);
             }
         } catch (error) {
-            console.error('Error during email submission:', error);
             setMessage('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
@@ -66,13 +64,12 @@ const ForgotPassword = () => {
             });
 
             if (response.ok) {
-                setMessage('Verification code verified. You can now reset your password.');
+                setMessage(data);
                 setStep(3);
             } else {
-                setMessage('Invalid or expired code.');
+                setMessage(data);
             }
         } catch (error) {
-            console.error('Error during code submission:', error);
             setMessage('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
@@ -92,13 +89,12 @@ const ForgotPassword = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage('Verification code resent to your email.');
+                setMessage(data);
                 setTimer(20);
             } else {
                 setMessage(data);
             }
         } catch (error) {
-            console.error('Error during resending code:', error);
             setMessage('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
@@ -131,7 +127,6 @@ const ForgotPassword = () => {
                 setMessage(message);
             }
         } catch (error) {
-            console.error('Error during password reset:', error);
             setMessage('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
