@@ -34,7 +34,7 @@ const ForgotPassword = () => {
                 },
                 body: JSON.stringify({ email }),
             });
-
+            const data = await response.json(); 
             if (response.ok) {
                 setMessage(data);
                 setIsCodeSent(true);
@@ -62,7 +62,7 @@ const ForgotPassword = () => {
                 },
                 body: JSON.stringify({ email, verificationCode }),
             });
-
+            const data = await response.json();
             if (response.ok) {
                 setMessage(data);
                 setStep(3);
