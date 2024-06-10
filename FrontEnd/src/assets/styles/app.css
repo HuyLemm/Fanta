@@ -33,6 +33,6 @@
 }
 
 body {
-  margin: 0; /* Đảm bảo không có margin cho body */
-  padding: 0; /* Đảm bảo không có padding cho body */
+  margin: 0;
+  padding: 0; 
 }

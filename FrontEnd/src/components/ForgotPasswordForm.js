@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../assets/styles/Login.module.css';
+import styles from '../assets/styles/forgotpassword.module.css';
 import { FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa'; 
 
 const ForgotPassword = () => {
@@ -136,15 +136,15 @@ const ForgotPassword = () => {
         }
     };
 
-    return  (
-        <section className={styles['login-section']}>
+    return (
+        <section className={styles['forgot-password-section']}>
             {isLoading && (
                 <div className={styles['loading-container']}>
                     <FaSpinner className={styles['loading-icon']} />
                 </div>
             )}
             {step === 1 && (
-                <form className={styles['login-form']} onSubmit={handleEmailSubmit}>
+                <form className={styles['forgot-password-form']} onSubmit={handleEmailSubmit}>
                     <h1>Forgot Password</h1>
                     <div className={styles['inputbox']}>
                         <ion-icon name="mail-outline"></ion-icon>
@@ -156,12 +156,12 @@ const ForgotPassword = () => {
                         />
                         <label>Email</label>
                     </div>
-                    <button type="submit" className={styles['button2']}>Send Verification Code</button>
+                    <button type="submit" className={styles['button']}>Send Verification Code</button>
                     {message && <p className={styles['message']}>{message}</p>}
                 </form>
             )}
             {step === 2 && (
-                <form className={styles['login-form']} onSubmit={handleCodeSubmit}>
+                <form className={styles['forgot-password-form']} onSubmit={handleCodeSubmit}>
                     <h1>Verify Code</h1>
                     <div className={styles['inputbox']}>
                         <ion-icon name="key-outline"></ion-icon>
@@ -173,24 +173,24 @@ const ForgotPassword = () => {
                         />
                         <label>Verification Code</label>
                         </div>
-                        <button type="submit" className={styles['button2']}>Verify</button>
+                        <button type="submit" className={styles['button']}>Verify</button>
 
                         {timer > 0 ? (
                             <p className={styles['timer']}>Code expires in: {timer}s</p>
                         ) : (
-                            <button type="button" className={styles['button2']} onClick={handleResendCode}>Resend Code</button>
+                            <button type="button" className={styles['button']} onClick={handleResendCode}>Resend Code</button>
                         )}
 
                         {message && <p className={styles['message']}>{message}</p>}
                 </form>
             )}
             {step === 3 && (
-                <form className={styles['login-form']} onSubmit={handlePasswordReset}>
+                <form className={styles['forgot-password-form']} onSubmit={handlePasswordReset}>
                     <h1>Reset Password</h1>
                     <div className={styles['inputbox']}>
                         <ion-icon name="lock-closed-outline"></ion-icon>
                         <input
-                            type="password"
+                            type={showNewPassword ? "text" : "password"}
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                             required
@@ -207,7 +207,7 @@ const ForgotPassword = () => {
                     <div className={styles['inputbox']}>
                         <ion-icon name="lock-closed-outline"></ion-icon>
                         <input
-                            type="password"
+                            type={showConfirmPassword ? "text" : "password"}
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
@@ -221,7 +221,7 @@ const ForgotPassword = () => {
                             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                         </span>
                     </div>
-                    <button type="submit" className={styles['button2']}>Reset Password</button>
+                    <button type="submit" className={styles['button']}>Reset Password</button>
                     {message && <p className={styles['message']}>{message}</p>}
                 </form>
             )}

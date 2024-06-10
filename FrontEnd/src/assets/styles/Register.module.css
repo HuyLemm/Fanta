@@ -10,6 +10,7 @@
     align-items: center;
     padding: 2rem 3rem;
     overflow: hidden;
+    color: #fb5607;
 }
 
 .register-form {
@@ -139,5 +140,5 @@
 
 .timer{
     margin-top: 15px;
-    color: white;
+    color: #fb5607;
 }
