@@ -20,11 +20,12 @@
 }
 
 .App {
-  background-image: url('../images/background.jpg'); /* Đường dẫn hình ảnh */
+  background-image: url('../images/background.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;

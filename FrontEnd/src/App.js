@@ -5,11 +5,13 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/RegisterPage';
 import ForgotPasswordForm from './components/ForgotPasswordForm';
 import HomePage from './pages/HomePage';
+import Logofanta from './components/FantaLogo';
 
 function App() {
     return (
         <Router>
             <div className="App">   
+                <Logofanta />
                 <nav>
                     <ul>
                         <li>

@@ -1,10 +1,11 @@
 import React from "react";
 import LogoutButton from "../components/LogOutButton";
-import Header from "../components/Header";
+import Logofanta from "../components/FantaLogo";
 
 const HomePage = () => {
     return (
         <div className="homepage">
+            <Logofanta />
             <div>
                 <h1>Welcome to Homepage</h1>
             </div>
