@@ -18,7 +18,8 @@
   }
   
   .login-form h1 {
-    font-size: 2rem;
+    font-family: 'Hatton', sans-serif;
+    font-size: 3rem;
     color: white;
     text-align: center;
   }

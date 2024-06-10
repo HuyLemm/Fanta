@@ -1,16 +1,32 @@
+@font-face {
+  font-family: 'Hatton';
+  src: url('../fonts/Hatton-Regular.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Carollo';
+  src: url('../fonts/The\ Ampersand\ Forest\ -\ Carollo\ Playscript\ Regular.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-  }
-  
-  .App {
-    background-image: url('../images/RT_300EssentialMovies_700X250_faded.jpg');
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Carollo', sans-serif; /*Poppins */
+}
+
+.App {
+  background-image: url('../images/background.jpg'); /* Đường dẫn hình ảnh */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+}
