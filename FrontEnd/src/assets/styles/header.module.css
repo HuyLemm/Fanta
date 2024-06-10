@@ -1,12 +1,21 @@
 .header {
-    background-color: rgba(0, 0, 0, 0.2);
-    width: 100%; /* Ensure the header takes full width */
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.header a {
+    display: inline-block; /* Chỉ lấy kích thước của phần tử con (img) */
 }
 
 .img {
-    width: 30%;
-    height: 30%;
+    width: 60px;
+    height: 60px;
 }
