@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-body {
+/* HomePage.module.css */
+.homePageBody {
   margin: 0;
   background-color: #000;
   color: #eee;
@@ -8,11 +9,11 @@ body {
   font-size: 12px;
 }
 
-a {
+.homePage a {
   text-decoration: none;
 }
 
-header {
+.homePage header {
   width: 1140px;
   max-width: 80%;
   margin: auto;
@@ -23,7 +24,8 @@ header {
   z-index: 100;
 }
 
-header a {
+.homePage header a {
   color: #eee;
   margin-right: 40px;
 }
+

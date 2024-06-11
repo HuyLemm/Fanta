@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import fantaImage from '../assets/images/fanta.png';
 import styles from '../assets/styles/fanta.module.css';
 
