@@ -5,9 +5,9 @@ const cors = require('cors');
 var bodyParser = require('body-parser');
 var cookieParser = require("cookie-parser");
 const connectDB = require('./config/database');
-const authRoutes = require('./routes/auth');
-const authenticateToken = require('./middleware/authMiddleware');
-
+const authRoutes = require('./routes/authRoutes');
+const authMiddleware = require('./middleware/authMiddleware');
+const adminController = require('./controllers/adminController');
 const app = express();
 
 const corsOptions = {
@@ -18,20 +18,23 @@ const corsOptions = {
 };
 
 // Connect to database
-connectDB();
+connectDB().then(() => {
+  console.log('Connected to MongoDB');
+  adminController.createAdmin(); // Tạo tài khoản admin khi kết nối thành công
+});
+
 
 app.use(cors(corsOptions));
 
-app.use(cookieParser())
+app.use(cookieParser());
 // Middleware for parsing request bodies
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Use auth routes
 app.use('/user', authRoutes);
 
 // Route protected by JWT authentication
-app.get('/private', authenticateToken, (req, res, next) => {
+app.get('/private', authMiddleware.authenticateToken, (req, res, next) => {
   res.json('Welcome');
 });
 

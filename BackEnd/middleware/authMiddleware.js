@@ -1,15 +1,39 @@
 const jwt = require("jsonwebtoken");
+const AccountModel = require("../models/Account");
 
-const authenticateToken = (req, res, next) => {
-    try{
-        var token = req.cookies.token;
-        var result = jwt.verify(token, process.env.SESSION_SECRET);
-        if (result) {
-            next();
-        }
-    } catch (err) {
-        res.status(401).json('You need to login');
-    }
+// Middleware để xác thực token từ cookie
+exports.authenticateToken = (req, res, next) => {
+  // Lấy token từ cookie
+  const token = req.cookies['jwt'];
+
+  // Kiểm tra xem token có tồn tại không
+  if (!token) {
+    return res.status(401).send({ error: 'Access denied. No token provided.' });
+  }
+
+  // Xác thực token
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // Lưu thông tin người dùng đã xác thực vào yêu cầu
+    next();
+  } catch (error) {
+    res.status(400).send({ error: 'Invalid token.' });
+  }
 };
 
-module.exports = authenticateToken;
+// Middleware để kiểm tra quyền admin
+exports.isAdmin = async (req, res, next) => {
+  try {
+    // Tìm người dùng theo ID được lưu trong token đã xác thực
+    const user = await AccountModel.findById(req.user.id); 
+
+    // Kiểm tra quyền admin của người dùng
+    if (user && user.role === 'admin') {
+      next(); // Cho phép truy cập nếu người dùng là admin
+    } else {
+      res.status(403).send({ message: 'Access denied. Admins only.' });
+    }
+  } catch (error) {
+    res.status(500).send({ message: 'Internal server error.' });
+  }
+};

@@ -1,4 +1,4 @@
-const AccountModel = require('../models/User');
+const AccountModel = require('../models/Account');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
@@ -159,7 +159,7 @@ exports.login = async (req, res) => {
       return res.status(400).json('Wrong password');
     }
      
-    const token = jwt.sign({_id: user._id}, process.env.SESSION_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({_id: user._id, role: user.role}, process.env.SESSION_SECRET, { expiresIn: '1d' });
     
     tokenStore.addToken(token);
     
@@ -186,7 +186,7 @@ exports.logout = async (req, res) => {
       tokenStore.removeToken(token);
 
       // Xóa cookie trên client
-      res.clearCookie('jwt');
+      res.clearCookie('jwt')
       return res.json({ message: 'Logged out successfully' });
     } else {
       return res.status(401).json({ message: 'Unauthorized' });
