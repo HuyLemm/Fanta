@@ -107,7 +107,7 @@ const LoginForm = () => {
                 <button type="submit" className={styles['button1']}>Log in</button>
 
                 <div className={styles['register']}>
-                    <p>Don't have an account? <a href="/signup">Register</a></p>
+                    <p>Don't have an account? <a href="/register">Register</a></p>
                 </div>
 
                 <SocialButton/>
