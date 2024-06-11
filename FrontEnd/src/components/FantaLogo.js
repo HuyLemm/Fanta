@@ -3,9 +3,6 @@ import fantaImage from '../assets/images/fanta.png';
 import styles from '../assets/styles/fanta.module.css';
 
 const Logofanta = () => {
-
-
-
   return (
     <header className={styles.header}>
       <a href="/home">
