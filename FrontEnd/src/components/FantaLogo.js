@@ -9,7 +9,7 @@ const Logofanta = () => {
         <img src={fantaImage} className={styles.fanta} alt="Fanta" />
       </a>
       <div className={styles.login}>
-        <a href="login">Login</a>
+        <a href="/login">Login</a>
       </div>
     </header>
   );
