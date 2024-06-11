@@ -48,7 +48,7 @@ const LoginForm = () => {
                 }
                 navigate('/Home'); 
             } else {
-                setMessage(data.message);
+                setMessage(data);
                 setPassword('');  
             }
         } catch (error) {
