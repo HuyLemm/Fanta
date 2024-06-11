@@ -12,10 +12,18 @@
 }
 
 .header a {
-  display: inline-block; /* Chỉ lấy kích thước của phần tử con (img) */
+  display: inline-block;
 }
 
-.img {
-  width: 60px;
-  height: 60px;
+.fanta {
+  width: 120px;
+  height:70px;
+  object-fit: cover;
+}
+
+.login {
+  margin-left: auto;
+  margin-right: 20px;
+  width: 100px;
+  height: 100px;
 }
