@@ -4,10 +4,10 @@
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  top: 0;
+  top: 13px;
   z-index: 1000;
   margin: 0;
-  padding: 0 20px; 
+  padding: 0 30px; 
   box-sizing: border-box;
 }
 

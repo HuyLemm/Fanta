@@ -21,7 +21,7 @@ const MovieSchema = new Schema({
     required: true
   },
   genre: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'genres',
     required: true
   },
@@ -31,10 +31,6 @@ const MovieSchema = new Schema({
   },
   cast: {
     type: [String],
-    required: true
-  },
-  rating: {
-    type: Number,
     required: true
   },
   poster_url: {

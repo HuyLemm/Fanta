@@ -6,7 +6,7 @@ import styles from '../assets/styles/Login.module.css';
 const GmailButton = ({ setMessage, setCookie, navigate }) => {
     const handleGoogleLoginSuccess = async (tokenResponse) => {
         try {
-            const response = await fetch('http://localhost:5000/user/google-login', {
+            const response = await fetch('http://localhost:5000/auth/google-login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ const GmailButton = ({ setMessage, setCookie, navigate }) => {
             if (response.ok) {
                 setMessage(data.message);
                 setCookie('jwt', data.token, 1);
-                navigate('/Home');
+                navigate('/');
             } else {
                 setMessage(data.message);
             }

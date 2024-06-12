@@ -8,6 +8,7 @@ import HomePage from '../pages/HomePage';
 import RegisterPage from '../pages/RegisterPage';
 import LoginPage from '../pages/LoginPage';
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
+import AdminForm from '../components/AdminForm';
 // import EditProfile from '../pages/EditProfile';
 // import Favorites from '../pages/Favorites';
 // import MoviePlayer from '../pages/MoviePlayer';
@@ -24,7 +25,8 @@ function AppRouter() {
     <Router>
       <Routes>
         {/* Public Routes */}
-        <Route path="/Home" element={<HomePage />} />
+        <Route path= "/admin" element={<AdminForm />} />
+        <Route path="/" element={<HomePage />} />
         {/* <Route path="/movies" element={<MovieCategory />} />
         <Route path="/search" element={<MovieSearch />} />
         <Route path="/movies/:id" element={<MovieDetails />} /> */}

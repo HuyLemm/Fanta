@@ -5,7 +5,7 @@ import styles from '../assets/styles/fanta.module.css';
 const Logofanta = () => {
   return (
     <header className={styles.header}>
-      <a href="/Home">
+      <a href="/">
         <img src={fantaImage} className={styles.fanta} alt="Fanta" />
       </a>
       <div className={styles.login}>

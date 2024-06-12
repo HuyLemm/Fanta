@@ -7,7 +7,7 @@ const LogoutButton = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/user/logout', {
+      const response = await fetch('http://localhost:5000/authư/logout', {
         method: 'POST',
         credentials: 'include', // Đảm bảo gửi cookie trong yêu cầu
       });

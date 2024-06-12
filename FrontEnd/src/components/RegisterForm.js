@@ -33,7 +33,7 @@ const RegisterForm = () => {
        
 
         try {
-            const response = await fetch('http://localhost:5000/user/register', {
+            const response = await fetch('http://localhost:5000/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ const RegisterForm = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('http://localhost:5000/user/verifyRegister', {
+            const response = await fetch('http://localhost:5000/auth/verify-register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ const RegisterForm = () => {
     const handleResendCode = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/user/resendRegister', {
+            const response = await fetch('http://localhost:5000/auth/resend-register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

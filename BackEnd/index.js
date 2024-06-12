@@ -5,9 +5,15 @@ const cors = require('cors');
 var bodyParser = require('body-parser');
 var cookieParser = require("cookie-parser");
 const connectDB = require('./config/database');
+
 const authRoutes = require('./routes/authRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+
 const authMiddleware = require('./middleware/authMiddleware');
+
 const adminController = require('./controllers/adminController');
+
+
 const app = express();
 
 const corsOptions = {
@@ -23,26 +29,20 @@ connectDB().then(() => {
   adminController.createAdmin(); // Tạo tài khoản admin khi kết nối thành công
 });
 
-
-app.use(cors(corsOptions));
-
-app.use(cookieParser());
 // Middleware for parsing request bodies
+app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/user', authRoutes);
+
+app.use('/auth', authRoutes);
+app.use('/admin', adminRoutes)
 
 // Route protected by JWT authentication
 app.get('/private', authMiddleware.authenticateToken, (req, res, next) => {
   res.json('Welcome');
 });
-
-
-app.get('/', (req, res) => {
-  res.send('Public Page');
-});
-
 
 // Start the server
 const PORT = process.env.PORT || 5000;
