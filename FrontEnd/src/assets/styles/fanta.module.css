@@ -23,6 +23,41 @@
   object-fit: cover;
 }
 
+.userContainer {
+  position: relative;
+}
+
+.userIcon {
+  position: relative;
+  cursor: pointer;
+  padding-right: 40px;
+}
+
+.userIcon img {
+  width: 40px;
+  height: 40px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: rgb(255, 255, 255, 0.5);
+  border: 1px solid #fb5607;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1001;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdownVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .loginButton {
   margin-top: 5px;
     width: 90px;
