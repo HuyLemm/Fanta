@@ -22,7 +22,6 @@ import AdminForm from '../components/AdminForm';
 
 function AppRouter() {
   return (
-    <Router>
       <Routes>
         {/* Public Routes */}
         <Route path= "/admin" element={<AdminForm />} />
@@ -43,7 +42,6 @@ function AppRouter() {
         <Route path="/movies/:id/review" element={<PrivateRoute><MovieReview /></PrivateRoute>} />
         <Route path="/movies/:id/comments" element={<PrivateRoute><MovieComments /></PrivateRoute>} /> */}
       </Routes>
-    </Router>
   );
 }
 

@@ -6,10 +6,12 @@ import Logofanta from './components/FantaLogo';
 
 function App() {
   return (
+    <Router>
     <div className="App">   
       <Logofanta />  
       <AppRouter />
     </div>
+    </Router>
   );
 }
 
