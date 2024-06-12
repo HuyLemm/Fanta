@@ -13,7 +13,7 @@ exports.authenticateToken = (req, res, next) => {
 
   // Xác thực token
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.USERTOKEN);
     req.user = decoded; // Lưu thông tin người dùng đã xác thực vào yêu cầu
     next();
   } catch (error) {

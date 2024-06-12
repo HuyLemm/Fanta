@@ -115,7 +115,7 @@ const ForgotPassword = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/user/reset-password', {
+            const response = await fetch('http://localhost:5000/auth/reset-password', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

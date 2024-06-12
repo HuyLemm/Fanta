@@ -30,7 +30,7 @@
 .userIcon {
   position: relative;
   cursor: pointer;
-  padding-right: 40px;
+  margin-right: 100px;
 }
 
 .userIcon img {
@@ -39,6 +39,7 @@
 }
 
 .dropdown {
+  margin-right: 63px;
   position: absolute;
   top: 50px;
   right: 0;

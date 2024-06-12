@@ -5,4 +5,5 @@ const adminController = require('../controllers/adminController');
 
 router.post('/create-movie', adminController.createMovie);
 router.post('/create-genre', adminController.createGenre)
+
 module.exports = router;

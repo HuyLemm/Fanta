@@ -7,17 +7,17 @@ const LogoutButton = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/authư/logout', {
+      const response = await fetch('http://localhost:5000/auth/logout', {
         method: 'POST',
         credentials: 'include', // Đảm bảo gửi cookie trong yêu cầu
       });
 
-      const result = await response.json(); // Chuyển đổi phản hồi thành JSON
+      const data = await response.json(); // Chuyển đổi phản hồi thành JSON
 
       if (response.ok) {
-        setMessage(result.message); // Sử dụng thuộc tính message từ phản hồi
+        setMessage(data.message); // Sử dụng thuộc tính message từ phản hồi
       } else {
-        setMessage('Logout failed: ' + result.message || response.statusText); // Xử lý lỗi
+        setMessage('Logout failed: ' + data.message || response.statusText); // Xử lý lỗi
       }
     } catch (error) {
       setMessage('Logout error: ' + error.message); // Đặt thông báo lỗi logout
