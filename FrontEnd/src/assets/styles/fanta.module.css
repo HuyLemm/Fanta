@@ -4,11 +4,13 @@
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  top: 13px;
+  /* top: -60px; */
+  top:13px;
   z-index: 1000;
   margin: 0;
   padding: 0 30px; 
   box-sizing: border-box;
+  transition: top 0.3s ease;
 }
 
 .header a {
@@ -41,3 +43,7 @@
   background-color: rgba(255, 255, 255, 0.5);
   color:#fb5607;
 }
+
+/* .header:hover {
+  top: 13px; 
+} */
