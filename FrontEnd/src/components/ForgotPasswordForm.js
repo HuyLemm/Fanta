@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../assets/styles/forgotpassword.module.css';
 import { FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa'; 
 
@@ -14,6 +15,9 @@ const ForgotPassword = () => {
     const [isCodeSent, setIsCodeSent] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [timer, setTimer] = useState(20);
+
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         let countdown;
@@ -132,6 +136,7 @@ const ForgotPassword = () => {
             if (response.ok) {
                 setMessage(message);
                 setStep(4);
+                navigate('/login');
             } else {
                 setNewPassword('');
                 setConfirmPassword('');
