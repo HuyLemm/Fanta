@@ -75,10 +75,14 @@ const FantaLogo = () => {
 
     if (!authStatus.loggedIn) {
       return (
-        <div className={styles.userIcon} onClick={handleLoginClick}>
-          <img src={guestIcon} alt="Guest Icon" />
-          <span>Login</span>
+        <div className={styles.userContainer} ref={dropdownRef}>
+        <div className={styles.userIcon} onClick={toggleDropdown}>
+        <img src={guestIcon} alt="Guest Icon" />
         </div>
+        <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
+          <button onClick={handleLoginClick} className={styles.loginButton}>Login</button>
+        </div>
+      </div>
       );
     }
 
@@ -86,11 +90,11 @@ const FantaLogo = () => {
       return (
         <div className={styles.userContainer} ref={dropdownRef}>
           <div className={styles.userIcon} onClick={toggleDropdown}>
-            <img src={adminIcon} alt="Admin Icon" />
+            <img src={adminIcon} alt="Admin Icon" className={styles.adminpic}/>
           </div>
           <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
             <button onClick={handleAdminClick} className={styles.adminButton}>Admin Panel</button>
-            <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
+            <button onClick={handleLogout} className={styles.loginButton}>Logout</button>
           </div>
         </div>
       );
@@ -104,7 +108,7 @@ const FantaLogo = () => {
           </div>
           <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
             <button onClick={handleUserClick} className={styles.userButton}>User Profile</button>
-            <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
+            <button onClick={handleLogout} className={styles.loginButton}>Logout</button>
           </div>
         </div>
       );
