@@ -8,8 +8,8 @@ const connectDB = require('./config/database');
 
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-
-const authMiddleware = require('./middleware/authMiddleware');
+const publicRoutes = require('./routes/publicRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const adminController = require('./controllers/adminController');
 
@@ -19,8 +19,8 @@ const app = express();
 const corsOptions = {
   origin: 'http://localhost:3000', // URL frontend của bạn
   credentials: true, // Cho phép gửi cookie
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Các phương thức HTTP được phép
-  allowedHeaders: ['Content-Type', 'Authorization'] // Các tiêu đề HTTP được phép
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders: ['Content-Type', 'Authorization'] 
 };
 
 // Connect to database
@@ -35,17 +35,14 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
+app.use('/public', publicRoutes);
+app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes)
-
-// Route protected by JWT authentication
-app.get('/private', authMiddleware.authenticateToken, (req, res, next) => {
-  res.json('Welcome');
-});
 
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server started at http://localhost:${PORT}`);
 });
+

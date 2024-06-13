@@ -46,9 +46,9 @@ const RegisterForm = () => {
                 setTimer(20);
             } else {
                 setMessage(data);
+                setPassword('');
+                setConfirmPassword('');
             }
-            setPassword('');
-            setConfirmPassword('');
         } catch (error) {
             setMessage('An error occurred. Please try again later.');
         } finally {
@@ -60,7 +60,7 @@ const RegisterForm = () => {
     const handleVerify = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-
+        
         try {
             const response = await fetch('http://localhost:5000/auth/verify-register', {
                 method: 'POST',

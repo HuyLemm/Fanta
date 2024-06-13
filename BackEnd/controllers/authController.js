@@ -20,6 +20,7 @@ const generateVerificationCode = () => {
 const verificationCodes = {};
 
 exports.register = async (req, res) => {
+  
   const { email, username, password, confirmPassword } = req.body;
 
   // Kiểm tra email, username và password theo các quy tắc
@@ -36,7 +37,7 @@ exports.register = async (req, res) => {
   if (password !== confirmPassword) {
     return res.status(400).json('Passwords do not match');
   }
-  console.log("I did it");
+
   try {
     let user = await AccountModel.findOne({ username });
     if (user) return res.status(400).json('Username already exists');
@@ -47,9 +48,6 @@ exports.register = async (req, res) => {
      // Gửi mã xác nhận
     const verificationCode = generateVerificationCode();
     verificationCodes[email] = { code: verificationCode, expires: Date.now() + 20000 }; // 20 giây
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    user = new AccountModel({ username, password: hashedPassword });
 
     transporter.sendMail({
       from: process.env.EMAIL,
@@ -82,7 +80,7 @@ exports.verifyCodeRegister = async (req, res) => {
     await user.save();
     delete verificationCodes[email];
 
-    const token = jwt.sign({_id: user._id}, process.env.SESSION_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({_id: user._id, role: user.role}, process.env.SESSION_SECRET, { expiresIn: '1d' });
     tokenStore.addToken(token);
     res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
 
@@ -147,13 +145,11 @@ exports.resendCodeRegister = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;
-  console.log("Me did it");
   try {
     const user = await AccountModel.findOne({ username });
     if (!user) {
       return res.status(404).json('Account not found');
     }
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json('Wrong password');

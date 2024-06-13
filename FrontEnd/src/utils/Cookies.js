@@ -5,7 +5,7 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
-  function getCookie(cname) {
+function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -21,4 +21,34 @@ function setCookie(cname, cvalue, exdays) {
     return "";
   }
 
-  export { setCookie, getCookie }
+  const checkLoginStatus = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/public/check-role', {
+        method: 'GET',
+        credentials: 'include', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        return {
+          loggedIn: true,
+          role: data.role,
+        };
+      } else {
+        return {
+          loggedIn: false,
+          role: null,
+        };
+      }
+    } catch (error) {
+      console.error('Error checking login status:', error);
+      return {
+        loggedIn: false,
+        role: null,
+      };
+    }
+  };
+  export { setCookie, getCookie, checkLoginStatus}

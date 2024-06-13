@@ -46,6 +46,7 @@ const ForgotPassword = () => {
                 setStep(2);
             } else {
                 setMessage(data);
+                setEmail('');
             }
         } catch (error) {
             setMessage('An error occurred. Please try again later.');
@@ -73,6 +74,7 @@ const ForgotPassword = () => {
                 setStep(3);
             } else {
                 setMessage(data);
+                setVerificationCode('');
             }
         } catch (error) {
             setMessage('An error occurred. Please try again later.');
@@ -131,6 +133,8 @@ const ForgotPassword = () => {
                 setMessage(message);
                 setStep(4);
             } else {
+                setNewPassword('');
+                setConfirmPassword('');
                 setMessage(message);
             }
         } catch (error) {

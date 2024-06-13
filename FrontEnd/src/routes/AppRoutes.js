@@ -1,34 +1,16 @@
-// src/routes/AppRouter.js
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
 import HomePage from '../pages/HomePage';
-// import MovieCategory from '../pages/MovieCategory';
-// import MovieSearch from '../pages/MovieSearch';
-// import MovieDetails from '../pages/MovieDetails';
 import RegisterPage from '../pages/RegisterPage';
 import LoginPage from '../pages/LoginPage';
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
 import AdminFeatures from '../components/AdminFeatures';
-// import EditProfile from '../pages/EditProfile';
-// import Favorites from '../pages/Favorites';
-// import MoviePlayer from '../pages/MoviePlayer';
-// import MovieReview from '../pages/MovieReview';
-// import MovieComments from '../pages/MovieComments';
-
-// function PrivateRoute({ children }) {
-//   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-//   return isAuthenticated ? children : <Navigate to="/login" />;
-// }
+import ProtectedRoute from '../components/CheckRole';
 
 function AppRouter() {
   return (
       <Routes>
         {/* Public Routes */}
-        <Route path= "/admin" element={<AdminFeatures />} />
         <Route path="/" element={<HomePage />} />
-        {/* <Route path="/movies" element={<MovieCategory />} />
-        <Route path="/search" element={<MovieSearch />} />
-        <Route path="/movies/:id" element={<MovieDetails />} /> */}
         
         {/* Authentication Routes */}
         <Route path="/register" element={<RegisterPage />} />
@@ -36,11 +18,17 @@ function AppRouter() {
         <Route path="/forgot-password" element={<ForgotPasswordForm />} />
 
         {/* Authenticated Routes */}
-        {/* <Route path="/profile" element={<PrivateRoute><EditProfile /></PrivateRoute>} />
-        <Route path="/favorites" element={<PrivateRoute><Favorites /></PrivateRoute>} />
-        <Route path="/movies/:id/play" element={<PrivateRoute><MoviePlayer /></PrivateRoute>} />
-        <Route path="/movies/:id/review" element={<PrivateRoute><MovieReview /></PrivateRoute>} />
-        <Route path="/movies/:id/comments" element={<PrivateRoute><MovieComments /></PrivateRoute>} /> */}
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<ProtectedRoute role="admin"><AdminFeatures /></ProtectedRoute>} />
+        {/* <Route path="/admin/add-genre" element={<checkRole role="admin"><AddGenre /></checkRole>} />
+        <Route path="/admin/add-movie" element={<checkRole role="admin"><AddMovie /></checkRole>} />
+        <Route path="/admin/update-movie" element={<checkRole role="admin"><UpdateMovie /></checkRole>} /> */}
+
+        {/* User Routes */}
+        {/* <Route path="/user" element={<checkRole role="user"><HomePage /></checkRole>} />
+        <Route path="/profile" element={<checkRole role="user"><ViewProfile /></checkRole>} />
+        <Route path="/profile/update" element={<checkRole role="user"><UpdateProfile /></checkRole>} /> */}
       </Routes>
   );
 }
