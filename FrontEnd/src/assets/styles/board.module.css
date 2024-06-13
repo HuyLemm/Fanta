@@ -1,18 +1,16 @@
 .panel {
     width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     position: fixed;
     /* top: -60px; */
     top:13px;
     z-index: 1000;
-    margin: 0;
     padding: 0 30px; 
     box-sizing: border-box;
     transition: top 0.3s ease;
-    margin-top: 100px;
-    margin-left: 10px;
+    margin-top: 180px;
+    margin-left: -300px;
   }
 
 .dropdown {
@@ -31,7 +29,6 @@
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
-    width: 120px;
   }
   
 .dropdownVisible {

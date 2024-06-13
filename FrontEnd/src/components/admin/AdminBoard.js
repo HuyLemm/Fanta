@@ -35,8 +35,10 @@ const AdminBoard =() =>{
             <img src={boardIcon} className={styles.boardIcon}/>
           </div>
           <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
-            <button onClick={function1} className={styles.adminButton}>function1</button>
-            <button onClick={function1} className={styles.adminButton}>function2</button>
+            <button onClick={function1} className={styles.adminButton}>function 1</button>
+            <button onClick={function1} className={styles.adminButton}>function 2</button>
+            <button onClick={function1} className={styles.adminButton}>function 3</button>
+            <button onClick={function1} className={styles.adminButton}>function 4</button>
           </div>
         </div>
         </div>
