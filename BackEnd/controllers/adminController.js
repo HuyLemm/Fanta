@@ -68,9 +68,9 @@ exports.createMovie = async (req, res) => {
       }
 
       // Kiểm tra thể loại có trong genre không
-      const existingGenre = await GenreModel.findOne({ name: genre });
-      if (!existingGenre) {
-          return res.status(400).send({ error: 'Genre not found' });
+      const existingGenres = await GenreModel.find({ name: { $in: genre } });
+      if (existingGenres.length !== genre.length) {
+          return res.status(400).send({ error: 'One or more genres not found' });
       }
 
       const newMovie = new MovieModel({

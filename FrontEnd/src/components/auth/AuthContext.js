@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { checkLoginStatus } from '../utils/Cookies';
+import { checkLoginStatus } from '../../utils/Cookies';
 
 export const AuthContext = createContext();
 

@@ -4,8 +4,8 @@ import RegisterPage from '../pages/RegisterPage';
 import LoginPage from '../pages/LoginPage';
 import ForgotPasswordForm from '../components/auth/ForgotPasswordForm';
 import AdminFeatures from '../components/admin/AdminFeatures';
-import ProtectedRoute from '../components/CheckRole';
-import testCreateGenre from '../components/testCreateGenre';
+import ProtectedRoute from '../components/auth/CheckRole';
+import testCreateGenre from '../components/public/testCreateGenre';
 
 function AppRouter() {
   return (

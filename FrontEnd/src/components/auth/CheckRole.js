@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { checkLoginStatus } from '../utils/Cookies';
+import { checkLoginStatus } from '../../utils/Cookies';
 
 const ProtectedRoute = ({ children, role }) => {
   const [authStatus, setAuthStatus] = useState({
