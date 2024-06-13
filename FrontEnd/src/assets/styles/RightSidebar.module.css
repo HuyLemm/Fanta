@@ -1,0 +1,10 @@
+.sidebar {
+    width: 200px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-left: 1px solid #ddd;
+}
+
+.message {
+    color: green;
+}

@@ -5,6 +5,29 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-container {
+    display: flex;
+    width: 100%;
+}
+
+.admin-content {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar {
+    flex-basis: 200px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    margin: 10px;
 }
 
 .section {

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { setCookie, getCookie } from '../../utils/Cookies';
 import styles from '../../assets/styles/admin.module.css';
-import AdminBoard from './AdminBoard';
+import LeftSidebar from '../public/LeftSidebar'
+import RightSidebar from '../public/RightSidebar';
 
 const AdminFeatures = () => {
     const [genreName, setGenreName] = useState('');
@@ -28,6 +29,7 @@ const AdminFeatures = () => {
         trailer_url: ''
     });
     const [message, setMessage] = useState('');
+    const [currentFunction, setCurrentFunction] = useState('');
 
     const handleCreateGenre = async () => {
         try {
@@ -98,159 +100,175 @@ const AdminFeatures = () => {
         }
     };
 
+    const renderFunction = () => {
+        switch (currentFunction) {
+            case 'createGenre':
+                return (
+                    <div className="section">
+                        <h2>Create Genre</h2>
+                        <input
+                            type="text"
+                            value={genreName}
+                            onChange={(e) => setGenreName(e.target.value)}
+                            placeholder="Genre Name"
+                            className="input-field"
+                        />
+                        <button onClick={handleCreateGenre} className="btn">Create Genre</button>
+                    </div>
+                );
+            case 'createMovie':
+                return (
+                    <div className="section">
+                        <h2>Create Movie</h2>
+                        <input
+                            type="text"
+                            value={movieData.title}
+                            onChange={(e) => setMovieData({ ...movieData, title: e.target.value })}
+                            placeholder="Title"
+                            className="input-field"
+                        />
+                        <input
+                            type="text"
+                            value={movieData.description}
+                            onChange={(e) => setMovieData({ ...movieData, description: e.target.value })}
+                            placeholder="Description"
+                            className="input-field"
+                        />
+                        <input
+                            type="date"
+                            value={movieData.release_date}
+                            onChange={(e) => setMovieData({ ...movieData, release_date: e.target.value })}
+                            placeholder="Release Date"
+                            className="input-field"
+                        />
+                        <input
+                            type="number"
+                            value={movieData.duration}
+                            onChange={(e) => setMovieData({ ...movieData, duration: e.target.value })}
+                            placeholder="Duration"
+                            className="input-field"
+                        />
+                        <input
+                            type="text"
+                            value={movieData.genre}
+                            onChange={(e) => setMovieData({ ...movieData, genre: e.target.value })}
+                            placeholder="Genre Name"
+                            className="input-field"
+                        />
+                        <input
+                            type="text"
+                            value={movieData.director}
+                            onChange={(e) => setMovieData({ ...movieData, director: e.target.value })}
+                            placeholder="Director"
+                            className="input-field"
+                        />
+                        <input
+                            type="text"
+                            value={movieData.cast}
+                            onChange={(e) => setMovieData({ ...movieData, cast: e.target.value })}
+                            placeholder="Cast"
+                            className="input-field"
+                        />
+                        <input
+                            type="text"
+                            value={movieData.poster_url}
+                            onChange={(e) => setMovieData({ ...movieData, poster_url: e.target.value })}
+                            placeholder="Poster URL"
+                            className="input-field"
+                        />
+                        <input
+                            type="text"
+                            value={movieData.trailer_url}
+                            onChange={(e) => setMovieData({ ...movieData, trailer_url: e.target.value })}
+                            placeholder="Trailer URL"
+                            className="input-field"
+                        />
+                        <button onClick={handleCreateMovie} className="btn">Create Movie</button>
+                    </div>
+                );
+            case 'updateMovie':
+                return (
+                    <div className="section">
+                        <h2>Update Movie</h2>
+                        <input
+                            type="text"
+                            value={updateData.title}
+                            onChange={(e) => setUpdateData({ ...updateData, title: e.target.value })}
+                            placeholder="Title"
+                            className="input-field"
+                        />
+                        <input
+                            type="text"
+                            value={updateData.description}
+                            onChange={(e) => setUpdateData({ ...updateData, description: e.target.value })}
+                            placeholder="Description"
+                            className="input-field"
+                        />
+                        <input
+                            type="date"
+                            value={updateData.release_date}
+                            onChange={(e) => setUpdateData({ ...updateData, release_date: e.target.value })}
+                            placeholder="Release Date"
+                            className="input-field"
+                        />
+                        <input
+                            type="number"
+                            value={updateData.duration}
+                            onChange={(e) => setUpdateData({ ...updateData, duration: e.target.value })}
+                            placeholder="Duration"
+                            className="input-field"
+                        />
+                        <input
+                            type="text"
+                            value={updateData.genre}
+                            onChange={(e) => setUpdateData({ ...updateData, genre: e.target.value })}
+                            placeholder="Genre Name"
+                            className="input-field"
+                        />
+                        <input
+                            type="text"
+                            value={updateData.director}
+                            onChange={(e) => setUpdateData({ ...updateData, director: e.target.value })}
+                            placeholder="Director"
+                            className="input-field"
+                        />
+                        <input
+                            type="text"
+                            value={updateData.cast}
+                            onChange={(e) => setUpdateData({ ...updateData, cast: e.target.value })}
+                            placeholder="Cast"
+                            className="input-field"
+                        />
+                        <input
+                            type="text"
+                            value={updateData.poster_url}
+                            onChange={(e) => setUpdateData({ ...updateData, poster_url: e.target.value })}
+                            placeholder="Poster URL"
+                            className="input-field"
+                        />
+                        <input
+                            type="text"
+                            value={updateData.trailer_url}
+                            onChange={(e) => setUpdateData({ ...updateData, trailer_url: e.target.value })}
+                            placeholder="Trailer URL"
+                            className="input-field"
+                        />
+                        <button onClick={handleUpdateMovie} className="btn">Update Movie</button>
+                    </div>
+                );
+            default:
+                return <p>Please select a function to perform.</p>;
+        }
+    };
+
     return (
         <section className={styles['admin-features']}>
-            <AdminBoard/>
-            <div className="admin-features">
-                <div className="section">
-                    <h2>Create Genre</h2>
-                    <input
-                        type="text"
-                        value={genreName}
-                        onChange={(e) => setGenreName(e.target.value)}
-                        placeholder="Genre Name"
-                        className="input-field"
-                    />
-                    <button onClick={handleCreateGenre} className="btn">Create Genre</button>
+            <div className={styles['admin-container']}>
+                <LeftSidebar setCurrentFunction={setCurrentFunction} />
+                <div className={styles['admin-content']}>
+                    {renderFunction()}
                 </div>
-
-                <div className="section">
-                    <h2>Create Movie</h2>
-                    <input
-                        type="text"
-                        value={movieData.title}
-                        onChange={(e) => setMovieData({ ...movieData, title: e.target.value })}
-                        placeholder="Title"
-                        className="input-field"
-                    />
-                    <input
-                        type="text"
-                        value={movieData.description}
-                        onChange={(e) => setMovieData({ ...movieData, description: e.target.value })}
-                        placeholder="Description"
-                        className="input-field"
-                    />
-                    <input
-                        type="date"
-                        value={movieData.release_date}
-                        onChange={(e) => setMovieData({ ...movieData, release_date: e.target.value })}
-                        placeholder="Release Date"
-                        className="input-field"
-                    />
-                    <input
-                        type="number"
-                        value={movieData.duration}
-                        onChange={(e) => setMovieData({ ...movieData, duration: e.target.value })}
-                        placeholder="Duration"
-                        className="input-field"
-                    />
-                    <input
-                        type="text"
-                        value={movieData.genre}
-                        onChange={(e) => setMovieData({ ...movieData, genre: e.target.value })}
-                        placeholder="Genre Name"
-                        className="input-field"
-                    />
-                    <input
-                        type="text"
-                        value={movieData.director}
-                        onChange={(e) => setMovieData({ ...movieData, director: e.target.value })}
-                        placeholder="Director"
-                        className="input-field"
-                    />
-                    <input
-                        type="text"
-                        value={movieData.cast}
-                        onChange={(e) => setMovieData({ ...movieData, cast: e.target.value })}
-                        placeholder="Cast"
-                        className="input-field"
-                    />
-                    <input
-                        type="text"
-                        value={movieData.poster_url}
-                        onChange={(e) => setMovieData({ ...movieData, poster_url: e.target.value })}
-                        placeholder="Poster URL"
-                        className="input-field"
-                    />
-                    <input
-                        type="text"
-                        value={movieData.trailer_url}
-                        onChange={(e) => setMovieData({ ...movieData, trailer_url: e.target.value })}
-                        placeholder="Trailer URL"
-                        className="input-field"
-                    />
-                    <button onClick={handleCreateMovie} className="btn">Create Movie</button>
-                </div>
-
-                <div className="section">
-                    <h2>Update Movie</h2>
-                    <input
-                        type="text"
-                        value={updateData.title}
-                        onChange={(e) => setUpdateData({ ...updateData, title: e.target.value })}
-                        placeholder="Title"
-                        className="input-field"
-                    />
-                    <input
-                        type="text"
-                        value={updateData.description}
-                        onChange={(e) => setUpdateData({ ...updateData, description: e.target.value })}
-                        placeholder="Description"
-                        className="input-field"
-                    />
-                    <input
-                        type="date"
-                        value={updateData.release_date}
-                        onChange={(e) => setUpdateData({ ...updateData, release_date: e.target.value })}
-                        placeholder="Release Date"
-                        className="input-field"
-                    />
-                    <input
-                        type="number"
-                        value={updateData.duration}
-                        onChange={(e) => setUpdateData({ ...updateData, duration: e.target.value })}
-                        placeholder="Duration"
-                        className="input-field"
-                    />
-                    <input
-                        type="text"
-                        value={updateData.genre}
-                        onChange={(e) => setUpdateData({ ...updateData, genre: e.target.value })}
-                        placeholder="Genre Name"
-                        className="input-field"
-                    />
-                    <input
-                        type="text"
-                        value={updateData.director}
-                        onChange={(e) => setUpdateData({ ...updateData, director: e.target.value })}
-                        placeholder="Director"
-                        className="input-field"
-                    />
-                    <input
-                        type="text"
-                        value={updateData.cast}
-                        onChange={(e) => setUpdateData({ ...updateData, cast: e.target.value })}
-                        placeholder="Cast"
-                        className="input-field"
-                    />
-                    <input
-                        type="text"
-                        value={updateData.poster_url}
-                        onChange={(e) => setUpdateData({ ...updateData, poster_url: e.target.value })}
-                        placeholder="Poster URL"
-                        className="input-field"
-                    />
-                    <input
-                        type="text"
-                        value={updateData.trailer_url}
-                        onChange={(e) => setUpdateData({ ...updateData, trailer_url: e.target.value })}
-                        placeholder="Trailer URL"
-                        className="input-field"
-                    />
-                    <button onClick={handleUpdateMovie} className="btn">Update Movie</button>
-                </div>
-
-                {message && <p className="message">{message}</p>}
+                <RightSidebar message={message} />
             </div>
         </section>
     );
