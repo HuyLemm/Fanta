@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const LogoutButton = () => {
   const [message, setMessage] = useState('');
 
+  // chức năng cho server cho đăng xuất
   const handleLogout = async (e) => {
     e.preventDefault();
 

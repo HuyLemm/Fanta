@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const tokenStore = require('../utils/tokenStore');
 
 const AccountModel = require('../models/Account');
 const GenreModel = require('../models/Genre');
@@ -37,22 +39,22 @@ exports.createGenre = async (req, res) => {
   try {
     const { name } = req.body;
 
-    // Kiểm tra xem thể loại đã tồn tại chưa
     const existingGenre = await GenreModel.findOne({ name });
     if (existingGenre) {
-        return res.status(400).send({ error: 'Genre already exists' });
+      return res.status(400).send({ error: 'Genre already exists' });
     }
 
     const newGenre = new GenreModel({
-        name
+      name
     });
 
     await newGenre.save();
     res.status(201).send(newGenre);
-} catch (error) {
+  } catch (error) {
     res.status(400).send({ error: 'Error creating genre: ' + error.message });
-}
+  }
 };
+
 
 // Tạo một phim
 exports.createMovie = async (req, res) => {
@@ -89,6 +91,42 @@ exports.createMovie = async (req, res) => {
       res.status(400).send({ error: 'Error creating movie: ' + error.message });
   }
 };
+
+// Cập nhật một phim
+exports.updateMovie = async (req, res) => {
+  try {
+    const { title, description, release_date, duration, genre, director, cast, poster_url, trailer_url } = req.body;
+
+    // Tìm phim theo ID
+    const existingMovie = await MovieModel.findOne({title: title})
+    if (!existingMovie) {
+      return res.status(404).send({ error: 'Movie not found' });
+    }
+
+    // Kiểm tra thể loại có trong genre không
+    const existingGenre = await GenreModel.findOne({ name: genre });
+    if (!existingGenre) {
+      return res.status(400).send({ error: 'Genre not found' });
+    }
+
+    // Cập nhật thông tin phim
+    existingMovie.title = title || existingMovie.title;
+    existingMovie.description = description || existingMovie.description;
+    existingMovie.release_date = release_date || existingMovie.release_date;
+    existingMovie.duration = duration || existingMovie.duration;
+    existingMovie.genre = genre || existingMovie.genre;
+    existingMovie.director = director || existingMovie.director;
+    existingMovie.cast = cast || existingMovie.cast;
+    existingMovie.poster_url = poster_url || existingMovie.poster_url;
+    existingMovie.trailer_url = trailer_url || existingMovie.trailer_url;
+
+    await existingMovie.save();
+    res.status(200).send(existingMovie);
+  } catch (error) {
+    res.status(400).send({ error: 'Error updating movie: ' + error.message });
+  }
+};
+
 
 // Tạo một đánh giá
 exports.createReview = async (userId, movieId) => {

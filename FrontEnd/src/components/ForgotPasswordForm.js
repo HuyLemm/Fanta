@@ -25,6 +25,7 @@ const ForgotPassword = () => {
         return () => clearInterval(countdown);
     }, [step, timer]);
 
+    // chức năng cho server duyệt email nếu quên mật khảu
     const handleEmailSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -53,6 +54,7 @@ const ForgotPassword = () => {
         }
     };
 
+    // chức năng cho server duyệt code được gửi đến gmail 
     const handleCodeSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -79,6 +81,7 @@ const ForgotPassword = () => {
         }
     };
 
+    // chức năng cho server gửi lại mã code khi hết hạn
     const handleResendCode = async () => {
         setIsLoading(true);
         try {
@@ -104,6 +107,7 @@ const ForgotPassword = () => {
         }
     };
 
+    // chức năng cho server thay đổi mật khảu
     const handlePasswordReset = async (e) => {
         e.preventDefault();
         setIsLoading(true);

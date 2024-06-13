@@ -1,39 +1,38 @@
 const jwt = require("jsonwebtoken");
-const AccountModel = require("../models/Account");
 
-// Middleware để xác thực token từ cookie
 exports.authenticateToken = (req, res, next) => {
-  // Lấy token từ cookie
-  const token = req.cookies['jwt'];
-
-  // Kiểm tra xem token có tồn tại không
+  const token = req.cookies.jwt || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
   if (!token) {
-    return res.status(401).send({ error: 'Access denied. No token provided.' });
+    return res.status(401).json('Access Denied');
   }
 
-  // Xác thực token
   try {
-    const decoded = jwt.verify(token, process.env.USERTOKEN);
-    req.user = decoded; // Lưu thông tin người dùng đã xác thực vào yêu cầu
+    const verified = jwt.verify(token, process.env.SESSION_SECRET);
+    req.user = verified;
     next();
-  } catch (error) {
-    res.status(400).send({ error: 'Invalid token.' });
+  } catch (err) {
+    res.status(400).json('Invalid Token');
   }
 };
 
-// Middleware để kiểm tra quyền admin
-exports.isAdmin = async (req, res, next) => {
-  try {
-    // Tìm người dùng theo ID được lưu trong token đã xác thực
-    const user = await AccountModel.findById(req.user.id); 
-
-    // Kiểm tra quyền admin của người dùng
-    if (user && user.role === 'admin') {
-      next(); // Cho phép truy cập nếu người dùng là admin
+// Middleware để kiểm tra xem người dùng có vai trò là user hay không
+exports.isUser = (req, res, next) => {
+  exports.authenticateToken(req, res, () => {
+    if (req.user.role === 'user') {
+      next();
     } else {
-      res.status(403).send({ message: 'Access denied. Admins only.' });
+      res.status(403).json('Access Denied: Requires User Role');
     }
-  } catch (error) {
-    res.status(500).send({ message: 'Internal server error.' });
-  }
+  });
+};
+
+// Middleware để kiểm tra xem người dùng có vai trò là admin hay không
+exports.isAdmin = (req, res, next) => {
+  exports.authenticateToken(req, res, () => {
+    if (req.user.role === 'admin') {
+      next();
+    } else {
+      res.status(403).json('Access Denied: Requires Admin Role');
+    }
+  });
 };

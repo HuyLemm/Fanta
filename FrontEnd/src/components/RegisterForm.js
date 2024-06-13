@@ -26,6 +26,7 @@ const RegisterForm = () => {
         return () => clearInterval(countdown);
     }, [isCodeSent, timer]);
 
+    // chức năng cho server duyệt xem tài khoản hợp lệ chưa
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -58,6 +59,7 @@ const RegisterForm = () => {
         }
     };
 
+    // chức năng cho server duyệt code gửi tới gmail được tạo
     const handleVerify = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -87,6 +89,7 @@ const RegisterForm = () => {
         }
     };
 
+    // chức năng cho server gửi code lại khi hết hạn
     const handleResendCode = async () => {
         setIsLoading(true);
         try {

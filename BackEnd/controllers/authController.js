@@ -82,9 +82,9 @@ exports.verifyCodeRegister = async (req, res) => {
     await user.save();
     delete verificationCodes[email];
 
-    const token = jwt.sign({_id: user._id}, process.env.SESSION_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({_id: user._id}, process.env.USERTOKEN, { expiresIn: '1d' });
     tokenStore.addToken(token);
-    res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+    res.cookie('user', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
 
     res.status(201).json({ message: 'Account created successfully', token });
   } catch (err) {
@@ -172,6 +172,8 @@ exports.login = async (req, res) => {
     res.status(500).json('Server error');
   }
 };
+
+
 
 exports.logout = async (req, res) => {
   const token = req.cookies.jwt;

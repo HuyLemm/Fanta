@@ -23,6 +23,7 @@ const LoginForm = () => {
         }
     }, []);
 
+    // chức năng cho server duyệt tai khoản dùng
     const handleSubmit = async (e) => {
         e.preventDefault();
   
