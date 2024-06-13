@@ -1,12 +1,27 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styles from '../../assets/styles/GenreSection.module.css';
-import img1 from '../../assets/images/img1.jpg';
-import img2 from '../../assets/images/img2.jpg';
-import img3 from '../../assets/images/img3.jpg';
-import img4 from '../../assets/images/img4.jpg';
 
 const GenreSection = ({ title }) => {
   const genreItemsRef = useRef(null);
+  const [genres, setGenres] = useState([]);
+
+  useEffect(() => {
+    // Fetch genres and their movies from the backend
+    const fetchGenres = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/public/get-genres-movie'); // Adjust the endpoint as necessary
+        const data = await response.json();
+
+        const sortedGenres = data.sort((a, b) => a.name.localeCompare(b.name));
+        setGenres(sortedGenres);
+      } catch (error) {
+        console.error('Error fetching genres:', error);
+      }
+    };
+
+    fetchGenres();
+  }, []);
+
   let currentScrollPosition = 0;
   const scrollAmount = 200;
 
@@ -32,24 +47,28 @@ const GenreSection = ({ title }) => {
   };
 
   return (
-    <div className={styles.genreSection}>
-      <h2>{title}</h2>
-      <div className={styles.genreList}>
-        <button className={styles.prevGenre} onClick={handlePrevClick}>&lt;</button>
-        <div className={styles.genreItems} ref={genreItemsRef}>
-          {[img1, img2, img3, img4].map((src, index) => (
-            <div className={styles.item} key={index}>
-            <div className={styles.imageContainer}>
-              <img src={src} alt={`Movie ${index + 1}`} />
+    <div className={styles.genreSectionsContainer}>
+      {genres.length > 0 && genres.map((genre, index) => (
+        <div key={index} className={styles.genreSection}>
+          <h2>{genre.name + ' Movies'}</h2>
+          <div className={styles.genreList}>
+            <button className={styles.prevGenre} onClick={handlePrevClick}>&lt;</button>
+            <div className={styles.genreItems} ref={genreItemsRef}>
+              {genre.movies && genre.movies.map((movie, movieIndex) => (
+                <div className={styles.item} key={movieIndex}>
+                  <div className={styles.imageContainer}>
+                    <img src={movie.poster_url} alt={movie.title} />
+                  </div>
+                  <div className={styles.content}>
+                    <div className={styles.title}>{movie.title}</div>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className={styles.content}>
-              <div className={styles.title}>Movie {index + 1}</div>
-            </div>
+            <button className={styles.nextGenre} onClick={handleNextClick}>&gt;</button>
           </div>
-          ))}
         </div>
-        <button className={styles.nextGenre} onClick={handleNextClick}>&gt;</button>
-      </div>
+      ))}
     </div>
   );
 };

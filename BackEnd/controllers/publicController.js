@@ -13,6 +13,21 @@ exports.getAllGenres = async (req, res) => {
     }
 };
 
+exports.getGenresAndSatisfiedMovie = async (req, res) => {
+  try {
+    const genres = await MovieModel.aggregate([
+      { $unwind: "$genre" },
+      { $group: { _id: "$genre", movies: { $push: "$$ROOT" } } },
+      { $project: { _id: 0, name: "$_id", movies: "$movies" } }
+    ]);
+
+    res.json(genres);
+  } catch (error) {
+    console.error('Error fetching genres:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 exports.getMovies = async (req, res) => {
   try {
     const movies = await MovieModel.find({});

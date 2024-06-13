@@ -12,7 +12,7 @@ const FantaLogo = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
-
+ 
   const handleLoginClick = () => {
     navigate('/login');
   };
@@ -26,8 +26,6 @@ const FantaLogo = () => {
   };
 
   const handleLogout = async (e) => {
-    e.preventDefault();
-
     try {
       const response = await fetch('http://localhost:5000/auth/logout', {
         method: 'POST',

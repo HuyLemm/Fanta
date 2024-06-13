@@ -22,7 +22,6 @@ const MovieSchema = new Schema({
   },
   genre: {
     type: [String],
-    ref: 'genres',
     required: true
   },
   director: {

@@ -44,9 +44,7 @@ exports.createGenre = async (req, res) => {
       return res.status(400).send({ error: 'Genre already exists' });
     }
 
-    const newGenre = new GenreModel({
-      name
-    });
+    const newGenre = new GenreModel({ name });
 
     await newGenre.save();
     res.status(201).send(newGenre);
@@ -61,15 +59,24 @@ exports.createMovie = async (req, res) => {
   try {
       const { title, description, release_date, duration, genre, director, cast, poster_url, trailer_url } = req.body;
 
-      // Kiểm tra tên phim đã tồn tại chưa
       const existingMovie = await MovieModel.findOne({ title });
       if (existingMovie) {
           return res.status(400).send({ error: 'Movie with this title already exists' });
       }
 
-      // Kiểm tra thể loại có trong genre không
-      const existingGenres = await GenreModel.find({ name: { $in: genre } });
-      if (existingGenres.length !== genre.length) {
+      // Chuyển đổi genre thành mảng nếu nó là một chuỗi phân tách bằng dấu phẩy
+      const genresArray = typeof genre === 'string' ? genre.split(',').map(g => g.trim()) : genre;
+      const directorArray = typeof director === 'string' ? director.split(',').map(g => g.trim()) : director;
+      const castArray = typeof cast === 'string' ? cast.split(',').map(g => g.trim()) : cast;
+
+      if (!Array.isArray(genresArray)) {
+          return res.status(400).send({ error: 'Genres should be an array' });
+      }
+
+      // Kiểm tra tất cả các thể loại có trong genresArray không
+      const existingGenres = await GenreModel.find({ name: { $in: genresArray } });
+
+      if (existingGenres.length !== genresArray.length) {
           return res.status(400).send({ error: 'One or more genres not found' });
       }
 
@@ -78,9 +85,9 @@ exports.createMovie = async (req, res) => {
           description,
           release_date,
           duration,
-          genre,
-          director,
-          cast,
+          genre: genresArray,
+          director: directorArray,
+          cast: castArray,
           poster_url,
           trailer_url
       });
@@ -91,6 +98,9 @@ exports.createMovie = async (req, res) => {
       res.status(400).send({ error: 'Error creating movie: ' + error.message });
   }
 };
+
+
+
 
 // Cập nhật một phim
 exports.updateMovie = async (req, res) => {

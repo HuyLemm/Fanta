@@ -1,16 +1,20 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from '../../assets/styles/Carousel.module.css';
-import img1 from '../../assets/images/img1.jpg';
-import img2 from '../../assets/images/img2.jpg';
-import img3 from '../../assets/images/img3.jpg';
-import img4 from '../../assets/images/img4.jpg';
 
 const Carousel = () => {
   const carouselRef = useRef(null);
   const sliderRef = useRef(null);
   const thumbnailRef = useRef(null);
 
+  const [movies, setMovies] = useState([]);
+
   useEffect(() => {
+    // Fetch data from backend
+    fetch('http://localhost:5000/public/get-movies') // Thay thế bằng URL API thật của bạn
+      .then(response => response.json())
+      .then(data => setMovies(data))
+      .catch(error => console.error('Error fetching data:', error));
+
     const next = document.getElementById('next');
     const prev = document.getElementById('prev');
     const carousel = carouselRef.current;
@@ -64,16 +68,14 @@ const Carousel = () => {
   return (
     <div className={styles.carousel} ref={carouselRef}>
       <div className={styles.list} ref={sliderRef}>
-        {[img1, img2, img3, img4].map((src, index) => (
+        {movies.map((movie, index) => (
           <div className={styles.item} key={index}>
-            <img src={src} alt={`img${index + 1}`} />
+            <img src={movie.poster_url} alt={movie.title} />
             <div className={styles.content}>
-              <div className={styles.author}>LUNDEV</div>
-              <div className={styles.title}>DESIGN SLIDER</div>
-              <div className={styles.topic}>ANIMAL</div>
-              <div className={styles.des}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit...
-              </div>
+              <div className={styles.author}>{movie.director}</div>
+              <div className={styles.title}>{movie.title}</div>
+              <div className={styles.topic}>{movie.genre[1]}</div>
+              <div className={styles.des}>{movie.description}</div>
               <div className={styles.buttons}>
                 <button>SEE MORE</button>
                 <button>SUBSCRIBE</button>
@@ -83,18 +85,15 @@ const Carousel = () => {
         ))}
       </div>
       <div className={styles.thumbnail} ref={thumbnailRef}>
-        {[img1, img2, img3, img4].map((src, index) => (
+        {movies.map((movie, index) => (
           <div className={`${styles.item} ${styles.movieThumbnail}`} key={index}>
-            <img src={src} alt={`img${index + 1}`} />
+            <img src={movie.poster_url} alt={movie.title} />
             <div className={styles.content}>
-              <div className={styles.title}>Name Slider</div>
-              <div className={styles.description}>Description</div>
+              <div className={styles.title}>{movie.title}</div>
             </div>
             <div className={styles.movieInfo}>
-              <h3>AVENGERS</h3>
-              <p>10* | T13 | 2020</p>
-              <p>Hollywood Sci-fi</p>
-              <p>The Avengers were...</p>
+              <h3>{movie.title}</h3>
+              <p>{movie.genre}</p>
               <a href="#">see more</a>
             </div>
           </div>
