@@ -11,8 +11,8 @@
     padding: 0 30px; 
     box-sizing: border-box;
     transition: top 0.3s ease;
-    margin-top: 100px;
-    margin-left: 10px;
+    margin-top: 180px;
+    margin-left: -300px;
   }
 
 .dropdown {
@@ -31,7 +31,6 @@
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
-    width: 120px;
   }
   
 .dropdownVisible {

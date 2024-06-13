@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { setCookie, getCookie } from '../../utils/Cookies';
 import styles from '../../assets/styles/admin.module.css';
+import AdminBoard from './AdminBoard';
 
 const AdminFeatures = () => {
     const [genreName, setGenreName] = useState('');
@@ -99,6 +100,7 @@ const AdminFeatures = () => {
 
     return (
         <section className={styles['admin-features']}>
+            <AdminBoard/>
             <div className="admin-features">
                 <div className="section">
                     <h2>Create Genre</h2>
