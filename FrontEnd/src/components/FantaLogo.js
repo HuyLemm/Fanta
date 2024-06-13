@@ -90,7 +90,7 @@ const FantaLogo = () => {
       return (
         <div className={styles.userContainer} ref={dropdownRef}>
           <div className={styles.userIcon} onClick={toggleDropdown}>
-            <img src={adminIcon} alt="Admin Icon" />
+            <img src={adminIcon} alt="Admin Icon" className={styles.adminpic}/>
           </div>
           <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
             <button onClick={handleAdminClick} className={styles.adminButton}>Admin Panel</button>
