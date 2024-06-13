@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { setCookie, getCookie } from '../utils/Cookies';
-import styles from '../assets/styles/admin.module.css';
+import { setCookie, getCookie } from '../../utils/Cookies';
+import styles from '../../assets/styles/admin.module.css';
 
 const AdminFeatures = () => {
     const [genreName, setGenreName] = useState('');

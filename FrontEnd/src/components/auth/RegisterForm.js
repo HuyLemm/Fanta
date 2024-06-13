@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../assets/styles/Register.module.css';
-import { setCookie, getCookie } from '../utils/Cookies';
+import styles from '../../assets/styles/Register.module.css';
+import { setCookie, getCookie } from '../../utils/Cookies';
 import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
 
 const RegisterForm = () => {

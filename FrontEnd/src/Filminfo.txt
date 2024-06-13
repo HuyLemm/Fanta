@@ -1,0 +1,16 @@
+{
+  "title": "Squid Game",
+  "description": "Hundreds of cash-strapped contestants accept an invitation to compete in children's games for a tempting prize, but the stakes are deadly.",
+  "release_date": {
+    "$date": "2021-09-17T00:00:00.000Z"
+  },
+  "duration": 60,
+  "genre": "Action",
+  "director": "Hwang Dong-hyuk",
+  "cast": [
+    "Lee Jung-jae, Park Hae-soo, Wi Ha-jun"
+  ],
+  "poster_url": "https://i.redd.it/qcl42sbf3ms71.jpg",
+  "trailer_url": "https://www.youtube.com/watch?v=oqxAJKy0ii4",
+  "__v": 0
+}

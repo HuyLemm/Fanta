@@ -2,9 +2,10 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import HomePage from '../pages/HomePage';
 import RegisterPage from '../pages/RegisterPage';
 import LoginPage from '../pages/LoginPage';
-import ForgotPasswordForm from '../components/ForgotPasswordForm';
-import AdminFeatures from '../components/AdminFeatures';
+import ForgotPasswordForm from '../components/auth/ForgotPasswordForm';
+import AdminFeatures from '../components/admin/AdminFeatures';
 import ProtectedRoute from '../components/CheckRole';
+import testCreateGenre from '../components/testCreateGenre';
 
 function AppRouter() {
   return (

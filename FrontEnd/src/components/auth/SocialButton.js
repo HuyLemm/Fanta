@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
-import styles from '../assets/styles/Login.module.css';
+import styles from '../../assets/styles/Login.module.css';
 
 const GmailButton = ({ setMessage, setCookie, navigate }) => {
     const handleGoogleLoginSuccess = async (tokenResponse) => {

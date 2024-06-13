@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../assets/styles/HomePage.module.css';
-import Carousel from '../components/Carousel';
-import GenreSection from '../components/GenreSection';
+import Carousel from '../components/auth/Carousel';
+import GenreSection from '../components/auth/GenreSection';
 
 function HomePage() {
   return (
