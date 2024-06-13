@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../assets/styles/Register.module.css';
 import { setCookie, getCookie } from '../utils/Cookies';
 import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
@@ -15,6 +16,7 @@ const RegisterForm = () => {
     const [isCodeSent, setIsCodeSent] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [timer, setTimer] = useState(20);
+    const navigate = useNavigate();
 
     useEffect(() => {
         let countdown;
@@ -74,6 +76,7 @@ const RegisterForm = () => {
             if (response.ok) {
                 setMessage(data.message);
                 setCookie('jwt', data.token, 1);
+                navigate('/');
             } else {
                 setMessage(data);
                 setVerificationCode('');

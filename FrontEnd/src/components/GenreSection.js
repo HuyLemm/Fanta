@@ -39,12 +39,13 @@ const GenreSection = ({ title }) => {
         <div className={styles.genreItems} ref={genreItemsRef}>
           {[img1, img2, img3, img4].map((src, index) => (
             <div className={styles.item} key={index}>
+            <div className={styles.imageContainer}>
               <img src={src} alt={`Movie ${index + 1}`} />
-              <div className={styles.content}>
-                <div className={styles.title}>Movie {index + 1}</div>
-                <div className={styles.description}>Description</div>
-              </div>
             </div>
+            <div className={styles.content}>
+              <div className={styles.title}>Movie {index + 1}</div>
+            </div>
+          </div>
           ))}
         </div>
         <button className={styles.nextGenre} onClick={handleNextClick}>&gt;</button>
