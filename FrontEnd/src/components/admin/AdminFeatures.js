@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import styles from '../../assets/styles/admin.module.css';
-import LeftSidebar from '../public/LeftSidebar';
-import RightSidebar from '../public/RightSidebar';
+import styles from './admin.module.css';
+import LeftSidebar from '../public/LeftSidebar/LeftSidebar';
+import RightSidebar from '../public/RightSidebar/RightSidebar';
 import CreateGenre from './CreateGenre';
 import CreateMovie from './CreateMovie';
 import UpdateMovie from './UpdateMovie';

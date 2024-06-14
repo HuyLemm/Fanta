@@ -2,8 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './assets/styles/app.css';
 import AppRouter from './routes/AppRoutes';
-import Logofanta from './components/public/FantaLogo'
-import Footer from './components/public/Footer';
+import Logofanta from './components/public/FantaLogo/FantaLogo';
 import { AuthProvider } from './components/auth/AuthContext';
 
 function App() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../assets/styles/RightSidebar.module.css';
+import styles from './RightSidebar.module.css';
 
 const RightSidebar = ({ message }) => {
     return (

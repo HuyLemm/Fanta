@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getCookie } from '../../utils/Cookies';
-import styles from '../../assets/styles/admin.module.css';
+import styles from './admin.module.css';
 
 const UpdateMovie = () => {
     const [searchTitle, setSearchTitle] = useState('');
