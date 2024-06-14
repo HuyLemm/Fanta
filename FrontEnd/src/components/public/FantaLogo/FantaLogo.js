@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import fantaImage from '../../assets/images/fanta.png';
-import userIcon from '../../assets/images/user.png';
-import guestIcon from '../../assets/images/guest.png';
-import adminIcon from '../../assets/images/admin.jpg';
-import styles from '../../assets/styles/fanta.module.css';
-import { AuthContext } from '../auth/AuthContext';
+import fantaImage from '../../../assets/images/fanta.png';
+import userIcon from '../../../assets/images/user.png';
+import guestIcon from '../../../assets/images/guest.png';
+import adminIcon from '../../../assets/images/admin.jpg';
+import styles from './fanta.module.css';
+import { AuthContext } from '../../auth/AuthContext';
 
 const FantaLogo = () => {
   const { authStatus, setAuthStatus } = useContext(AuthContext);

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../assets/styles/LeftSidebar.module.css';
+import styles from './LeftSidebar.module.css';
 
 const LeftSidebar = ({ setCurrentFunction }) => {
     return (
