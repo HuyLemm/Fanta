@@ -12,7 +12,9 @@ const CreateMovie = () => {
         director: '',
         cast: '',
         poster_url: '',
-        trailer_url: ''
+        background_url: '',
+        trailer_url: '',
+        streaming_url: ''
     });
     const [message, setMessage] = useState('');
 
@@ -100,11 +102,26 @@ const CreateMovie = () => {
             />
             <input
                 type="text"
+                value={movieData.background_url}
+                onChange={(e) => setMovieData({ ...movieData, background_url: e.target.value })}
+                placeholder="Background URL"
+                className={styles.inputField}
+            />
+            <input
+                type="text"
                 value={movieData.trailer_url}
                 onChange={(e) => setMovieData({ ...movieData, trailer_url: e.target.value })}
                 placeholder="Trailer URL"
                 className={styles.inputField}
             />
+            <input
+                type="text"
+                value={movieData.streaming_url}
+                onChange={(e) => setMovieData({ ...movieData, streaming_url: e.target.value })}
+                placeholder="Streaming URL"
+                className={styles.inputField}
+            />
+
             <button onClick={handleCreateMovie} className={styles.btn}>Create Movie</button>
             <p>{message}</p>
         </div>

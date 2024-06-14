@@ -36,10 +36,22 @@ const MovieSchema = new Schema({
     type: String,
     required: true
   },
+
+  background_url: {
+    type: String,
+    required: true
+  },
+  
   trailer_url: {
     type: String,
     required: true
+  },
+
+  streaming_url: {
+    type: String,
+    required: true
   }
+
 }, {
   collection: 'movies'
 });

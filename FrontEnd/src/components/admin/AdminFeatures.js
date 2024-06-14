@@ -5,6 +5,7 @@ import RightSidebar from '../public/RightSidebar';
 import CreateGenre from './CreateGenre';
 import CreateMovie from './CreateMovie';
 import UpdateMovie from './UpdateMovie';
+import SeeProfile from './Profile';
 
 const AdminFeatures = () => {
     const [currentFunction, setCurrentFunction] = useState('');
@@ -18,7 +19,7 @@ const AdminFeatures = () => {
             case 'updateMovie':
                 return <UpdateMovie />;
             default:
-                return <p>Please select a function to perform.</p>;
+                return <SeeProfile />;
         }
     };
 

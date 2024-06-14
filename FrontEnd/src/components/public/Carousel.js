@@ -70,7 +70,7 @@ const Carousel = () => {
       <div className={styles.list} ref={sliderRef}>
         {movies.map((movie, index) => (
           <div className={styles.item} key={index}>
-            <img src={movie.poster_url} alt={movie.title} />
+            <img src={movie.background_url} alt={movie.title} />
             <div className={styles.content}>
               <div className={styles.author}>{movie.director}</div>
               <div className={styles.title}>{movie.title}</div>
@@ -88,12 +88,9 @@ const Carousel = () => {
         {movies.map((movie, index) => (
           <div className={`${styles.item} ${styles.movieThumbnail}`} key={index}>
             <img src={movie.poster_url} alt={movie.title} />
-            <div className={styles.content}>
-              <div className={styles.title}>{movie.title}</div>
-            </div>
+            <div className={styles.content}></div>
             <div className={styles.movieInfo}>
               <h3>{movie.title}</h3>
-              <p>{movie.genre}</p>
               <a href="#">see more</a>
             </div>
           </div>
