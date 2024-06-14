@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getCookie } from '../../utils/Cookies';
+import styles from '../../assets/styles/admin.module.css';
 
 const CreateGenre = () => {
     const [genreName, setGenreName] = useState('');
@@ -29,16 +30,16 @@ const CreateGenre = () => {
     };
 
     return (
-        <div className="section">
+        <div className={styles.section}>
             <h2>Create Genre</h2>
             <input
                 type="text"
                 value={genreName}
                 onChange={(e) => setGenreName(e.target.value)}
                 placeholder="Genre Name"
-                className="input-field"
+                className={styles.inputField}
             />
-            <button onClick={handleCreateGenre} className="btn">Create Genre</button>
+            <button onClick={handleCreateGenre} className={styles.btn}>Create Genre</button>
             <p>{message}</p>
         </div>
     );
