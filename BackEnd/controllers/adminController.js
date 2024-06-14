@@ -104,37 +104,8 @@ exports.createMovie = async (req, res) => {
 
 // Cập nhật một phim
 exports.updateMovie = async (req, res) => {
-  try {
-    const { title, description, release_date, duration, genre, director, cast, poster_url, trailer_url } = req.body;
-
-    // Tìm phim theo ID
-    const existingMovie = await MovieModel.findOne({title: title})
-    if (!existingMovie) {
-      return res.status(404).send({ error: 'Movie not found' });
-    }
-
-    // Kiểm tra thể loại có trong genre không
-    const existingGenre = await GenreModel.findOne({ name: genre });
-    if (!existingGenre) {
-      return res.status(400).send({ error: 'Genre not found' });
-    }
-
-    // Cập nhật thông tin phim
-    existingMovie.title = title || existingMovie.title;
-    existingMovie.description = description || existingMovie.description;
-    existingMovie.release_date = release_date || existingMovie.release_date;
-    existingMovie.duration = duration || existingMovie.duration;
-    existingMovie.genre = genre || existingMovie.genre;
-    existingMovie.director = director || existingMovie.director;
-    existingMovie.cast = cast || existingMovie.cast;
-    existingMovie.poster_url = poster_url || existingMovie.poster_url;
-    existingMovie.trailer_url = trailer_url || existingMovie.trailer_url;
-
-    await existingMovie.save();
-    res.status(200).send(existingMovie);
-  } catch (error) {
-    res.status(400).send({ error: 'Error updating movie: ' + error.message });
-  }
+  
+  
 };
 
 
