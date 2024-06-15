@@ -6,7 +6,9 @@ import ForgotPasswordForm from '../components/auth/ForgotPassword/ForgotPassword
 import AdminFeatures from '../components/admin/AdminFeatures';
 import ProtectedRoute from '../components/auth/CheckRole';
 import UserFeatures from '../components/user/UserFeatures';
-import MovieDetail from '../pages/MovieDetail';
+import MovieDetail from '../pages/MovieDetail/MovieDetail';
+import SearchResults from '../pages/SearchResults/SearchResults';
+import Categories from '../pages/Categories/Categories';
 
 function AppRouter() {
   return (
@@ -14,6 +16,8 @@ function AppRouter() {
         {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/movie/:id" element={<MovieDetail />} />
+        <Route path="/search" element={<SearchResults />} />
+        <Route path="/genre/:genreName" element={<Categories />} />
 
 
         {/* Authentication Routes */}

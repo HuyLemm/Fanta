@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './GenreSection.module.css';
 
 const GenreSection = ({ title }) => {
-  const genreItemsRef = useRef(null);
+  const genreItemsRef = useRef([]);
   const [genres, setGenres] = useState([]);
   const navigate = useNavigate();
 
@@ -13,8 +13,13 @@ const GenreSection = ({ title }) => {
         const response = await fetch('http://localhost:5000/public/get-genres-movie');
         const data = await response.json();
 
-        const sortedGenres = data.sort((a, b) => a.name.localeCompare(b.name));
-        setGenres(sortedGenres);
+        // Sort genres by the number of movies in descending order
+        const sortedGenres = data.sort((a, b) => b.movies.length - a.movies.length);
+
+        // Take the top 4 genres
+        const topGenres = sortedGenres.slice(0, 4);
+
+        setGenres(topGenres);
       } catch (error) {
         console.error('Error fetching genres:', error);
       }
@@ -23,28 +28,33 @@ const GenreSection = ({ title }) => {
     fetchGenres();
   }, []);
 
-  let currentScrollPosition = 0;
   const scrollAmount = 200;
 
-  const handleNextClick = () => {
-    const genreItems = genreItemsRef.current;
-    const maxScrollLeft = genreItems.scrollWidth - genreItems.clientWidth;
-    if (currentScrollPosition >= maxScrollLeft) {
-      currentScrollPosition = 0;
-    } else {
-      currentScrollPosition += scrollAmount;
+  const handleNextClick = (index) => {
+    const genreItems = genreItemsRef.current[index];
+    if (genreItems) {
+      const maxScrollLeft = genreItems.scrollWidth - genreItems.clientWidth;
+      let currentScrollPosition = genreItems.scrollLeft;
+      if (currentScrollPosition >= maxScrollLeft) {
+        currentScrollPosition = 0;
+      } else {
+        currentScrollPosition += scrollAmount;
+      }
+      genreItems.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
     }
-    genreItems.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
   };
 
-  const handlePrevClick = () => {
-    const genreItems = genreItemsRef.current;
-    if (currentScrollPosition <= 0) {
-      currentScrollPosition = genreItems.scrollWidth - genreItems.clientWidth;
-    } else {
-      currentScrollPosition -= scrollAmount;
+  const handlePrevClick = (index) => {
+    const genreItems = genreItemsRef.current[index];
+    if (genreItems) {
+      let currentScrollPosition = genreItems.scrollLeft;
+      if (currentScrollPosition <= 0) {
+        currentScrollPosition = genreItems.scrollWidth - genreItems.clientWidth;
+      } else {
+        currentScrollPosition -= scrollAmount;
+      }
+      genreItems.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
     }
-    genreItems.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
   };
 
   const handleWatchClick = (movieId) => {
@@ -57,8 +67,8 @@ const GenreSection = ({ title }) => {
         <div key={index} className={styles.genreSection}>
           <h2>{genre.name + ' Movies'}</h2>
           <div className={styles.genreList}>
-            <button className={styles.prevGenre} onClick={handlePrevClick}>&lt;</button>
-            <div className={styles.genreItems} ref={genreItemsRef}>
+            <button className={styles.prevGenre} onClick={() => handlePrevClick(index)}>&lt;</button>
+            <div className={styles.genreItems} ref={(el) => genreItemsRef.current[index] = el}>
               {genre.movies && genre.movies.map((movie, movieIndex) => (
                 <div className={styles.item} key={movieIndex}>
                   <div className={styles.imageContainer}>
@@ -71,7 +81,7 @@ const GenreSection = ({ title }) => {
                 </div>
               ))}
             </div>
-            <button className={styles.nextGenre} onClick={handleNextClick}>&gt;</button>
+            <button className={styles.nextGenre} onClick={() => handleNextClick(index)}>&gt;</button>
           </div>
         </div>
       ))}
