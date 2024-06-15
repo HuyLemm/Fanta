@@ -51,3 +51,42 @@ exports.getMovieById = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while fetching movie' });
   }
 };
+
+exports.searchMovies = async (req, res) => {
+  try {
+    const query = req.query.query;
+    if (!query) {
+      return res.status(400).json({ error: 'Query is required' });
+    }
+
+    // Tìm kiếm phim theo tiêu đề, diễn viên hoặc đạo diễn
+    const movies = await MovieModel.find({
+      $or: [
+        { title: { $regex: query, $options: 'i' } },
+        { cast: { $regex: query, $options: 'i' } },
+        { director: { $regex: query, $options: 'i' } }
+      ]
+    });
+
+    res.json(movies);
+  } catch (error) {
+    console.error('Error searching movies:', error);
+    res.status(500).json({ error: 'An error occurred while searching for movies' });
+  }
+};
+
+exports.getMoviesByGenre = async (req, res) => {
+  try {
+    const genre = req.query.genre;
+    if (!genre) {
+      return res.status(400).json({ error: 'Genre is required' });
+    }
+
+    const movies = await MovieModel.find({ genre });
+
+    res.json(movies);
+  } catch (error) {
+    console.error('Error fetching movies by genre:', error);
+    res.status(500).json({ error: 'An error occurred while fetching movies by genre' });
+  }
+};

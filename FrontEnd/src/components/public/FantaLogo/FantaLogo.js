@@ -10,9 +10,27 @@ import { AuthContext } from '../../auth/AuthContext';
 const FantaLogo = () => {
   const { authStatus, setAuthStatus } = useContext(AuthContext);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showCategories, setShowCategories] = useState(false);
+  const [genres, setGenres] = useState([]);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
- 
+  const categoriesRef = useRef(null);
+
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/public/get-genres-movie');
+        const data = await response.json();
+        setGenres(data);
+      } catch (error) {
+        console.error('Error fetching genres:', error);
+      }
+    };
+
+    fetchGenres();
+  }, []);
+
   const handleLoginClick = () => {
     navigate('/login');
   };
@@ -50,8 +68,16 @@ const FantaLogo = () => {
   };
 
   const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    if (
+      (dropdownRef.current && !dropdownRef.current.contains(event.target))
+    ) {
       setShowDropdown(false);
+    }
+
+    if (
+      (categoriesRef.current && !categoriesRef.current.contains(event.target))
+    ) {
+      setShowCategories(false);
     }
   };
 
@@ -62,8 +88,16 @@ const FantaLogo = () => {
     };
   }, []);
 
-  const toggleDropdown = (event) => {
+  const toggleDropdown = () => {
     setShowDropdown((prevShowDropdown) => !prevShowDropdown);
+  };
+
+  const toggleCategories = () => {
+    setShowCategories((prevShowCategories) => !prevShowCategories);
+  };
+
+  const handleCategoryClick = (genre) => {
+    navigate(`/genre/${genre.name}`);
   };
 
   const renderUserIcon = () => {
@@ -74,13 +108,13 @@ const FantaLogo = () => {
     if (!authStatus.loggedIn) {
       return (
         <div className={styles.userContainer} ref={dropdownRef}>
-        <div className={styles.userIcon} onClick={toggleDropdown}>
-        <img src={guestIcon} alt="Guest Icon" />
+          <div className={styles.userIcon} onClick={toggleDropdown}>
+            <img src={guestIcon} alt="Guest Icon" />
+          </div>
+          <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
+            <button onClick={handleLoginClick} className={styles.loginButton}>Login</button>
+          </div>
         </div>
-        <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
-          <button onClick={handleLoginClick} className={styles.loginButton}>Login</button>
-        </div>
-      </div>
       );
     }
 
@@ -88,7 +122,7 @@ const FantaLogo = () => {
       return (
         <div className={styles.userContainer} ref={dropdownRef}>
           <div className={styles.userIcon} onClick={toggleDropdown}>
-            <img src={adminIcon} alt="Admin Icon" className={styles.adminpic}/>
+            <img src={adminIcon} alt="Admin Icon" className={styles.adminpic} />
           </div>
           <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
             <button onClick={handleAdminClick} className={styles.adminButton}>Admin Panel</button>
@@ -113,11 +147,58 @@ const FantaLogo = () => {
     }
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?query=${searchQuery}`);
+    }
+  };
+
   return (
     <header className={styles.header}>
       <a href="/">
         <img src={fantaImage} className={styles.fanta} alt="Fanta" />
       </a>
+      <form className={styles.searchForm} onSubmit={handleSearch}>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search for movies..."
+          className={styles.searchInput}
+        />
+        <button type="submit" className={styles.searchButton}>Search</button>
+      </form>
+      <div
+        className={styles.categoriesContainer}
+        ref={categoriesRef}
+        onMouseLeave={() => setShowCategories(false)}
+      >
+        <button
+          className={styles.categoriesButton}
+          onMouseEnter={() => setShowCategories(true)}
+        >
+          Categories
+        </button>
+        {showCategories && (
+          <div
+            className={styles.categoriesDropdown}
+            onMouseEnter={() => setShowCategories(true)}
+            onMouseLeave={() => setShowCategories(false)}
+          >
+            {genres.map((genre) => (
+              <button
+                key={genre._id}
+                className={styles.categoryItem}
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => handleCategoryClick(genre)}
+              >
+                {genre.name}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
       {renderUserIcon()}
     </header>
   );

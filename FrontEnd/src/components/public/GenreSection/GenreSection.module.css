@@ -2,7 +2,7 @@
   padding: 20px;
   background-color: #111;
   margin: 20px 0;
-  height:335px;
+  height: 335px;
 }
 
 .genreSection h2 {
@@ -22,14 +22,14 @@
   flex-shrink: 0;
   width: 150px;
   position: relative;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .imageContainer {
   width: 100%;
-  height: 220px; 
+  height: 220px;
   overflow: hidden;
   border-radius: 10px;
   position: relative;
@@ -45,6 +45,18 @@
 .imageContainer:hover img {
   transform: scale(1.1);
 }
+
+.imageContainer .watchButton {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.imageContainer:hover .watchButton {
+  opacity: 1;
+  visibility: visible;
+}
+
 .content {
   color: #fff;
   text-align: center;
@@ -109,13 +121,13 @@ body {
   overflow-x: hidden;
 }
 
-
 .watchButton {
   position: absolute;
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.7);
+  font-weight: bold;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -125,8 +137,4 @@ body {
 
 .watchButton:hover {
   background-color: rgba(0, 0, 0, 0.9);
-}
-
-.imageContainer {
-  position: relative;
 }
