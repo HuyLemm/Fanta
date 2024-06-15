@@ -12,3 +12,8 @@
 .message {
     color: green;
 }
+
+.sidebar h2{
+    margin-top: 70px;
+    text-align: center;
+}
