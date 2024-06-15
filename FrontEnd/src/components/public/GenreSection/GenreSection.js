@@ -1,15 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './GenreSection.module.css';
 
 const GenreSection = ({ title }) => {
   const genreItemsRef = useRef(null);
   const [genres, setGenres] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch genres and their movies from the backend
     const fetchGenres = async () => {
       try {
-        const response = await fetch('http://localhost:5000/public/get-genres-movie'); // Adjust the endpoint as necessary
+        const response = await fetch('http://localhost:5000/public/get-genres-movie');
         const data = await response.json();
 
         const sortedGenres = data.sort((a, b) => a.name.localeCompare(b.name));
@@ -46,6 +47,10 @@ const GenreSection = ({ title }) => {
     genreItems.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
   };
 
+  const handleWatchClick = (movieId) => {
+    navigate(`/movie/${movieId}`);
+  };
+
   return (
     <div className={styles.genreSectionsContainer}>
       {genres.length > 0 && genres.map((genre, index) => (
@@ -58,6 +63,7 @@ const GenreSection = ({ title }) => {
                 <div className={styles.item} key={movieIndex}>
                   <div className={styles.imageContainer}>
                     <img src={movie.poster_url} alt={movie.title} />
+                    <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}>Watch</button>
                   </div>
                   <div className={styles.content}>
                     <div className={styles.title}>{movie.title}</div>
