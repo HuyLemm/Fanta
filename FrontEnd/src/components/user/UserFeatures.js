@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import styles from './admin.module.css';
-import LeftSidebar from './LeftSidebar/LeftSideBarAdmin';
+import styles from './user.module.css';
+import LeftSidebar from './LeftSideBar/LeftSideBarUser';
 import RightSidebar from '../public/RightSidebar/RightSidebar';
-import CreateGenre from './CreateGenre';
-import CreateMovie from './CreateMovie';
-import UpdateMovie from './UpdateMovie';
 import SeeProfile from './Profile';
 
 const AdminFeatures = () => {
@@ -14,22 +11,16 @@ const AdminFeatures = () => {
         switch (currentFunction) {
             case 'Profile':
                 return <SeeProfile />;
-            case 'createGenre':
-                return <CreateGenre />;
-            case 'createMovie':
-                return <CreateMovie />;
-            case 'updateMovie':
-                return <UpdateMovie />;
             default:
                 return <SeeProfile />;
         }
     };
 
     return (
-        <section className={styles['admin-features']}>
-            <div className={styles['admin-container']}>
+        <section className={styles['user-features']}>
+            <div className={styles['user-container']}>
                 <LeftSidebar setCurrentFunction={setCurrentFunction} />
-                <div className={styles['admin-content']}>
+                <div className={styles['user-content']}>
                     {renderFunction()}
                 </div>
                 <RightSidebar />

@@ -5,6 +5,7 @@ import LoginPage from '../pages/LoginPage';
 import ForgotPasswordForm from '../components/auth/ForgotPassword/ForgotPasswordForm';
 import AdminFeatures from '../components/admin/AdminFeatures';
 import ProtectedRoute from '../components/auth/CheckRole';
+import UserFeatures from '../components/user/UserFeatures';
 
 function AppRouter() {
   return (
@@ -21,11 +22,13 @@ function AppRouter() {
 
         {/* Admin Routes */}
         <Route path="/admin" element={<ProtectedRoute role="admin"><AdminFeatures /></ProtectedRoute>} />
+
         {/* <Route path="/admin/add-genre" element={<checkRole role="admin"><AddGenre /></checkRole>} />
         <Route path="/admin/add-movie" element={<checkRole role="admin"><AddMovie /></checkRole>} />
         <Route path="/admin/update-movie" element={<checkRole role="admin"><UpdateMovie /></checkRole>} /> */}
 
         {/* User Routes */}
+        <Route path="/user" element={<ProtectedRoute role="user"><UserFeatures /></ProtectedRoute>} />
         {/* <Route path="/user" element={<checkRole role="user"><HomePage /></checkRole>} />
         <Route path="/profile" element={<checkRole role="user"><ViewProfile /></checkRole>} />
         <Route path="/profile/update" element={<checkRole role="user"><UpdateProfile /></checkRole>} /> */}

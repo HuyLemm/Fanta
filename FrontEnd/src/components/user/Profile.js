@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../utils/Cookies';
-import styles from './admin.module.css';
+import styles from './user.module.css';
 
 const SeeProfile = () => {
     const [profile, setProfile] = useState({
@@ -21,7 +21,7 @@ const SeeProfile = () => {
         const fetchProfile = async () => {
             try {
                 const token = getCookie('jwt');
-                const response = await fetch('http://localhost:5000/admin/get-profile', {
+                const response = await fetch('http://localhost:5000/user/get-profile', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const SeeProfile = () => {
     const handleUpdate = async (field, value) => {
         try {
             const token = getCookie('jwt');
-            const response = await fetch('http://localhost:5000/admin/update-profile', {
+            const response = await fetch('http://localhost:5000/user/update-profile', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const SeeProfile = () => {
         }
         try {
             const token = getCookie('jwt');
-            const response = await fetch('http://localhost:5000/admin/update-password', {
+            const response = await fetch('http://localhost:5000/user/update-password', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
