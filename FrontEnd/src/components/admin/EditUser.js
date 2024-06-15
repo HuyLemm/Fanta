@@ -148,15 +148,26 @@ const EditUser = () => {
             ) : (
                 <div>
                     <h3>User List</h3>
-                    <ul>
-                        {users.map(user => (
-                            <li key={user._id}>
-                                <button onClick={() => handleUserClick(user._id)} className={styles.btn}>
-                                    {user.username}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
+                    <div className={styles['table-container']}>
+                        <table className={styles.table}>
+                            <thead>
+                                <tr>
+                                    <th className={styles['fixed-width']}>Username</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {users.map(user => (
+                                    <tr key={user._id}>
+                                        <td className={styles['fixed-width']}>{user.username}</td>
+                                        <td>
+                                            <button onClick={() => handleUserClick(user._id)} className={styles.btn}>View</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             )}
         </div>
