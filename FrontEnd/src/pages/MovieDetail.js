@@ -47,13 +47,19 @@ const MovieDetail = () => {
       <div className={styles.background} style={{ backgroundImage: `url(${movie.background_url})` }}>
         <div className={styles.overlay}></div>
         <div className={styles.content}>
-          <h1 className={styles.title}>{movie.title}</h1>
-          <p className={styles.description}>{movie.description}</p>
-          <p><strong>Duration:</strong> {movie.duration} minutes</p>
-          <p><strong>Release Date:</strong> {new Date(movie.release_date).toLocaleDateString()}</p>
-          <p><strong>Genre:</strong> {movie.genre.join(', ')}</p>
-          <p><strong>Director:</strong> {movie.director.join(', ')}</p>
-          <p><strong>Cast:</strong> {movie.cast.join(', ')}</p>
+          <img src={movie.poster_url} alt={movie.title} className={styles.poster} />
+          <div className={styles.details}>
+            <h1 className={styles.title}>{movie.title}</h1>
+            <p className={styles.meta}>
+              <span className={styles.rating}>{movie.rating}</span>
+              <span className={styles.quality}>HD</span>
+              <span className={styles.genres}>{movie.genre.join(', ')}</span>
+              <span className={styles.releaseDate}>{new Date(movie.release_date).getFullYear()}</span>
+              <span className={styles.duration}>{movie.duration} min</span>
+            </p>
+            <p className={styles.description}>{movie.description}</p>
+            <button className={styles.watchNowButton}>Watch Now</button>
+          </div>
         </div>
       </div>
     </div>
