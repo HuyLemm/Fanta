@@ -1,12 +1,12 @@
 .sidebar {
-    width: 250px; 
-    height: 100vh;
+    width: 250px;
     padding: 20px;
     background-color: #f4f4f4;
     border-left: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
 }
 
 .message {
