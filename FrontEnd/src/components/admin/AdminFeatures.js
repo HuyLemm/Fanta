@@ -6,6 +6,7 @@ import CreateGenre from './CreateGenre';
 import CreateMovie from './CreateMovie';
 import UpdateMovie from './UpdateMovie';
 import SeeProfile from './Profile';
+import EditUser from './EditUser';
 
 const AdminFeatures = () => {
     const [currentFunction, setCurrentFunction] = useState('');
@@ -14,6 +15,8 @@ const AdminFeatures = () => {
         switch (currentFunction) {
             case 'Profile':
                 return <SeeProfile />;
+            case 'editUsers':
+                return <EditUser />;
             case 'createGenre':
                 return <CreateGenre />;
             case 'createMovie':

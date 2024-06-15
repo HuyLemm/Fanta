@@ -37,3 +37,17 @@ exports.getMovies = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while fetching movies' });
   }
 };
+
+exports.getMovieById = async (req, res) => {
+  try {
+    const movie = await MovieModel.findById(req.params.id);
+    if (!movie) {
+      res.status(404).json({ message: 'Movie not found' });
+    } else {
+      res.status(200).json(movie);
+    }
+  } catch (error) {
+    console.error('Error fetching movie:', error);
+    res.status(500).json({ error: 'An error occurred while fetching movie' });
+  }
+};

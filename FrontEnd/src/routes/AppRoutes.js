@@ -6,13 +6,16 @@ import ForgotPasswordForm from '../components/auth/ForgotPassword/ForgotPassword
 import AdminFeatures from '../components/admin/AdminFeatures';
 import ProtectedRoute from '../components/auth/CheckRole';
 import UserFeatures from '../components/user/UserFeatures';
+import MovieDetail from '../pages/MovieDetail';
 
 function AppRouter() {
   return (
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
-        
+        <Route path="/movie/:id" element={<MovieDetail />} />
+
+
         {/* Authentication Routes */}
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage  />} />

@@ -222,6 +222,60 @@ exports.updateMovie = async (req, res) => {
   }
 };
 
+exports.getUsers = async (req, res) => {
+  try {
+      const users = await AccountModel.find({}, 'username role');
+      res.json(users);
+  } catch (error) {
+      console.error('Error fetching users:', error);
+      res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+exports.getUserById = async (req, res) => {
+  try {
+      const user = await AccountModel.findById(req.params.id).select('-password');
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+      res.json(user);
+  } catch (error) {
+      console.error('Error fetching user:', error);
+      res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+exports.updateUserById = async (req, res) => {
+  const { email, username } = req.body;
+  try {
+      const user = await AccountModel.findByIdAndUpdate(
+          req.params.id,
+          { email, username },
+          { new: true, runValidators: true }
+      ).select('-password');
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+      res.json(user);
+  } catch (error) {
+      console.error('Error updating user:', error);
+      res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+exports.deleteUserById = async (req, res) => {
+  try {
+      const user = await AccountModel.findByIdAndDelete(req.params.id);
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+      res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+      console.error('Error deleting user:', error);
+      res.status(500).json({ message: 'Server Error' });
+  }
+};
+
 
 // Tạo một đánh giá
 exports.createReview = async (userId, movieId) => {
