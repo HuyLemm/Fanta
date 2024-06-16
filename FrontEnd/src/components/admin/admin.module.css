@@ -11,6 +11,7 @@
     display: flex;
     flex: 1;
     position: relative; /* To position the right sidebar */
+    margin-top: 50px;
 }
 
 /* Sidebar styles */
