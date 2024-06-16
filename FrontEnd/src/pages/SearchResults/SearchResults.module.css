@@ -1,28 +1,56 @@
 /* SearchResults.module.css */
+
 .searchResultsContainer {
-    padding: 20px;
-  }
-  
-  .moviesGrid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .movieItem {
-    width: 200px;
-    text-align: center;
-  }
-  
-  .moviePoster {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-  }
-  
-  .movieTitle {
-    margin-top: 10px;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
+  padding: 20px;
+}
+
+.moviesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; /* Optional: Center the movie items */
+}
+
+.movieItem {
+  width: 200px; /* Set a fixed width for each movie item */
+  text-align: center;
+  position: relative;
+}
+
+.moviePoster {
+  width: 100%;
+  height: 250px; /* Set a fixed height for each poster */
+  border-radius: 10px;
+  object-fit: cover; /* Ensure the image covers the entire area without distortion */
+}
+
+.movieTitle {
+  margin-top: -5px; /* Reduce margin-top to bring title closer to poster */
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.watchButton {
+  position: absolute;
+  bottom: 35px; /* Position button 10px from the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 5px; /* Optional: Add rounded corners to button */
+}
+
+.imageContainer:hover .watchButton {
+  opacity: 1;
+}

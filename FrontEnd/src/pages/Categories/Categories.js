@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Categories.module.css';
 
 const GenreMovies = () => {
   const { genreName } = useParams();
   const [movies, setMovies] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGenreMovies = async () => {
@@ -22,6 +23,10 @@ const GenreMovies = () => {
     }
   }, [genreName]);
 
+  const handleWatchClick = (movieId) => {
+    navigate(`/movie/${movieId}`);
+  };
+
   return (
     <div className={styles.genreMoviesContainer}>
       <h2>Movies in {genreName}</h2>
@@ -29,7 +34,10 @@ const GenreMovies = () => {
         {movies.length > 0 ? (
           movies.map((movie) => (
             <div key={movie._id} className={styles.movieItem}>
-              <img src={movie.poster_url} alt={movie.title} className={styles.moviePoster} />
+              <div className={styles.imageContainer}>
+                <img src={movie.poster_url} alt={movie.title} className={styles.moviePoster} />
+                <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}>Watch</button>
+              </div>
               <div className={styles.movieTitle}>{movie.title}</div>
             </div>
           ))

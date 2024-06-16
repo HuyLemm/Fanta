@@ -1,9 +1,11 @@
+/* MovieDetail.module.css */
+
 .movieDetailContainer {
   box-sizing: border-box;
   padding: 20px;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
   color: #ffffff;
   position: relative;
   z-index: 0;
@@ -33,8 +35,8 @@
 .content {
   display: flex;
   align-items: center;
-  height: 100%;
   padding: 40px;
+  margin: 150px 60px; /* Add some margin to separate from recommended movies */
 }
 
 .poster {
@@ -103,4 +105,142 @@
 
 .watchNowButton:hover {
   background-color: #cc7a00;
+}
+
+/* Styles for recommended movies */
+.recommendedSection {
+  padding: 20px;
+  background-color: #111;
+  margin: 925px 0;
+  height: 335px;
+}
+
+.recommendedTitle {
+  color: #fff;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.recommendedList {
+  display: flex;
+  gap: 20px;
+  overflow-x: scroll;
+  padding-bottom: 10px;
+}
+
+.recommendedItem {
+  flex-shrink: 0;
+  width: 150px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recommendedImageContainer {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+}
+
+.recommendedImageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.recommendedImageContainer:hover img {
+  transform: scale(1.1);
+}
+
+.recommendedImageContainer .watchButton {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.recommendedImageContainer:hover .watchButton {
+  opacity: 1;
+  visibility: visible;
+}
+
+.recommendedContent {
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.recommendedItemTitle {
+  font-weight: 500;
+}
+
+.prevRecommended, .nextRecommended {
+  background-color: #333;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 1;
+  width: 40px;
+  height: 65px;
+  margin-top: 85px;
+  font-size: large;
+}
+
+.prevRecommended:hover, .nextRecommended:hover {
+  background-color: #555;
+}
+
+.prevRecommended {
+  position: absolute;
+  left: 0;
+}
+
+.nextRecommended {
+  position: absolute;
+  right: 0;
+}
+
+.recommendedItems {
+  display: flex;
+  gap: 20px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: calc(100% - 80px);
+}
+
+.recommendedItems::-webkit-scrollbar {
+  display: none;
+}
+
+.recommendedList {
+  position: relative;
+  overflow: hidden;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.watchButton {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  font-weight: bold;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.watchButton:hover {
+  background-color: rgba(0, 0, 0, 0.9);
 }

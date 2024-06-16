@@ -20,7 +20,7 @@ const Carousel = () => {
     const carousel = carouselRef.current;
     const slider = sliderRef.current;
     const thumbnailBorder = thumbnailRef.current;
-    
+
     let timeRunning = 3000;
     let timeAutoNext = 7000;
     let runTimeOut;
@@ -77,7 +77,9 @@ const Carousel = () => {
               <div className={styles.topic}>{movie.genre[1]}</div>
               <div className={styles.des}>{movie.description}</div>
               <div className={styles.buttons}>
-                <button>SEE MORE</button>
+                <a href={`/movie/${movie._id}`}>
+                  <button>SEE MORE</button>
+                </a>
                 <button>SUBSCRIBE</button>
               </div>
             </div>
@@ -91,7 +93,7 @@ const Carousel = () => {
             <div className={styles.content}></div>
             <div className={styles.movieInfo}>
               <h3>{movie.title}</h3>
-              <a href="#">see more</a>
+              <a href={`/movie/${movie._id}`}>see more</a>
             </div>
           </div>
         ))}

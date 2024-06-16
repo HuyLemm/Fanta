@@ -12,6 +12,8 @@ router.get('/get-movie-by-id/:id', publicController.getMovieById);
 router.get('/search-movies', publicController.searchMovies);
 router.get('/get-movies-by-genre', publicController.getMoviesByGenre);
 
+router.post('/get-recommended-movies', publicController.getRecommendedMovies)
+
 
 router.get('/check-role', authMiddleware.authenticateToken, (req, res) => {
     res.json({ role: req.user.role });
