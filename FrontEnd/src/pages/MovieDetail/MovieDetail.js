@@ -29,6 +29,13 @@ const MovieDetail = () => {
       } finally {
         setLoading(false);
       }
+
+      if (!sessionStorage.getItem('isRefreshed')) {
+        sessionStorage.setItem('isRefreshed', 'true');
+        window.location.reload();
+      } else {
+        sessionStorage.removeItem('isRefreshed');
+      }
     };
 
     const fetchRecommendedMovies = async (genres, currentMovieId) => {
@@ -114,6 +121,8 @@ const MovieDetail = () => {
               <span className={styles.releaseDate}>{new Date(movie.release_date).getFullYear()}</span>
               <span className={styles.duration}>{movie.duration} min</span>
             </p>
+            <p className={styles.director}><strong className={styles.dir}>Director:</strong> {movie.director.join(', ')}</p>
+            <p className={styles.cast}><strong className={styles.dir}>Cast: </strong>{movie.cast.join(', ')}</p>
             <p className={styles.description}>{movie.description}</p>
             <button className={styles.watchNowButton}>Watch Now</button>
           </div>

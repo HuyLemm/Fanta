@@ -21,6 +21,7 @@ const CreateGenre = () => {
             const data = await response.json();
             if (response.ok) {
                 setMessage(`Genre created successfully: ${JSON.stringify(data)}`);
+                setGenreName('');
             } else {
                 setMessage(`Error creating genre: ${data.error}`);
             }

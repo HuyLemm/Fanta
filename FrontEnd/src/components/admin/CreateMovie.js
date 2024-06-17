@@ -33,6 +33,19 @@ const CreateMovie = () => {
             const data = await response.json();
             if (response.ok) {
                 setMessage(`Movie created successfully: ${JSON.stringify(data)}`);
+                setMovieData({
+                    title: '',
+                    description: '',
+                    release_date: '',
+                    duration: '',
+                    genre: '',
+                    director: '',
+                    cast: '',
+                    poster_url: '',
+                    background_url: '',
+                    trailer_url: '',
+                    streaming_url: ''
+                });
             } else {
                 setMessage(`Error creating movie: ${data.error}`);
             }

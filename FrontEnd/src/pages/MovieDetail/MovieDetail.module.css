@@ -87,6 +87,11 @@
   background-color: #999999;
 }
 
+.director, .cast {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
 .description {
   font-size: 1.2em;
   margin-bottom: 20px;
@@ -243,4 +248,8 @@ body {
 
 .watchButton:hover {
   background-color: rgba(0, 0, 0, 0.9);
+}
+
+.dir{
+  color:#fb5607 ;
 }
