@@ -343,3 +343,12 @@
     font-size: 1.875rem; /* Converted 30px to 1.875rem */
   }
 }
+
+.more{
+  display: flex;
+  background: transparent;
+  background-color: #fb5607;
+  border: 0.0625rem solid #fb5607; /* Converted 1px to 0.0625rem */
+  color: black;
+  padding: 0.07rem 1.9rem;
+}
