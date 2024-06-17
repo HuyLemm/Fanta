@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import YouTube from 'react-youtube';
 import styles from './MovieDetail.module.css';
 
 const MovieDetail = () => {
@@ -106,6 +107,14 @@ const MovieDetail = () => {
     return <div>No movie data found</div>;
   }
 
+  const getYouTubeId = (url) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  };
+
+  const trailerId = getYouTubeId(movie.trailer_url);
+
   return (
     <div className={styles.movieDetailContainer}>
       <div className={styles.background} style={{ backgroundImage: `url(${movie.background_url})` }}>
@@ -128,13 +137,22 @@ const MovieDetail = () => {
           </div>
         </div>
       </div>
+
+      <div className={styles.trailerSection}>
+        {trailerId ? (
+          <YouTube videoId={trailerId} opts={{ width: '33%', height: '400px' }} />
+        ) : (
+          <div>Trailer not available</div>
+        )}
+      </div>
+
       <div className={styles.recommendedSection}>
         <h2 className={styles.recommendedTitle}>Recommended Movies</h2>
         <div className={styles.recommendedList}>
           <button className={styles.prevRecommended} onClick={() => handlePrevClick(0)}>&lt;</button>
           <div className={styles.recommendedItems} ref={(el) => genreItemsRef.current[0] = el}>
             {recommendedMovies.length > 0 ? (
-              recommendedMovies.map((recommendedMovie, movieIndex) => (
+              recommendedMovies.map((recommendedMovie) => (
                 <div key={recommendedMovie._id} className={styles.recommendedItem}>
                   <div className={styles.recommendedImageContainer}>
                     <img src={recommendedMovie.poster_url} alt={recommendedMovie.title} />

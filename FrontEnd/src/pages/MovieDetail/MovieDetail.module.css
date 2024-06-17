@@ -250,6 +250,24 @@ body {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
-.dir{
-  color:#fb5607 ;
+.dir {
+  color: #fb5607;
+}
+
+.trailerSection {
+  text-align: right;
+  padding: 20px;
+  margin: 150px 10px; /* Add some margin to separate from the rest of the content */
+}
+
+.trailerTitle {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #fb5607;
+}
+
+.trailer iframe {
+  width: 100%;
+  max-width: 600px; /* Giảm kích thước khung trailer */
+  height: 338px; /* Tỷ lệ khung hình 16:9 */
 }
