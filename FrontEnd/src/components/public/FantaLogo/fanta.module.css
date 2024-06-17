@@ -55,7 +55,7 @@
 .categoriesButton {
   padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
   font-size: 1rem; /* Converted 16px to 1rem */
-  background-color: #444;
+  background-color: #fb5607;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -71,7 +71,7 @@
   position: absolute;
   top: 2.5rem; /* Converted 40px to 2.5rem */
   left: 0;
-  background-color: #444;
+  background-color: #fb5607;
   color: #fff;
   padding: 0.625rem; /* Converted 10px to 0.625rem */
   box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.3); /* Converted 2px 10px to 0.125rem 0.625rem */
@@ -90,7 +90,7 @@
   transition: background-color 0.3s ease;
 }
 
-.categoryItem:hover {
+.categoriesDropdown:hover{
   background-color: #555;
 }
 

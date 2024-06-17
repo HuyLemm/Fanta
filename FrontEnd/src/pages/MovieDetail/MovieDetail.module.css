@@ -234,13 +234,19 @@ body {
   bottom: 0.625rem; /* Converted 10px to 0.625rem */
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.7);
-  font-weight: bold;
-  color: white;
-  border: none;
   padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  border-radius: 2.5rem; /* Converted 40px to 2.5rem */
+  background-color: #fb5607;
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
+  color: white;
 }
 
 .watchButton:hover {
