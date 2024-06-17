@@ -140,7 +140,7 @@ const MovieDetail = () => {
 
       <div className={styles.trailerSection}>
         {trailerId ? (
-          <YouTube videoId={trailerId} opts={{ width: '33%', height: '400px' }} />
+          <YouTube videoId={trailerId} opts={{ width: '23%', height: '200px' }} />
         ) : (
           <div>Trailer not available</div>
         )}

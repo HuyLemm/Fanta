@@ -1,8 +1,6 @@
-/* MovieDetail.module.css */
-
 .movieDetailContainer {
   box-sizing: border-box;
-  padding: 20px;
+  padding: 1.25rem; /* Converted 20px to 1.25rem */
   height: 100vh;
   width: 100vw;
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
@@ -35,39 +33,39 @@
 .content {
   display: flex;
   align-items: center;
-  padding: 40px;
-  margin: 150px 60px; /* Add some margin to separate from recommended movies */
+  padding: 2.5rem; /* Converted 40px to 2.5rem */
+  margin: 9.375rem 3.75rem; /* Converted 150px 60px to 9.375rem 3.75rem */
 }
 
 .poster {
-  width: 300px;
+  width: 18.75rem; /* Converted 300px to 18.75rem */
   height: auto;
-  border-radius: 10px;
-  margin-right: 40px;
+  border-radius: 0.625rem; /* Converted 10px to 0.625rem */
+  margin-right: 2.5rem; /* Converted 40px to 2.5rem */
 }
 
 .details {
-  max-width: 600px;
+  max-width: 37.5rem; /* Converted 600px to 37.5rem */
 }
 
 .title {
-  font-size: 3em;
+  font-size: 3rem; /* Converted 3em to 3rem */
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
 }
 
 .meta {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem; /* Converted 20px to 1.25rem */
 }
 
 .meta span {
-  margin-right: 15px;
-  font-size: 1em;
-  padding: 5px 10px;
+  margin-right: 0.9375rem; /* Converted 15px to 0.9375rem */
+  font-size: 1rem; /* Converted 1em to 1rem */
+  padding: 0.3125rem 0.625rem; /* Converted 5px 10px to 0.3125rem 0.625rem */
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
+  border-radius: 0.3125rem; /* Converted 5px to 0.3125rem */
 }
 
 .rating {
@@ -88,22 +86,22 @@
 }
 
 .director, .cast {
-  font-size: 1.2em;
-  margin-bottom: 10px;
+  font-size: 1.2rem;
+  margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
 }
 
 .description {
-  font-size: 1.2em;
-  margin-bottom: 20px;
+  font-size: 1.2rem;
+  margin-bottom: 1.25rem; /* Converted 20px to 1.25rem */
 }
 
 .watchNowButton {
-  padding: 10px 20px;
-  font-size: 1.2em;
+  padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
+  font-size: 1.2rem;
   color: #fff;
   background-color: #ff9900;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.3125rem; /* Converted 5px to 0.3125rem */
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -114,28 +112,28 @@
 
 /* Styles for recommended movies */
 .recommendedSection {
-  padding: 20px;
+  padding: 1.25rem; /* Converted 20px to 1.25rem */
   background-color: #111;
-  margin: 925px 0;
-  height: 335px;
+  margin: 57.8125rem 0; /* Converted 925px to 57.8125rem */
+  height: 20.9375rem; /* Converted 335px to 20.9375rem */
 }
 
 .recommendedTitle {
   color: #fff;
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 1.5rem; /* Converted 24px to 1.5rem */
+  margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
 }
 
 .recommendedList {
   display: flex;
-  gap: 20px;
+  gap: 1.25rem; /* Converted 20px to 1.25rem */
   overflow-x: scroll;
-  padding-bottom: 10px;
+  padding-bottom: 0.625rem; /* Converted 10px to 0.625rem */
 }
 
 .recommendedItem {
   flex-shrink: 0;
-  width: 150px;
+  width: 9.375rem; /* Converted 150px to 9.375rem */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -144,9 +142,9 @@
 
 .recommendedImageContainer {
   width: 100%;
-  height: 220px;
+  height: 13.75rem; /* Converted 220px to 13.75rem */
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 0.625rem; /* Converted 10px to 0.625rem */
   position: relative;
 }
 
@@ -175,7 +173,7 @@
 .recommendedContent {
   color: #fff;
   text-align: center;
-  padding: 10px 0;
+  padding: 0.625rem 0; /* Converted 10px to 0.625rem */
   width: 100%;
 }
 
@@ -187,13 +185,13 @@
   background-color: #333;
   border: none;
   color: #fff;
-  padding: 10px;
+  padding: 0.625rem; /* Converted 10px to 0.625rem */
   cursor: pointer;
   transition: background-color 0.3s ease;
   z-index: 1;
-  width: 40px;
-  height: 65px;
-  margin-top: 85px;
+  width: 2.5rem; /* Converted 40px to 2.5rem */
+  height: 4.0625rem; /* Converted 65px to 4.0625rem */
+  margin-top: 5.3125rem; /* Converted 85px to 5.3125rem */
   font-size: large;
 }
 
@@ -213,10 +211,10 @@
 
 .recommendedItems {
   display: flex;
-  gap: 20px;
+  gap: 1.25rem; /* Converted 20px to 1.25rem */
   overflow-x: hidden;
   overflow-y: hidden;
-  width: calc(100% - 80px);
+  width: calc(100% - 5rem); /* Converted 80px to 5rem */
 }
 
 .recommendedItems::-webkit-scrollbar {
@@ -234,14 +232,14 @@ body {
 
 .watchButton {
   position: absolute;
-  bottom: 10px;
+  bottom: 0.625rem; /* Converted 10px to 0.625rem */
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.7);
   font-weight: bold;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -256,18 +254,18 @@ body {
 
 .trailerSection {
   text-align: right;
-  padding: 20px;
-  margin: 150px 10px; /* Add some margin to separate from the rest of the content */
+  padding: 1.25rem; /* Converted 20px to 1.25rem */
+  margin: 15.375rem 0.625rem; /* Converted 150px 10px to 9.375rem 0.625rem */
 }
 
 .trailerTitle {
-  font-size: 2em;
-  margin-bottom: 20px;
+  font-size: 2rem; /* Converted 2em to 2rem */
+  margin-bottom: 1.25rem; /* Converted 20px to 1.25rem */
   color: #fb5607;
 }
 
 .trailer iframe {
   width: 100%;
-  max-width: 600px; /* Giảm kích thước khung trailer */
-  height: 338px; /* Tỷ lệ khung hình 16:9 */
+  max-width: 37.5rem; /* Converted 600px to 37.5rem */
+  height: 21.125rem; /* Converted 338px to 21.125rem */
 }

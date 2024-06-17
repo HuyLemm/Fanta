@@ -1,26 +1,26 @@
 .genreSection {
-  padding: 20px;
+  padding: 1.25rem; /* Converted 20px to 1.25rem */
   background-color: #111;
-  margin: 20px 0;
-  height: 335px;
+  margin: 1.25rem 0; /* Converted 20px to 1.25rem */
+  height: 20.9375rem; /* Converted 335px to 20.9375rem */
 }
 
 .genreSection h2 {
   color: #fff;
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 1.5rem; /* Converted 24px to 1.5rem */
+  margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
 }
 
 .genreList {
   display: flex;
-  gap: 20px;
+  gap: 1.25rem; /* Converted 20px to 1.25rem */
   overflow-x: scroll;
-  padding-bottom: 10px;
+  padding-bottom: 0.625rem; /* Converted 10px to 0.625rem */
 }
 
 .item {
   flex-shrink: 0;
-  width: 150px;
+  width: 9.375rem; /* Converted 150px to 9.375rem */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -29,9 +29,9 @@
 
 .imageContainer {
   width: 100%;
-  height: 220px;
+  height: 13.75rem; /* Converted 220px to 13.75rem */
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 0.625rem; /* Converted 10px to 0.625rem */
   position: relative;
 }
 
@@ -50,7 +50,7 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  border-radius: 40px;
+  border-radius: 2.5rem; /* Converted 40px to 2.5rem */
   background-color: #fb5607;
   border: none;
   outline: none;
@@ -58,7 +58,7 @@
   font-size: 0.85rem;
   font-weight: 600;
   transition: all 0.4s ease;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
   color: white;
 }
 
@@ -70,7 +70,7 @@
 .content {
   color: #fff;
   text-align: center;
-  padding: 10px 0;
+  padding: 0.625rem 0; /* Converted 10px to 0.625rem */
   width: 100%;
 }
 
@@ -86,13 +86,13 @@
   background-color: #333;
   border: none;
   color: #fff;
-  padding: 10px;
+  padding: 0.625rem; /* Converted 10px to 0.625rem */
   cursor: pointer;
   transition: background-color 0.3s ease;
   z-index: 1;
-  width: 40px;
-  height: 65px;
-  margin-top: 85px;
+  width: 2.5rem; /* Converted 40px to 2.5rem */
+  height: 4.0625rem; /* Converted 65px to 4.0625rem */
+  margin-top: 5.3125rem; /* Converted 85px to 5.3125rem */
   font-size: large;
 }
 
@@ -112,10 +112,10 @@
 
 .genreItems {
   display: flex;
-  gap: 20px;
+  gap: 1.25rem; /* Converted 20px to 1.25rem */
   overflow-x: hidden;
   overflow-y: hidden;
-  width: calc(100% - 80px);
+  width: calc(100% - 5rem); /* Converted 80px to 5rem */
 }
 
 .genreItems::-webkit-scrollbar {
@@ -133,14 +133,14 @@ body {
 
 .watchButton {
   position: absolute;
-  bottom: 10px;
+  bottom: 0.625rem; /* Converted 10px to 0.625rem */
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.7);
   font-weight: bold;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
   cursor: pointer;
   transition: background-color 0.3s ease;
 }

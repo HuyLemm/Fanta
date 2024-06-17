@@ -1,4 +1,3 @@
-/* fanta.module.css */
 .header {
   width: 100%;
   display: flex;
@@ -7,7 +6,7 @@
   position: fixed;
   top: 0;
   z-index: 1000;
-  padding: 10px 30px;
+  padding: 0.625rem 1.875rem; /* Converted 10px 30px to 0.625rem 1.875rem */
 }
 
 .header a {
@@ -15,8 +14,8 @@
 }
 
 .fanta {
-  width: 120px;
-  height: 60px;
+  width: 7.5rem; /* Converted 120px to 7.5rem */
+  height: 3.75rem; /* Converted 60px to 3.75rem */
   object-fit: cover;
 }
 
@@ -26,18 +25,18 @@
 }
 
 .searchInput {
-  width: 300px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px 0 0 5px;
+  width: 18.75rem; /* Converted 300px to 18.75rem */
+  padding: 0.625rem; /* Converted 10px to 0.625rem */
+  border: 0.0625rem solid #ccc; /* Converted 1px to 0.0625rem */
+  border-radius: 0.3125rem 0 0 0.3125rem; /* Converted 5px to 0.3125rem */
   outline: none;
 }
 
 .searchButton {
-  padding: 10px 20px;
-  border: 1px solid #ccc;
+  padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
+  border: 0.0625rem solid #ccc; /* Converted 1px to 0.0625rem */
   border-left: none;
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 0.3125rem 0.3125rem 0; /* Converted 5px to 0.3125rem */
   background-color: #fb5607;
   color: #fff;
   cursor: pointer;
@@ -50,17 +49,17 @@
 
 .categoriesContainer {
   position: relative;
-  margin-left: 20px;
+  margin-left: 1.25rem; /* Converted 20px to 1.25rem */
 }
 
 .categoriesButton {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
+  font-size: 1rem; /* Converted 16px to 1rem */
   background-color: #444;
   color: #fff;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 0.3125rem; /* Converted 5px to 0.3125rem */
   transition: background-color 0.3s ease;
 }
 
@@ -70,18 +69,18 @@
 
 .categoriesDropdown {
   position: absolute;
-  top: 40px;
+  top: 2.5rem; /* Converted 40px to 2.5rem */
   left: 0;
   background-color: #444;
   color: #fff;
-  padding: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
+  padding: 0.625rem; /* Converted 10px to 0.625rem */
+  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.3); /* Converted 2px 10px to 0.125rem 0.625rem */
+  border-radius: 0.3125rem; /* Converted 5px to 0.3125rem */
   z-index: 1001;
 }
 
 .categoryItem {
-  padding: 5px 10px;
+  padding: 0.3125rem 0.625rem; /* Converted 5px 10px to 0.3125rem 0.625rem */
   background-color: transparent;
   border: none;
   color: #fff;
@@ -103,27 +102,27 @@
 .userIcon {
   position: relative;
   cursor: pointer;
-  margin-right: 100px;
+  margin-right: 6.25rem; /* Converted 100px to 6.25rem */
 }
 
 .userIcon img {
-  width: 40px;
-  height: 40px;
+  width: 2.5rem; /* Converted 40px to 2.5rem */
+  height: 2.5rem; /* Converted 40px to 2.5rem */
 }
 
 .dropdown {
-  margin-right: 63px;
+  margin-right: 3.9375rem; /* Converted 63px to 3.9375rem */
   position: absolute;
-  top: 50px;
+  top: 3.125rem; /* Converted 50px to 3.125rem */
   right: 0;
   background-color: rgb(255, 255, 255, 0.5);
-  border: 1px solid #fb5607;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  border: 0.0625rem solid #fb5607; /* Converted 1px to 0.0625rem */
+  border-radius: 0.3125rem; /* Converted 5px to 0.3125rem */
+  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1); /* Converted 2px 10px to 0.125rem 0.625rem */
+  padding: 0.625rem; /* Converted 10px to 0.625rem */
   z-index: 1001;
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-0.625rem); /* Converted 10px to 0.625rem */
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
 }
@@ -135,10 +134,10 @@
 }
 
 .loginButton {
-  margin-top: 5px;
-  width: 90px;
-  height: 40px;
-  border-radius: 40px;
+  margin-top: 0.3125rem; /* Converted 5px to 0.3125rem */
+  width: 5.625rem; /* Converted 90px to 5.625rem */
+  height: 2.5rem; /* Converted 40px to 2.5rem */
+  border-radius: 2.5rem; /* Converted 40px to 2.5rem */
   background-color: #fb5607;
   border: none;
   outline: none;
@@ -146,15 +145,15 @@
   font-size: 0.85rem;
   font-weight: 600;
   transition: all 0.4s ease;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
   color: white;
 }
 
 .adminButton {
-  margin-top: 5px;
-  width: 120px;
-  height: 40px;
-  border-radius: 40px;
+  margin-top: 0.3125rem; /* Converted 5px to 0.3125rem */
+  width: 7.5rem; /* Converted 120px to 7.5rem */
+  height: 2.5rem; /* Converted 40px to 2.5rem */
+  border-radius: 2.5rem; /* Converted 40px to 2.5rem */
   background-color: #fb5607;
   border: none;
   outline: none;
@@ -162,15 +161,15 @@
   font-size: 0.85rem;
   font-weight: 600;
   transition: all 0.4s ease;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
   color: white;
 }
 
 .userButton {
-  margin-top: 5px;
-  width: 120px;
-  height: 40px;
-  border-radius: 40px;
+  margin-top: 0.3125rem; /* Converted 5px to 0.3125rem */
+  width: 7.5rem; /* Converted 120px to 7.5rem */
+  height: 2.5rem; /* Converted 40px to 2.5rem */
+  border-radius: 2.5rem; /* Converted 40px to 2.5rem */
   background-color: #fb5607;
   border: none;
   outline: none;
@@ -178,7 +177,7 @@
   font-size: 0.85rem;
   font-weight: 600;
   transition: all 0.4s ease;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
   color: white;
 }
 

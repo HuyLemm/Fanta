@@ -2,6 +2,7 @@ npm install react-icons
 npm install react-router-dom
 npm install @react-oauth/google
 npm install react-facebook-login --legacy-peer-deps
+npm install react-youtube
 color (orange):#fb5607
 
 

@@ -6,7 +6,7 @@
   background-color: #000;
   color: #eee;
   font-family: 'Poppins', sans-serif;
-  font-size: 12px;
+  font-size: 0.75rem; /* Converted 12px to 0.75rem */
 }
 
 .homePage a {
@@ -14,10 +14,10 @@
 }
 
 .homePage header {
-  width: 1140px;
+  width: 80%;
   max-width: 80%;
   margin: auto;
-  height: 50px;
+  height: 3.125rem; /* Converted 50px to 3.125rem */
   display: flex;
   align-items: center;
   position: relative;
@@ -26,6 +26,5 @@
 
 .homePage header a {
   color: #eee;
-  margin-right: 40px;
+  margin-right: 2.5rem; /* Converted 40px to 2.5rem */
 }
-

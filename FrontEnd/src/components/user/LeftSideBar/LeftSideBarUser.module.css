@@ -1,21 +1,19 @@
 .sidebar {
-    .sidebar {
-        width: 250px; 
-        height: 100vh;
-        padding: 20px;
-        background-color: #f4f4f4;
-        border-right: 1px solid #ddd;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+    width: 15.625rem; /* Converted 250px to 15.625rem */
+    height: 100vh;
+    padding: 1.25rem; /* Converted 20px to 1.25rem */
+    background-color: #f4f4f4;
+    border-right: 0.0625rem solid #ddd; /* Converted 1px to 0.0625rem */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .btn {
     display: block;
     width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
+    margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
+    padding: 0.625rem; /* Converted 10px to 0.625rem */
     background-color: #007bff;
     color: #fff;
     border: none;
