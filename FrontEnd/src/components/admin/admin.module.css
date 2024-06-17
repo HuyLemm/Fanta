@@ -1,108 +1,31 @@
-/* General styles for the admin panel */
-.admin-features {
-    display: flex;
-    background-color: #f0f4f8;
-    min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Container for sidebar and content */
 .admin-container {
     display: flex;
-    flex: 1;
-    position: relative; /* To position the right sidebar */
+    width: 1200px; /* Adjust the width of the panel */
+    height: 600px; /* Adjust the height of the panel */
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(216, 173, 173, 0.1);
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px; /* Rounded corners for the whole panel */
     margin-top: 50px;
 }
 
-/* Sidebar styles */
-.sidebar {
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    width: 250px;
-    padding: 20px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: fixed; /* Fixed sidebar */
-    top: 0;
-    left: 0;
-}
-
-.sidebar a {
-    color: #ecf0f1;
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 5px;
-    display: block;
-}
-
-.sidebar a:hover {
-    background-color: #34495e;
-}
-
-.sidebar .logo {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.sidebar .logout {
-    margin-top: auto;
-    padding: 10px;
-    background-color: #e74c3c;
-    border-radius: 5px;
-    text-align: center;
-}
-
-.sidebar .logout a {
-    color: #ecf0f1;
-}
-
-.sidebar .logout a:hover {
-    background-color: #c0392b;
-}
-
-/* Content area styles */
 .admin-content {
     flex: 1;
     padding: 20px;
     background-color: #ecf0f1;
     overflow-y: auto;
-    margin-left: 250px; /* Offset content area to the right of the fixed sidebar */
-    margin-right: 270px; /* Offset content area to the left of the fixed right sidebar */
-    width: calc(100% - 520px); /* Adjust width according to both sidebars */
-}
-
-/* Right sidebar styles */
-.right-sidebar {
-    width: 250px;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-left: 1px solid #ddd;
-    height: 100vh;
-    position: fixed;
-    right: 0;
-    top: 0;
-}
-
-/* Header styles */
-.header {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    border-radius: 5px;
-    position: fixed; /* Fixed header */
-    top: 0;
-    left: 250px; /* Offset header to the right of the fixed sidebar */
-    width: calc(100% - 500px); /* Adjust width according to both sidebars */
-    z-index: 1; /* Ensure header is above content */
 }
+
+
+.message {
+    color: green;
+}
+
 
 .welcome-message {
     font-size: 1.5em;
@@ -131,7 +54,6 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-bottom: 20px;
     transition: transform 0.2s;
-    margin-top: 80px; /* Offset cards below the fixed header */
 }
 
 .card:hover {
@@ -239,10 +161,7 @@
 /* Fixed size for all sections */
 .section {
     width: 100%; /* Full width */
-    width: 800px; /* Fixed max width */
     margin: 0 auto; /* Center the section */
     padding: 20px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height:100%;
 }

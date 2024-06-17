@@ -33,9 +33,6 @@ const AdminFeatures = () => {
             <div className={styles['admin-container']}>
                 <div className={styles.sidebar}>
                     <LeftSidebar setCurrentFunction={setCurrentFunction} />
-                    <div className={styles.logout}>
-                        <a href="#">Logout</a>
-                    </div>
                 </div>
                 <div className={styles['admin-content']}>
                     {renderFunction()}
