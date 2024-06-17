@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './Carousel.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const Carousel = () => {
   const carouselRef = useRef(null);
   const sliderRef = useRef(null);
   const thumbnailRef = useRef(null);
+  const navigate = useNavigate();
 
   const [movies, setMovies] = useState([]);
 
@@ -64,6 +66,10 @@ const Carousel = () => {
       clearTimeout(runTimeOut);
     };
   }, []);
+  
+  const handleWatchClick = (movieId) => {
+    navigate(`/movie/${movieId}`);
+  };
 
   return (
     <div className={styles.carousel} ref={carouselRef}>
@@ -77,9 +83,7 @@ const Carousel = () => {
               <div className={styles.topic}>{movie.genre[1]}</div>
               <div className={styles.des}>{movie.description}</div>
               <div className={styles.buttons}>
-                <a href={`/movie/${movie._id}`}>
-                  <button>SEE MORE</button>
-                </a>
+                <button className={styles.more} onClick={() => handleWatchClick(movie._id)}>SEE MORE</button>
                 <button>SUBSCRIBE</button>
               </div>
             </div>
