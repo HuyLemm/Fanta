@@ -1,4 +1,5 @@
 const AccountModel = require('../models/Account');
+const ReviewModel = require('../models/Review');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
@@ -85,3 +86,17 @@ exports.getUserProfile = async (req, res) => {
     }
   };
   
+  exports.addReviews = async (req, res) => {
+    try {
+        const { movieId } = req.params;
+        const { comment } = req.body;
+        const newReview = new ReviewModel({ movie: movieId, userId: req.user._id, comment });
+        await newReview.save();
+    
+        const populatedReview = await newReview.populate('userId', 'username').execPopulate();
+        res.json(populatedReview);
+      } catch (error) {
+        console.error('Error adding review:', error); // Log lỗi chi tiết
+        res.status(500).send('Server error');
+      }
+  };

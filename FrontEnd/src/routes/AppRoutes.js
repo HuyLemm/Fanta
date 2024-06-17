@@ -9,6 +9,7 @@ import UserFeatures from '../components/user/UserFeatures';
 import MovieDetail from '../pages/MovieDetail/MovieDetail';
 import SearchResults from '../pages/SearchResults/SearchResults';
 import Categories from '../pages/Categories/Categories';
+import Streaming from '../pages/Streaming/Streaming';
 
 function AppRouter() {
   return (
@@ -18,6 +19,7 @@ function AppRouter() {
         <Route path="/movie/:id" element={<MovieDetail />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/genre/:genreName" element={<Categories />} />
+        <Route path="/streaming/:id" element={<Streaming />} />
 
 
         {/* Authentication Routes */}

@@ -4,23 +4,23 @@ const Schema = mongoose.Schema;
 
 // Define Review schema
 const ReviewSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'accounts',
-    required: true
-  },
   movie: {
     type: Schema.Types.ObjectId,
     ref: 'movies',
     required: true
   },
-  rating: {
-    type: Number,
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'accounts',
     required: true
   },
+
+  rating: {
+    type: Number,
+  },
+  
   comment: {
     type: String,
-    required: true
   },
   created_at: {
     type: Date,

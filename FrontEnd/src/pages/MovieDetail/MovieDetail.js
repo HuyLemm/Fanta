@@ -62,8 +62,8 @@ const MovieDetail = () => {
     fetchMovie();
   }, [id]);
 
-  const handleWatchClick = (movieId) => {
-    navigate(`/movie/${movieId}`);
+  const handleWatchClick = () => {
+    navigate(`/streaming/${id}`);
   };
 
   const scrollAmount = 200;
@@ -133,18 +133,18 @@ const MovieDetail = () => {
             <p className={styles.director}><strong className={styles.dir}>Director:</strong> {movie.director.join(', ')}</p>
             <p className={styles.cast}><strong className={styles.dir}>Cast: </strong>{movie.cast.join(', ')}</p>
             <p className={styles.description}>{movie.description}</p>
-            <button className={styles.watchNowButton}>Watch Now</button>
+            <button className={styles.watchNowButton} onClick={handleWatchClick}>Watch Now</button>
           </div>
         </div>
       </div>
 
-      <div className={styles.trailerSection}>
+      <span className={styles.trailerSection}>
         {trailerId ? (
           <YouTube videoId={trailerId} opts={{ width: '33%', height: '400px' }} />
         ) : (
           <div>Trailer not available</div>
         )}
-      </div>
+      </span>
 
       <div className={styles.recommendedSection}>
         <h2 className={styles.recommendedTitle}>Recommended Movies</h2>

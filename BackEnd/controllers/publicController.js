@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const GenreModel = require('../models/Genre');
 const MovieModel = require('../models/Movie');
+const ReviewModel = require('../models/Review');
 
 exports.getAllGenres = async (req, res) => {
     try {
@@ -109,5 +110,16 @@ exports.getRecommendedMovies = async (req, res) => {
     res.json(sortedMovies.slice(0, 10)); // Limit to top 10 movies
   } catch (error) {
     res.status(500).send('Server Error');
+  }
+}
+
+exports.getReviewsMovieId = async (req, res) => {
+  try {
+    const { movieId } = req.params;
+    const reviews = await ReviewModel.find({ movie: movieId }).populate('userId', 'username');
+    res.json(reviews);
+  } catch (error) {
+    console.error('Error fetching reviews:', error); // Log lỗi
+    res.status(500).send('Server error');
   }
 }
