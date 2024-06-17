@@ -33,7 +33,7 @@ const SearchResults = () => {
 
   return (
     <div className={styles.searchResultsContainer}>
-      <h2>Search Results for: "{getQuery()}"</h2>
+      <h2 className={styles.h}>Search Results for: "{getQuery()}"</h2>
       <div className={styles.moviesGrid}>
         {movies.length > 0 ? (
           movies.map((movie) => (

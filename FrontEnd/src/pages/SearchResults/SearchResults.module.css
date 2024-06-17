@@ -1,7 +1,7 @@
 /* SearchResults.module.css */
-
 .searchResultsContainer {
   padding: 20px;
+  color: white;
 }
 
 .moviesGrid {
@@ -53,4 +53,7 @@
 
 .imageContainer:hover .watchButton {
   opacity: 1;
+}
+.h {
+  color: aliceblue;
 }
