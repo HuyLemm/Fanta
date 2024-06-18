@@ -53,13 +53,8 @@
 }
 
 .categoriesButton {
-<<<<<<< HEAD
-  padding: 10px 20px;
-  font-size: 16px;
-=======
   padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
   font-size: 1rem; /* Converted 16px to 1rem */
->>>>>>> 11f4accbf4d380e36bdd648732d344695a9b7bcb
   background-color: #fb5607;
   color: #fff;
   border: none;

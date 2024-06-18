@@ -138,13 +138,13 @@ const MovieDetail = () => {
         </div>
       </div>
 
-      <span className={styles.trailerSection}>
+      <div className={styles.trailerSection}>
         {trailerId ? (
           <YouTube videoId={trailerId} opts={{ width: '23%', height: '200px' }} />
         ) : (
           <div>Trailer not available</div>
         )}
-      </span>
+      </div>
 
       <div className={styles.recommendedSection}>
         <h2 className={styles.recommendedTitle}>Recommended Movies</h2>
