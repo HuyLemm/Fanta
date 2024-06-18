@@ -1,8 +1,12 @@
+.mainSection {
+  margin-bottom: 2rem; /* Add margin to separate sections */
+}
+
 .movieDetailContainer {
   box-sizing: border-box;
   padding: 1.25rem; /* Converted 20px to 1.25rem */
-  height: 100vh;
   width: 100vw;
+  height: fit-content;
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
   color: #ffffff;
   position: relative;
@@ -114,7 +118,6 @@
 .recommendedSection {
   padding: 1.25rem; /* Converted 20px to 1.25rem */
   background-color: #111;
-  height: 20.9375rem; /* Converted 335px to 20.9375rem */
 }
 
 .recommendedTitle {
