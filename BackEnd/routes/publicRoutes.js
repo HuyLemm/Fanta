@@ -12,6 +12,8 @@ router.get('/get-movie-by-id/:id', publicController.getMovieById);
 router.get('/search-movies', publicController.searchMovies);
 router.get('/get-movies-by-genre', publicController.getMoviesByGenre);
 router.get('/get-reviews-movie-id/:movieId', publicController.getReviewsMovieId)
+router.get('/get-current-user', authMiddleware.authenticateToken, publicController.getCurrentUser);
+
 
 router.post('/get-recommended-movies', publicController.getRecommendedMovies)
 

@@ -66,6 +66,10 @@ const MovieDetail = () => {
     navigate(`/streaming/${id}`);
   };
 
+  const handleWatchClickRecommended = (movieId) => {
+    navigate(`/movie/${movieId}`);
+  };
+
   const scrollAmount = 200;
 
   const handleNextClick = (index) => {
@@ -156,7 +160,7 @@ const MovieDetail = () => {
                 <div key={recommendedMovie._id} className={styles.recommendedItem}>
                   <div className={styles.recommendedImageContainer}>
                     <img src={recommendedMovie.poster_url} alt={recommendedMovie.title} />
-                    <button className={styles.watchButton} onClick={() => handleWatchClick(recommendedMovie._id)}>Watch</button>
+                    <button className={styles.watchButton} onClick={() => handleWatchClickRecommended(recommendedMovie._id)}>Watch</button>
                   </div>
                   <div className={styles.recommendedContent}>
                     <div className={styles.recommendedItemTitle}>{recommendedMovie.title}</div>

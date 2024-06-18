@@ -75,7 +75,7 @@ exports.verifyCodeRegister = async (req, res) => {
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new AccountModel({ email, username, password: hashedPassword });
+    const user = new AccountModel({ email, username, password: hashedPassword, role: 'user', avatar: './images/user.png' });
 
     await user.save();
     delete verificationCodes[email];

@@ -88,15 +88,87 @@ exports.getUserProfile = async (req, res) => {
   
   exports.addReviews = async (req, res) => {
     try {
-        const { movieId } = req.params;
-        const { comment } = req.body;
-        const newReview = new ReviewModel({ movie: movieId, userId: req.user._id, comment });
-        await newReview.save();
-    
-        const populatedReview = await newReview.populate('userId', 'username').execPopulate();
-        res.json(populatedReview);
-      } catch (error) {
-        console.error('Error adding review:', error); // Log lỗi chi tiết
-        res.status(500).send('Server error');
-      }
+      const token = req.cookies.jwt || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
+      const decodedToken = jwt.verify(token, process.env.SESSION_SECRET);
+      const userId = decodedToken._id;
+  
+      const { movieId } = req.params;
+      const { comment } = req.body;
+      const newReview = new ReviewModel({ movie: movieId, userId, comment });
+      await newReview.save();
+  
+      const populatedReview = await newReview.populate('userId', 'username');
+      res.json(populatedReview);
+    } catch (error) {
+      console.error('Error adding review:', error); // Log lỗi chi tiết
+      res.status(500).send('Server error');
+    }
   };
+  
+
+  // Xóa bình luận
+  exports.deleteReview = async (req, res) => {
+    try {
+      const token = req.cookies.jwt || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
+      console.log('Token:', token); // Kiểm tra token
+      const decodedToken = jwt.verify(token, process.env.SESSION_SECRET);
+      const userId = decodedToken._id;
+  
+      console.log('User ID:', userId); // Kiểm tra userId
+  
+      const { reviewId } = req.params;
+      console.log('Review ID:', reviewId); // Kiểm tra reviewId
+      const review = await ReviewModel.findById(reviewId);
+  
+      if (!review) {
+        return res.status(404).send('Review not found');
+      }
+  
+      // Kiểm tra xem người dùng có phải là chủ sở hữu bình luận không
+      if (review.userId.toString() !== userId.toString()) {
+        return res.status(403).send('Forbidden');
+      }
+  
+      await ReviewModel.deleteOne({ _id: reviewId });
+      res.status(200).json({ message: 'Review deleted' });
+    } catch (error) {
+      console.error('Error deleting review:', error);
+      res.status(500).send('Server error');
+    }
+  };
+  
+  
+  
+  
+  // Chỉnh sửa bình luận
+  exports.updateReview = async (req, res) => {
+    try {
+      const token = req.cookies.jwt || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
+      const decodedToken = jwt.verify(token, process.env.SESSION_SECRET);
+      const userId = decodedToken._id;
+  
+      const { reviewId } = req.params;
+      const { comment } = req.body;
+      const review = await ReviewModel.findById(reviewId);
+  
+      if (!review) {
+        return res.status(404).send('Review not found');
+      }
+  
+      // Kiểm tra xem người dùng có phải là chủ sở hữu bình luận không
+      if (review.userId.toString() !== userId.toString()) {
+        return res.status(403).send('Forbidden');
+      }
+  
+      
+      review.comment = comment;
+      await review.save();
+  
+      const populatedReview = await review.populate('userId', 'username');
+      res.status(200).json(populatedReview);
+    } catch (error) {
+      console.error('Error updating review:', error);
+      res.status(500).send('Server error');
+    }
+  };
+  

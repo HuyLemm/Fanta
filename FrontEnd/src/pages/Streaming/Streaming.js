@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Streaming.module.css';
-import {getCookie} from '../../utils/Cookies';
+import { getCookie } from '../../utils/Cookies';
 
 const Streaming = () => {
   const { id } = useParams();
@@ -10,9 +10,30 @@ const Streaming = () => {
   const [error, setError] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editingCommentText, setEditingCommentText] = useState('');
+  const [currentUserId, setCurrentUserId] = useState(null);
   const navigate = useNavigate();
+  const token = getCookie('jwt');
 
   useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/public/get-current-user', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        setCurrentUserId(data.userId);
+      } catch (error) {
+        console.error('Error fetching current user:', error);
+      }
+    };
+
     const fetchMovie = async () => {
       try {
         const response = await fetch(`http://localhost:5000/public/get-movie-by-id/${id}`);
@@ -41,12 +62,12 @@ const Streaming = () => {
       }
     };
 
+    fetchCurrentUser();
     fetchMovie();
     fetchComments();
-  }, [id]);
+  }, [id, token]);
 
   const handleAddComment = async () => {
-    const token = getCookie('jwt');
     if (!token) {
       navigate('/login'); // Chuyển hướng đến trang đăng nhập nếu người dùng chưa đăng nhập
       return;
@@ -71,6 +92,51 @@ const Streaming = () => {
       setNewComment('');
     } catch (error) {
       console.error('Add comment error:', error);
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/user/delete-reviews/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete comment');
+      }
+
+      setComments((prevComments) => prevComments.filter(comment => comment._id !== commentId));
+    } catch (error) {
+      console.error('Delete comment error:', error);
+    }
+  };
+
+  const handleEditComment = async (commentId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/user/update-reviews/${commentId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ comment: editingCommentText })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update comment');
+      }
+
+      const updatedComment = await response.json();
+      setComments((prevComments) =>
+        prevComments.map(comment => (comment._id === commentId ? updatedComment : comment))
+      );
+      setEditingCommentId(null);
+      setEditingCommentText('');
+    } catch (error) {
+      console.error('Edit comment error:', error);
     }
   };
 
@@ -100,7 +166,29 @@ const Streaming = () => {
         {comments.length > 0 ? (
           comments.map(comment => (
             <div key={comment._id} className={styles.comment}>
-              <p><strong>{comment.userId.username}</strong>: {comment.comment}</p>
+              {editingCommentId === comment._id ? (
+                <div>
+                  <textarea
+                    value={editingCommentText}
+                    onChange={(e) => setEditingCommentText(e.target.value)}
+                  />
+                  <button onClick={() => handleEditComment(comment._id)}>Save</button>
+                  <button onClick={() => setEditingCommentId(null)}>Cancel</button>
+                </div>
+              ) : (
+                <div>
+                  <p><strong>{comment.userId.username}</strong>: {comment.comment}</p>
+                  {comment.userId._id === currentUserId && (
+                    <>
+                      <button onClick={() => {
+                        setEditingCommentId(comment._id);
+                        setEditingCommentText(comment.comment);
+                      }}>Edit</button>
+                      <button onClick={() => handleDeleteComment(comment._id)}>Delete</button>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           ))
         ) : (
