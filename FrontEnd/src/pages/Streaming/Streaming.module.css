@@ -1,55 +1,60 @@
 /* Streaming.module.css */
 .streamingContainer {
-  display: flex;
+  display:flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  height: 50rem;
+  width: 50rem;
 }
 
 .videoSection {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .streamingTitle {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
 }
 
 .streamingVideo {
   width: 100%;
-  max-width: 800px;
-  margin-bottom: 20px;
+  max-width: 80rem;
+  margin-bottom: 2rem;
 }
 
 .commentsSection {
   width: 100%;
-  max-width: 800px;
+  max-width: 80rem;
 }
 
 .comment {
-  border-top: 1px solid #ccc;
-  padding: 10px 0;
+  border-top: 0.1rem solid #ccc;
+  padding: 1rem 0;
 }
 
 .comment p {
   margin: 0;
+  color: #fb5607;
 }
 
 .addComment {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 .addComment textarea {
   width: 100%;
-  height: 100px;
-  margin-bottom: 10px;
+  height: 10rem;
+  margin-bottom: 1rem;
 }
 
 .addComment button {
   align-self: flex-start;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
 }
