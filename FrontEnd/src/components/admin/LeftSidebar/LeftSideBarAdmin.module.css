@@ -6,7 +6,6 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     border-top-left-radius: 0.625rem; /* Converted 10px to 0.625rem */
     border-bottom-left-radius: 0.625rem; /* Converted 10px to 0.625rem */

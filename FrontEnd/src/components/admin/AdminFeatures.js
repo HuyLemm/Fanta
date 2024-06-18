@@ -37,7 +37,6 @@ const AdminFeatures = () => {
                 <div className={styles['admin-content']}>
                     {renderFunction()}
                 </div>
-                <RightSidebar className={styles['right-sidebar']}/>
             </div>
         </section>
     );
