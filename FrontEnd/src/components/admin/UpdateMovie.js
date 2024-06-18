@@ -81,7 +81,7 @@ const UpdateMovie = () => {
 
     return (
         <div className={styles.section}>
-            <h2>Update Movie</h2>
+            <h2 className={styles.h2}>Update Movie</h2>
             {movieData ? (
                 <>
                     {Object.keys(movieData).map((key) => (

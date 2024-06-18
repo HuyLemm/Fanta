@@ -119,7 +119,7 @@ const EditUser = () => {
 
     return (
         <div className={styles.section}>
-            <h2>Edit Users</h2>
+            <h2 className={styles.h2}>Edit Users</h2>
             {message && <p>{message}</p>}
             {selectedUser ? (
                 <div className={styles['form-group']}>

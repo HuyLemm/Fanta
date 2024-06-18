@@ -56,7 +56,7 @@ const CreateMovie = () => {
 
     return (
         <div className={styles.section}>
-            <h2>Create Movie</h2>
+            <h2 className={styles.h2}>Create Movie</h2>
             <input
                 type="text"
                 value={movieData.title}

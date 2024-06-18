@@ -7,8 +7,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-top-left-radius: 0.625rem; /* Converted 10px to 0.625rem */
-    border-bottom-left-radius: 0.625rem; /* Converted 10px to 0.625rem */
+    border-top-left-radius: 0.925rem; /* Converted 10px to 0.625rem */
+    border-bottom-left-radius: 0.925rem; /* Converted 10px to 0.625rem */
 }
 
 .sidebar .btn {
@@ -20,7 +20,7 @@
     border: none;
     cursor: pointer;
     border-radius: 0.625rem; /* Converted 10px to 0.625rem */
-    width: 150%;
+    width: 125%;
     background: transparent;
     font-size: larger;
     transition: all 0.3s ease;

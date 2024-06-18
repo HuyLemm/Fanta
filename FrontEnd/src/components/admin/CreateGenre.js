@@ -32,7 +32,7 @@ const CreateGenre = () => {
 
     return (
         <div className={styles.section}>
-            <h2>Create Genre</h2>
+            <h2 className={styles.h2}>Create Genre</h2>
             <input
                 type="text"
                 value={genreName}

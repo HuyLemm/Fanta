@@ -130,7 +130,7 @@ const SeeProfile = () => {
 
     return (
         <div className={styles.section}>
-            <h2>Admin Profile</h2>
+            <h2 className={styles.h2}>Admin Profile</h2>
             <div className={styles['form-group']}>
                 <label>Email: </label>
                 {editField === 'email' ? (
