@@ -29,7 +29,7 @@ const GenreMovies = () => {
 
   return (
     <div className={styles.genreMoviesContainer}>
-      <h2>Movies in {genreName}</h2>
+      <h2 className={styles.h2}>Movies in {genreName}</h2>
       <div className={styles.moviesGrid}>
         {movies.length > 0 ? (
           movies.map((movie) => (

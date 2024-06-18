@@ -96,8 +96,8 @@ const Carousel = () => {
             <img src={movie.poster_url} alt={movie.title} />
             <div className={styles.content}></div>
             <div className={styles.movieInfo}>
-              <h3>{movie.title}</h3>
               <a href={`/movie/${movie._id}`}>see more</a>
+              <h3>{movie.title}</h3>
             </div>
           </div>
         ))}
