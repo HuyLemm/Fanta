@@ -17,13 +17,16 @@
     width: 100%;
     margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
     padding: 0.625rem; /* Converted 10px to 0.625rem */
-    background-color: #007bff;
     color: #fff;
     border: none;
     cursor: pointer;
     border-radius: 0.625rem; /* Converted 10px to 0.625rem */
+    width: 150%;
+    background: transparent;
+    font-size: larger;
+    transition: all 0.3s ease;
 }
 
 .sidebar .btn:hover {
-    background-color: #0056b3;
+    background-color: #457b9d;
 }
