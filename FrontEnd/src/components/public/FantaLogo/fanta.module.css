@@ -85,13 +85,13 @@
   border: none;
   color: #fff;
   cursor: pointer;
-  width: 100%;
+  width: 120%;
   text-align: left;
   transition: background-color 0.3s ease;
 }
 
-.categoriesDropdown:hover{
-  background-color: #555;
+.categoryItem:hover{
+  color: #333;
 }
 
 .userContainer {
