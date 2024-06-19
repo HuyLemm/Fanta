@@ -1,16 +1,26 @@
-.mainSection {
-  margin-bottom: 2rem; /* Add margin to separate sections */
-}
+/* MovieDetail.module.css */
 
 .movieDetailContainer {
   box-sizing: border-box;
-  padding: 1.25rem; /* Converted 20px to 1.25rem */
   width: 100vw;
-  height: fit-content;
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
   color: #ffffff;
-  position: relative;
   z-index: 0;
+  display: flex;
+  flex-direction: column; /* Ensure the sections stack vertically */
+}
+
+.mainSection {
+  position: relative; 
+  z-index: 1; 
+  height: 100vh;
+}
+
+.recommendedSection {
+  padding: 1.25rem; /* Converted 20px to 1.25rem */
+  background-color: #111;
+  position: relative; /* Ensure recommendedSection is positioned correctly */
+  z-index: 1; /* Ensure it appears above other elements if necessary */
 }
 
 .background {
@@ -115,11 +125,6 @@
 }
 
 /* Styles for recommended movies */
-.recommendedSection {
-  padding: 1.25rem; /* Converted 20px to 1.25rem */
-  background-color: #111;
-}
-
 .recommendedTitle {
   color: #fff;
   font-size: 1.5rem; /* Converted 24px to 1.5rem */
@@ -264,16 +269,4 @@ body {
   text-align: right;
   padding: 1.25rem; /* Converted 20px to 1.25rem */
   margin: 15.375rem 0.625rem; /* Converted 150px 10px to 9.375rem 0.625rem */
-}
-
-.trailerTitle {
-  font-size: 2rem; /* Converted 2em to 2rem */
-  margin-bottom: 1.25rem; /* Converted 20px to 1.25rem */
-  color: #fb5607;
-}
-
-.trailer iframe {
-  width: 100%;
-  max-width: 37.5rem; /* Converted 600px to 37.5rem */
-  height: 21.125rem; /* Converted 338px to 21.125rem */
 }

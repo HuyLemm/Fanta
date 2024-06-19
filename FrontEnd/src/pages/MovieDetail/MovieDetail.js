@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import YouTube from 'react-youtube';
+import { useParams } from 'react-router-dom';
+import MainContent from './MainContent';
+import RecommendedMovies from './RecommendedMovies';
 import styles from './MovieDetail.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -9,8 +11,8 @@ const MovieDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [recommendedMovies, setRecommendedMovies] = useState([]);
-  const navigate = useNavigate();
   const genreItemsRef = useRef([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -111,70 +113,16 @@ const MovieDetail = () => {
     return <div>No movie data found</div>;
   }
 
-  const getYouTubeId = (url) => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
-  };
-
-  const trailerId = getYouTubeId(movie.trailer_url);
-
   return (
     <div className={styles.movieDetailContainer}>
-      <section className={styles.mainSection}>
-        <div className={styles.background} style={{ backgroundImage: `url(${movie.background_url})` }}>
-          <div className={styles.overlay}></div>
-          <div className={styles.content}>
-            <img src={movie.poster_url} alt={movie.title} className={styles.poster} />
-            <div className={styles.details}>
-              <h1 className={styles.title}>{movie.title}</h1>
-              <p className={styles.meta}>
-                <span className={styles.rating}>{movie.rating}</span>
-                <span className={styles.quality}>HD</span>
-                <span className={styles.genres}>{movie.genre.join(', ')}</span>
-                <span className={styles.releaseDate}>{new Date(movie.release_date).getFullYear()}</span>
-                <span className={styles.duration}>{movie.duration} min</span>
-              </p>
-              <p className={styles.director}><strong className={styles.dir}>Director:</strong> {movie.director.join(', ')}</p>
-              <p className={styles.cast}><strong className={styles.dir}>Cast: </strong>{movie.cast.join(', ')}</p>
-              <p className={styles.description}>{movie.description}</p>
-              <button className={styles.watchNowButton} onClick={handleWatchClick}>Watch Now</button>
-            </div>
-          </div>
-        </div>
-        <div className={styles.trailerSection}>
-          {trailerId ? (
-            <YouTube videoId={trailerId} opts={{ width: '23%', height: '200px' }} />
-          ) : (
-            <div>Trailer not available</div>
-          )}
-        </div>
-      </section>
-
-      <section className={styles.recommendedSection}>
-        <h2 className={styles.recommendedTitle}>Recommended Movies</h2>
-        <div className={styles.recommendedList}>
-          <button className={styles.prevRecommended} onClick={() => handlePrevClick(0)}>&lt;</button>
-          <div className={styles.recommendedItems} ref={(el) => genreItemsRef.current[0] = el}>
-            {recommendedMovies.length > 0 ? (
-              recommendedMovies.map((recommendedMovie) => (
-                <div key={recommendedMovie._id} className={styles.recommendedItem}>
-                  <div className={styles.recommendedImageContainer}>
-                    <img src={recommendedMovie.poster_url} alt={recommendedMovie.title} />
-                    <button className={styles.watchButton} onClick={() => handleWatchClickRecommended(recommendedMovie._id)}>Watch</button>
-                  </div>
-                  <div className={styles.recommendedContent}>
-                    <div className={styles.recommendedItemTitle}>{recommendedMovie.title}</div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div>No recommended movies found</div>
-            )}
-          </div>
-          <button className={styles.nextRecommended} onClick={() => handleNextClick(0)}>&gt;</button>
-        </div>
-      </section>
+      <MainContent movie={movie} handleWatchClick={handleWatchClick} />
+      <RecommendedMovies
+        recommendedMovies={recommendedMovies}
+        genreItemsRef={genreItemsRef}
+        handleNextClick={handleNextClick}
+        handlePrevClick={handlePrevClick}
+        handleWatchClickRecommended={handleWatchClickRecommended}
+      />
     </div>
   );
 };
