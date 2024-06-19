@@ -116,7 +116,7 @@ exports.getRecommendedMovies = async (req, res) => {
 exports.getReviewsMovieId = async (req, res) => {
   try {
     const { movieId } = req.params;
-    const reviews = await ReviewModel.find({ movie: movieId }).populate('userId', 'username');
+    const reviews = await ReviewModel.find({ movie: movieId }).populate('userId', 'username avatar');
     res.json(reviews);
   } catch (error) {
     console.error('Error fetching reviews:', error); // Log lỗi

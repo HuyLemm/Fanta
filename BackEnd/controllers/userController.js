@@ -2,6 +2,8 @@ const AccountModel = require('../models/Account');
 const ReviewModel = require('../models/Review');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const path = require('path');
 const nodemailer = require('nodemailer');
 const tokenStore = require('../utils/tokenStore');
 
@@ -25,8 +27,8 @@ exports.getUserProfile = async (req, res) => {
   };
   
   
-  exports.updateUserProfile = async (req, res) => {
-    const { email, username } = req.body;
+exports.updateUserProfile = async (req, res) => {
+    const { email, username, avatar } = req.body;
     try {
         const token = req.cookies.jwt || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
         if (!token) return res.status(401).json({ message: 'No token, authorization denied' });
@@ -37,6 +39,7 @@ exports.getUserProfile = async (req, res) => {
         const updates = {};
         if (email) updates.email = email;
         if (username) updates.username = username;
+        if (avatar) updates.avatar = avatar;
   
         const updatedProfile = await AccountModel.findByIdAndUpdate(
             userId,
@@ -97,7 +100,7 @@ exports.getUserProfile = async (req, res) => {
       const newReview = new ReviewModel({ movie: movieId, userId, comment });
       await newReview.save();
   
-      const populatedReview = await newReview.populate('userId', 'username');
+      const populatedReview = await newReview.populate('userId', 'username avatar');
       res.json(populatedReview);
     } catch (error) {
       console.error('Error adding review:', error); // Log lỗi chi tiết
@@ -110,14 +113,9 @@ exports.getUserProfile = async (req, res) => {
   exports.deleteReview = async (req, res) => {
     try {
       const token = req.cookies.jwt || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
-      console.log('Token:', token); // Kiểm tra token
       const decodedToken = jwt.verify(token, process.env.SESSION_SECRET);
       const userId = decodedToken._id;
-  
-      console.log('User ID:', userId); // Kiểm tra userId
-  
       const { reviewId } = req.params;
-      console.log('Review ID:', reviewId); // Kiểm tra reviewId
       const review = await ReviewModel.findById(reviewId);
   
       if (!review) {
@@ -172,3 +170,4 @@ exports.getUserProfile = async (req, res) => {
     }
   };
   
+

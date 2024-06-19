@@ -57,6 +57,7 @@ const FantaLogo = () => {
           checking: false,
           loggedIn: false,
           role: null,
+          avatar: null,
         });
         navigate('/');
       } else {
@@ -118,11 +119,17 @@ const FantaLogo = () => {
       );
     }
 
+    const handleImageError = (event) => {
+      event.target.src = userIcon; // Sử dụng hình ảnh mặc định nếu avatar không tải được
+    };
+
+    const userAvatar = authStatus.avatar || userIcon;
+
     if (authStatus.role === 'admin') {
       return (
         <div className={styles.userContainer} ref={dropdownRef}>
           <div className={styles.userIcon} onClick={toggleDropdown}>
-            <img src={adminIcon} alt="Admin Icon" className={styles.adminpic} />
+            <img src={adminIcon} alt="Admin Icon" className={styles.adminpic} onError={handleImageError} />
           </div>
           <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
             <button onClick={handleAdminClick} className={styles.adminButton}>Admin Panel</button>
@@ -136,7 +143,7 @@ const FantaLogo = () => {
       return (
         <div className={styles.userContainer} ref={dropdownRef}>
           <div className={styles.userIcon} onClick={toggleDropdown}>
-            <img src={userIcon} alt="User Icon" />
+            <img src={userAvatar} alt="User Icon" onError={handleImageError} />
           </div>
           <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
             <button onClick={handleUserClick} className={styles.userButton}>User Profile</button>

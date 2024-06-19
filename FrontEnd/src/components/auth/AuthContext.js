@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
     checking: true,
     loggedIn: false,
     role: null,
+    avatar: null,
   });
 
   useEffect(() => {
@@ -17,10 +18,18 @@ export const AuthProvider = ({ children }) => {
         checking: false,
         loggedIn: status.loggedIn,
         role: status.role,
+        avatar: status.avatar,
       });
     };
 
+    // Gọi hàm fetchLoginStatus ngay khi component mount
     fetchLoginStatus();
+
+    // Thiết lập polling để kiểm tra trạng thái mỗi 5 giây
+    const intervalId = setInterval(fetchLoginStatus, 5000);
+
+    // Dọn dẹp interval khi component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   return (

@@ -19,7 +19,11 @@ router.post('/get-recommended-movies', publicController.getRecommendedMovies)
 
 
 router.get('/check-role', authMiddleware.authenticateToken, (req, res) => {
-    res.json({ role: req.user.role });
+    const user = {
+        role: req.user.role,
+        avatar: req.user.avatar
+    }
+    res.json(user);
 });
   
 

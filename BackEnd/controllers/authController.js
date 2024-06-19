@@ -80,7 +80,7 @@ exports.verifyCodeRegister = async (req, res) => {
     await user.save();
     delete verificationCodes[email];
 
-    const token = jwt.sign({_id: user._id, role: user.role}, process.env.SESSION_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({_id: user._id, role: user.role, avatar: user.avatar}, process.env.SESSION_SECRET, { expiresIn: '1d' });
     tokenStore.addToken(token);
     res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
 
@@ -155,7 +155,7 @@ exports.login = async (req, res) => {
       return res.status(400).json('Wrong password');
     }
      
-    const token = jwt.sign({_id: user._id, role: user.role}, process.env.SESSION_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({_id: user._id, role: user.role, avatar: user.avatar}, process.env.SESSION_SECRET, { expiresIn: '1d' });
     
     tokenStore.addToken(token);
     

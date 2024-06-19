@@ -20,7 +20,8 @@ const corsOptions = {
   origin: 'http://localhost:3000', // URL frontend của bạn
   credentials: true, // Cho phép gửi cookie
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-  allowedHeaders: ['Content-Type', 'Authorization'] 
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 204
 };
 
 // Connect to database

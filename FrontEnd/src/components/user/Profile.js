@@ -6,7 +6,8 @@ const SeeProfile = () => {
     const [profile, setProfile] = useState({
         email: '',
         username: '',
-        password: ''
+        password: '',
+        avatar: ''
     });
     const [passwords, setPasswords] = useState({
         currentPassword: '',
@@ -46,7 +47,7 @@ const SeeProfile = () => {
     const handleUpdate = async (field, value) => {
         try {
             const token = getCookie('jwt');
-            const response = await fetch('http://localhost:5000/user/update-profile', {
+            const response = await fetch(`http://localhost:5000/user/update-profile`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -208,6 +209,28 @@ const SeeProfile = () => {
                     <>
                         <span>********</span>
                         <button onClick={() => setEditField('password')} className={styles.btn}>Update</button>
+                    </>
+                )}
+            </div>
+            <div className={styles['form-group']}>
+                <label>Avatar: </label>
+                {editField === 'avatar' ? (
+                    <>
+                        <input
+                            type="text"
+                            name="avatar"
+                            value={profile.avatar}
+                            onChange={handleFieldChange}
+                            placeholder="Enter avatar URL"
+                            className={styles.inputField}
+                        />
+                        <button onClick={() => handleUpdate('avatar', profile.avatar)} className={styles.btn}>Confirm</button>
+                        <button onClick={handleCancel} className={styles.btn}>Cancel</button>
+                    </>
+                ) : (
+                    <>
+                        <img src={profile.avatar} alt="Avatar" className={styles.avatar} />
+                        <button onClick={() => setEditField('avatar')} className={styles.btn}>Update</button>
                     </>
                 )}
             </div>

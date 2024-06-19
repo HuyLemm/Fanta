@@ -177,7 +177,10 @@ const Streaming = () => {
                 </div>
               ) : (
                 <div>
-                  <p><strong>{comment.userId.username}</strong>: {comment.comment}</p>
+                  <p>
+                    <img src={comment.userId.avatar} alt={`${comment.userId.username}'s avatar`} className={styles.avatar} />
+                    <strong>{comment.userId.username}</strong>: {comment.comment}
+                  </p>
                   {comment.userId._id === currentUserId && (
                     <>
                       <button onClick={() => {

@@ -38,11 +38,13 @@ function getCookie(cname) {
         return {
           loggedIn: true,
           role: data.role,
+          avatar: data.avatar, // Add avatar to the response
         };
       } else {
         return {
           loggedIn: false,
           role: null,
+          avatar: null,
         };
       }
     } catch (error) {
@@ -50,9 +52,11 @@ function getCookie(cname) {
       return {
         loggedIn: false,
         role: null,
+        avatar: null,
       };
     }
   };
+  
 
   
   export { setCookie, getCookie, checkLoginStatus}
