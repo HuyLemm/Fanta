@@ -161,6 +161,16 @@ const FantaLogo = () => {
     }
   };
 
+  const renderGenresInColumns = (genres, genresPerColumn) => {
+    const columns = [];
+    for (let i = 0; i < genres.length; i += genresPerColumn) {
+      columns.push(genres.slice(i, i + genresPerColumn));
+    }
+    return columns;
+  };
+
+  const genresColumns = renderGenresInColumns(genres, 5);
+
   return (
     <header className={styles.header}>
       <a href="/">
@@ -193,15 +203,19 @@ const FantaLogo = () => {
             onMouseEnter={() => setShowCategories(true)}
             onMouseLeave={() => setShowCategories(false)}
           >
-            {genres.map((genre) => (
-              <button
-                key={genre._id}
-                className={styles.categoryItem}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => handleCategoryClick(genre)}
-              >
-                {genre.name}
-              </button>
+            {genresColumns.map((column, index) => (
+              <div key={index} className={styles.categoryColumn}>
+                {column.map((genre) => (
+                  <button
+                    key={genre._id}
+                    className={styles.categoryItem}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => handleCategoryClick(genre)}
+                  >
+                    {genre.name}
+                  </button>
+                ))}
+              </div>
             ))}
           </div>
         )}

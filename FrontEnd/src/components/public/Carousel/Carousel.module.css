@@ -59,10 +59,10 @@
 
 .list .item .buttons button {
   border: none;
-  background-color: #eee;
   letter-spacing: 0.1875rem; /* Converted 3px to 0.1875rem */
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
+  cursor: pointer;
 }
 
 .list .item .buttons button:nth-child(2) {
@@ -129,6 +129,7 @@
   border-radius: 1.25rem; /* Converted 20px to 1.25rem */
   display: flex;
   flex-direction: column-reverse;
+  justify-content: space-between;
 }
 
 
@@ -350,9 +351,10 @@
 
 .more{
   display: flex;
-  background: transparent;
   background-color: #fb5607;
   border: 0.0625rem solid #fb5607; /* Converted 1px to 0.0625rem */
-  color: black;
+  color: white;
   padding: 0.07rem 1.9rem;
+  cursor: pointer;
+  display: flex;
 }
