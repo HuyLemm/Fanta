@@ -1,3 +1,7 @@
+.h2{
+    color: white;
+}
+
 .user-features {
     width: 100%;
     height: 100vh;
@@ -5,15 +9,20 @@
     flex-direction: column;
     align-items: center;
     padding: 1.25rem; /* Converted 20px to 1.25rem */
-    background-color: #f9f9f9;
 }
 
 .user-container {
     display: flex;
-    width: 100%;
-    height: 100%;
-    margin-top: 4.375rem; /* Converted 70px to 4.375rem */
-    width: 70vw;
+    width: 95rem; /* Converted 1200px to 75rem */
+    height: 47.5rem; /* Converted 600px to 37.5rem */
+    background: transparent;
+    box-shadow: 0 0.125rem 0.625rem rgba(216, 173, 173, 0.1); /* Converted 2px 10px to 0.125rem 0.625rem */
+    overflow: hidden;
+    position: relative;
+    border-radius: 0.625rem; /* Converted 10px to 0.625rem */
+    margin-top: 3.125rem; /* Converted 50px to 3.125rem */
+    backdrop-filter: blur(1rem);
+    border: 0.1rem solid white;
 }
 
 .user-content {
@@ -24,14 +33,38 @@
     overflow-y: auto;
     width: 43.75rem; /* Converted 700px to 43.75rem */
     height: 37.5rem; /* Converted 600px to 37.5rem */
+    color: white;
 }
 
 .sidebar {
     flex-grow: 1;
     width: 15.625rem; /* Converted 250px to 15.625rem */
     padding: 1.25rem; /* Converted 20px to 1.25rem */
-    background-color: #f4f4f4;
-    border: 0.0625rem solid #ddd; /* Converted 1px to 0.0625rem */
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top-left-radius: 0.625rem; /* Converted 10px to 0.625rem */
+    border-bottom-left-radius: 0.625rem; /* Converted 10px to 0.625rem */
+}
+
+.sidebar .btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
+    padding: 0.625rem; /* Converted 10px to 0.625rem */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.625rem; /* Converted 10px to 0.625rem */
+    background: transparent;
+    font-size: larger;
+    transition: all 0.3s ease;
+}
+
+.sidebar .btn:hover {
+    background-color: #457b9d;
 }
 
 .section {

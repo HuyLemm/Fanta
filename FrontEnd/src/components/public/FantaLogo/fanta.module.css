@@ -78,7 +78,6 @@
   border-radius: 0.3125rem; /* Converted 5px to 0.3125rem */
   z-index: 1001;
   display: flex;
-  flex-wrap: wrap;
 }
 
 .categoryColumn {

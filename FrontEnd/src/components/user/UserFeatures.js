@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import styles from './user.module.css';
 import LeftSidebar from './LeftSideBar/LeftSideBarUser';
-import RightSidebar from '../public/RightSidebar/RightSidebar';
 import SeeProfile from './Profile';
 
-const AdminFeatures = () => {
+const UserFeatures = () => {
     const [currentFunction, setCurrentFunction] = useState('');
 
     const renderFunction = () => {
@@ -23,10 +22,9 @@ const AdminFeatures = () => {
                 <div className={styles['user-content']}>
                     {renderFunction()}
                 </div>
-                <RightSidebar />
             </div>
         </section>
     );
 };
 
-export default AdminFeatures;
+export default UserFeatures;
