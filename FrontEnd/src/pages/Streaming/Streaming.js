@@ -13,6 +13,8 @@ const Streaming = () => {
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editingCommentText, setEditingCommentText] = useState('');
   const [currentUserId, setCurrentUserId] = useState(null);
+  const [rating, setRating] = useState(0);
+  const [userRating, setUserRating] = useState(0);
   const navigate = useNavigate();
   const token = getCookie('jwt');
 
@@ -62,10 +64,26 @@ const Streaming = () => {
       }
     };
 
+    const fetchUserRating = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/public/get-rating/${id}`);
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        const userRate = data.find(rating => rating.userId._id === currentUserId);
+        setUserRating(userRate ? userRate.rating : 0);
+      } catch (error) {
+        console.error('Fetch rating error:', error);
+      }
+    };
+
     fetchCurrentUser();
     fetchMovie();
     fetchComments();
-  }, [id, token]);
+    fetchUserRating();
+  }, [id, token, currentUserId]);
 
   const handleAddComment = async () => {
     if (!token) {
@@ -140,6 +158,33 @@ const Streaming = () => {
     }
   };
 
+  const handleRatingClick = async (ratingValue) => {
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/user/add-and-update-rating/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ rating: ratingValue })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add rating');
+      }
+
+      const newRating = await response.json();
+      setUserRating(newRating.rating);
+    } catch (error) {
+      console.error('Add rating error:', error);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -160,6 +205,20 @@ const Streaming = () => {
           <source src={movie.streaming_url} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+      </div>
+      <div className={styles.ratingSection}>
+        <h2>Rate this movie</h2>
+        <div className={styles.stars}>
+          {[...Array(10)].map((_, index) => (
+            <span
+              key={index}
+              className={index < userRating ? styles.starFilled : styles.star}
+              onClick={() => handleRatingClick(index + 1)}
+            >
+              ★
+            </span>
+          ))}
+        </div>
       </div>
       <div className={styles.commentsSection}>
         <h2>Comments</h2>

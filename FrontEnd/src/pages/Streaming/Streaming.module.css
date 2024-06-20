@@ -26,6 +26,10 @@
   margin-bottom: 2rem;
 }
 
+.ratingSection {
+  margin: 20px 0;
+}
+
 .commentsSection {
   width: 100%;
   max-width: 80rem;
@@ -65,4 +69,19 @@
   border-radius: 50%;
   margin-right: 10px;
   vertical-align: middle;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+}
+
+.star, .starFilled {
+  cursor: pointer;
+  font-size: 2rem;
+  color: #ccc;
+}
+
+.starFilled {
+  color: gold;
 }

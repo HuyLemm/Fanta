@@ -1,9 +1,8 @@
 const AccountModel = require('../models/Account');
 const ReviewModel = require('../models/Review');
+const RatingModel = require('../models/Rating');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const multer = require('multer');
-const path = require('path');
 const nodemailer = require('nodemailer');
 const tokenStore = require('../utils/tokenStore');
 
@@ -170,4 +169,23 @@ exports.updateUserProfile = async (req, res) => {
     }
   };
   
+exports.addOrupdateRating = async (req, res) => {
+  const { rating } = req.body;
+  const userId = req.user._id;
+  const { movieId } = req.params;
 
+  try {
+    let userRating = await RatingModel.findOne({ userId, movieId });
+    if (userRating) {
+      
+      userRating.rating = rating;
+      await userRating.save();
+    } else {
+      userRating = new RatingModel({ userId, movieId, rating });
+      await userRating.save();
+    }
+    res.status(200).json(userRating);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}

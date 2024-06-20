@@ -3,6 +3,7 @@ const router = express.Router();
 const GenreModel = require('../models/Genre');
 const MovieModel = require('../models/Movie');
 const ReviewModel = require('../models/Review');
+const RatingModel = require('../models/Rating');
 
 exports.getAllGenres = async (req, res) => {
     try {
@@ -134,3 +135,32 @@ exports.getCurrentUser = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+exports.getRating = async (req, res) => {
+  const { movieId } = req.params;
+
+  try {
+    const ratings = await RatingModel.find({ movieId }).populate('userId', 'username avatar');
+    res.status(200).json(ratings);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+exports.getAverageRatings =   async (req, res) => { 
+  const { movieId } = req.params;
+
+  try {
+    const ratings = await RatingModel.find({ movieId });
+    if (ratings.length === 0) {
+      return res.status(200).json({ averageRating: 0, numberOfRatings: 0 });
+    }
+
+    const totalRating = ratings.reduce((sum, rating) => sum + rating.rating, 0);
+    const averageRating = totalRating / ratings.length;
+
+    res.status(200).json({ averageRating, numberOfRatings: ratings.length });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}

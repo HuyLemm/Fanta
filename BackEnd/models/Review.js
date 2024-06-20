@@ -14,10 +14,6 @@ const ReviewSchema = new Schema({
     ref: 'accounts',
     required: true
   },
-
-  rating: {
-    type: Number,
-  },
   
   comment: {
     type: String,

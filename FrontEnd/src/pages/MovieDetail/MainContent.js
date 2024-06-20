@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 import { useNavigate } from 'react-router-dom';
 import styles from './MovieDetail.module.css';
 
 const MainContent = ({ movie, handleWatchClick }) => {
   const navigate = useNavigate();
+  const [averageRating, setAverageRating] = useState(0);
+  const [numberOfRatings, setNumberOfRatings] = useState(0);
+
+  useEffect(() => {
+    const fetchAverageRating = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/public/get-average-rating/${movie._id}`);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        setAverageRating(data.averageRating);
+        setNumberOfRatings(data.numberOfRatings);
+      } catch (error) {
+        console.error('Fetch average rating error:', error);
+      }
+    };
+
+    fetchAverageRating();
+  }, [movie._id]);
 
   const getYouTubeId = (url) => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -41,6 +61,13 @@ const MainContent = ({ movie, handleWatchClick }) => {
           <YouTube videoId={trailerId} opts={{ width: '23%', height: '200px' }} />
         ) : (
           <div>Trailer not available</div>
+        )}
+      </div>
+      <div className={styles.ratingSection}>
+        {numberOfRatings > 0 ? (
+          <p className={styles.averageRating}>Điểm: {averageRating.toFixed(1)}/10 ({numberOfRatings} đã đánh giá)</p>
+        ) : (
+          <p className={styles.averageRating}>Chưa có đánh giá</p>
         )}
       </div>
     </section>

@@ -10,6 +10,7 @@ router.put('/update-password', authMiddleware.isUser, userController.updateUserP
 router.put('/update-reviews/:reviewId', authMiddleware.authenticateToken,authMiddleware.isUser, userController.updateReview);
 
 router.post('/add-reviews/:movieId', authMiddleware.authenticateToken,authMiddleware.isUser, userController.addReviews);
+router.post('/add-and-update-rating/:movieId', authMiddleware.authenticateToken,authMiddleware.isUser, userController.addOrupdateRating);
 
 router.delete('/delete-reviews/:reviewId', authMiddleware.authenticateToken,authMiddleware.isUser, userController.deleteReview);
 
