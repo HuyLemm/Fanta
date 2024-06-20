@@ -1,6 +1,12 @@
 .footer {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: #fb5607;
   text-align: center;
   padding: 0.625rem; /* Converted 10px to 0.625rem */
   width: 100%;
 }
+
+.more{
+  text-decoration: none;
+  color: #264653;
+}
+
