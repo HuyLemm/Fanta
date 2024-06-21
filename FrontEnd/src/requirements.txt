@@ -3,6 +3,7 @@ npm install react-router-dom
 npm install @react-oauth/google
 npm install react-facebook-login --legacy-peer-deps
 npm install react-youtube
+npm install moment --force
 color (orange):#fb5607
 
 Color reference: https://coolors.co/palettes/trending

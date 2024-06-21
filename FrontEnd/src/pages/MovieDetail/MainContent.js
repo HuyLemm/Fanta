@@ -65,7 +65,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
       </div>
       <div className={styles.ratingSection}>
         {numberOfRatings > 0 ? (
-          <p className={styles.averageRating}>Điểm: {averageRating.toFixed(1)}/10 ({numberOfRatings} đã đánh giá)</p>
+          <p className={styles.averageRating}>Điểm: {averageRating.toFixed(1)}/5.0 ({numberOfRatings} đã đánh giá)</p>
         ) : (
           <p className={styles.averageRating}>Chưa có đánh giá</p>
         )}

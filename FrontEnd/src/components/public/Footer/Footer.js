@@ -5,7 +5,7 @@ const Footer = () => {
   return (
         <footer className={styles.footer}>
             <div>
-                copyright &#169; 2024 Huy Lemm/Paoi/Ethan Nguyen/Ekusos. All Rights Reserved
+                Copyright &#169; 2024 Alvin♥Paoi/Ethan Nguyen/Ekusos. All Rights Reserved
             </div>
             <div className={styles.up}>
               <a href="/" className={styles.more}>

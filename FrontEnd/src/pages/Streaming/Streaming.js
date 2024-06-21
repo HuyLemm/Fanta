@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Streaming.module.css';
 import { getCookie } from '../../utils/Cookies';
+import moment from 'moment';
 
 const Streaming = () => {
   const { id } = useParams();
@@ -87,7 +88,7 @@ const Streaming = () => {
 
   const handleAddComment = async () => {
     if (!token) {
-      navigate('/login'); // Chuyển hướng đến trang đăng nhập nếu người dùng chưa đăng nhập
+      navigate('/login');
       return;
     }
 
@@ -199,17 +200,25 @@ const Streaming = () => {
 
   return (
     <div className={styles.streamingContainer}>
-      <div className={styles.videoSection}>
-        <h1 className={styles.streamingTitle}>{movie.title}</h1>
-        <video className={styles.streamingVideo} controls>
-          <source src={movie.streaming_url} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+      <div className={styles.header}>
+        <h1>{movie.title}</h1>
+      </div>
+      <div className={styles.mainContent}>
+        <div className={styles.videoSection}>
+          <video className={styles.streamingVideo} controls>
+            <source src={movie.streaming_url} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div className={styles.episodesSection}>
+          <h2>Episodes</h2>
+          {/* Add your episodes list here */}
+        </div>
       </div>
       <div className={styles.ratingSection}>
         <h2>Rate this movie</h2>
         <div className={styles.stars}>
-          {[...Array(10)].map((_, index) => (
+          {[...Array(5)].map((_, index) => (
             <span
               key={index}
               className={index < userRating ? styles.starFilled : styles.star}
@@ -238,7 +247,7 @@ const Streaming = () => {
                 <div>
                   <p>
                     <img src={comment.userId.avatar} alt={`${comment.userId.username}'s avatar`} className={styles.avatar} />
-                    <strong>{comment.userId.username}</strong>: {comment.comment}
+                    <strong>{comment.userId.username}</strong>: {comment.comment} <span className={styles.time}>{moment(comment.created_at).fromNow()}</span>
                   </p>
                   {comment.userId._id === currentUserId && (
                     <>
