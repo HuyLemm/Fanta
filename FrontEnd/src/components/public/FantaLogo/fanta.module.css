@@ -32,10 +32,11 @@
   outline: none;
   background: transparent;
   backdrop-filter: blur(0.3rem);
+  color: #fff;
 }
 
 .searchInput::placeholder{
-  color:#333;
+  color:white;
   opacity:1;
 }
 

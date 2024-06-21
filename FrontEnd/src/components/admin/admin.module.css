@@ -1,152 +1,120 @@
 .h2 {
-    color: white; 
- }
- 
- .admin-container {
-     display: flex;
-     width: 95rem; 
-     height: 47.5rem; 
-     background: transparent;
-     box-shadow: 0 0.125rem 0.625rem rgba(216, 173, 173, 0.1);
-     overflow: hidden;
-     position: relative;
-     border-radius: 0.625rem; 
-     margin-top: 3.125rem; 
- }
- 
- .admin-content {
-     flex: 1;
-     padding: 1.25rem; 
-     overflow-y: auto;
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
-     backdrop-filter: blur(10rem);
-     border: 0.1rem black solid;
-     border-top-right-radius: 0.925rem;
-     border-bottom-right-radius: 0.925rem;
-     color: white;
- }
- 
- /* Card styles */
- .card {
-     background-color: #fff;
-     padding: 1.25rem; 
-     border-radius: 0.625rem; 
-     box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1);
-     margin-bottom: 1.25rem; 
-     transition: transform 0.2s;
- }
- 
- .card:hover {
-     transform: translateY(-0.3125rem); 
- }
- 
- .card h2 {
-     margin-bottom: 0.625rem; 
-     font-size: 1.2rem;
-     color: #2c3e50;
- }
- 
- .card p {
-     margin-bottom: 0.625rem; 
-     color: #7f8c8d;
- }
- 
- /* Input field styles */
- .inputField {
-     width: 100%;
-     padding: 0.625rem; 
-     margin-bottom: 1.25rem; 
-     border: 0.0625rem solid #ccc; 
-     border-radius: 0.25rem; 
-     font-size: 1rem; 
- }
- 
- /* Button styles */
- .btn {
-     padding: 0.625rem 1.25rem; 
-     border: none;
-     border-radius: 0.25rem; 
-     background-color: #3498db;
-     color: white;
-     cursor: pointer;
-     margin: 0.625rem; 
-     transition: background-color 0.2s;
-     font-size: small;
- }
- 
- .btn:hover {
-     background-color: #2980b9;
- }
- 
- /* Message styles */
- .message {
-     margin-top: 1.25rem; 
-     color: #e74c3c;
- }
- 
- /* Specific styles for form groups */
- .form-group {
-     margin-bottom: 1.25rem; 
- }
- 
- /* Additional styles for images */
- .imagePreview {
-     width: 100%;
-     max-width: 12.5rem; 
-     margin-bottom: 0.625rem; 
- }
- 
- /* General table styles */
- .table {
-     width: 100%;
-     border-collapse: collapse;
-     margin-bottom: 1.25rem; 
-     margin-top: 1.25rem;
-     background-color: #fff;
-     box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1); 
-     border-radius: 0.3125rem; 
-     overflow: hidden;
-     color: black;
- }
- 
- .table th, .table td {
-     padding: 0.625rem; 
-     text-align: left;
-     border-bottom: 0.0625rem solid #ddd; 
-     white-space: nowrap;
-     overflow: hidden;
-     text-overflow: ellipsis;
- }
- 
- .table th {
-     background-color: #2c3e50;
-     color: #ecf0f1;
- }
- 
- .table td {
-     background-color: #f9f9f9;
- }
- 
- .table th, .table td {
-     width: 9.375rem; 
- }
- 
- .table-container {
-     overflow-x: auto;
- }
- 
- .table .fixed-width {
-     width: 9.375rem; 
- }
- 
- .section {
-     width: 100%;
-     margin: 0 auto;
-     padding: 1.25rem; 
-     height: 100%;
-     background: transparent;
- }
- 
+    color: white;
+}
+
+.admin-container {
+    display: flex;
+    width: 95rem;
+    height: 47.5rem;
+    background: transparent;
+    box-shadow: 0 0.125rem 0.625rem rgba(216, 173, 173, 0.1);
+    overflow: hidden;
+    position: relative;
+    border-radius: 0.625rem;
+    margin-top: 3.125rem;
+}
+
+.admin-content {
+    flex: 1;
+    padding: 1.25rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10rem);
+    border: 0.1rem black solid;
+    border-top-right-radius: 0.925rem;
+    border-bottom-right-radius: 0.925rem;
+    color: white;
+}
+
+/* Input field styles */
+.inputField {
+    width: 100%;
+    padding: 0.625rem;
+    margin-bottom: 1.25rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+}
+
+/* Button styles */
+.btn {
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    margin: 0.625rem;
+    transition: background-color 0.2s;
+    font-size: small;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+}
+
+.section {
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.25rem;
+    height: 100%;
+    background: transparent;
+}
+
+/* Additional styles for images */
+.imagePreview {
+    width: 100%;
+    max-width: 12.5rem;
+    margin-bottom: 0.625rem;
+}
+
+/* General table styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.25rem;
+    margin-top: 1.25rem;
+    background-color: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1);
+    border-radius: 0.3125rem;
+    overflow: hidden;
+    color: black;
+}
+
+.table th, .table td {
+    padding: 0.625rem;
+    text-align: left;
+    border-bottom: 0.0625rem solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table th {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.table td {
+    background-color: #f9f9f9;
+}
+
+.table th, .table td {
+    width: 9.375rem;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.table .fixed-width {
+    width: 9.375rem;
+}
+
+/* Specific styles for form groups */
+.form-group {
+    margin-bottom: 1.25rem;
+}
