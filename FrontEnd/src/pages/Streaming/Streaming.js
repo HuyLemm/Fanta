@@ -14,7 +14,6 @@ const Streaming = () => {
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editingCommentText, setEditingCommentText] = useState('');
   const [currentUserId, setCurrentUserId] = useState(null);
-  const [rating, setRating] = useState(0);
   const [userRating, setUserRating] = useState(0);
   const navigate = useNavigate();
   const token = getCookie('jwt');
