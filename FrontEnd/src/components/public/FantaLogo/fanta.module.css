@@ -30,6 +30,13 @@
   border: 0.0625rem solid #ccc; /* Converted 1px to 0.0625rem */
   border-radius: 0.3125rem 0 0 0.3125rem; /* Converted 5px to 0.3125rem */
   outline: none;
+  background: transparent;
+  backdrop-filter: blur(0.3rem);
+}
+
+.searchInput::placeholder{
+  color:#333;
+  opacity:1;
 }
 
 .searchButton {
