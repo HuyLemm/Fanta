@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Streaming.module.css';
 import { getCookie } from '../../utils/Cookies';
 import moment from 'moment';
+import Footer from '../../components/public/Footer/Footer';
 
 const Streaming = () => {
   const { id } = useParams();

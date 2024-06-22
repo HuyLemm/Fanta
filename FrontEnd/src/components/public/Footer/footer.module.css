@@ -1,8 +1,9 @@
 .footer {
-  background-color: #fb5607;
+  background-color: #bb3e03;
   text-align: center;
   padding: 0.625rem; /* Converted 10px to 0.625rem */
   width: 100%;
+  color: aliceblue;
 }
 
 .more{

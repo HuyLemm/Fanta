@@ -79,7 +79,7 @@
   position: absolute;
   top: 2.5rem; /* Converted 40px to 2.5rem */
   left: 0;
-  background-color: #fb5607;
+  background-color: #f48c06;
   color: #fff;
   padding: 0.625rem; /* Converted 10px to 0.625rem */
   box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.3); /* Converted 2px 10px to 0.125rem 0.625rem */
@@ -103,10 +103,14 @@
   cursor: pointer;
   text-align: left;
   transition: background-color 0.3s ease;
+  width: 110%;
+  height: 110%;
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
 }
 
 .categoryItem:hover {
-  color: #333;
+  background-color: #fb5607;
 }
 
 .userContainer {
@@ -123,6 +127,7 @@
 .userIcon img {
   width: 2.5rem; /* Converted 40px to 2.5rem */
   height: 2.5rem; /* Converted 40px to 2.5rem */
+  border-radius: 2rem;
 }
 
 .dropdown {

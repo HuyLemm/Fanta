@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SearchResults.module.css';
+import Footer from '../../components/public/Footer/Footer';
 
 const SearchResults = () => {
   const [movies, setMovies] = useState([]);
