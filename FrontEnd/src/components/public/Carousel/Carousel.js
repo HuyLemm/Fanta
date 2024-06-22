@@ -76,7 +76,8 @@ const Carousel = () => {
       <div className={styles.list} ref={sliderRef}>
         {movies.map((movie, index) => (
           <div className={styles.item} key={index}>
-            <img src={movie.background_url} alt={movie.title} />
+            <div className={styles.overlay}></div>
+            <img src={movie.background_url} alt={movie.title} className={styles.img}/>
             <div className={styles.content}>
               <div className={styles.author}>{movie.director}</div>
               <div className={styles.title}>{movie.title}</div>

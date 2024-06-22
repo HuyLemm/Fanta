@@ -4,6 +4,7 @@ import MainContent from './MainContent';
 import RecommendedMovies from './RecommendedMovies';
 import styles from './MovieDetail.module.css';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../../components/public/Footer/Footer';
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -123,6 +124,7 @@ const MovieDetail = () => {
         handlePrevClick={handlePrevClick}
         handleWatchClickRecommended={handleWatchClickRecommended}
       />
+      <Footer/>
     </div>
   );
 };

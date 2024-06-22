@@ -43,7 +43,11 @@ const MainContent = ({ movie, handleWatchClick }) => {
           <div className={styles.details}>
             <h1 className={styles.title}>{movie.title}</h1>
             <p className={styles.meta}>
-              <span className={styles.rating}>{movie.rating}</span>
+              <span className={styles.rating}>{numberOfRatings > 0 ? (
+              <p className={styles.averageRating}>Rating: {averageRating.toFixed(1)}/5.0 ({numberOfRatings} rated)</p>
+              ) : (
+              <p className={styles.averageRating}>Unrated</p>
+              )}</span>
               <span className={styles.quality}>HD</span>
               <span className={styles.genres}>{movie.genre.join(', ')}</span>
               <span className={styles.releaseDate}>{new Date(movie.release_date).getFullYear()}</span>
@@ -61,13 +65,6 @@ const MainContent = ({ movie, handleWatchClick }) => {
           <YouTube videoId={trailerId} opts={{ width: '23%', height: '200px' }} />
         ) : (
           <div>Trailer not available</div>
-        )}
-      </div>
-      <div className={styles.ratingSection}>
-        {numberOfRatings > 0 ? (
-          <p className={styles.averageRating}>Điểm: {averageRating.toFixed(1)}/5.0 ({numberOfRatings} đã đánh giá)</p>
-        ) : (
-          <p className={styles.averageRating}>Chưa có đánh giá</p>
         )}
       </div>
     </section>
