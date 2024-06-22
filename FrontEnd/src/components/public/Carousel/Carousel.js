@@ -145,7 +145,7 @@ const Carousel = () => {
               <div className={styles.topic}>{movie.genre[1]}</div>
               <div className={styles.des}>{movie.description}</div>
               <div className={styles.buttons}>
-                <button className={styles.more} onClick={() => handleWatchClick(movie._id)}>SEE MORE</button>
+                <button className={styles.more} onClick={() => handleWatchClick(movie._id)}>VIEW</button>
                 <button onClick={() => handleWatchlistClick(movie._id)}>
                   {watchlists[movie._id] ? 'UNARCHIVE' : 'ARCHIVE'}
                 </button>
