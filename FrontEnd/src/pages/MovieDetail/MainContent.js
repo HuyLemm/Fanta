@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 import { useNavigate } from 'react-router-dom';
 import styles from './MovieDetail.module.css';
+import {getCookie} from '../../utils/Cookies';
 
 const MainContent = ({ movie, handleWatchClick }) => {
   const navigate = useNavigate();
   const [averageRating, setAverageRating] = useState(0);
   const [numberOfRatings, setNumberOfRatings] = useState(0);
+  const [isFavourite, setIsFavourite] = useState(false);
+  const token = getCookie('jwt');
 
   useEffect(() => {
     const fetchAverageRating = async () => {
@@ -23,7 +26,25 @@ const MainContent = ({ movie, handleWatchClick }) => {
       }
     };
 
+    const checkIfFavourite = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/public/get-watchlist/${movie._id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}` 
+          }
+        });
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        setIsFavourite(data.isFavourite);
+      } catch (error) {
+        console.error('Check if favourite error:', error);
+      }
+    };
+
     fetchAverageRating();
+    checkIfFavourite();
   }, [movie._id]);
 
   const getYouTubeId = (url) => {
@@ -33,6 +54,27 @@ const MainContent = ({ movie, handleWatchClick }) => {
   };
 
   const trailerId = getYouTubeId(movie.trailer_url);
+
+  const handleAddToFavourite = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/user/toggle-watchlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
+        body: JSON.stringify({ movieId: movie._id })
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setIsFavourite(data.isFavourite);
+      alert(data.message);
+    } catch (error) {
+      console.error('Toggle watchlist error:', error);
+    }
+  };
 
   return (
     <section className={styles.mainSection}>
@@ -53,6 +95,9 @@ const MainContent = ({ movie, handleWatchClick }) => {
             <p className={styles.cast}><strong className={styles.dir}>Cast: </strong>{movie.cast.join(', ')}</p>
             <p className={styles.description}>{movie.description}</p>
             <button className={styles.watchNowButton} onClick={handleWatchClick}>Watch Now</button>
+            <button className={styles.addToFavouriteButton} onClick={handleAddToFavourite}>
+              {isFavourite ? 'Remove from Favourite' : 'Add to Favourite'}
+            </button>
           </div>
         </div>
       </div>
@@ -65,9 +110,9 @@ const MainContent = ({ movie, handleWatchClick }) => {
       </div>
       <div className={styles.ratingSection}>
         {numberOfRatings > 0 ? (
-          <p className={styles.averageRating}>Điểm: {averageRating.toFixed(1)}/5.0 ({numberOfRatings} đã đánh giá)</p>
+          <p className={styles.averageRating}>Rate: {averageRating.toFixed(1)}/5.0 ({numberOfRatings} rated)</p>
         ) : (
-          <p className={styles.averageRating}>Chưa có đánh giá</p>
+          <p className={styles.averageRating}>No Rate Yet</p>
         )}
       </div>
     </section>

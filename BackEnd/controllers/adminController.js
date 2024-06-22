@@ -35,52 +35,40 @@ exports.createAdmin = async (req, res) => {
   }
 };
 
-
 exports.getAdminProfile = async (req, res) => {
   try {
-      const token = req.cookies.jwt || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
-      if (!token) return res.status(401).json({ message: 'No token, authorization denied' });
-
-      const decoded = jwt.verify(token, process.env.SESSION_SECRET);
-      const userId = decoded._id;
-
-      const adminProfile = await AccountModel.findById(userId).select('-password');
-      if (!adminProfile) {
-          console.log('Admin profile not found');
-          return res.status(404).json({ message: 'Admin profile not found' });
-      }
-      res.json(adminProfile);
+    const userId = req.user._id;
+    const adminProfile = await AccountModel.findById(userId).select('-password');
+    if (!adminProfile) {
+        console.log('Admin profile not found');
+        return res.status(404).json({ message: 'Admin profile not found' });
+    }
+    res.json(adminProfile);
   } catch (error) {
       console.error('Error fetching profile:', error);
       res.status(500).json({ message: 'Server Error' });
   }
 };
 
-
 exports.updateAdminProfile = async (req, res) => {
   const { email, username } = req.body;
   try {
-      const token = req.cookies.jwt || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
-      if (!token) return res.status(401).json({ message: 'No token, authorization denied' });
+    const userId = req.user._id;
+    const updates = {};
+    if (email) updates.email = email;
+    if (username) updates.username = username;
 
-      const decoded = jwt.verify(token, process.env.SESSION_SECRET);
-      const userId = decoded._id;
-
-      const updates = {};
-      if (email) updates.email = email;
-      if (username) updates.username = username;
-
-      const updatedProfile = await AccountModel.findByIdAndUpdate(
-          userId,
-          updates,
-          { new: true, runValidators: true }
-      ).select('-password');
+    const updatedProfile = await AccountModel.findByIdAndUpdate(
+        userId,
+        updates,
+        { new: true, runValidators: true }
+    ).select('-password');
 
 
-      if (!updatedProfile) {
-          return res.status(404).json({ message: 'Admin profile not found' });
-      }
-      res.status(200).json({ message: 'Profile updated successfully!' });
+    if (!updatedProfile) {
+        return res.status(404).json({ message: 'Admin profile not found' });
+    }
+    res.status(200).json({ message: 'Profile updated successfully!' });
   } catch (error) {
       res.status(500).json({ message: 'Server Error' });
   }
@@ -94,25 +82,22 @@ exports.updateAdminPassword = async (req, res) => {
   }
 
   try {
-      const token = req.cookies.jwt || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
-      const decodedToken = jwt.verify(token, process.env.SESSION_SECRET);
-      const adminId = decodedToken._id;
+    const userId = req.user._id;
+    const admin = await AccountModel.findById(adminId);
+    if (!admin) {
+        return res.status(404).json({ error: 'Admin not found.' });
+    }
 
-      const admin = await AccountModel.findById(adminId);
-      if (!admin) {
-          return res.status(404).json({ error: 'Admin not found.' });
-      }
+    const isMatch = await bcrypt.compare(currentPassword, admin.password);
+    if (!isMatch) {
+        return res.status(400).json({ error: 'Current password is incorrect.' });
+    }
 
-      const isMatch = await bcrypt.compare(currentPassword, admin.password);
-      if (!isMatch) {
-          return res.status(400).json({ error: 'Current password is incorrect.' });
-      }
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    admin.password = hashedPassword;
+    await admin.save();
 
-      const hashedPassword = await bcrypt.hash(newPassword, 10);
-      admin.password = hashedPassword;
-      await admin.save();
-
-      res.status(200).json({ message: 'Password updated successfully!' });
+    res.status(200).json({ message: 'Password updated successfully!' });
   } catch (error) {
       res.status(500).json({ error: 'Server error.' });
   }
@@ -136,7 +121,6 @@ exports.createGenre = async (req, res) => {
     res.status(400).send({ error: 'Error creating genre: ' + error.message });
   }
 };
-
 
 // Tạo một phim
 exports.createMovie = async (req, res) => {
@@ -184,9 +168,6 @@ exports.createMovie = async (req, res) => {
       res.status(400).send({ error: 'Error creating movie: ' + error.message });
   }
 };
-
-
-
 
 // Tìm phim theo tiêu đề
 exports.findMovie = async (req, res) => {

@@ -8,7 +8,7 @@ const UpdateMovie = () => {
     const [isEditing, setIsEditing] = useState(null);
     const [editFieldValue, setEditFieldValue] = useState('');
     const [message, setMessage] = useState('');
-
+    const token = getCookie('jwt');
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -19,7 +19,6 @@ const UpdateMovie = () => {
 
     const handleSearchMovie = async () => {
         try {
-            const token = getCookie('jwt');
             const response = await fetch(`http://localhost:5000/admin/find-movie`, {
                 method: 'POST',
                 headers: {
@@ -48,7 +47,6 @@ const UpdateMovie = () => {
 
     const handleUpdateMovie = async (field, value) => {
         try {
-            const token = getCookie('jwt');
             const updatedMovieData = { ...movieData, [field]: value };
 
             if (field === 'release_date') {

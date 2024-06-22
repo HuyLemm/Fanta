@@ -1,21 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './Carousel.module.css';
 import { useNavigate } from 'react-router-dom';
+import { getCookie } from '../../../utils/Cookies';
 
 const Carousel = () => {
   const carouselRef = useRef(null);
   const sliderRef = useRef(null);
   const thumbnailRef = useRef(null);
   const navigate = useNavigate();
+  const token = getCookie('jwt');
 
   const [movies, setMovies] = useState([]);
+  const [watchlists, setWatchlists] = useState({});
 
   useEffect(() => {
-    // Fetch data from backend
-    fetch('http://localhost:5000/public/get-movies') // Thay thế bằng URL API thật của bạn
-      .then(response => response.json())
-      .then(data => setMovies(data))
-      .catch(error => console.error('Error fetching data:', error));
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/public/get-movies');
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        setMovies(data);
+
+        // Fetch watchlist status for each movie
+        data.forEach(movie => {
+          checkIfWatchlisted(movie._id, token);
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchMovies();
 
     const next = document.getElementById('next');
     const prev = document.getElementById('prev');
@@ -65,10 +81,55 @@ const Carousel = () => {
       clearTimeout(runNextAuto);
       clearTimeout(runTimeOut);
     };
-  }, []);
-  
+  }, [token]);
+
+  const checkIfWatchlisted = async (movieId, token) => {
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setWatchlists(prevWatchlists => ({
+        ...prevWatchlists,
+        [movieId]: data.isFavourite
+      }));
+    } catch (error) {
+      console.error('Check if watchlisted error:', error);
+    }
+  };
+
   const handleWatchClick = (movieId) => {
     navigate(`/movie/${movieId}`);
+  };
+
+  const handleWatchlistClick = async (movieId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/user/toggle-watchlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ movieId })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setWatchlists(prevWatchlists => ({
+        ...prevWatchlists,
+        [movieId]: data.isFavourite
+      }));
+    } catch (error) {
+      console.error('Toggle watchlist error:', error);
+    }
   };
 
   return (
@@ -84,7 +145,9 @@ const Carousel = () => {
               <div className={styles.des}>{movie.description}</div>
               <div className={styles.buttons}>
                 <button className={styles.more} onClick={() => handleWatchClick(movie._id)}>SEE MORE</button>
-                <button>SUBSCRIBE</button>
+                <button onClick={() => handleWatchlistClick(movie._id)}>
+                  {watchlists[movie._id] ? 'UNARCHIVE' : 'ARCHIVE'}
+                </button>
               </div>
             </div>
           </div>

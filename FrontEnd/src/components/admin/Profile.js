@@ -16,11 +16,10 @@ const SeeProfile = () => {
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(true);
     const [editField, setEditField] = useState('');
-
+    const token = getCookie('jwt');
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const token = getCookie('jwt');
                 const response = await fetch('http://localhost:5000/admin/get-profile', {
                     method: 'GET',
                     headers: {
@@ -45,7 +44,6 @@ const SeeProfile = () => {
 
     const handleUpdate = async (field, value) => {
         try {
-            const token = getCookie('jwt');
             const response = await fetch('http://localhost:5000/admin/update-profile', {
                 method: 'PUT',
                 headers: {
@@ -74,7 +72,6 @@ const SeeProfile = () => {
             return;
         }
         try {
-            const token = getCookie('jwt');
             const response = await fetch('http://localhost:5000/admin/update-password', {
                 method: 'PUT',
                 headers: {

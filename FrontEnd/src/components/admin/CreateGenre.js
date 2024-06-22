@@ -5,10 +5,9 @@ import styles from './admin.module.css';
 const CreateGenre = () => {
     const [genreName, setGenreName] = useState('');
     const [message, setMessage] = useState('');
-
+    const token = getCookie('jwt');
     const handleCreateGenre = async () => {
         try {
-            const token = getCookie('jwt');
             const response = await fetch('http://localhost:5000/admin/create-genre', {
                 method: 'POST',
                 headers: {

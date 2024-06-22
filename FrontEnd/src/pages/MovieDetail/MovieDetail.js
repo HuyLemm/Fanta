@@ -54,7 +54,6 @@ const MovieDetail = () => {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        console.log('Recommended movies:', data);
         setRecommendedMovies(data);
       } catch (error) {
         console.error('Fetch recommended movies error:', error);

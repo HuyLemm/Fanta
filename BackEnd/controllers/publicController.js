@@ -4,6 +4,7 @@ const GenreModel = require('../models/Genre');
 const MovieModel = require('../models/Movie');
 const ReviewModel = require('../models/Review');
 const RatingModel = require('../models/Rating');
+const WatchlistModel = require('../models/Watchlist');
 
 exports.getAllGenres = async (req, res) => {
     try {
@@ -163,4 +164,30 @@ exports.getAverageRatings =   async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+}
+
+exports.checkWatchlist = async (req, res) => {
+  try {
+    const { movieId } = req.params;
+    const userId = req.user._id;
+
+    const watchlistItem = await WatchlistModel.findOne({ user: userId, movie: movieId });
+
+    if (watchlistItem) {
+      return res.status(200).json({ isFavourite: true });
+    } else {
+      return res.status(200).json({ isFavourite: false });
+    }
+  } catch (error) {
+    console.error('Check watchlist error:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
+
+exports.checkRole = async (req, res) => {
+  const user = {
+    role: req.user.role,
+    avatar: req.user.avatar 
+  }
+  res.json(user);
 }

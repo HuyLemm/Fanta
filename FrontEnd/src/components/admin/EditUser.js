@@ -7,11 +7,10 @@ const EditUser = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [message, setMessage] = useState('');
     const [editField, setEditField] = useState('');
-
+    const token = getCookie('jwt');
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const token = getCookie('jwt');
                 const response = await fetch('http://localhost:5000/admin/get-users', {
                     method: 'GET',
                     headers: {
@@ -37,7 +36,6 @@ const EditUser = () => {
 
     const handleUserClick = async (userId) => {
         try {
-            const token = getCookie('jwt');
             const response = await fetch(`http://localhost:5000/admin/get-user-by-id/${userId}`, {
                 method: 'GET',
                 headers: {
@@ -59,7 +57,6 @@ const EditUser = () => {
 
     const handleUserUpdate = async (field, value) => {
         try {
-            const token = getCookie('jwt');
             const response = await fetch(`http://localhost:5000/admin/update-user-by-id/${selectedUser._id}`, {
                 method: 'PUT',
                 headers: {
@@ -84,7 +81,6 @@ const EditUser = () => {
 
     const handleDeleteUser = async () => {
         try {
-            const token = getCookie('jwt');
             const response = await fetch(`http://localhost:5000/admin/delete-user-by-id/${selectedUser._id}`, {
                 method: 'DELETE',
                 headers: {

@@ -17,10 +17,9 @@ const CreateMovie = () => {
         streaming_url: ''
     });
     const [message, setMessage] = useState('');
-
+    const token = getCookie('jwt');
     const handleCreateMovie = async () => {
         try {
-            const token = getCookie('jwt');
             const response = await fetch('http://localhost:5000/admin/create-movie', {
                 method: 'POST',
                 headers: {

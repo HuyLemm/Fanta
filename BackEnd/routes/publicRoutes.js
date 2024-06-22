@@ -15,17 +15,11 @@ router.get('/get-reviews-movie-id/:movieId', publicController.getReviewsMovieId)
 router.get('/get-current-user', authMiddleware.authenticateToken, publicController.getCurrentUser);
 router.get('/get-rating/:movieId', publicController.getRating)
 router.get('/get-average-rating/:movieId', publicController.getAverageRatings)
+router.get('/get-watchlist/:movieId', authMiddleware.authenticateToken, publicController.checkWatchlist)
+router.get('/check-role', authMiddleware.authenticateToken, publicController.checkRole);
 
 router.post('/get-recommended-movies', publicController.getRecommendedMovies)
 
-
-router.get('/check-role', authMiddleware.authenticateToken, (req, res) => {
-    const user = {
-        role: req.user.role,
-        avatar: req.user.avatar
-    }
-    res.json(user);
-});
   
 
 module.exports = router;
