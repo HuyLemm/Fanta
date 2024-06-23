@@ -257,6 +257,23 @@ exports.deleteUserById = async (req, res) => {
   }
 };
 
+exports.deleteReview = async (req, res) => {
+  try {
+    const { reviewId } = req.params;
+    const review = await ReviewModel.findById(reviewId);
+
+    if (!review) {
+      return res.status(404).send('Review not found');
+    }
+
+    await ReviewModel.deleteOne({ _id: reviewId });
+    res.status(200).json({ message: 'Review deleted by admin' });
+  } catch (error) {
+    console.error('Error deleting review:', error);
+    res.status(500).send('Server error');
+  }
+};
+
 
 // Tạo một đánh giá
 exports.createReview = async (userId, movieId) => {

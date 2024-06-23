@@ -4,7 +4,7 @@ const adminController = require('../controllers/adminController');
 const authMiddleware = require('../middleware/authMiddleware');
 const publicController = require('../controllers/publicController');
 
-router.get('/get-movies', publicController.getMovies);
+router.get('/get-top-rated-movies', publicController.getTopRatedMovies);
 router.get('/get-movie-details', adminController.getMovieDetails);
 router.get('/get-genres', publicController.getAllGenres);
 router.get('/get-genres-movie',publicController.getGenresAndSatisfiedMovie);

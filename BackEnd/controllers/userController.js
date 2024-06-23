@@ -96,7 +96,6 @@ exports.addReviews = async (req, res) => {
 // Xóa bình luận
 exports.deleteReview = async (req, res) => {
   try {
-    const userId = req.user._id;
     const { reviewId } = req.params;
     const review = await ReviewModel.findById(reviewId);
 
@@ -120,26 +119,16 @@ exports.deleteReview = async (req, res) => {
 // Chỉnh sửa bình luận
 exports.updateReview = async (req, res) => {
   try {
-    const userId = req.user._id;
     const { reviewId } = req.params;
     const { comment } = req.body;
-    const review = await ReviewModel.findById(reviewId);
+    const updatedReview = await ReviewModel.findByIdAndUpdate(reviewId, { comment }, { new: true })
+      .populate('userId', 'username avatar'); // Populating user info
 
-    if (!review) {
+    if (!updatedReview) {
       return res.status(404).send('Review not found');
     }
 
-    // Kiểm tra xem người dùng có phải là chủ sở hữu bình luận không
-    if (review.userId.toString() !== userId.toString()) {
-      return res.status(403).send('Forbidden');
-    }
-
-    
-    review.comment = comment;
-    await review.save();
-
-    const populatedReview = await review.populate('userId', 'username');
-    res.status(200).json(populatedReview);
+    res.status(200).json(updatedReview);
   } catch (error) {
     console.error('Error updating review:', error);
     res.status(500).send('Server error');

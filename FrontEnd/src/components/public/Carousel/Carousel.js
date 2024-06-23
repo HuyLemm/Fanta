@@ -16,7 +16,7 @@ const Carousel = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch('http://localhost:5000/public/get-movies');
+        const response = await fetch('http://localhost:5000/public/get-top-rated-movies');
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }

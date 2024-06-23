@@ -5,6 +5,7 @@ const MovieModel = require('../models/Movie');
 const ReviewModel = require('../models/Review');
 const RatingModel = require('../models/Rating');
 const WatchlistModel = require('../models/Watchlist');
+const AccountModel = require('../models/Account');
 
 exports.getAllGenres = async (req, res) => {
     try {
@@ -31,13 +32,55 @@ exports.getGenresAndSatisfiedMovie = async (req, res) => {
   }
 };
 
-exports.getMovies = async (req, res) => {
+exports.getTopRatedMovies = async (req, res) => {
   try {
-    const movies = await MovieModel.find({});
-    res.status(200).json(movies);
+    const topRatedMovies = await RatingModel.aggregate([
+      {
+        $group: {
+          _id: "$movieId",
+          averageRating: { $avg: "$rating" }
+        }
+      },
+      {
+        $sort: { averageRating: -1 }
+      },
+      {
+        $limit: 5
+      },
+      {
+        $lookup: {
+          from: "movies",
+          localField: "_id",
+          foreignField: "_id",
+          as: "movieDetails"
+        }
+      },
+      {
+        $unwind: "$movieDetails"
+      },
+      {
+        $project: {
+          _id: "$movieDetails._id",
+          title: "$movieDetails.title",
+          description: "$movieDetails.description",
+          release_date: "$movieDetails.release_date",
+          duration: "$movieDetails.duration",
+          genre: "$movieDetails.genre",
+          director: "$movieDetails.director",
+          cast: "$movieDetails.cast",
+          poster_url: "$movieDetails.poster_url",
+          background_url: "$movieDetails.background_url",
+          trailer_url: "$movieDetails.trailer_url",
+          streaming_url: "$movieDetails.streaming_url",
+          averageRating: 1
+        }
+      }
+    ]);
+
+    res.status(200).json(topRatedMovies);
   } catch (error) {
-    console.error('Error fetching movies:', error);
-    res.status(500).json({ error: 'An error occurred while fetching movies' });
+    console.error('Error fetching top-rated movies:', error);
+    res.status(500).json({ error: 'An error occurred while fetching top-rated movies' });
   }
 };
 
@@ -129,8 +172,13 @@ exports.getReviewsMovieId = async (req, res) => {
 exports.getCurrentUser = async (req, res) => {
   try {
     const userId = req.user._id;
+    const user = await AccountModel.findById(userId).select('username avatar role');
 
-    res.status(200).json({ userId });
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    res.status(200).json(user);
   } catch (error) {
     console.error('Error fetching current user:', error);
     res.status(500).send('Server error');

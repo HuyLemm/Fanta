@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
+import ReactPlayer from 'react-player';
 import { useNavigate } from 'react-router-dom';
 import styles from './MovieDetail.module.css';
-import {getCookie} from '../../utils/Cookies';
+import { getCookie } from '../../utils/Cookies';
 
 const MainContent = ({ movie, handleWatchClick }) => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
       try {
         const response = await fetch(`http://localhost:5000/public/get-watchlist/${movie._id}`, {
           headers: {
-            'Authorization': `Bearer ${token}` 
+            'Authorization': `Bearer ${token}`
           }
         });
         if (!response.ok) {
@@ -45,7 +46,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
 
     fetchAverageRating();
     checkIfFavourite();
-  }, [movie._id]);
+  }, [movie._id, token]);
 
   const getYouTubeId = (url) => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -61,7 +62,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` 
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ movieId: movie._id })
       });
@@ -85,11 +86,13 @@ const MainContent = ({ movie, handleWatchClick }) => {
           <div className={styles.details}>
             <h1 className={styles.title}>{movie.title}</h1>
             <p className={styles.meta}>
-              <span className={styles.rating}>{numberOfRatings > 0 ? (
-              <p className={styles.averageRating}>Rating: {averageRating.toFixed(1)}/5.0 ({numberOfRatings} rated)</p>
-              ) : (
-              <p className={styles.averageRating}>Unrated</p>
-              )}</span>
+              <span className={styles.rating}>
+                {numberOfRatings > 0 ? (
+                  <p className={styles.averageRating}>Rating: {averageRating.toFixed(1)}/5.0 ({numberOfRatings} rated)</p>
+                ) : (
+                  <p className={styles.averageRating}>Unrated</p>
+                )}
+              </span>
               <span className={styles.quality}>HD</span>
               <span className={styles.genres}>{movie.genre.join(', ')}</span>
               <span className={styles.releaseDate}>{new Date(movie.release_date).getFullYear()}</span>
@@ -99,9 +102,12 @@ const MainContent = ({ movie, handleWatchClick }) => {
             <p className={styles.cast}><strong className={styles.dir}>Cast: </strong>{movie.cast.join(', ')}</p>
             <p className={styles.description}>{movie.description}</p>
             <button className={styles.watchNowButton} onClick={handleWatchClick}>Watch Now</button>
-            <button className={styles.addToFavouriteButton} onClick={handleAddToFavourite}>
-              {isFavourite ? 'Remove from Favourite' : 'Add to Favourite'}
-            </button>
+            <div className={styles.addToFavouriteContainer}>
+              <button className={styles.addToFavouriteButton} onClick={handleAddToFavourite}>
+                <div className={isFavourite ? styles.bookmarkIconActive : styles.bookmarkIcon} />
+              </button>
+              <span className={styles.favouriteText}> Favourite</span>
+            </div>
           </div>
         </div>
       </div>

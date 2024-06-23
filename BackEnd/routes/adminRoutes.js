@@ -21,5 +21,6 @@ router.put('/update-user-by-id/:id', authMiddleware.isAdmin, adminController.upd
 // Delete
 //router.delete('/delete-movie', authMiddleware.isAdmin, adminController.deleteMovie);
 router.delete('/delete-user-by-id/:id', authMiddleware.isAdmin, adminController.deleteUserById);
+router.delete('/delete-reviews/:reviewId', authMiddleware.isAdmin, adminController.deleteReview);
 
 module.exports = router;

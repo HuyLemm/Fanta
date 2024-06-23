@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Streaming.module.css';
 import { getCookie } from '../../utils/Cookies';
 import moment from 'moment';
-import Footer from '../../components/public/Footer/Footer';
 
 const Streaming = () => {
   const { id } = useParams();
@@ -14,7 +13,7 @@ const Streaming = () => {
   const [newComment, setNewComment] = useState('');
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editingCommentText, setEditingCommentText] = useState('');
-  const [currentUserId, setCurrentUserId] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [userRating, setUserRating] = useState(0);
   const navigate = useNavigate();
   const token = getCookie('jwt');
@@ -31,7 +30,7 @@ const Streaming = () => {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        setCurrentUserId(data.userId);
+        setCurrentUser(data);
       } catch (error) {
         console.error('Error fetching current user:', error);
       }
@@ -73,7 +72,7 @@ const Streaming = () => {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        const userRate = data.find(rating => rating.userId._id === currentUserId);
+        const userRate = data.find(rating => rating.userId._id === currentUser?._id);
         setUserRating(userRate ? userRate.rating : 0);
       } catch (error) {
         console.error('Fetch rating error:', error);
@@ -83,8 +82,10 @@ const Streaming = () => {
     fetchCurrentUser();
     fetchMovie();
     fetchComments();
-    fetchUserRating();
-  }, [id, token, currentUserId]);
+    if (currentUser) {
+      fetchUserRating();
+    }
+  }, [id, token, currentUser]);
 
   const handleAddComment = async () => {
     if (!token) {
@@ -116,7 +117,11 @@ const Streaming = () => {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      const response = await fetch(`http://localhost:5000/user/delete-reviews/${commentId}`, {
+      const url = currentUser?.role === 'admin'
+        ? `http://localhost:5000/admin/delete-reviews/${commentId}`
+        : `http://localhost:5000/user/delete-reviews/${commentId}`;
+
+      const response = await fetch(url, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -249,7 +254,7 @@ const Streaming = () => {
                     <img src={comment.userId.avatar} alt={`${comment.userId.username}'s avatar`} className={styles.avatar} />
                     <strong>{comment.userId.username}</strong>: {comment.comment} <span className={styles.time}>{moment(comment.created_at).fromNow()}</span>
                   </p>
-                  {comment.userId._id === currentUserId && (
+                  {(comment.userId._id === currentUser?._id || currentUser?.role === 'admin') && (
                     <>
                       <button onClick={() => {
                         setEditingCommentId(comment._id);
