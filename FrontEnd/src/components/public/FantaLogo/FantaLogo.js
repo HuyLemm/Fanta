@@ -171,6 +171,10 @@ const FantaLogo = () => {
 
   const genresColumns = renderGenresInColumns(genres, 5);
 
+  const handleFavoriteClick = () => {
+    navigate('/');
+  };
+
   return (
     <header className={styles.header}>
       <a href="/">
@@ -186,6 +190,7 @@ const FantaLogo = () => {
         />
         <button type="submit" className={styles.searchButton}>Search</button>
       </form>
+      <button className={styles.favoriteButton} onClick={handleFavoriteClick}>My Favorite</button>
       <div
         className={styles.categoriesContainer}
         ref={categoriesRef}

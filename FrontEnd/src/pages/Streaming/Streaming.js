@@ -254,7 +254,7 @@ const Streaming = () => {
                     <img src={comment.userId.avatar} alt={`${comment.userId.username}'s avatar`} className={styles.avatar} />
                     <strong>{comment.userId.username}</strong>: {comment.comment} <span className={styles.time}>{moment(comment.created_at).fromNow()}</span>
                   </p>
-                  {(comment.userId._id === currentUser?._id || currentUser?.role === 'admin') && (
+                  {comment.userId._id === currentUserId && (
                     <>
                       <button onClick={() => {
                         setEditingCommentId(comment._id);
