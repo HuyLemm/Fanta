@@ -270,3 +270,19 @@ body {
   padding: 1.25rem; /* Converted 20px to 1.25rem */
   margin: 15.375rem 0.625rem; /* Converted 150px 10px to 9.375rem 0.625rem */
 }
+
+.addToFavouriteButton{
+  padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #ff9900;
+  border: none;
+  border-radius: 0.3125rem; /* Converted 5px to 0.3125rem */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 1rem;
+}
+
+.addToFavouriteButton:hover {
+  background-color: #cc7a00;
+}

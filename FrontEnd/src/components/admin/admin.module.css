@@ -18,9 +18,6 @@
     flex: 1;
     padding: 1.25rem;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
     backdrop-filter: blur(10rem);
     border: 0.1rem black solid;
@@ -57,11 +54,11 @@
 }
 
 .section {
-    width: 100%;
     margin: 0 auto;
     padding: 1.25rem;
-    height: 100%;
-    background: transparent;
+    background: #588157;
+    border-radius: 2rem;
+    box-shadow: white 0.1rem 0.1rem;
 }
 
 /* Additional styles for images */
@@ -117,4 +114,10 @@
 /* Specific styles for form groups */
 .form-group {
     margin-bottom: 1.25rem;
+    border: white 0.2rem solid;
+    padding: 0.5rem;
+    border-radius: 1.5rem;
+    transition: all 0.3s ease;
+    background: #e9c46a;
+    color: #2c3e50;
 }

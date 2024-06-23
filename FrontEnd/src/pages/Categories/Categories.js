@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Categories.module.css';
+import Footer from '../../components/public/Footer/Footer';
 
 const GenreMovies = () => {
   const { genreName } = useParams();
@@ -45,6 +46,11 @@ const GenreMovies = () => {
           <div>No movies found in this genre</div>
         )}
       </div>
+
+      <div className={styles.footerSection}>
+        <Footer/>
+      </div>
+
     </div>
   );
 };

@@ -116,12 +116,13 @@
 .userContainer {
   position: relative;
   align-items: center;
+  margin-right: 5rem;
 }
 
 .userIcon {
   position: relative;
   cursor: pointer;
-  margin-right: 6.25rem; /* Converted 100px to 6.25rem */
+  margin-right: 1.25rem; /* Thay đổi khoảng cách giữa avatar và nút My Favorite */
 }
 
 .userIcon img {
@@ -131,7 +132,7 @@
 }
 
 .dropdown {
-  margin-right: 3.9375rem; /* Converted 63px to 3.9375rem */
+  margin-right: -2rem;
   position: absolute;
   top: 3.125rem; /* Converted 50px to 3.125rem */
   right: 0;
@@ -210,4 +211,24 @@
 
 .adminpic {
   border-radius: 2rem;
+}
+
+.favoriteButton {
+  padding: 0.625rem 1.25rem; 
+  font-size: 1rem; 
+  background-color: #fb5607; 
+  color: #fff; 
+  border: none;
+  cursor: pointer;
+  border-radius: 0.3125rem; 
+  transition: background-color 0.3s ease;
+}
+
+.favoriteButton:hover {
+  background-color: #333; 
+}
+
+.categoriesAndFavorite {
+  display: flex;
+  align-items: center;
 }

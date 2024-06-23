@@ -12,6 +12,10 @@
   max-width: 1600px;
   margin: 0 auto;
   padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-bottom: 0;
 }
 
 .header {
@@ -103,6 +107,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
+
 }
 
 .addComment textarea {
@@ -161,4 +166,8 @@
   margin-left: 1150px;
   color: burlywood;
   font-size: 1rem;
+}
+
+.footerSection{
+  margin-top: 2rem;
 }

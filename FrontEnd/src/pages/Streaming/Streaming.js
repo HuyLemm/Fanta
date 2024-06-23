@@ -200,79 +200,84 @@ const Streaming = () => {
 
   return (
     <div className={styles.streamingContainer}>
-      <div className={styles.header}>
-        <h1>{movie.title}</h1>
+      <div className={styles.content}>
+        <div className={styles.header}>
+          <h1>{movie.title}</h1>
+        </div>
+        <div className={styles.mainContent}>
+          <div className={styles.videoSection}>
+            <video className={styles.streamingVideo} controls>
+              <source src={movie.streaming_url} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div className={styles.episodesSection}>
+            <h2>Episodes</h2>
+            {/* Add your episodes list here */}
+          </div>
+        </div>
+        <div className={styles.ratingSection}>
+          <h2>Rate this movie</h2>
+          <div className={styles.stars}>
+            {[...Array(5)].map((_, index) => (
+              <span
+                key={index}
+                className={index < userRating ? styles.starFilled : styles.star}
+                onClick={() => handleRatingClick(index + 1)}
+              >
+                ★
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className={styles.commentsSection}>
+          <h2>Comments</h2>
+          {comments.length > 0 ? (
+            comments.map(comment => (
+              <div key={comment._id} className={styles.comment}>
+                {editingCommentId === comment._id ? (
+                  <div>
+                    <textarea
+                      value={editingCommentText}
+                      onChange={(e) => setEditingCommentText(e.target.value)}
+                    />
+                    <button onClick={() => handleEditComment(comment._id)}>Save</button>
+                    <button onClick={() => setEditingCommentId(null)}>Cancel</button>
+                  </div>
+                ) : (
+                  <div>
+                    <p>
+                      <img src={comment.userId.avatar} alt={`${comment.userId.username}'s avatar`} className={styles.avatar} />
+                      <strong>{comment.userId.username}</strong>: {comment.comment} <span className={styles.time}>{moment(comment.created_at).fromNow()}</span>
+                    </p>
+                    {comment.userId._id === currentUserId && (
+                      <>
+                        <button onClick={() => {
+                          setEditingCommentId(comment._id);
+                          setEditingCommentText(comment.comment);
+                        }}>Edit</button>
+                        <button onClick={() => handleDeleteComment(comment._id)}>Delete</button>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))
+          ) : (
+            <div>No comments found</div>
+          )}
+          <div className={styles.addComment}>
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Add a comment"
+            />
+            <button onClick={handleAddComment}>Submit</button>
+          </div>
+        </div>
       </div>
-      <div className={styles.mainContent}>
-        <div className={styles.videoSection}>
-          <video className={styles.streamingVideo} controls>
-            <source src={movie.streaming_url} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div className={styles.episodesSection}>
-          <h2>Episodes</h2>
-          {/* Add your episodes list here */}
-        </div>
-      </div>
-      <div className={styles.ratingSection}>
-        <h2>Rate this movie</h2>
-        <div className={styles.stars}>
-          {[...Array(5)].map((_, index) => (
-            <span
-              key={index}
-              className={index < userRating ? styles.starFilled : styles.star}
-              onClick={() => handleRatingClick(index + 1)}
-            >
-              ★
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className={styles.commentsSection}>
-        <h2>Comments</h2>
-        {comments.length > 0 ? (
-          comments.map(comment => (
-            <div key={comment._id} className={styles.comment}>
-              {editingCommentId === comment._id ? (
-                <div>
-                  <textarea
-                    value={editingCommentText}
-                    onChange={(e) => setEditingCommentText(e.target.value)}
-                  />
-                  <button onClick={() => handleEditComment(comment._id)}>Save</button>
-                  <button onClick={() => setEditingCommentId(null)}>Cancel</button>
-                </div>
-              ) : (
-                <div>
-                  <p>
-                    <img src={comment.userId.avatar} alt={`${comment.userId.username}'s avatar`} className={styles.avatar} />
-                    <strong>{comment.userId.username}</strong>: {comment.comment} <span className={styles.time}>{moment(comment.created_at).fromNow()}</span>
-                  </p>
-                  {comment.userId._id === currentUserId && (
-                    <>
-                      <button onClick={() => {
-                        setEditingCommentId(comment._id);
-                        setEditingCommentText(comment.comment);
-                      }}>Edit</button>
-                      <button onClick={() => handleDeleteComment(comment._id)}>Delete</button>
-                    </>
-                  )}
-                </div>
-              )}
-            </div>
-          ))
-        ) : (
-          <div>No comments found</div>
-        )}
-        <div className={styles.addComment}>
-          <textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Add a comment"
-          />
-          <button onClick={handleAddComment}>Submit</button>
-        </div>
+      <div className={styles.footerSection}>
+      <Footer />
       </div>
     </div>
   );

@@ -2,8 +2,10 @@
   background-color: #101a2e;
   text-align: center;
   padding: 0.625rem; /* Converted 10px to 0.625rem */
-  width: 100%;
+  width: 100dvw;
   color: aliceblue;
+  margin:0;
+  bottom:0;
 }
 
 .more{
