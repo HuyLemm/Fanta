@@ -6,6 +6,7 @@ const adminController = require('../controllers/adminController');
 router.post('/create-movie', authMiddleware.isAdmin, adminController.createMovie);
 router.post('/create-genre', authMiddleware.isAdmin, adminController.createGenre)
 router.post('/find-movie', authMiddleware.isAdmin, adminController.findMovie);
+router.post('/ban-user', authMiddleware.isAdmin, adminController.banUser);
 
 // Get admin profile    
 router.get('/get-profile', authMiddleware.isAdmin, adminController.getAdminProfile);

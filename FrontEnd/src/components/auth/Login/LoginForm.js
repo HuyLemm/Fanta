@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import styles from './Login.module.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { setCookie, getCookie } from '../../../utils/Cookies';
+import { setCookie } from '../../../utils/Cookies';
 import SocialButton from './SocialButton';
 
 const LoginForm = () => {

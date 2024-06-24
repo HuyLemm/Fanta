@@ -93,9 +93,9 @@ const FantaLogo = () => {
     setShowDropdown((prevShowDropdown) => !prevShowDropdown);
   };
 
-  const toggleCategories = () => {
-    setShowCategories((prevShowCategories) => !prevShowCategories);
-  };
+  // const toggleCategories = () => {
+  //   setShowCategories((prevShowCategories) => !prevShowCategories);
+  // };
 
   const handleCategoryClick = (genre) => {
     navigate(`/genre/${genre.name}`);

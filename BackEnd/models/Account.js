@@ -25,7 +25,13 @@ const AccountSchema = new Schema({
     type: String,
     enum: ['user', 'admin'],
     default: 'user'
+  },
+  
+  bannedUntil: {
+    type: Date,
+    default: null
   }
+
 }, {
   collection: 'accounts'
 });

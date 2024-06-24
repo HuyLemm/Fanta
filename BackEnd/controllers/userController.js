@@ -78,10 +78,19 @@ exports.updateUserPassword = async (req, res) => {
   
 exports.addReviews = async (req, res) => {
   try {
-
     const userId = req.user._id;
     const { movieId } = req.params;
     const { comment } = req.body;
+
+    const user = await AccountModel.findById(userId);
+
+    // Kiểm tra xem người dùng có bị cấm bình luận không
+    if (user.bannedUntil && new Date(user.bannedUntil) > new Date()) {
+      const timeRemaining = new Date(user.bannedUntil).getTime() - new Date().getTime();
+      const timeRemainingMinutes = Math.ceil(timeRemaining / (1000 * 60)); // Tính toán số phút còn lại
+      return res.status(403).json({ message: `You are banned from adding comments for another ${timeRemainingMinutes} minutes` });
+    }
+
     const newReview = new ReviewModel({ movie: movieId, userId, comment });
     await newReview.save();
 
@@ -96,6 +105,7 @@ exports.addReviews = async (req, res) => {
 // Xóa bình luận
 exports.deleteReview = async (req, res) => {
   try {
+    const userId = req.user._id;
     const { reviewId } = req.params;
     const review = await ReviewModel.findById(reviewId);
 
@@ -119,8 +129,19 @@ exports.deleteReview = async (req, res) => {
 // Chỉnh sửa bình luận
 exports.updateReview = async (req, res) => {
   try {
+    const userId = req.user._id;
     const { reviewId } = req.params;
     const { comment } = req.body;
+
+    const user = await AccountModel.findById(userId);
+
+    // Kiểm tra xem người dùng có bị cấm bình luận không
+    if (user.bannedUntil && new Date(user.bannedUntil) > new Date()) {
+      const timeRemaining = new Date(user.bannedUntil).getTime() - new Date().getTime();
+      const timeRemainingMinutes = Math.ceil(timeRemaining / (1000 * 60)); // Tính toán số phút còn lại
+      return res.status(403).json({ message: `You are banned from editing comments for another ${timeRemainingMinutes} minutes` });
+    }
+
     const updatedReview = await ReviewModel.findByIdAndUpdate(reviewId, { comment }, { new: true })
       .populate('userId', 'username avatar'); // Populating user info
 

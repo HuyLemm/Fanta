@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Modal from 'react-modal';
 import styles from './Streaming.module.css';
 import { getCookie } from '../../utils/Cookies';
 import moment from 'moment';
+
+Modal.setAppElement('#root'); // This is important for accessibility
 
 const Streaming = () => {
   const { id } = useParams();
@@ -15,6 +18,9 @@ const Streaming = () => {
   const [editingCommentText, setEditingCommentText] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
   const [userRating, setUserRating] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [banDuration, setBanDuration] = useState({ value: 0, unit: 'seconds' });
+  const [selectedUserId, setSelectedUserId] = useState(null);
   const navigate = useNavigate();
   const token = getCookie('jwt');
 
@@ -54,6 +60,7 @@ const Streaming = () => {
     const fetchComments = async () => {
       try {
         const response = await fetch(`http://localhost:5000/public/get-reviews-movie-id/${id}`);
+        console.log('Fetching comments...', response);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
@@ -67,7 +74,6 @@ const Streaming = () => {
     const fetchUserRating = async () => {
       try {
         const response = await fetch(`http://localhost:5000/public/get-rating/${id}`);
-
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
@@ -92,7 +98,7 @@ const Streaming = () => {
       navigate('/login');
       return;
     }
-
+  
     try {
       const response = await fetch(`http://localhost:5000/user/add-reviews/${id}`, {
         method: 'POST',
@@ -102,11 +108,17 @@ const Streaming = () => {
         },
         body: JSON.stringify({ comment: newComment })
       });
-
+  
       if (!response.ok) {
-        throw new Error('Failed to add comment');
+        const errorData = await response.json();
+        if (response.status === 403) {
+          alert(errorData.message); // Hiển thị thông báo nếu người dùng bị cấm bình luận
+        } else {
+          throw new Error('Failed to add comment');
+        }
+        return;
       }
-
+  
       const newCommentData = await response.json();
       setComments((prevComments) => [...prevComments, newCommentData]);
       setNewComment('');
@@ -150,7 +162,13 @@ const Streaming = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update comment');
+        const errorData = await response.json();
+        if (response.status === 403) {
+          alert(errorData.message); // Hiển thị thông báo nếu người dùng bị cấm bình luận
+        } else {
+          throw new Error('Failed to add comment');
+        }
+        return;
       }
 
       const updatedComment = await response.json();
@@ -189,6 +207,60 @@ const Streaming = () => {
     } catch (error) {
       console.error('Add rating error:', error);
     }
+  };
+
+  const handleBanUser = async () => {
+    const banUntil = new Date();
+    switch (banDuration.unit) {
+      case 'seconds':
+        banUntil.setSeconds(banUntil.getSeconds() + parseInt(banDuration.value, 10));
+        break;
+      case 'minutes':
+        banUntil.setMinutes(banUntil.getMinutes() + parseInt(banDuration.value, 10));
+        break;
+      case 'hours':
+        banUntil.setHours(banUntil.getHours() + parseInt(banDuration.value, 10));
+        break;
+      case 'days':
+        banUntil.setDate(banUntil.getDate() + parseInt(banDuration.value, 10));
+        break;
+      case 'years':
+        banUntil.setFullYear(banUntil.getFullYear() + parseInt(banDuration.value, 10));
+        break;
+      default:
+        return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/admin/ban-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ userId: selectedUserId, banUntil })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to ban user');
+      }
+
+      alert('User banned successfully');
+      closeBanModal(); // Close the modal after banning the user
+    } catch (error) {
+      console.error('Ban user error:', error);
+    }
+  };
+
+  const openBanModal = (userId) => {
+    setSelectedUserId(userId);
+    setIsModalOpen(true);
+  };
+
+  const closeBanModal = () => {
+    setIsModalOpen(false);
+    setBanDuration({ value: 0, unit: 'seconds' });
+    setSelectedUserId(null);
   };
 
   if (loading) {
@@ -254,13 +326,19 @@ const Streaming = () => {
                     <img src={comment.userId.avatar} alt={`${comment.userId.username}'s avatar`} className={styles.avatar} />
                     <strong>{comment.userId.username}</strong>: {comment.comment} <span className={styles.time}>{moment(comment.created_at).fromNow()}</span>
                   </p>
-                  {comment.userId._id === currentUserId && (
+                  {(comment.userId._id === currentUser?._id) && (
                     <>
                       <button onClick={() => {
                         setEditingCommentId(comment._id);
                         setEditingCommentText(comment.comment);
                       }}>Edit</button>
                       <button onClick={() => handleDeleteComment(comment._id)}>Delete</button>
+                    </>
+                  )}
+                  {(currentUser?.role === 'admin') && (
+                    <>
+                      <button onClick={() => handleDeleteComment(comment._id)}>Delete</button>
+                      <button onClick={() => openBanModal(comment.userId._id)}>Ban User</button>
                     </>
                   )}
                 </div>
@@ -279,6 +357,41 @@ const Streaming = () => {
           <button onClick={handleAddComment}>Submit</button>
         </div>
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeBanModal}
+        contentLabel="Ban User"
+        className={styles.modal}
+        overlayClassName={styles.overlay}
+      >
+        <h2>Ban User</h2>
+        <div className={styles.modalContent}>
+          <label>
+            Duration:
+            <input
+              type="number"
+              value={banDuration.value}
+              onChange={(e) => setBanDuration({ ...banDuration, value: e.target.value })}
+            />
+          </label>
+          <label>
+            Unit:
+            <select
+              value={banDuration.unit}
+              onChange={(e) => setBanDuration({ ...banDuration, unit: e.target.value })}
+            >
+              <option value="seconds">Seconds</option>
+              <option value="minutes">Minutes</option>
+              <option value="hours">Hours</option>
+              <option value="days">Days</option>
+              <option value="years">Years</option>
+            </select>
+          </label>
+          <button onClick={handleBanUser}>Ban</button>
+          <button onClick={closeBanModal}>Cancel</button>
+        </div>
+      </Modal>
     </div>
   );
 };

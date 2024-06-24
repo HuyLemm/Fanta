@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
-import ReactPlayer from 'react-player';
-import { useNavigate } from 'react-router-dom';
 import styles from './MovieDetail.module.css';
 import { getCookie } from '../../utils/Cookies';
 
 const MainContent = ({ movie, handleWatchClick }) => {
-  const navigate = useNavigate();
   const [averageRating, setAverageRating] = useState(0);
   const [numberOfRatings, setNumberOfRatings] = useState(0);
   const [isFavourite, setIsFavourite] = useState(false);
@@ -49,7 +46,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
   }, [movie._id, token]);
 
   const getYouTubeId = (url) => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|v=)([^#]*).*/;
     const match = url.match(regExp);
     return (match && match[2].length === 11) ? match[2] : null;
   };
@@ -111,7 +108,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
       </div>
       <div className={styles.trailerSection}>
         {trailerId ? (
-          <YouTube videoId={trailerId} opts={{ width: '23%', height: '200px' }} />
+          <YouTube videoId={trailerId} opts={{ width: '30%', height: '300px' }} />
         ) : (
           <div>Trailer not available</div>
         )}

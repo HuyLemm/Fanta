@@ -274,6 +274,24 @@ exports.deleteReview = async (req, res) => {
   }
 };
 
+exports.banUser = async (req, res) => {
+  try {
+    const { userId, banUntil } = req.body;
+    const user = await AccountModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    user.bannedUntil = banUntil;
+    await user.save();
+
+    res.status(200).json({ message: 'User banned successfully' });
+  } catch (error) {
+    console.error('Error banning user:', error);
+    res.status(500).send('Server error');
+  }
+};
 
 // Tạo một đánh giá
 exports.createReview = async (userId, movieId) => {

@@ -1,9 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styles from './MovieDetail.module.css';
 
 const RecommendedMovies = ({ recommendedMovies, genreItemsRef, handleNextClick, handlePrevClick, handleWatchClickRecommended }) => {
-  const navigate = useNavigate();
 
   return (
     <section className={styles.recommendedSection}>
