@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './forgotpassword.module.css';
+import styles from './ForgotPassword.module.css';
 import { FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa'; 
 
 const ForgotPassword = () => {

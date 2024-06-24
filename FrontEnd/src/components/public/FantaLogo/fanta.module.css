@@ -146,6 +146,9 @@
   transform: translateY(-0.625rem); /* Converted 10px to 0.625rem */
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
+  display:flex; 
+  flex-direction: column; 
+  align-items: center;
 }
 
 .dropdownVisible {

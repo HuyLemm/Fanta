@@ -1,5 +1,5 @@
 .sidebar {
-    background: linear-gradient(to bottom, #219ebc, #8ecae6);
+    background-color: #14213d;
     color: #ecf0f1;
     width: 12.5rem; /* Converted 200px to 12.5rem */
     padding: 1.25rem; /* Converted 20px to 1.25rem */
@@ -28,3 +28,4 @@
 .sidebar .btn:hover {
     background-color: #457b9d;
 }
+
