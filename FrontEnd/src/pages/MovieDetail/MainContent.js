@@ -101,7 +101,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
               <button className={styles.addToFavouriteButton} onClick={handleAddToFavourite}>
                 <div className={isFavourite ? styles.bookmarkIconActive : styles.bookmarkIcon} />
               </button>
-              <span className={styles.favouriteText}> Favourite</span>
+              <div className={styles.favouriteText}> Favourite</div>
             </div>
           </div>
         </div>

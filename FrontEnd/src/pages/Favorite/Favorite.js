@@ -53,7 +53,7 @@ const Favourite = () => {
           <div key={item._id} className={styles.movieRow}>
             <img src={item.movie.poster_url} alt={item.movie.title} className={styles.poster} />
             <div className={styles.movieInfo}>
-              <h2>{item.movie.title}</h2>
+              <h2 className={styles.title}>{item.movie.title}</h2>
               <p><strong>Director:</strong> {item.movie.director.join(', ')}</p>
               <p><strong>Cast:</strong> {item.movie.cast.join(', ')}</p>
               <p><strong>Genre:</strong> {item.movie.genre.join(', ')}</p>

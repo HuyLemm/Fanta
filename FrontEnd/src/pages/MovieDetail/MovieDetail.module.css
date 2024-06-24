@@ -271,27 +271,31 @@ body {
   margin: 15.375rem 5rem; /* Converted 150px 10px to 9.375rem 0.625rem */
 }
 
-/* .favouriteText{
+.favouriteText{
   text-align: center;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
 }
 
 .addToFavouriteButton {
-  background: none;
   border: none;
   cursor: pointer;
 }
 
 .addToFavouriteButton {
-  background: none;
-  border: none;
+  background: #ff9900;
   cursor: pointer;
-  padding: 0;
+  padding-right: 0.3rem;
+  padding-top: 0.3rem;
+  border-radius: 0.75rem;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
 }
 
 .bookmarkIcon {
   width: 2rem;
   height: 2rem;
-  background-image: url('../../assets/images/archive.jpg');
+  background-image: url('../../assets/images/archive_no_bg.png');
   background-size: cover;
   display: inline-block;
 }
@@ -299,22 +303,30 @@ body {
 .bookmarkIconActive {
   width: 2rem;
   height: 2rem;
-  background-image: url('../../assets/images/archive.jpg');
+  background-image: url('../../assets/images/archive_filled_no_bg.png');
   background-size: cover;
   filter: brightness(0);
-  display: inline-block; */
-.addToFavouriteButton{
-  padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
+  display: inline-block;
+  margin-left: 0.3rem;
+}
+
+/* .addToFavouriteButton{
+  padding: 0.625rem 1.25rem; 
   font-size: 1.2rem;
   color: #fff;
   background-color: #ff9900;
   border: none;
-  border-radius: 0.3125rem; /* Converted 5px to 0.3125rem */
+  border-radius: 0.3125rem; 
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-left: 1rem;
-}
+} */
 
 .addToFavouriteButton:hover {
   background-color: #cc7a00;
+}
+
+.addToFavouriteContainer{
+  display: flex;
+  align-items: center;
 }

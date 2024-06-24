@@ -1,6 +1,7 @@
 .favoriteContainer {
   color: white;
   padding: 20px;
+  margin-top: 3rem;
 }
 
 .movieRow {
@@ -42,4 +43,8 @@
 
 .watchButton:hover {
   background-color: #0056b3;
+}
+
+.title{
+  color: #fb5607;
 }

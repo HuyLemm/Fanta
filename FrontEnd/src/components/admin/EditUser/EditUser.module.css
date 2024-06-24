@@ -2,7 +2,6 @@
     color: white;
 }
 
-/* Input field styles */
 .inputField {
     width: 100%;
     padding: 0.625rem;
@@ -12,7 +11,7 @@
     font-size: 1.2rem;
 }
 
-/* Button styles */
+
 .btn {
     padding: 0.625rem 1.25rem;
     border: none;
@@ -35,4 +34,56 @@
     background: #005f73;
     border-radius: 2rem;
     box-shadow: white 0.1rem 0.1rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.25rem;
+    margin-top: 1.25rem;
+    background-color: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1);
+    border-radius: 0.3125rem;
+    overflow: hidden;
+    color: black;
+}
+
+.table th, .table td {
+    padding: 0.625rem;
+    text-align: left;
+    border-bottom: 0.0625rem solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table th {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.table td {
+    background-color: #f9f9f9;
+}
+
+.table th, .table td {
+    width: 9.375rem;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.table .fixed-width {
+    width: 9.375rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+    border: white 0.2rem solid;
+    padding: 0.5rem;
+    border-radius: 1.5rem;
+    transition: all 0.3s ease;
+    background: #caf0f8;
+    color: #2c3e50;
 }
