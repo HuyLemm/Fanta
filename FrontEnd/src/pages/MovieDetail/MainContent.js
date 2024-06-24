@@ -108,7 +108,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
       </div>
       <div className={styles.trailerSection}>
         {trailerId ? (
-          <YouTube videoId={trailerId} opts={{ width: '30%', height: '300px' }} />
+          <YouTube videoId={trailerId} opts={{ width: '23%', height: '230px' }} />
         ) : (
           <div>Trailer not available</div>
         )}

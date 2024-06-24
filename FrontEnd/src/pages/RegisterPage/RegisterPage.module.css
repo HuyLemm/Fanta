@@ -1,0 +1,9 @@
+.registerPage{
+    background: url(../../assets/images/auth.png);
+    background-size: cover;
+    width: 100dvw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}

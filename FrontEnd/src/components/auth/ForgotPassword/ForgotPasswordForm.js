@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './forgotpassword.module.css';
+import styles from './ForgotPassword.module.css';
 import { FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa'; 
 
 const ForgotPassword = () => {
@@ -150,100 +150,102 @@ const ForgotPassword = () => {
     };
 
     return (
-        <section className={styles['forgot-password-section']}>
-            {isLoading && (
-                <div className={styles['loading-container']}>
-                    <FaSpinner className={styles['loading-icon']} />
-                </div>
-            )}
-            {step === 1 && (
-                <form className={styles['forgot-password-form']} onSubmit={handleEmailSubmit}>
-                    <h1>Forgot Password</h1>
-                    <div className={styles['inputbox']}>
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input
-                            type="text"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                        <label>Email</label>
+        <div className = {styles.forgotpasswordPage}>
+            <section className={styles['forgot-password-section']}>
+                {isLoading && (
+                    <div className={styles['loading-container']}>
+                        <FaSpinner className={styles['loading-icon']} />
                     </div>
-                    <button type="submit" className={styles['button']}>Send Verification Code</button>
-                    {message && <p className={styles['message']}>{message}</p>}
-                </form>
-            )}
-            {step === 2 && (
-                <form className={styles['forgot-password-form']} onSubmit={handleCodeSubmit}>
-                    <h1>Verify Code</h1>
-                    <div className={styles['inputbox']}>
-                        <ion-icon name="key-outline"></ion-icon>
-                        <input
-                            type="text"
-                            value={verificationCode}
-                            onChange={(e) => setVerificationCode(e.target.value)}
-                            required
-                        />
-                        <label>Verification Code</label>
+                )}
+                {step === 1 && (
+                    <form className={styles['forgot-password-form']} onSubmit={handleEmailSubmit}>
+                        <h1>Forgot Password</h1>
+                        <div className={styles['inputbox']}>
+                            <ion-icon name="mail-outline"></ion-icon>
+                            <input
+                                type="text"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                            <label>Email</label>
                         </div>
-                        <button type="submit" className={styles['button']}>Verify</button>
-
-                        {timer > 0 ? (
-                            <p className={styles['timer']}>Code expires in: {timer}s</p>
-                        ) : (
-                            <button type="button" className={styles['button']} onClick={handleResendCode}>Resend Code</button>
-                        )}
-
+                        <button type="submit" className={styles['button']}>Send Verification Code</button>
                         {message && <p className={styles['message']}>{message}</p>}
-                </form>
-            )}
-            {step === 3 && (
-                <form className={styles['forgot-password-form']} onSubmit={handlePasswordReset}>
-                    <h1>Reset Password</h1>
-                    <div className={styles['inputbox']}>
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input
-                            type={showNewPassword ? "text" : "password"}
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                            required
-                        />
-                        <label>New Password</label>
+                    </form>
+                )}
+                {step === 2 && (
+                    <form className={styles['forgot-password-form']} onSubmit={handleCodeSubmit}>
+                        <h1>Verify Code</h1>
+                        <div className={styles['inputbox']}>
+                            <ion-icon name="key-outline"></ion-icon>
+                            <input
+                                type="text"
+                                value={verificationCode}
+                                onChange={(e) => setVerificationCode(e.target.value)}
+                                required
+                            />
+                            <label>Verification Code</label>
+                            </div>
+                            <button type="submit" className={styles['button']}>Verify</button>
 
-                        <span
-                            className={styles['show-password']}
-                            onClick={() => setShowNewPassword(!showNewPassword)} 
-                        >
-                            {showNewPassword ? <FaEyeSlash /> : <FaEye />}
-                        </span>
-                    </div>
-                    <div className={styles['inputbox']}>
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input
-                            type={showConfirmPassword ? "text" : "password"}
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                        />
-                        <label>Confirm Password</label>
+                            {timer > 0 ? (
+                                <p className={styles['timer']}>Code expires in: {timer}s</p>
+                            ) : (
+                                <button type="button" className={styles['button']} onClick={handleResendCode}>Resend Code</button>
+                            )}
 
-                        <span
-                            className={styles['show-password']}
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)} 
-                        >
-                            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                        </span>
+                            {message && <p className={styles['message']}>{message}</p>}
+                    </form>
+                )}
+                {step === 3 && (
+                    <form className={styles['forgot-password-form']} onSubmit={handlePasswordReset}>
+                        <h1>Reset Password</h1>
+                        <div className={styles['inputbox']}>
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <input
+                                type={showNewPassword ? "text" : "password"}
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                                required
+                            />
+                            <label>New Password</label>
+
+                            <span
+                                className={styles['show-password']}
+                                onClick={() => setShowNewPassword(!showNewPassword)} 
+                            >
+                                {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+                        </div>
+                        <div className={styles['inputbox']}>
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <input
+                                type={showConfirmPassword ? "text" : "password"}
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                            />
+                            <label>Confirm Password</label>
+
+                            <span
+                                className={styles['show-password']}
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)} 
+                            >
+                                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+                        </div>
+                        <button type="submit" className={styles['button']}>Reset Password</button>
+                        {message && <p className={styles['message']}>{message}</p>}
+                    </form>
+                )}
+                {step === 4 && (
+                    <div className={styles['message']}>
+                        <h1>{message}</h1>
                     </div>
-                    <button type="submit" className={styles['button']}>Reset Password</button>
-                    {message && <p className={styles['message']}>{message}</p>}
-                </form>
-            )}
-            {step === 4 && (
-                <div className={styles['message']}>
-                    <h1>{message}</h1>
-                </div>
-            )}
-        </section>
+                )}
+            </section>
+        </div>
     );
 };
 

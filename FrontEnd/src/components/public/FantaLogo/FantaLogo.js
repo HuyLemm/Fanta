@@ -6,6 +6,7 @@ import guestIcon from '../../../assets/images/guest.png';
 import adminIcon from '../../../assets/images/admin.jpg';
 import styles from './fanta.module.css';
 import { AuthContext } from '../../auth/AuthContext';
+import { getCookie } from '../../../utils/Cookies';
 
 const FantaLogo = () => {
   const { authStatus, setAuthStatus } = useContext(AuthContext);
@@ -16,6 +17,7 @@ const FantaLogo = () => {
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
   const categoriesRef = useRef(null);
+  const token = getCookie('jwt');
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -172,7 +174,11 @@ const FantaLogo = () => {
   const genresColumns = renderGenresInColumns(genres, 5);
 
   const handleFavoriteClick = () => {
-    navigate('/');
+    if (token) {
+      navigate('/favorite');
+    } else {
+      navigate('/login'); // Hoặc hiển thị thông báo yêu cầu đăng nhập
+    }
   };
 
   return (

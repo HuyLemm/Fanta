@@ -1,0 +1,133 @@
+.panelPage{
+    background: url(../../../assets/images/panel.jpg);
+    background-size: cover;
+    width: 100dvw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.h2 {
+    color: white;
+}
+
+.admin-container {
+    display: flex;
+    width: 95rem;
+    height: 47.5rem;
+    background-color: #a8dadc;
+    box-shadow: 0 0.125rem 0.625rem rgba(216, 173, 173, 0.1);
+    overflow: hidden;
+    position: relative;
+    border-radius: 2rem;
+    margin-top: 3.125rem;
+}
+
+.admin-content {
+    flex: 1;
+    padding: 1.25rem;
+    overflow-y: auto;
+    align-items: center;
+    backdrop-filter: blur(10rem);
+    border-top-right-radius: 0.925rem;
+    border-bottom-right-radius: 0.925rem;
+    color: white;
+}
+
+/* Input field styles */
+.inputField {
+    width: 100%;
+    padding: 0.625rem;
+    margin-bottom: 1.25rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+}
+
+/* Button styles */
+.btn {
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    margin: 0.625rem;
+    transition: background-color 0.2s;
+    font-size: large;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+}
+
+.section {
+    margin: 0 auto;
+    padding: 1.25rem;
+    background: #005f73;
+    border-radius: 2rem;
+    box-shadow: white 0.1rem 0.1rem;
+}
+
+/* Additional styles for images */
+.imagePreview {
+    width: 100%;
+    max-width: 12.5rem;
+    margin-bottom: 0.625rem;
+}
+
+/* General table styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.25rem;
+    margin-top: 1.25rem;
+    background-color: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1);
+    border-radius: 0.3125rem;
+    overflow: hidden;
+    color: black;
+}
+
+.table th, .table td {
+    padding: 0.625rem;
+    text-align: left;
+    border-bottom: 0.0625rem solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table th {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.table td {
+    background-color: #f9f9f9;
+}
+
+.table th, .table td {
+    width: 9.375rem;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.table .fixed-width {
+    width: 9.375rem;
+}
+
+/* Specific styles for form groups */
+.form-group {
+    margin-bottom: 1.25rem;
+    border: white 0.2rem solid;
+    padding: 0.5rem;
+    border-radius: 1.5rem;
+    transition: all 0.3s ease;
+    background: #caf0f8;
+    color: #2c3e50;
+}
+

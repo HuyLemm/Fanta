@@ -1,0 +1,45 @@
+.favoriteContainer {
+  color: white;
+  padding: 20px;
+}
+
+.movieRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.poster {
+  width: 150px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.movieInfo {
+  flex: 1;
+}
+
+.movieInfo h2 {
+  margin: 0 0 10px;
+}
+
+.movieInfo p {
+  margin: 5px 0;
+}
+
+.watchButton {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.watchButton:hover {
+  background-color: #0056b3;
+}

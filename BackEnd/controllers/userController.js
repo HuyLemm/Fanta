@@ -201,3 +201,15 @@ exports.toggleWatchlist = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 }
+
+exports.getFavorite = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const watchlist = await WatchlistModel.find({ user: userId }).populate('movie');
+
+    res.status(200).json(watchlist);
+  } catch (error) {
+    console.error('Error fetching watchlist:', error);
+    res.status(500).send('Server error');
+  }
+};

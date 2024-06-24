@@ -1,15 +1,16 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import HomePage from '../pages/HomePage';
-import RegisterPage from '../pages/RegisterPage';
-import LoginPage from '../pages/LoginPage';
+import HomePage from '../pages/HomePage/HomePage';
+import RegisterPage from '../pages/RegisterPage/RegisterPage';
+import LoginPage from '../pages/LoginPage/LoginPage';
 import ForgotPasswordForm from '../components/auth/ForgotPassword/ForgotPasswordForm';
-import AdminFeatures from '../components/admin/AdminFeatures';
+import AdminFeatures from '../components/admin/AdminFeatures/AdminFeatures';
 import ProtectedRoute from '../components/auth/CheckRole';
-import UserFeatures from '../components/user/UserFeatures';
+import UserFeatures from '../components/user/UserFeatures/UserFeatures';
 import MovieDetail from '../pages/MovieDetail/MovieDetail';
 import SearchResults from '../pages/SearchResults/SearchResults';
 import Categories from '../pages/Categories/Categories';
 import Streaming from '../pages/Streaming/Streaming';
+import Favorite from '../pages/Favorite/Favorite';
 
 function AppRouter() {
   return (
@@ -38,6 +39,7 @@ function AppRouter() {
 
         {/* User Routes */}
         <Route path="/user" element={<ProtectedRoute role="user"><UserFeatures /></ProtectedRoute>} />
+        <Route path="/favorite" element={<ProtectedRoute role="user"><Favorite /></ProtectedRoute>} />
         {/* <Route path="/user" element={<checkRole role="user"><HomePage /></checkRole>} />
         <Route path="/profile" element={<checkRole role="user"><ViewProfile /></checkRole>} />
         <Route path="/profile/update" element={<checkRole role="user"><UpdateProfile /></checkRole>} /> */}
