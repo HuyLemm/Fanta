@@ -15,13 +15,23 @@
 .admin-container {
     display: flex;
     width: 85rem;
+<<<<<<< HEAD
     height: 45.5rem;
     background:transparent;
+=======
+    height: 43.5rem;
+    background: transparent;
+>>>>>>> 106a56bd7acd4a2d64dc0512b8c2ee49e50627d5
     box-shadow: 0 0.125rem 0.625rem rgba(216, 173, 173, 0.1);
     overflow: hidden;
     position: relative;
     border-radius: 2rem;
+<<<<<<< HEAD
     margin-top: 3.125rem;   
+=======
+    margin-top: 3.125rem;
+    border: 0.15rem white solid;
+>>>>>>> 106a56bd7acd4a2d64dc0512b8c2ee49e50627d5
 }
 
 .admin-content {
