@@ -12,10 +12,12 @@ const Carousel = () => {
 
   const [movies, setMovies] = useState([]);
   const [watchlists, setWatchlists] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
+        setLoading(true); // Start loading
         const response = await fetch('http://localhost:5000/public/get-top-rated-movies');
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
@@ -25,63 +27,69 @@ const Carousel = () => {
 
         // Fetch watchlist status for each movie
         data.forEach(movie => {
-          checkIfWatchlisted(movie._id, token);
+          checkIfWatchlisted(movie.id, token);
         });
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false); // Stop loading
       }
     };
     fetchMovies();
+  }, [token]);
 
-    const next = document.getElementById('next');
-    const prev = document.getElementById('prev');
-    const carousel = carouselRef.current;
-    const slider = sliderRef.current;
-    const thumbnailBorder = thumbnailRef.current;
+  useEffect(() => {
+    if (!loading) {
+      const next = document.getElementById('next');
+      const prev = document.getElementById('prev');
+      const carousel = carouselRef.current;
+      const slider = sliderRef.current;
+      const thumbnailBorder = thumbnailRef.current;
 
-    let timeRunning = 3000;
-    let timeAutoNext = 7000;
-    let runTimeOut;
-    let runNextAuto;
+      let timeRunning = 3000;
+      let timeAutoNext = 7000;
+      let runTimeOut;
+      let runNextAuto;
 
-    function showSlider(type) {
-      let sliderItems = slider.children;
-      let thumbnailItems = thumbnailBorder.children;
+      function showSlider(type) {
+        let sliderItems = slider.children;
+        let thumbnailItems = thumbnailBorder.children;
 
-      if (type === 'next') {
-        slider.appendChild(sliderItems[0]);
-        thumbnailBorder.appendChild(thumbnailItems[0]);
-        carousel.classList.add(styles.next);
-      } else {
-        slider.prepend(sliderItems[sliderItems.length - 1]);
-        thumbnailBorder.prepend(thumbnailItems[thumbnailItems.length - 1]);
-        carousel.classList.add(styles.prev);
+        if (type === 'next') {
+          slider.appendChild(sliderItems[0]);
+          thumbnailBorder.appendChild(thumbnailItems[0]);
+          carousel.classList.add(styles.next);
+        } else {
+          slider.prepend(sliderItems[sliderItems.length - 1]);
+          thumbnailBorder.prepend(thumbnailItems[thumbnailItems.length - 1]);
+          carousel.classList.add(styles.prev);
+        }
+
+        clearTimeout(runTimeOut);
+        runTimeOut = setTimeout(() => {
+          carousel.classList.remove(styles.next);
+          carousel.classList.remove(styles.prev);
+        }, timeRunning);
+
+        clearTimeout(runNextAuto);
+        runNextAuto = setTimeout(() => {
+          next.click();
+        }, timeAutoNext);
       }
 
-      clearTimeout(runTimeOut);
-      runTimeOut = setTimeout(() => {
-        carousel.classList.remove(styles.next);
-        carousel.classList.remove(styles.prev);
-      }, timeRunning);
+      next.onclick = () => showSlider('next');
+      prev.onclick = () => showSlider('prev');
 
-      clearTimeout(runNextAuto);
       runNextAuto = setTimeout(() => {
         next.click();
       }, timeAutoNext);
+
+      return () => {
+        clearTimeout(runNextAuto);
+        clearTimeout(runTimeOut);
+      };
     }
-
-    next.onclick = () => showSlider('next');
-    prev.onclick = () => showSlider('prev');
-
-    runNextAuto = setTimeout(() => {
-      next.click();
-    }, timeAutoNext);
-
-    return () => {
-      clearTimeout(runNextAuto);
-      clearTimeout(runTimeOut);
-    };
-  }, [token]);
+  }, [loading]);
 
   const checkIfWatchlisted = async (movieId, token) => {
     try {
@@ -134,43 +142,49 @@ const Carousel = () => {
 
   return (
     <div className={styles.carousel} ref={carouselRef}>
-      <div className={styles.list} ref={sliderRef}>
-        {movies.map((movie, index) => (
-          <div className={styles.item} key={index}>
-            <div className={styles.overlay}></div>
-            <img src={movie.background_url} alt={movie.title} className={styles.img}/>
-            <div className={styles.content}>
-              <div className={styles.author}>{movie.director}</div>
-              <div className={styles.title}>{movie.title}</div>
-              <div className={styles.topic}>{movie.genre[1]}</div>
-              <div className={styles.des}>{movie.description}</div>
-              <div className={styles.buttons}>
-                <button className={styles.more} onClick={() => handleWatchClick(movie._id)}>VIEW</button>
-                <button onClick={() => handleWatchlistClick(movie._id)}>
-                  {watchlists[movie._id] ? 'UNARCHIVE' : 'ARCHIVE'}
-                </button>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          <div className={styles.list} ref={sliderRef}>
+            {movies.map((movie, index) => (
+              <div className={styles.item} key={index}>
+                <div className={styles.overlay}></div>
+                <img src={movie.background_url} alt={movie.title} className={styles.img}/>
+                <div className={styles.content}>
+                  <div className={styles.author}>{movie.director.join(', ')}</div>
+                  <div className={styles.title}>{movie.title}</div>
+                  <div className={styles.topic}>{movie.genre[0]}</div>
+                  <div className={styles.des}>{movie.brief_description}</div>
+                  <div className={styles.buttons}>
+                    <button className={styles.more} onClick={() => handleWatchClick(movie.id)}>VIEW</button>
+                    <button onClick={() => handleWatchlistClick(movie.id)}>
+                      {watchlists[movie.id] ? 'UNARCHIVE' : 'ARCHIVE'}
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className={styles.thumbnail} ref={thumbnailRef}>
-        {movies.map((movie, index) => (
-          <div className={`${styles.item} ${styles.movieThumbnail}`} key={index}>
-            <img src={movie.poster_url} alt={movie.title} />
-            <div className={styles.content}></div>
-            <div className={styles.movieInfo}>
-              <a href={`/movie/${movie._id}`}>See More</a>
-              <h3 className={styles.h3}>{movie.title}</h3>
-            </div>
+          <div className={styles.thumbnail} ref={thumbnailRef}>
+            {movies.map((movie, index) => (
+              <div className={`${styles.item} ${styles.movieThumbnail}`} key={index}>
+                <img src={movie.poster_url} alt={movie.title} />
+                <div className={styles.content}></div>
+                <div className={styles.movieInfo}>
+                  <a href={`/movie/${movie.id}`}>See More</a>
+                  <h3 className={styles.h3}>{movie.title}</h3>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className={styles.arrows}>
-        <button id="prev">&lt;</button>
-        <button id="next">&gt;</button>
-      </div>
-      <div className={styles.time}></div>
+          <div className={styles.arrows}>
+            <button id="prev">&lt;</button>
+            <button id="next">&gt;</button>
+          </div>
+          <div className={styles.time}></div>
+        </>
+      )}
     </div>
   );
 };

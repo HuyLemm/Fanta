@@ -5,7 +5,8 @@ import styles from './CreateMovie.module.css';
 const CreateMovie = () => {
     const [movieData, setMovieData] = useState({
         title: '',
-        description: '',
+        brief_description: '',
+        full_description: '',
         release_date: '',
         genre: '',
         director: '',
@@ -38,7 +39,8 @@ const CreateMovie = () => {
                 setMessage(`Movie created successfully: ${JSON.stringify(data)}`);
                 setMovieData({
                     title: '',
-                    description: '',
+                    brief_description: '',
+                    full_description: '',
                     release_date: '',
                     genre: '',
                     director: '',
@@ -83,12 +85,6 @@ const CreateMovie = () => {
                     className={styles.inputField}
                 />
                 <input
-                    type="date"
-                    placeholder="Release Date"
-                    onChange={(e) => handleEpisodeChange(index, 'release_date', e.target.value)}
-                    className={styles.inputField}
-                />
-                <input
                     type="text"
                     placeholder="Streaming URL"
                     onChange={(e) => handleEpisodeChange(index, 'streaming_url', e.target.value)}
@@ -110,9 +106,16 @@ const CreateMovie = () => {
             />
             <input
                 type="text"
-                value={movieData.description}
-                onChange={(e) => setMovieData({ ...movieData, description: e.target.value })}
-                placeholder="Description"
+                value={movieData.brief_description}
+                onChange={(e) => setMovieData({ ...movieData, brief_description: e.target.value })}
+                placeholder="Brief Description"
+                className={styles.inputField}
+            />
+            <input
+                type="text"
+                value={movieData.full_description}
+                onChange={(e) => setMovieData({ ...movieData, full_description: e.target.value })}
+                placeholder="Full Description"
                 className={styles.inputField}
             />
             <input

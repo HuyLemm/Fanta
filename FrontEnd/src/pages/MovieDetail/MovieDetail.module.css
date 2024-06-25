@@ -270,6 +270,7 @@ body {
   position: absolute;
   top: 0;
   right: 0;
+  margin-right: 10rem;
   width: 25%; /* Adjust width as needed */
   height: 100%; /* Make it span the height of the section */
   z-index: 1; /* Ensure it stays above other elements */

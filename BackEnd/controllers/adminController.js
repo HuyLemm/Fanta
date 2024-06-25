@@ -125,7 +125,7 @@ exports.createGenre = async (req, res) => {
 // Tạo một phim
 exports.createMovie = async (req, res) => {
   try {
-    const { title, description, release_date, genre, type, director, cast, poster_url, background_url, trailer_url, duration, streaming_url, episodes } = req.body;
+    const { title, brief_description, full_description , release_date, genre, type, director, cast, poster_url, background_url, trailer_url, duration, streaming_url, episodes } = req.body;
 
     const existingMovie = await MovieModel.findOne({ title });
     if (existingMovie) {
@@ -147,15 +147,16 @@ exports.createMovie = async (req, res) => {
 
     const newMovie = new MovieModel({
         title,
-        description,
+        brief_description,
+        full_description,
         release_date,
         genre: genresArray,
-        type,
         director: directorArray,
         cast: castArray,
         poster_url,
         background_url,
         trailer_url,
+        type,
         duration: type === 'movie' ? duration : undefined,
         streaming_url: type === 'movie' ? streaming_url : undefined,
         episodes: type === 'series' ? episodes : undefined

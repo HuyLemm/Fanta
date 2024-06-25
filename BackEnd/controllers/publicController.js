@@ -38,11 +38,11 @@ exports.getTopRatedMovies = async (req, res) => {
       {
         $group: {
           _id: "$movieId",
-          averageRating: { $avg: "$rating" }
+          averageRating: { $avg: "$rating" },
         }
       },
       {
-        $sort: { averageRating: -1 }
+        $sort: { averageRating: -1 } // Ensure sorting by average rating
       },
       {
         $limit: 5
@@ -60,9 +60,11 @@ exports.getTopRatedMovies = async (req, res) => {
       },
       {
         $project: {
-          _id: "$movieDetails._id",
+          _id: 0,
+          id: "$movieDetails._id",
           title: "$movieDetails.title",
-          description: "$movieDetails.description",
+          brief_description: "$movieDetails.brief_description",
+          full_description: "$movieDetails.full_description",
           release_date: "$movieDetails.release_date",
           duration: "$movieDetails.duration",
           genre: "$movieDetails.genre",
@@ -72,17 +74,18 @@ exports.getTopRatedMovies = async (req, res) => {
           background_url: "$movieDetails.background_url",
           trailer_url: "$movieDetails.trailer_url",
           streaming_url: "$movieDetails.streaming_url",
-          averageRating: 1
+          averageRating: 1,
         }
       }
     ]);
-
+    console.log(topRatedMovies);
     res.status(200).json(topRatedMovies);
   } catch (error) {
     console.error('Error fetching top-rated movies:', error);
     res.status(500).json({ error: 'An error occurred while fetching top-rated movies' });
   }
 };
+
 
 exports.getMovieById = async (req, res) => {
   try {

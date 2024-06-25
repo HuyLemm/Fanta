@@ -6,19 +6,12 @@ const Schema = mongoose.Schema;
 const EpisodeSchema = new Schema({
   title: {
     type: String,
-    required: true
   },
   duration: {
     type: Number,
-    required: true
-  },
-  release_date: {
-    type: Date,
-    required: true
   },
   streaming_url: {
     type: String,
-    required: true
   }
 });
 
@@ -28,25 +21,23 @@ const MovieSchema = new Schema({
     type: String,
     required: true
   },
-  description: {
+
+  brief_description: {
     type: String,
     required: true
   },
+
+  full_description: {
+    type: String,
+    required: true
+  },
+
   release_date: {
     type: Date,
     required: true
   },
-  duration: {
-    type: Number,
-    required: true
-  },
   genre: {
     type: [String],
-    required: true
-  },
-  type: {
-    type: String,
-    enum: ['movie', 'series'],
     required: true
   },
   director: {
@@ -69,9 +60,21 @@ const MovieSchema = new Schema({
     type: String,
     required: true
   },
+
+  type: {
+    type: String,
+    enum: ['movie', 'series'],
+    required: true
+  },
+
+  duration: {
+    type: Number,
+  },
+
   streaming_url: {
     type: String
   },
+  
   episodes: [EpisodeSchema] // Optional field, only for series
 }, {
   collection: 'movies'

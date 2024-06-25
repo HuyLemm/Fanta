@@ -103,14 +103,14 @@ const MainContent = ({ movie, handleWatchClick }) => {
               )}</div>
             <p className={styles.director}><strong className={styles.dir}>Director:</strong> {movie.director.join(', ')}</p>
             <p className={styles.cast}><strong className={styles.dir}>Cast: </strong>{movie.cast.join(', ')}</p>
-            <p className={styles.description}>{movie.description}</p>
+            <p className={styles.description}>{movie.brief_description}</p>
             <button className={styles.watchNowButton} onClick={handleWatchClick}>Watch Now</button>
           </div>
         </div>
       </div>
       <div className={styles.trailerSection}>
         {trailerId ? (
-          <YouTube videoId={trailerId} opts={{ width: '23%', height: '250rem' }} />
+          <YouTube videoId={trailerId} opts={{ width: '150%', height: '250rem' }} />
         ) : (
           <div>Trailer not available</div>
         )}

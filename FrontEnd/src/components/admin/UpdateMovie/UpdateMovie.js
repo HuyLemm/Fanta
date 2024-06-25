@@ -120,13 +120,6 @@ const UpdateMovie = () => {
                     className={styles.inputField}
                 />
                 <input
-                    type="date"
-                    placeholder="Release Date"
-                    value={formatDate(movieData.episodes[index]?.release_date) || ''}
-                    onChange={(e) => handleEpisodeChange(index, 'release_date', e.target.value)}
-                    className={styles.inputField}
-                />
-                <input
                     type="text"
                     placeholder="Streaming URL"
                     value={movieData.episodes[index]?.streaming_url || ''}
@@ -137,83 +130,87 @@ const UpdateMovie = () => {
         ));
     };
 
+    const handleTypeChange = (e) => {
+        const newType = e.target.value;
+        setEditFieldValue(newType);
+        setIsEditingField('type');
+    };
+
     return (
-        <div className={styles.h2}>
+        <div className={styles.section}>
             <h2 className={styles.h2}>Update Movie</h2>
             {movieData ? (
                 <>
-                    {Object.keys(movieData).map((key) => (
-                        key !== '_id' && key !== 'episodes' && (
-                            <div key={key} className={styles.inputGroup}>
-                                <label>{key.charAt(0).toUpperCase() + key.slice(1)}: </label>
-                                {isEditingField === key ? (
-                                    <>
-                                        {key === 'type' ? (
-                                            <select
-                                                value={editFieldValue}
-                                                onChange={(e) => setEditFieldValue(e.target.value)}
-                                                className={styles.inputField}
+                    {['title', 'brief_description', 'full_description', 'release_date', 'genre', 'director', 'cast', 'poster_url', 'background_url', 'trailer_url', 'type'].map((key) => (
+                        <div key={key} className={styles.inputGroup}>
+                            <label>{key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}: </label>
+                            {isEditingField === key ? (
+                                <>
+                                    {key === 'type' ? (
+                                        <select
+                                            value={editFieldValue}
+                                            onChange={handleTypeChange}
+                                            className={styles.inputField}
+                                        >
+                                            <option value="movie">Movie</option>
+                                            <option value="series">Series</option>
+                                        </select>
+                                    ) : (
+                                        <input
+                                            type={key === 'release_date' ? 'date' : 'text'}
+                                            value={editFieldValue}
+                                            onChange={(e) => setEditFieldValue(e.target.value)}
+                                            className={styles.inputField}
+                                        />
+                                    )}
+                                    <button
+                                        onClick={() => handleUpdateMovie(key, editFieldValue)}
+                                        className={styles.btn}
+                                    >
+                                        Update Movie
+                                    </button>
+                                    <button
+                                        onClick={() => { setIsEditingField(null); setEditFieldValue(''); }}
+                                        className={styles.btn}
+                                    >
+                                        Cancel
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    {key === 'poster_url' || key === 'background_url' ? (
+                                        <>
+                                            <img src={movieData[key]} alt={key} className={styles.imagePreview} />
+                                            <button
+                                                onClick={() => { setIsEditingField(key); setEditFieldValue(movieData[key]); }}
+                                                className={styles.btn}
                                             >
-                                                <option value="movie">Movie</option>
-                                                <option value="series">Series</option>
-                                            </select>
-                                        ) : (
-                                            <input
-                                                type={key === 'release_date' ? 'date' : 'text'}
-                                                value={editFieldValue}
-                                                onChange={(e) => setEditFieldValue(e.target.value)}
-                                                className={styles.inputField}
-                                            />
-                                        )}
-                                        <button
-                                            onClick={() => handleUpdateMovie(key, editFieldValue)}
-                                            className={styles.btn}
-                                        >
-                                            Update Movie
-                                        </button>
-                                        <button
-                                            onClick={() => { setIsEditingField(null); setEditFieldValue(''); }}
-                                            className={styles.btn}
-                                        >
-                                            Cancel
-                                        </button>
-                                    </>
-                                ) : (
-                                    <>
-                                        {key === 'poster_url' || key === 'background_url' ? (
-                                            <>
-                                                <img src={movieData[key]} alt={key} className={styles.imagePreview} />
-                                                <button
-                                                    onClick={() => { setIsEditingField(key); setEditFieldValue(movieData[key]); }}
-                                                    className={styles.btn}
-                                                >
-                                                    Update Movie
-                                                </button>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <span>{Array.isArray(movieData[key]) ? movieData[key].join(', ') : movieData[key]}</span>
-                                                <button
-                                                    onClick={() => { setIsEditingField(key); setEditFieldValue(movieData[key]); }}
-                                                    className={styles.btn}
-                                                >
-                                                    Update Movie
-                                                </button>
-                                            </>
-                                        )}
-                                    </>
-                                )}
-                            </div>
-                        )
+                                                Update Movie
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span>{Array.isArray(movieData[key]) ? movieData[key].join(', ') : movieData[key]}</span>
+                                            <button
+                                                onClick={() => { setIsEditingField(key); setEditFieldValue(movieData[key]); }}
+                                                className={styles.btn}
+                                            >
+                                                Update Movie
+                                            </button>
+                                        </>
+                                    )}
+                                </>
+                            )}
+                        </div>
                     ))}
-                    {isEditingField === 'type' && movieData.type === 'movie' && (
+                    {isEditingField === 'type' && editFieldValue === 'movie' && (
                         <>
                             <div className={styles.inputGroup}>
                                 <label>Duration: </label>
                                 <input
                                     type="number"
                                     value={movieData.duration}
-                                    onChange={(e) => setEditFieldValue(e.target.value)}
+                                    onChange={(e) => setMovieData({ ...movieData, duration: e.target.value })}
                                     placeholder="Duration (minutes)"
                                     className={styles.inputField}
                                 />
@@ -223,14 +220,22 @@ const UpdateMovie = () => {
                                 <input
                                     type="text"
                                     value={movieData.streaming_url}
-                                    onChange={(e) => setEditFieldValue(e.target.value)}
+                                    onChange={(e) => setMovieData({ ...movieData, streaming_url: e.target.value })}
                                     placeholder="Streaming URL"
                                     className={styles.inputField}
                                 />
                             </div>
+                            <button onClick={() => handleUpdateMovie('duration', movieData.duration)} className={styles.btn}>Update Movie</button>
+                            <button onClick={() => handleUpdateMovie('streaming_url', movieData.streaming_url)} className={styles.btn}>Update Movie</button>
+                            <button
+                                onClick={() => { setIsEditingField(null); setEditFieldValue(''); }}
+                                className={styles.btn}
+                            >
+                                Cancel
+                            </button>
                         </>
                     )}
-                    {isEditingField === 'type' && movieData.type === 'series' && (
+                    {isEditingField === 'type' && editFieldValue === 'series' && (
                         <div className={styles.episodeSetup}>
                             <div className={styles.inputGroup}>
                                 <label>Number of Episodes: </label>
@@ -242,6 +247,13 @@ const UpdateMovie = () => {
                                 />
                             </div>
                             {renderEpisodeInputs()}
+                            <button onClick={handleUpdateMovie} className={styles.btn}>Update Movie</button>
+                            <button
+                                onClick={() => { setIsEditingField(null); setEditFieldValue(''); }}
+                                className={styles.btn}
+                            >
+                                Cancel
+                            </button>
                         </div>
                     )}
                     <p>{message}</p>
