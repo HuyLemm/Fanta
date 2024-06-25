@@ -51,7 +51,10 @@ const Favourite = () => {
       {watchlist.length > 0 ? (
         watchlist.map(item => (
           <div key={item._id} className={styles.movieRow}>
-            <img src={item.movie.poster_url} alt={item.movie.title} className={styles.poster} />
+            <div className={styles.posterContainer}>
+              <img src={item.movie.poster_url} alt={item.movie.title} className={styles.poster} />
+              <button className={styles.watchButton} onClick={() => handleWatchClick(item.movie._id)}>Watch</button>
+            </div>
             <div className={styles.movieInfo}>
               <h2 className={styles.title}>{item.movie.title}</h2>
               <p><strong>Director:</strong> {item.movie.director.join(', ')}</p>
@@ -60,7 +63,6 @@ const Favourite = () => {
               <p><strong>Release Date:</strong> {new Date(item.movie.release_date).toLocaleDateString()}</p>
               <p><strong>Duration:</strong> {item.movie.duration} min</p>
               <p>{item.movie.description}</p>
-              <button onClick={() => handleWatchClick(item.movie._id)} className={styles.watchButton}>Watch</button>
             </div>
           </div>
         ))

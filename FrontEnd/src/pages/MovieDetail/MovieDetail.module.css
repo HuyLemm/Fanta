@@ -113,7 +113,7 @@
   padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
   font-size: 1.2rem;
   color: #fff;
-  background-color: #ff9900;
+  background-color: #fb5607;
   border: none;
   border-radius: 0.3125rem; /* Converted 5px to 0.3125rem */
   cursor: pointer;
@@ -266,15 +266,23 @@ body {
 }
 
 .trailerSection {
-  text-align: right;
-  padding: 1.25rem; /* Converted 20px to 1.25rem */
-  margin: 15.375rem 5rem; /* Converted 150px 10px to 9.375rem 0.625rem */
+  padding: 1.25rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25%; /* Adjust width as needed */
+  height: 100%; /* Make it span the height of the section */
+  z-index: 1; /* Ensure it stays above other elements */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .favouriteText{
   text-align: center;
   margin-left: 0.5rem;
   margin-top: 1rem;
+  color: rgb(255,255,255,0.7);
 }
 
 .addToFavouriteButton {
@@ -283,13 +291,14 @@ body {
 }
 
 .addToFavouriteButton {
-  background: #ff9900;
+  background: #fb5607;
   cursor: pointer;
   padding-right: 0.3rem;
   padding-top: 0.3rem;
   border-radius: 0.75rem;
   margin-top: 1rem;
   transition: all 0.3s ease;
+  z-index: 1000;
 }
 
 .bookmarkIcon {
@@ -327,6 +336,13 @@ body {
 }
 
 .addToFavouriteContainer{
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-left: 1.5rem;
+}
+
+.titleContainer {
   display: flex;
   align-items: center;
 }

@@ -15,8 +15,8 @@
 .admin-container {
     display: flex;
     width: 85rem;
-    height: 43.5rem;
-    background: transparent;
+    height: 45.5rem;
+    background:transparent;
     box-shadow: 0 0.125rem 0.625rem rgba(216, 173, 173, 0.1);
     overflow: hidden;
     position: relative;

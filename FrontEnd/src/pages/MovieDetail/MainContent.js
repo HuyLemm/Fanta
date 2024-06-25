@@ -81,7 +81,15 @@ const MainContent = ({ movie, handleWatchClick }) => {
         <div className={styles.content}>
           <img src={movie.poster_url} alt={movie.title} className={styles.poster} />
           <div className={styles.details}>
-            <h1 className={styles.title}>{movie.title}</h1>
+            <div className={styles.titleContainer}>
+              <h1 className={styles.title}>{movie.title}</h1>
+              <div className={styles.addToFavouriteContainer}>
+                <button className={styles.addToFavouriteButton} onClick={handleAddToFavourite}>
+                  <div className={isFavourite ? styles.bookmarkIconActive : styles.bookmarkIcon} />
+                </button>
+                <div className={styles.favouriteText}> Favourite</div>
+              </div>
+            </div>
             <p className={styles.meta}>
               <span className={styles.quality}>HD</span>
               <span className={styles.genres}>{movie.genre.join(', ')}</span>
@@ -97,18 +105,12 @@ const MainContent = ({ movie, handleWatchClick }) => {
             <p className={styles.cast}><strong className={styles.dir}>Cast: </strong>{movie.cast.join(', ')}</p>
             <p className={styles.description}>{movie.description}</p>
             <button className={styles.watchNowButton} onClick={handleWatchClick}>Watch Now</button>
-            <div className={styles.addToFavouriteContainer}>
-              <button className={styles.addToFavouriteButton} onClick={handleAddToFavourite}>
-                <div className={isFavourite ? styles.bookmarkIconActive : styles.bookmarkIcon} />
-              </button>
-              <div className={styles.favouriteText}> Favourite</div>
-            </div>
           </div>
         </div>
       </div>
       <div className={styles.trailerSection}>
         {trailerId ? (
-          <YouTube videoId={trailerId} opts={{ width: '23%', height: '230px' }} />
+          <YouTube videoId={trailerId} opts={{ width: '23%', height: '250rem' }} />
         ) : (
           <div>Trailer not available</div>
         )}

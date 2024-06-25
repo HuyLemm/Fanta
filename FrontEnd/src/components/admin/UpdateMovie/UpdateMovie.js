@@ -138,7 +138,7 @@ const UpdateMovie = () => {
     };
 
     return (
-        <div className={styles.section}>
+        <div className={styles.h2}>
             <h2 className={styles.h2}>Update Movie</h2>
             {movieData ? (
                 <>
