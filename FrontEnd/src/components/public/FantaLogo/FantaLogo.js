@@ -196,40 +196,42 @@ const FantaLogo = () => {
         />
         <button type="submit" className={styles.searchButton}>Search</button>
       </form>
-      <button className={styles.favoriteButton} onClick={handleFavoriteClick}>My Favorite</button>
-      <div
-        className={styles.categoriesContainer}
-        ref={categoriesRef}
-        onMouseLeave={() => setShowCategories(false)}
-      >
-        <button
-          className={styles.categoriesButton}
-          onMouseEnter={() => setShowCategories(true)}
+      <div className={styles.categoriesAndFavorite}>
+        <div
+          className={styles.categoriesContainer}
+          ref={categoriesRef}
+          onMouseLeave={() => setShowCategories(false)}
         >
-          Categories
-        </button>
-        {showCategories && (
-          <div
-            className={styles.categoriesDropdown}
+          <button
+            className={styles.categoriesButton}
             onMouseEnter={() => setShowCategories(true)}
-            onMouseLeave={() => setShowCategories(false)}
           >
-            {genresColumns.map((column, index) => (
-              <div key={index} className={styles.categoryColumn}>
-                {column.map((genre) => (
-                  <button
-                    key={genre._id}
-                    className={styles.categoryItem}
-                    onMouseDown={(e) => e.preventDefault()}
-                    onClick={() => handleCategoryClick(genre)}
-                  >
-                    {genre.name}
-                  </button>
-                ))}
-              </div>
-            ))}
-          </div>
-        )}
+            Categories
+          </button>
+          {showCategories && (
+            <div
+              className={styles.categoriesDropdown}
+              onMouseEnter={() => setShowCategories(true)}
+              onMouseLeave={() => setShowCategories(false)}
+            >
+              {genresColumns.map((column, index) => (
+                <div key={index} className={styles.categoryColumn}>
+                  {column.map((genre) => (
+                    <button
+                      key={genre._id}
+                      className={styles.categoryItem}
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => handleCategoryClick(genre)}
+                    >
+                      {genre.name}
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <button className={styles.favoriteButton} onClick={handleFavoriteClick}>My Favorite</button>
       </div>
       {renderUserIcon()}
     </header>

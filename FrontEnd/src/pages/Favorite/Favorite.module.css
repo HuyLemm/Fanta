@@ -12,10 +12,45 @@
   border-bottom: 1px solid #ccc;
 }
 
+.posterContainer {
+  position: relative;
+}
+
 .poster {
   width: 150px;
   height: auto;
   margin-right: 20px;
+  transition: transform 0.3s ease;
+}
+
+.posterContainer:hover .poster {
+  transform: scale(1.1);
+}
+
+.posterContainer .watchButton {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  background-color: #fb5607;
+  font-weight: bold;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.posterContainer:hover .watchButton {
+  opacity: 1;
+  visibility: visible;
+}
+
+.posterContainer:hover .watchButton:hover {
+  background-color: rgb(0,0,0,0.5);
 }
 
 .movieInfo {
@@ -28,23 +63,9 @@
 
 .movieInfo p {
   margin: 5px 0;
+  width: 75%;
 }
 
-.watchButton {
-  padding: 10px 20px;
-  margin-top: 10px;
-  background-color: #007BFF;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.watchButton:hover {
-  background-color: #0056b3;
-}
-
-.title{
+.title {
   color: #fb5607;
 }
