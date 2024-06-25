@@ -125,42 +125,41 @@ exports.createGenre = async (req, res) => {
 // Tạo một phim
 exports.createMovie = async (req, res) => {
   try {
-      const { title, description, release_date, duration, genre, director, cast, poster_url, background_url, trailer_url, streaming_url } = req.body;
+    const { title, description, release_date, genre, type, director, cast, poster_url, background_url, trailer_url, duration, streaming_url, episodes } = req.body;
 
-      const existingMovie = await MovieModel.findOne({ title });
-      if (existingMovie) {
-          return res.status(400).send({ error: 'Movie with this title already exists' });
-      }
+    const existingMovie = await MovieModel.findOne({ title });
+    if (existingMovie) {
+        return res.status(400).send({ error: 'Movie with this title already exists' });
+    }
 
-      // Chuyển đổi genre thành mảng nếu nó là một chuỗi phân tách bằng dấu phẩy
-      const genresArray = typeof genre === 'string' ? genre.split(',').map(g => g.trim()) : genre;
-      const directorArray = typeof director === 'string' ? director.split(',').map(g => g.trim()) : director;
-      const castArray = typeof cast === 'string' ? cast.split(',').map(g => g.trim()) : cast;
+    const genresArray = typeof genre === 'string' ? genre.split(',').map(g => g.trim()) : genre;
+    const directorArray = typeof director === 'string' ? director.split(',').map(g => g.trim()) : director;
+    const castArray = typeof cast === 'string' ? cast.split(',').map(g => g.trim()) : cast;
 
-      if (!Array.isArray(genresArray)) {
-          return res.status(400).send({ error: 'Genres should be an array' });
-      }
+    if (!Array.isArray(genresArray)) {
+        return res.status(400).send({ error: 'Genres should be an array' });
+    }
 
-      // Kiểm tra tất cả các thể loại có trong genresArray không
-      const existingGenres = await GenreModel.find({ name: { $in: genresArray } });
+    const existingGenres = await GenreModel.find({ name: { $in: genresArray } });
+    if (existingGenres.length !== genresArray.length) {
+        return res.status(400).send({ error: 'One or more genres not found' });
+    }
 
-      if (existingGenres.length !== genresArray.length) {
-          return res.status(400).send({ error: 'One or more genres not found' });
-      }
-
-      const newMovie = new MovieModel({
-          title,
-          description,
-          release_date,
-          duration,
-          genre: genresArray,
-          director: directorArray,
-          cast: castArray,
-          poster_url,
-          background_url,
-          trailer_url,
-          streaming_url
-      });
+    const newMovie = new MovieModel({
+        title,
+        description,
+        release_date,
+        genre: genresArray,
+        type,
+        director: directorArray,
+        cast: castArray,
+        poster_url,
+        background_url,
+        trailer_url,
+        duration: type === 'movie' ? duration : undefined,
+        streaming_url: type === 'movie' ? streaming_url : undefined,
+        episodes: type === 'series' ? episodes : undefined
+    });
 
       await newMovie.save();
       res.status(201).send(newMovie);
@@ -183,21 +182,20 @@ exports.findMovie = async (req, res) => {
   }
 };
 
-// Cập nhật phim
 exports.updateMovie = async (req, res) => {
   try {
-      const { title, description, release_date, duration, genre, director, cast, poster_url, background_url, trailer_url, streaming_url } = req.body;
-      const updatedMovie = await MovieModel.findOneAndUpdate(
-          { title },
-          { title, description, release_date, duration, genre, director, cast, poster_url, background_url, trailer_url, streaming_url },
+      const { updatedMovieData, originalTitle } = req.body;
+      const movie = await MovieModel.findOneAndUpdate(
+          { title: originalTitle },
+          updatedMovieData,
           { new: true }
       );
 
-      if (!updatedMovie) {
+      if (!movie) {
           return res.status(404).json({ error: 'Movie not found' });
       }
 
-      res.json(updatedMovie);
+      res.json(movie);
   } catch (error) {
       res.status(500).json({ error: error.message });
   }
