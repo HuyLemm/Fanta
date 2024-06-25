@@ -114,58 +114,60 @@ const EditUser = () => {
     };
 
     return (
-        <div className={styles.section}>
+        <div className={styles.outer}>
             <h2 className={styles.h2}>Edit Users</h2>
-            {message && <p>{message}</p>}
-            {selectedUser ? (
-                <div className={styles['form-group']}>
-                    <label>Username:</label>
-                    {editField === 'username' ? (
-                        <>
-                            <input
-                                type="text"
-                                name="username"
-                                value={selectedUser.username}
-                                onChange={handleFieldChange}
-                                className={styles.inputField}
-                            />
-                            <button onClick={() => handleUserUpdate('username', selectedUser.username)} className={styles.btn}>Confirm</button>
-                            <button onClick={handleCancel} className={styles.btn}>Cancel</button>
-                        </>
-                    ) : (
-                        <>
-                            <span>{selectedUser.username}</span>
-                            <button onClick={() => setEditField('username')} className={styles.btn}>Edit</button>
-                        </>
-                    )}
-                    <button onClick={handleDeleteUser} className={styles.btn}>Delete User</button>
-                    <button onClick={handleCancel} className={styles.btn}>Cancel</button>
-                </div>
-            ) : (
-                <div>
-                    <h3>User List</h3>
-                    <div className={styles['table-container']}>
-                        <table className={styles.table}>
-                            <thead>
-                                <tr>
-                                    <th className={styles['fixed-width']}>Username</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {users.map(user => (
-                                    <tr key={user._id}>
-                                        <td className={styles['fixed-width']}>{user.username}</td>
-                                        <td>
-                                            <button onClick={() => handleUserClick(user._id)} className={styles.btn}>View</button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+            <div className={styles.section}>
+                {message && <p>{message}</p>}
+                {selectedUser ? (
+                    <div className={styles['form-group']}>
+                        <label>Username:</label>
+                        {editField === 'username' ? (
+                            <>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    value={selectedUser.username}
+                                    onChange={handleFieldChange}
+                                    className={styles.inputField}
+                                />
+                                <button onClick={() => handleUserUpdate('username', selectedUser.username)} className={styles.btn}>Confirm</button>
+                                <button onClick={handleCancel} className={styles.btn}>Cancel</button>
+                            </>
+                        ) : (
+                            <>
+                                <span>{selectedUser.username}</span>
+                                <button onClick={() => setEditField('username')} className={styles.btn}>Edit</button>
+                            </>
+                        )}
+                        <button onClick={handleDeleteUser} className={styles.btn}>Delete User</button>
+                        <button onClick={handleCancel} className={styles.btn}>Cancel</button>
                     </div>
-                </div>
-            )}
+                ) : (
+                    <div>
+                        <h3>User List</h3>
+                        <div className={styles['table-container']}>
+                            <table className={styles.table}>
+                                <thead>
+                                    <tr>
+                                        <th className={styles['fixed-width']}>Username</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {users.map(user => (
+                                        <tr key={user._id}>
+                                            <td className={styles['fixed-width']}>{user.username}</td>
+                                            <td>
+                                                <button onClick={() => handleUserClick(user._id)} className={styles.btn}>View</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

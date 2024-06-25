@@ -78,76 +78,78 @@ const UpdateMovie = () => {
     };
 
     return (
-        <div className={styles.section}>
+        <div className={styles.h2}>
             <h2 className={styles.h2}>Update Movie</h2>
-            {movieData ? (
-                <>
-                    {Object.keys(movieData).map((key) => (
-                        key !== '_id' && (
-                            <div key={key} className={styles.inputGroup}>
-                                <label>{key.charAt(0).toUpperCase() + key.slice(1)}: </label> {/* Add space after colon */}
-                                {isEditing === key ? (
-                                    <>
-                                        <input
-                                            type={key === 'release_date' ? 'date' : 'text'}
-                                            value={editFieldValue}
-                                            onChange={(e) => setEditFieldValue(e.target.value)}
-                                            className={styles.inputField}
-                                        />
-                                        <button
-                                            onClick={() => handleUpdateMovie(key, editFieldValue)}
-                                            className={styles.btn}
-                                        >
-                                            Confirm
-                                        </button>
-                                        <button
-                                            onClick={() => { setIsEditing(null); setEditFieldValue(''); }}
-                                            className={styles.btn}
-                                        >
-                                            Cancel
-                                        </button>
-                                    </>
-                                ) : (
-                                    <>
-                                        {key === 'poster_url' || key === 'background_url' ? (
-                                            <>
-                                                <img src={movieData[key]} alt={key} className={styles.imagePreview} />
-                                                <button
-                                                    onClick={() => { setIsEditing(key); setEditFieldValue(movieData[key]); }}
-                                                    className={styles.btn}
-                                                >
-                                                    Update
-                                                </button>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <span>{Array.isArray(movieData[key]) ? movieData[key].join(', ') : movieData[key]}</span>
-                                                <button
-                                                    onClick={() => { setIsEditing(key); setEditFieldValue(movieData[key]); }}
-                                                    className={styles.btn}
-                                                >
-                                                    Update
-                                                </button>
-                                            </>
-                                        )}
-                                    </>
-                                )}
-                            </div>
-                        )
-                    ))}
-                </>
-            ) : (
-                <>
-                    <input
-                        type="text"
-                        value={searchTitle}
-                        onChange={(e) => setSearchTitle(e.target.value)}
-                        placeholder="Enter movie title to search"
-                        className={styles.inputField}
-                    />
-                    <button onClick={handleSearchMovie} className={styles.btn}>Search Movie</button>
-                </>
-            )}
+            <div className={styles.section}>
+                {movieData ? (
+                    <>
+                        {Object.keys(movieData).map((key) => (
+                            key !== '_id' && (
+                                <div key={key} className={styles.inputGroup}>
+                                    <label>{key.charAt(0).toUpperCase() + key.slice(1)}: </label> {/* Add space after colon */}
+                                    {isEditing === key ? (
+                                        <>
+                                            <input
+                                                type={key === 'release_date' ? 'date' : 'text'}
+                                                value={editFieldValue}
+                                                onChange={(e) => setEditFieldValue(e.target.value)}
+                                                className={styles.inputField}
+                                            />
+                                            <button
+                                                onClick={() => handleUpdateMovie(key, editFieldValue)}
+                                                className={styles.btn}
+                                            >
+                                                Confirm
+                                            </button>
+                                            <button
+                                                onClick={() => { setIsEditing(null); setEditFieldValue(''); }}
+                                                className={styles.btn}
+                                            >
+                                                Cancel
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            {key === 'poster_url' || key === 'background_url' ? (
+                                                <>
+                                                    <img src={movieData[key]} alt={key} className={styles.imagePreview} />
+                                                    <button
+                                                        onClick={() => { setIsEditing(key); setEditFieldValue(movieData[key]); }}
+                                                        className={styles.btn}
+                                                    >
+                                                        Update
+                                                    </button>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <span>{Array.isArray(movieData[key]) ? movieData[key].join(', ') : movieData[key]}</span>
+                                                    <button
+                                                        onClick={() => { setIsEditing(key); setEditFieldValue(movieData[key]); }}
+                                                        className={styles.btn}
+                                                    >
+                                                        Update
+                                                    </button>
+                                                </>
+                                            )}
+                                        </>
+                                    )}
+                                </div>
+                            )
+                        ))}
+                    </>
+                ) : (
+                    <>
+                        <input
+                            type="text"
+                            value={searchTitle}
+                            onChange={(e) => setSearchTitle(e.target.value)}
+                            placeholder="Enter movie title to search"
+                            className={styles.inputField}
+                        />
+                        <button onClick={handleSearchMovie} className={styles.btn}>Search Movie</button>
+                    </>
+                )}
+            </div>
         </div>
     );
 };

@@ -14,14 +14,14 @@
 
 .admin-container {
     display: flex;
-    width: 95rem;
-    height: 47.5rem;
-    background-color: #a8dadc;
+    width: 85rem;
+    height: 45.5rem;
+    background:transparent;
     box-shadow: 0 0.125rem 0.625rem rgba(216, 173, 173, 0.1);
     overflow: hidden;
     position: relative;
     border-radius: 2rem;
-    margin-top: 3.125rem;
+    margin-top: 3.125rem;   
 }
 
 .admin-content {

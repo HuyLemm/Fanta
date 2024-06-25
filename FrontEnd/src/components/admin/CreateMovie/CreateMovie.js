@@ -54,88 +54,90 @@ const CreateMovie = () => {
     };
 
     return (
-        <div className={styles.section}>
+        <div className={styles.outer}>
             <h2 className={styles.h2}>Create Movie</h2>
-            <input
-                type="text"
-                value={movieData.title}
-                onChange={(e) => setMovieData({ ...movieData, title: e.target.value })}
-                placeholder="Title"
-                className={styles.inputField}
-            />
-            <input
-                type="text"
-                value={movieData.description}
-                onChange={(e) => setMovieData({ ...movieData, description: e.target.value })}
-                placeholder="Description"
-                className={styles.inputField}
-            />
-            <input
-                type="date"
-                value={movieData.release_date}
-                onChange={(e) => setMovieData({ ...movieData, release_date: e.target.value })}
-                placeholder="Release Date"
-                className={styles.inputField}
-            />
-            <input
-                type="number"
-                value={movieData.duration}
-                onChange={(e) => setMovieData({ ...movieData, duration: e.target.value })}
-                placeholder="Duration"
-                className={styles.inputField}
-            />
-            <input
-                type="text"
-                value={movieData.genre}
-                onChange={(e) => setMovieData({ ...movieData, genre: e.target.value })}
-                placeholder="Genre Name"
-                className={styles.inputField}
-            />
-            <input
-                type="text"
-                value={movieData.director}
-                onChange={(e) => setMovieData({ ...movieData, director: e.target.value })}
-                placeholder="Director"
-                className={styles.inputField}
-            />
-            <input
-                type="text"
-                value={movieData.cast}
-                onChange={(e) => setMovieData({ ...movieData, cast: e.target.value })}
-                placeholder="Cast"
-                className={styles.inputField}
-            />
-            <input
-                type="text"
-                value={movieData.poster_url}
-                onChange={(e) => setMovieData({ ...movieData, poster_url: e.target.value })}
-                placeholder="Poster URL"
-                className={styles.inputField}
-            />
-            <input
-                type="text"
-                value={movieData.background_url}
-                onChange={(e) => setMovieData({ ...movieData, background_url: e.target.value })}
-                placeholder="Background URL"
-                className={styles.inputField}
-            />
-            <input
-                type="text"
-                value={movieData.trailer_url}
-                onChange={(e) => setMovieData({ ...movieData, trailer_url: e.target.value })}
-                placeholder="Trailer URL"
-                className={styles.inputField}
-            />
-            <input
-                type="text"
-                value={movieData.streaming_url}
-                onChange={(e) => setMovieData({ ...movieData, streaming_url: e.target.value })}
-                placeholder="Streaming URL"
-                className={styles.inputField}
-            />
+            <div className={styles.section}>    
+                <input
+                    type="text"
+                    value={movieData.title}
+                    onChange={(e) => setMovieData({ ...movieData, title: e.target.value })}
+                    placeholder="Title"
+                    className={styles.inputField}
+                />
+                <input
+                    type="text"
+                    value={movieData.description}
+                    onChange={(e) => setMovieData({ ...movieData, description: e.target.value })}
+                    placeholder="Description"
+                    className={styles.inputField}
+                />
+                <input
+                    type="date"
+                    value={movieData.release_date}
+                    onChange={(e) => setMovieData({ ...movieData, release_date: e.target.value })}
+                    placeholder="Release Date"
+                    className={styles.inputField}
+                />
+                <input
+                    type="number"
+                    value={movieData.duration}
+                    onChange={(e) => setMovieData({ ...movieData, duration: e.target.value })}
+                    placeholder="Duration"
+                    className={styles.inputField}
+                />
+                <input
+                    type="text"
+                    value={movieData.genre}
+                    onChange={(e) => setMovieData({ ...movieData, genre: e.target.value })}
+                    placeholder="Genre Name"
+                    className={styles.inputField}
+                />
+                <input
+                    type="text"
+                    value={movieData.director}
+                    onChange={(e) => setMovieData({ ...movieData, director: e.target.value })}
+                    placeholder="Director"
+                    className={styles.inputField}
+                />
+                <input
+                    type="text"
+                    value={movieData.cast}
+                    onChange={(e) => setMovieData({ ...movieData, cast: e.target.value })}
+                    placeholder="Cast"
+                    className={styles.inputField}
+                />
+                <input
+                    type="text"
+                    value={movieData.poster_url}
+                    onChange={(e) => setMovieData({ ...movieData, poster_url: e.target.value })}
+                    placeholder="Poster URL"
+                    className={styles.inputField}
+                />
+                <input
+                    type="text"
+                    value={movieData.background_url}
+                    onChange={(e) => setMovieData({ ...movieData, background_url: e.target.value })}
+                    placeholder="Background URL"
+                    className={styles.inputField}
+                />
+                <input
+                    type="text"
+                    value={movieData.trailer_url}
+                    onChange={(e) => setMovieData({ ...movieData, trailer_url: e.target.value })}
+                    placeholder="Trailer URL"
+                    className={styles.inputField}
+                />
+                <input
+                    type="text"
+                    value={movieData.streaming_url}
+                    onChange={(e) => setMovieData({ ...movieData, streaming_url: e.target.value })}
+                    placeholder="Streaming URL"
+                    className={styles.inputField}
+                />
 
-            <button onClick={handleCreateMovie} className={styles.btn}>Create Movie</button>
-            <p>{message}</p>
+                <button onClick={handleCreateMovie} className={styles.btn}>Create Movie</button>
+                <p>{message}</p>
+            </div>
         </div>
     );
 };

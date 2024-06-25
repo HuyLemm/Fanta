@@ -30,17 +30,19 @@ const CreateGenre = () => {
     };
 
     return (
-        <div className={styles.section}>
+        <div className={styles.outer}>
             <h2 className={styles.h2}>Create Genre</h2>
-            <input
-                type="text"
-                value={genreName}
-                onChange={(e) => setGenreName(e.target.value)}
-                placeholder="Genre Name"
-                className={styles.inputField}
-            />
-            <button onClick={handleCreateGenre} className={styles.btn}>Create Genre</button>
-            <p>{message}</p>
+            <div className={styles.section}>
+                <input
+                    type="text"
+                    value={genreName}
+                    onChange={(e) => setGenreName(e.target.value)}
+                    placeholder="Genre Name"
+                    className={styles.inputField}
+                />
+                <button onClick={handleCreateGenre} className={styles.btn}>Create Genre</button>
+                <p>{message}</p>
+            </div>
         </div>
     );
 };
