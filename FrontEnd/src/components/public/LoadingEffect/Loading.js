@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './styles.module.css';
-import indexStyles from './index.module.css';
+import styles from './outer.module.css';
+import indexStyles from './inter.module.css';
 
 const Loading = () => {
   return (
