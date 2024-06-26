@@ -104,19 +104,17 @@ const CreateMovie = () => {
                 placeholder="Title"
                 className={styles.inputField}
             />
-            <input
-                type="text"
+              <textarea
                 value={movieData.brief_description}
                 onChange={(e) => setMovieData({ ...movieData, brief_description: e.target.value })}
                 placeholder="Brief Description"
-                className={styles.inputField}
+                className={styles.textAreaFieldbrief}
             />
-            <input
-                type="text"
+            <textarea
                 value={movieData.full_description}
                 onChange={(e) => setMovieData({ ...movieData, full_description: e.target.value })}
                 placeholder="Full Description"
-                className={styles.inputField}
+                className={styles.textAreaFieldfull}
             />
             <input
                 type="date"

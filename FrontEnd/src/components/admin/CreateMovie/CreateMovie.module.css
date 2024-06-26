@@ -30,10 +30,40 @@
     background-color: #2980b9;
 }
 
-.section {
+/* .section {
     margin: 0 auto;
     padding: 1.25rem;
     background: #005f73;
     border-radius: 2rem;
     box-shadow: white 0.1rem 0.1rem;
+} */
+
+.textAreaFieldbrief {
+    width: 100%;
+    padding: 0.625rem;
+    margin-bottom: 1.25rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    box-sizing: border-box;
+}
+
+.textAreaFieldbrief {
+    height: 6rem; /* initial height */
+    resize: vertical; /* allow vertical resize only */
+}
+
+.textAreaFieldfull {
+    width: 100%;
+    padding: 0.625rem;
+    margin-bottom: 1.25rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    box-sizing: border-box;
+}
+
+.textAreaFieldfull {
+    height: 10rem; /* initial height */
+    resize: vertical; /* allow vertical resize only */
 }
