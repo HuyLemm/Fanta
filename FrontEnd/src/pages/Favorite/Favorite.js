@@ -58,11 +58,9 @@ const Favourite = () => {
             </div>
             <div className={styles.movieInfo}>
               <h2 className={styles.title}>{item.movie.title}</h2>
-              <p><strong>Director:</strong> {item.movie.director.join(', ')}</p>
-              <p><strong>Cast:</strong> {item.movie.cast.join(', ')}</p>
               <p><strong>Genre:</strong> {item.movie.genre.join(', ')}</p>
-              <p><strong>Release Date:</strong> {new Date(item.movie.release_date).toLocaleDateString()}</p>
-              <p><strong>Duration:</strong> {item.movie.duration} min</p>
+              <p><strong>Duration:</strong> {item.movie.duration} mins</p>
+              <p><strong>Description:</strong> {item.movie.brief_description}</p>
               <p>{item.movie.description}</p>
             </div>
           </div>

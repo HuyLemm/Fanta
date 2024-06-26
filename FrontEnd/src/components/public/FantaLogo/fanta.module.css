@@ -57,7 +57,7 @@
 
 .categoriesContainer {
   position: relative;
-  margin-left: 1.25rem; 
+  margin-left: -13rem;
 }
 
 .categoriesButton {
@@ -217,7 +217,13 @@
   border-radius: 2rem;
 }
 
+.favouriteContainer{
+  right: 0;
+  margin-left: 3rem;
+}
+
 .favoriteButton {
+
   padding: 0.625rem 1.25rem; 
   font-size: 1rem; 
   background-color: #fb5607; 

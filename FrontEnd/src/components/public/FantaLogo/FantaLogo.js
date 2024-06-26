@@ -190,16 +190,10 @@ const FantaLogo = () => {
       <a href="/">
         <img src={fantaImage} className={styles.fanta} alt="Fanta" />
       </a>
-      <form className={styles.searchForm} onSubmit={handleSearch}>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search for movies..."
-          className={styles.searchInput}
-        />
-        <button type="submit" className={styles.searchButton}>Search</button>
-      </form>
+      <div className={styles.typeButtons}>
+        <button className={styles.movies} onClick={handleMovieClick}>Movie</button>
+        <button className={styles.series} onClick={handleSeriesClick}>Series</button>
+      </div>
       <div className={styles.categoriesAndFavorite}>
         <div
           className={styles.categoriesContainer}
@@ -235,11 +229,19 @@ const FantaLogo = () => {
             </div>
           )}
         </div>
+        <form className={styles.searchForm} onSubmit={handleSearch}>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search for movies..."
+            className={styles.searchInput}
+          />
+          <button type="submit" className={styles.searchButton}>Search</button>
+        </form>
+        <div className = {styles.favouriteContainer}>
         <button className={styles.favoriteButton} onClick={handleFavoriteClick}>My Favorite</button>
-      </div>
-      <div className={styles.typeButtons}>
-        <button className={styles.movies} onClick={handleMovieClick}>Movie</button>
-        <button className={styles.series} onClick={handleSeriesClick}>Series</button>
+        </div>
       </div>
       {renderUserIcon()}
     </header>
