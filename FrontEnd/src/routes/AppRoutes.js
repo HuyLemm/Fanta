@@ -11,6 +11,7 @@ import SearchResults from '../pages/SearchResults/SearchResults';
 import Categories from '../pages/Categories/Categories';
 import Streaming from '../pages/Streaming/Streaming';
 import Favorite from '../pages/Favorite/Favorite';
+import Test from '../pages/Tests/Test';
 
 function AppRouter() {
   return (
@@ -21,6 +22,7 @@ function AppRouter() {
         <Route path="/search" element={<SearchResults />} />
         <Route path="/genre/:genreName" element={<Categories />} />
         <Route path="/streaming/:id" element={<Streaming />} />
+        <Route path="/test" element={<Test />} />
 
 
         {/* Authentication Routes */}
