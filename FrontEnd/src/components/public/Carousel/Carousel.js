@@ -3,7 +3,7 @@ import styles from './Carousel.module.css';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../../utils/Cookies';
 
-const Carousel = () => {
+const Carousel = ({ type }) => {
   const carouselRef = useRef(null);
   const sliderRef = useRef(null);
   const thumbnailRef = useRef(null);
@@ -18,15 +18,18 @@ const Carousel = () => {
     const fetchMovies = async () => {
       try {
         setLoading(true); // Start loading
-        const response = await fetch('http://localhost:5000/public/get-top-rated-movies');
+        const response = await fetch(`http://localhost:5000/public/get-top-rated-movies?type=${type || ''}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        setMovies(data);
+        
+        // Check the type of each movie before setting it in state
+        const filteredMovies = data.filter(movie => !type || movie.type === type);
+        setMovies(filteredMovies);
 
         // Fetch watchlist status for each movie
-        data.forEach(movie => {
+        filteredMovies.forEach(movie => {
           checkIfWatchlisted(movie.id, token);
         });
       } catch (error) {
@@ -36,7 +39,7 @@ const Carousel = () => {
       }
     };
     fetchMovies();
-  }, [token]);
+  }, [token, type]);
 
   useEffect(() => {
     if (!loading) {
@@ -51,11 +54,15 @@ const Carousel = () => {
       let runTimeOut;
       let runNextAuto;
 
-      function showSlider(type) {
+      function showSlider(direction) {
+        if (!slider || !thumbnailBorder || !carousel) return;
+
         let sliderItems = slider.children;
         let thumbnailItems = thumbnailBorder.children;
 
-        if (type === 'next') {
+        if (sliderItems.length === 0 || thumbnailItems.length === 0) return;
+
+        if (direction === 'next') {
           slider.appendChild(sliderItems[0]);
           thumbnailBorder.appendChild(thumbnailItems[0]);
           carousel.classList.add(styles.next);
@@ -77,11 +84,11 @@ const Carousel = () => {
         }, timeAutoNext);
       }
 
-      next.onclick = () => showSlider('next');
-      prev.onclick = () => showSlider('prev');
+      if (next) next.onclick = () => showSlider('next');
+      if (prev) prev.onclick = () => showSlider('prev');
 
       runNextAuto = setTimeout(() => {
-        next.click();
+        if (next) next.click();
       }, timeAutoNext);
 
       return () => {

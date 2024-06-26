@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './GenreSection.module.css';
 
-const GenreSection = ({ title }) => {
+const GenreSection = ({ type }) => {
   const genreItemsRef = useRef([]);
   const [genres, setGenres] = useState([]);
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ const GenreSection = ({ title }) => {
   useEffect(() => {
     const fetchGenres = async () => {
       try {
-        const response = await fetch('http://localhost:5000/public/get-genres-movie');
+        const response = await fetch(`http://localhost:5000/public/get-genres-movie?type=${type || ''}`);
         const data = await response.json();
 
         // Sort genres by the number of movies in descending order
@@ -26,7 +26,7 @@ const GenreSection = ({ title }) => {
     };
 
     fetchGenres();
-  }, []);
+  }, [type]);
 
   const scrollAmount = 200;
 

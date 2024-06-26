@@ -19,7 +19,11 @@ exports.getAllGenres = async (req, res) => {
 
 exports.getGenresAndSatisfiedMovie = async (req, res) => {
   try {
+    const { type } = req.query;
+    const matchStage = type ? { type: type } : {};
+
     const genres = await MovieModel.aggregate([
+      { $match: matchStage }, // Apply match stage for filtering by type
       { $unwind: "$genre" },
       { $group: { _id: "$genre", movies: { $push: "$$ROOT" } } },
       { $project: { _id: 0, name: "$_id", movies: "$movies" } }
@@ -32,20 +36,18 @@ exports.getGenresAndSatisfiedMovie = async (req, res) => {
   }
 };
 
+
 exports.getTopRatedMovies = async (req, res) => {
   try {
+    const { type } = req.query;
+    const matchStage = type ? { 'movieDetails.type': type } : {};
+
     const topRatedMovies = await RatingModel.aggregate([
       {
         $group: {
           _id: "$movieId",
-          averageRating: { $avg: "$rating" },
+          averageRating: { $avg: "$rating" }
         }
-      },
-      {
-        $sort: { averageRating: -1 } // Ensure sorting by average rating
-      },
-      {
-        $limit: 5
       },
       {
         $lookup: {
@@ -57,6 +59,15 @@ exports.getTopRatedMovies = async (req, res) => {
       },
       {
         $unwind: "$movieDetails"
+      },
+      {
+        $match: matchStage // Apply match stage for filtering by type
+      },
+      {
+        $sort: { averageRating: -1 }
+      },
+      {
+        $limit: 5
       },
       {
         $project: {
@@ -74,17 +85,18 @@ exports.getTopRatedMovies = async (req, res) => {
           background_url: "$movieDetails.background_url",
           trailer_url: "$movieDetails.trailer_url",
           streaming_url: "$movieDetails.streaming_url",
-          averageRating: 1,
+          type: "$movieDetails.type",
+          averageRating: 1
         }
       }
     ]);
-    console.log(topRatedMovies);
     res.status(200).json(topRatedMovies);
   } catch (error) {
     console.error('Error fetching top-rated movies:', error);
     res.status(500).json({ error: 'An error occurred while fetching top-rated movies' });
   }
 };
+
 
 
 exports.getMovieById = async (req, res) => {

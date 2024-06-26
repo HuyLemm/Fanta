@@ -95,10 +95,6 @@ const FantaLogo = () => {
     setShowDropdown((prevShowDropdown) => !prevShowDropdown);
   };
 
-  // const toggleCategories = () => {
-  //   setShowCategories((prevShowCategories) => !prevShowCategories);
-  // };
-
   const handleCategoryClick = (genre) => {
     navigate(`/genre/${genre.name}`);
   };
@@ -181,6 +177,14 @@ const FantaLogo = () => {
     }
   };
 
+  const handleMovieClick = () => {
+    navigate('/?type=movie');
+  };
+
+  const handleSeriesClick = () => {
+    navigate('/?type=series');
+  };
+
   return (
     <header className={styles.header}>
       <a href="/">
@@ -232,6 +236,10 @@ const FantaLogo = () => {
           )}
         </div>
         <button className={styles.favoriteButton} onClick={handleFavoriteClick}>My Favorite</button>
+      </div>
+      <div className={styles.typeButtons}>
+        <button className={styles.typeButton} onClick={handleMovieClick}>Movie</button>
+        <button className={styles.typeButton} onClick={handleSeriesClick}>Series</button>
       </div>
       {renderUserIcon()}
     </header>

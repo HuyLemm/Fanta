@@ -74,6 +74,16 @@ const MainContent = ({ movie, handleWatchClick }) => {
     }
   };
 
+  // Calculate average duration per episode for series
+  const averageDuration = movie.type === 'series' && movie.episodes.length > 0
+    ? Math.round(movie.episodes.reduce((total, episode) => total + episode.duration, 0) / movie.episodes.length)
+    : null;
+
+  const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+ 
+
   return (
     <section className={styles.mainSection}>
       <div className={styles.background} style={{ backgroundImage: `url(${movie.background_url})` }}>
@@ -94,7 +104,12 @@ const MainContent = ({ movie, handleWatchClick }) => {
               <span className={styles.quality}>HD</span>
               <span className={styles.genres}>{movie.genre.join(', ')}</span>
               <span className={styles.releaseDate}>{new Date(movie.release_date).getFullYear()}</span>
-              <span className={styles.duration}>{movie.duration} min</span>
+              <span className={styles.releaseDate}>{capitalizeFirstLetter(movie.type)}</span>
+              {movie.type === 'movie' ? (
+                <span className={styles.duration}>{movie.duration} mins</span>
+              ) : (
+                <span className={styles.duration}>{averageDuration} mins/episode</span>
+              )}
             </p>
             <div>{numberOfRatings > 0 ? (
               <p className={styles.cast}><strong className={styles.dir}>Rating: </strong>{averageRating.toFixed(1)}/5.0 ({numberOfRatings} rated)</p>
