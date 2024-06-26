@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import styles from './Streaming.module.css';
 import { getCookie } from '../../utils/Cookies';
 import moment from 'moment';
+import Loading from '../../components/public/LoadingEffect/Loading';
 
 Modal.setAppElement('#root'); // This is important for accessibility
 
@@ -264,7 +265,7 @@ const Streaming = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><Loading/></div>;
   }
 
   if (error) {

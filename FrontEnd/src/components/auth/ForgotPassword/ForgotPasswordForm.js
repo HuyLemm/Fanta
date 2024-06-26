@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ForgotPassword.module.css';
 import { FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa'; 
+import Loading from '../../public/LoadingEffect/Loading';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
@@ -154,7 +155,7 @@ const ForgotPassword = () => {
             <section className={styles['forgot-password-section']}>
                 {isLoading && (
                     <div className={styles['loading-container']}>
-                        <FaSpinner className={styles['loading-icon']} />
+                        <Loading className={styles['loading-icon']} />
                     </div>
                 )}
                 {step === 1 && (

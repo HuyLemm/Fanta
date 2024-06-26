@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../utils/Cookies';
 import styles from './Favorite.module.css';
+import Loading from '../../components/public/LoadingEffect/Loading';
 
 const Favourite = () => {
   const [watchlist, setWatchlist] = useState([]);
@@ -38,7 +39,7 @@ const Favourite = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><Loading/></div>;
   }
 
   if (error) {
