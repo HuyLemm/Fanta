@@ -24,8 +24,16 @@
   margin-bottom: 2rem;
 }
 
+.descriptionSection {
+  color: white;
+}
+
+.headerDescription {
+  color: #fb5607;
+}
+
 .header h1 {
-  color: #ff4500;
+  color: #fb5607;
   font-size: 2.4rem;
 }
 
@@ -62,7 +70,6 @@
 .ratingSection {
   width: 100%;
   text-align: center;
-  margin-bottom: 2rem;
 }
 
 .ratingSection h2 {
@@ -170,4 +177,40 @@
 
 .footerSection{
   margin-top: 2rem;
+}
+
+.peopleSection {
+  margin-top: 20px;
+}
+
+.peopleContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.person {
+  text-align: center;
+}
+
+.personImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.personName {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.personRole {
+  font-style: italic;
+  color: gray;
+}
+
+.episodeImage{
+  width: 15rem;
+  height: auto;
 }

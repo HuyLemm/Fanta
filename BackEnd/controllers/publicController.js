@@ -7,6 +7,10 @@ const RatingModel = require('../models/Rating');
 const WatchlistModel = require('../models/Watchlist');
 const AccountModel = require('../models/Account');
 
+const TMDB_API_KEY = 'd0d4e98bfef5c31d9d1e552a8d2163c3'; // Thay bằng API key của bạn
+
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+
 exports.getAllGenres = async (req, res) => {
     try {
       const genres = await GenreModel.find({});
@@ -254,3 +258,86 @@ exports.checkRole = async (req, res) => {
   }
   res.json(user);
 }
+
+
+exports.getCastAndDirectorImages = async (req, res) => {
+  const { cast, director } = req.body;
+
+  const fetchImages = async (names) => {
+    const images = {};
+    for (const name of names) {
+      const response = await fetch(`https://api.themoviedb.org/3/search/person?api_key=${TMDB_API_KEY}&query=${name}`);
+      const data = await response.json();
+      if (data.results.length > 0) {
+        images[name] = `https://image.tmdb.org/t/p/w500${data.results[0].profile_path}`;
+      } else {
+        images[name] = 'https://via.placeholder.com/150';
+      }
+    }
+    return images;
+  };
+
+  try {
+    const castImages = await fetchImages(cast);
+    const directorImages = await fetchImages(director);
+    res.status(200).json({ castImages, directorImages });
+  } catch (error) {
+    console.error('Error fetching images:', error);
+    res.status(500).json({ error: 'An error occurred while fetching images' });
+  }
+};
+
+
+exports.getTMDBEpisodeImages = async (req, res) => {
+  const { movieId } = req.params;
+
+  try {
+    const movie = await MovieModel.findById(movieId);
+    if (!movie) {
+      return res.status(404).json({ message: 'Movie not found' });
+    }
+
+    if (movie.type !== 'series') {
+      return res.status(400).json({ message: 'Not a series' });
+    }
+
+    const response = await fetch(`https://api.themoviedb.org/3/search/tv?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(movie.title)}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch TMDB data for ${movie.title}`);
+    }
+
+    const data = await response.json();
+    if (!data.results || data.results.length === 0) {
+      return res.status(404).json({ message: 'TMDB data not found' });
+    }
+
+    const tmdbId = data.results[0].id;
+    const seasonNumber = 1; // Assume all shows are season 1
+    const tmdbEpisodes = [];
+    
+    for (let i = 0; i < movie.episodes.length; i++) {
+      const episodeResponse = await fetch(`https://api.themoviedb.org/3/tv/${tmdbId}/season/${seasonNumber}/episode/${i + 1}?api_key=${TMDB_API_KEY}`);
+      
+      if (!episodeResponse.ok) {
+        console.error(`Failed to fetch episode ${i + 1}`);
+        continue;
+      }
+
+      const contentType = episodeResponse.headers.get('content-type');
+      if (contentType && contentType.indexOf('application/json') !== -1) {
+        const episodeData = await episodeResponse.json();
+        tmdbEpisodes.push({
+          ...episodeData,
+          image_url: `https://image.tmdb.org/t/p/w500${episodeData.still_path}`
+        });
+      } else {
+        console.error('Received non-JSON response for episode', i + 1);
+      }
+    }
+
+    res.json(tmdbEpisodes);
+  } catch (error) {
+    console.error('Error fetching TMDB episodes:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

@@ -10,3 +10,4 @@ jsonwebtoken
 cookie-parser
 express-session
 nodemailer
+node-fetch
