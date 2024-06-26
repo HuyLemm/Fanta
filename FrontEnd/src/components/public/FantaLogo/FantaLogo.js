@@ -118,7 +118,7 @@ const FantaLogo = () => {
     }
 
     const handleImageError = (event) => {
-      event.target.src = userIcon; // Sử dụng hình ảnh mặc định nếu avatar không tải được
+      event.target.src = userIcon; 
     };
 
     const userAvatar = authStatus.avatar || userIcon;
@@ -173,7 +173,7 @@ const FantaLogo = () => {
     if (token) {
       navigate('/favorite');
     } else {
-      navigate('/login'); // Hoặc hiển thị thông báo yêu cầu đăng nhập
+      navigate('/login'); 
     }
   };
 
@@ -238,8 +238,8 @@ const FantaLogo = () => {
         <button className={styles.favoriteButton} onClick={handleFavoriteClick}>My Favorite</button>
       </div>
       <div className={styles.typeButtons}>
-        <button className={styles.typeButton} onClick={handleMovieClick}>Movie</button>
-        <button className={styles.typeButton} onClick={handleSeriesClick}>Series</button>
+        <button className={styles.movies} onClick={handleMovieClick}>Movie</button>
+        <button className={styles.series} onClick={handleSeriesClick}>Series</button>
       </div>
       {renderUserIcon()}
     </header>

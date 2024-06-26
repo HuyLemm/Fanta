@@ -1,32 +1,14 @@
-/* body {
-    background: #141315;
-    height: 100vh;
-    margin: 0;
-    display: grid;
-    place-items: center;
-    font-family: "Euclid Circular A", "Poppins";
-    color: rgb(255 255 255 / 50%);
-}
-
 .frame {
     position: relative;
     width: 100%;
     translate: 0 5.75rem;
-    margin: auto;
     display: grid;
     place-items: center;
     scale: 1.2;
 }
 
-.frame :is(h2, h1, h3) {
-    font-weight: 400;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
 .grid {
-    display: grid;
+    display: flex;
     gap: 0 0.625rem;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -42,7 +24,7 @@
     place-items: center;
     width: 4.375rem;
     height: 7.5rem;
-    margin-bottom: 1.25rem;
+    margin-bottom: 10rem;
 }
 
 .grid.gridTwoCol > div {
@@ -55,4 +37,4 @@
     left: 50%;
     translate: -50% 0;
     margin: 0;
-} */
+}

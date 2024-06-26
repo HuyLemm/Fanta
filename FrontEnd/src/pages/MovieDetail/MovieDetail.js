@@ -5,6 +5,7 @@ import RecommendedMovies from './RecommendedMovies';
 import styles from './MovieDetail.module.css';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/public/Footer/Footer';
+import Loading from '../../components/public/LoadingEffect/Loading';
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -102,7 +103,7 @@ const MovieDetail = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><Loading/></div>;
   }
 
   if (error) {

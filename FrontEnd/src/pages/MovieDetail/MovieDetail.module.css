@@ -71,7 +71,8 @@
 .meta {
   display: flex;
   align-items: center;
-  margin-bottom: 1.25rem; /* Converted 20px to 1.25rem */
+  margin-bottom: 1.25rem; 
+  width: 100dvw;
 }
 
 .meta span {
@@ -320,18 +321,6 @@ body {
   margin-left: 0.3rem;
 }
 
-/* .addToFavouriteButton{
-  padding: 0.625rem 1.25rem; 
-  font-size: 1.2rem;
-  color: #fff;
-  background-color: #ff9900;
-  border: none;
-  border-radius: 0.3125rem; 
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-left: 1rem;
-} */
-
 .addToFavouriteButton:hover {
   background-color: #cc7a00;
 }
@@ -346,4 +335,5 @@ body {
 .titleContainer {
   display: flex;
   align-items: center;
+  width: 100dvw;
 }

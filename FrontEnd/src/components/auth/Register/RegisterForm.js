@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Register.module.css';
 import { setCookie } from '../../../utils/Cookies';
 import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
+import Loading from '../../public/LoadingEffect/Loading';
 
 const RegisterForm = () => {
     const [email, setEmail] = useState('');
@@ -120,7 +121,7 @@ const RegisterForm = () => {
         <section className={styles['register-section']}>
             {isLoading && (
                 <div className={styles['loading-container']}>
-                    <FaSpinner className={styles['loading-icon']} />
+                    <Loading className={styles['loading-icon']} />
                 </div>
             )}
             {!isCodeSent ? (

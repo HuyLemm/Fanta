@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Streaming.module.css';
 import { getCookie } from '../../utils/Cookies';
+import Loading from '../../components/public/LoadingEffect/Loading';
 
 import Episode from './Episode';
 import RatingsDescription from './RatingsDescription';
@@ -93,7 +94,7 @@ const Streaming = () => {
   }, [id, token]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><Loading/></div>;
   }
 
   if (error) {
