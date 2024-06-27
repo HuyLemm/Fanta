@@ -26,14 +26,6 @@
   margin-top: 0.25rem;
 }
 
-.descriptionSection {
-  color: white;
-}
-
-.headerDescription {
-  color: #fb5607;
-}
-
 .header h1 {
   color: #fb5607;
   font-size: 2.4rem;
@@ -69,8 +61,4 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-height: 45rem;
   overflow-y: auto;
-}
-
-.episodesSection h2 {
-  color: #ff4500;
 }

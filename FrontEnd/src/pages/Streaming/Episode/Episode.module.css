@@ -40,7 +40,6 @@
     color: #ccc;
   }
   
-  /* Trang trí cho thanh cuộn */
   .episodesSection::-webkit-scrollbar {
     width: 10px;
   }
