@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const RatingsDescription = ({ movie, id, currentUser }) => {
   const [userRating, setUserRating] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
   const token = getCookie('jwt');
   const navigate = useNavigate();
 
@@ -72,7 +73,14 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
 
       <div className={styles.descriptionSection}>
         <h2 className={styles.headerDescription}>Description</h2>
-        <p>{movie.full_description}</p>
+        <p className={`${styles.descriptionText} ${isExpanded ? styles.expanded : ''}`}>
+          {movie.full_description}
+        </p>
+        <div className={styles.morebutton}>
+        <button className={styles.toggleButton} onClick={() => setIsExpanded(!isExpanded)}>
+          {isExpanded ? 'Collapse' : 'More'}
+        </button>
+        </div>
       </div>
     </>
   );
