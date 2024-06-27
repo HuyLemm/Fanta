@@ -116,7 +116,7 @@ const Streaming = () => {
             </video>
           </div>
           <div className={styles.header}>
-            <h1>{movie.title}</h1>
+            <h1 className = {styles.movieTitle}>{movie.title}</h1>
             <div className={styles.epTitle}> &gt; EPISODE 1</div>
           </div>
           <RatingsDescription movie={movie} id={id} currentUser={currentUser} />

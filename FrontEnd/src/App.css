@@ -36,4 +36,18 @@
 body {
   margin: 0;
   padding: 0;
+
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #101a2e;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: rgb(0,0,0,0.5);
 }

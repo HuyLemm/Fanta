@@ -19,7 +19,6 @@ const Notification = () => (
     rtl={false}
     pauseOnFocusLoss
     draggable
-    pauseOnHover
   />
 );
 

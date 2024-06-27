@@ -5,7 +5,7 @@ npm install react-facebook-login --legacy-peer-deps
 npm install react-youtube
 npm install moment --force
 npm install react-modal --force
-npm
+npm install react-toastify --force 
 
 color (orange):#fb5607
 

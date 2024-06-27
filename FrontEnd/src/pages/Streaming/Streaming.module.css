@@ -13,9 +13,14 @@
   padding-bottom: 0;
 }
 
+.movieTitle{
+  font-family: 'Hatton', sans-serif;
+  margin-top: 2rem;
+}
+
 .header {
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   display: flex;
 }
 
@@ -23,7 +28,7 @@
   margin-left: 1.5rem;
   color: rgb(255,255,255,0.75);
   font-size: 2rem;
-  margin-top: 0.25rem;
+  margin-top: 2rem;
 }
 
 .header h1 {
