@@ -301,12 +301,25 @@ exports.getTMDBEpisodeImages = async (req, res) => {
       return res.status(400).json({ message: 'Not a series' });
     }
 
-    const response = await fetch(`https://api.themoviedb.org/3/search/tv?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(movie.title)}`);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch TMDB data for ${movie.title}`);
-    }
+    // Mảng các tiêu đề phim sẽ được dịch sang tiếng Việt
+    const titleTranslations = {
+      'The Uncanny Counter': 'Nghệ Thuật Săn Quỷ Và Nấu Mì',
+      // Thêm các cặp tiêu đề khác vào đây
+    };
 
-    const data = await response.json();
+    // Function to fetch TMDB data for a given title
+    const fetchTMDBData = async (title) => {
+      const response = await fetch(`https://api.themoviedb.org/3/search/tv?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(title)}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch TMDB data for ${title}`);
+      }
+      return response.json();
+    };
+
+    // Tìm kiếm tiêu đề phim bằng tiếng Việt nếu có, nếu không thì dùng tiếng Anh
+    const searchTitle = titleTranslations[movie.title] || movie.title;
+
+    const data = await fetchTMDBData(searchTitle);
     if (!data.results || data.results.length === 0) {
       return res.status(404).json({ message: 'TMDB data not found' });
     }
@@ -314,10 +327,9 @@ exports.getTMDBEpisodeImages = async (req, res) => {
     const tmdbId = data.results[0].id;
     const seasonNumber = 1; // Assume all shows are season 1
     const tmdbEpisodes = [];
-    
+
     for (let i = 0; i < movie.episodes.length; i++) {
       const episodeResponse = await fetch(`https://api.themoviedb.org/3/tv/${tmdbId}/season/${seasonNumber}/episode/${i + 1}?api_key=${TMDB_API_KEY}`);
-      
       if (!episodeResponse.ok) {
         console.error(`Failed to fetch episode ${i + 1}`);
         continue;
@@ -334,7 +346,6 @@ exports.getTMDBEpisodeImages = async (req, res) => {
         console.error('Received non-JSON response for episode', i + 1);
       }
     }
-
     res.json(tmdbEpisodes);
   } catch (error) {
     console.error('Error fetching TMDB episodes:', error);
