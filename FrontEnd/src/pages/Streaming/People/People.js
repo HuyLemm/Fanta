@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Streaming.module.css';
+import styles from './People.module.css';
 
 const People = ({ movie, castImages, directorImages }) => {
   return (

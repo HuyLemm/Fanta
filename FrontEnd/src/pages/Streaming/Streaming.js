@@ -4,10 +4,10 @@ import styles from './Streaming.module.css';
 import { getCookie } from '../../utils/Cookies';
 import Loading from '../../components/public/LoadingEffect/Loading';
 
-import Episode from './Episode';
-import RatingsDescription from './RatingsDescription';
-import People from './People';
-import Comments from './Comments';
+import Episode from './Episode/Episode';
+import RatingsDescription from './Rating/RatingsDescription';
+import People from './People/People';
+import Comments from './Comment/Comments';
 
 const Streaming = () => {
   const { id } = useParams();
@@ -107,28 +107,31 @@ const Streaming = () => {
 
   return (
     <div className={styles.streamingContainer}>
-      <div className={styles.header}>
-        <h1>{movie.title}</h1>
-      </div>
-      <div className={styles.mainContent}>
-        <div className={styles.videoSection}>
-          <video className={styles.streamingVideo} controls>
-            <source src={movie.streaming_url} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+      <div className={styles.contentWrapper}>
+        <div className={styles.mainContent}>
+          <div className={styles.videoSection}>
+            <video className={styles.streamingVideo} controls>
+              <source src={movie.streaming_url} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div className={styles.header}>
+            <h1>{movie.title}</h1>
+            <div className={styles.epTitle}> &gt; EPISODE 1</div>
+          </div>
+          <RatingsDescription movie={movie} id={id} currentUser={currentUser} />
+          <People 
+            movie={movie} 
+            castImages={castImages} 
+            directorImages={directorImages} 
+          />
+          <Comments 
+            movieId={id} 
+            currentUser={currentUser} 
+          />
         </div>
         <Episode episodes={movie.episodes} episodeImages={episodeImages} />
       </div>
-      <RatingsDescription movie={movie} id={id} currentUser={currentUser} />
-      <People 
-        movie={movie} 
-        castImages={castImages} 
-        directorImages={directorImages} 
-      />
-      <Comments 
-        movieId={id} 
-        currentUser={currentUser} 
-      />
     </div>
   );
 };

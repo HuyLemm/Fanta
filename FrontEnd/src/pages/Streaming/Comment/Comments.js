@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import styles from './Streaming.module.css';
+import styles from './Comment.module.css';
 import moment from 'moment';
-import { getCookie } from '../../utils/Cookies';
+import { getCookie } from '../../../utils/Cookies';
 import { useNavigate } from 'react-router-dom';
 
 const Comments = ({ movieId, currentUser }) => {

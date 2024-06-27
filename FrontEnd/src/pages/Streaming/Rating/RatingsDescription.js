@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styles from './Streaming.module.css';
-import { getCookie } from '../../utils/Cookies';
+import styles from './Rating.module.css';
+import { getCookie } from '../../../utils/Cookies';
 import { useNavigate } from 'react-router-dom';
 
 const RatingsDescription = ({ movie, id, currentUser }) => {
