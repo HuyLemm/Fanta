@@ -49,8 +49,8 @@
 }
 
 .textAreaFieldbrief {
-    height: 6rem; /* initial height */
-    resize: vertical; /* allow vertical resize only */
+    height: 6rem; 
+    resize: vertical; 
 }
 
 .textAreaFieldfull {

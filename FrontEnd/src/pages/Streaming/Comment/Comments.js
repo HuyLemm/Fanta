@@ -187,32 +187,41 @@ const Comments = ({ movieId, currentUser }) => {
                 <textarea
                   value={editingCommentText}
                   onChange={(e) => setEditingCommentText(e.target.value)}
+                  className={styles.edittext}
                 />
-                <button onClick={() => handleEditComment(comment._id)}>Save</button>
-                <button onClick={() => setEditingCommentId(null)}>Cancel</button>
+                <button onClick={() => handleEditComment(comment._id)} className={styles.comButton}>Save</button>
+                <button onClick={() => setEditingCommentId(null)} className={styles.comButton}>Cancel</button>
               </div>
             ) : (
-              <div>
-                <p>
+              <>
+                <div className={styles.commentContent}>
                   <img src={comment.userId.avatar} alt={`${comment.userId.username}'s avatar`} className={styles.avatar} />
-                  <strong>{comment.userId.username}</strong>: {comment.comment} <span className={styles.time}>{moment(comment.created_at).fromNow()}</span>
-                </p>
-                {(comment.userId._id === currentUser?._id) && (
-                  <>
-                    <button onClick={() => {
-                      setEditingCommentId(comment._id);
-                      setEditingCommentText(comment.comment);
-                    }}>Edit</button>
-                    <button onClick={() => handleDeleteComment(comment._id)}>Delete</button>
-                  </>
-                )}
-                {(currentUser?.role === 'admin') && (
-                  <>
-                    <button onClick={() => handleDeleteComment(comment._id)}>Delete</button>
-                    <button onClick={() => openBanModal(comment.userId._id)}>Ban User</button>
-                  </>
-                )}
-              </div>
+                  <div className={styles.commentInfo}>
+                    <p className={styles.line1}>
+                      <span className={styles.username}>{comment.userId.username}</span>
+                      <span className={styles.time}> ( {moment(comment.created_at).fromNow()} )</span>
+                    </p>
+                    <p className={styles.commentText}>{comment.comment}</p>
+                  </div>
+                </div>
+                <div className={styles.commentActions}>
+                  {(comment.userId._id === currentUser?._id) && (
+                    <>
+                      <button onClick={() => {
+                        setEditingCommentId(comment._id);
+                        setEditingCommentText(comment.comment);
+                      }} className={styles.comButton}>Edit</button>
+                      <button onClick={() => handleDeleteComment(comment._id)} className={styles.comButton}>Delete</button>
+                    </>
+                  )}
+                  {(currentUser?.role === 'admin') && (
+                    <>
+                      <button onClick={() => handleDeleteComment(comment._id)} className={styles.comButton}>Delete</button>
+                      <button onClick={() => openBanModal(comment.userId._id)} className={styles.comButton}>Ban User</button>
+                    </>
+                  )}
+                </div>
+              </>
             )}
           </div>
         ))
@@ -225,7 +234,7 @@ const Comments = ({ movieId, currentUser }) => {
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Add a comment"
         />
-        <button onClick={handleAddComment}>Submit</button>
+        <button onClick={handleAddComment} className={styles.comButton}>Submit</button>
       </div>
 
       <Modal
@@ -258,8 +267,8 @@ const Comments = ({ movieId, currentUser }) => {
               <option value="years">Years</option>
             </select>
           </label>
-          <button onClick={handleBanUser}>Ban</button>
-          <button onClick={closeBanModal}>Cancel</button>
+          <button onClick={handleBanUser} className={styles.comButton}>Ban</button>
+          <button onClick={closeBanModal} className={styles.comButton}>Cancel</button>
         </div>
       </Modal>
     </div>
