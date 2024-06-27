@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './UserFeatures.module.css';
-import LeftSidebar from '../LeftSideBar/LeftSideBarUser';
-import SeeProfile from '../Profile/Profile';
+import LeftSidebar from './LeftSideBar/LeftSideBarUser';
+import SeeProfile from './Profile/Profile';
 
 const UserFeatures = () => {
     const [currentFunction, setCurrentFunction] = useState('');

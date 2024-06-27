@@ -33,25 +33,30 @@ const SearchResults = () => {
   };
 
   return (
-    <div className={styles.searchResultsContainer}>
-      <h2 className={styles.h}>Search Results for: "{getQuery()}"</h2>
-      <div className={styles.moviesGrid}>
-        {movies.length > 0 ? (
-          movies.map((movie) => (
-            <div key={movie._id} className={styles.movieItem}>
-              <div className={styles.imageContainer}>
-                <img src={movie.poster_url} alt={movie.title} className={styles.moviePoster} />
-                <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}>Watch</button>
-              </div>
-              <div className={styles.movieTitle}>{movie.title}</div>
-            </div>
-          ))
-        ) : (
-          <div>No movies found</div>
-        )}
+    <div className={styles.searchResultsPage}>
+      <div className={styles.searchResultsContainer}>
+        <div className={styles.mainContent}>
+          <div className={styles.overlay}></div>
+          <h2 className={styles.h2}>Search Results for: "{getQuery()}"</h2>
+          <div className={styles.moviesGrid}>
+            {movies.length > 0 ? (
+              movies.map((movie) => (
+                <div key={movie._id} className={styles.movieItem}>
+                  <div className={styles.imageContainer}>
+                    <img src={movie.poster_url} alt={movie.title} className={styles.moviePoster} />
+                    <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}>Watch</button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div>No movies found</div>
+            )}
+          </div>
+        </div>
+        <div className={styles.sidebar}></div>
       </div>
       <div className={styles.footerSection}>
-      <Footer/>
+        <Footer/>
       </div>
     </div>
   );

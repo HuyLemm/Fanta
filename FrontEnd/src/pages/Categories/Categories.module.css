@@ -1,20 +1,39 @@
-.h2{
+.h2 {
+  font-family: 'Hatton', sans-serif;
+  font-size: 1.75rem;
+  margin-top: 3rem;
+  margin-left: 20rem;
   color: aliceblue;
   z-index: 1;
 }
 
-.genreMoviesContainer {
-  padding: 1.25rem; /* Converted 20px to 1.25rem */
-  color: aliceblue;
-  background: url(../../assets/images/background.jpg);
-  background-size: cover;
+.genreMoviesPage {
   width: 100vw;
   height: 100vh;
-  justify-content: center;
-  align-items: center;
   display: flex;
   flex-direction: column;
-  z-index: -1;
+}
+
+.genreMoviesContainer {
+  display: flex;
+  flex: 1;
+  background: url(../../assets/images/background.jpg);
+  background-size: cover;
+  padding-top: 4rem; /* Add padding-top to create space from the header */
+}
+
+.mainContent {
+  flex: 7;
+  padding: 1.25rem; /* Converted 20px to 1.25rem */
+  color: aliceblue;
+  position: relative;
+  z-index: 0;
+}
+
+.sidebar {
+  flex: 3;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 .overlay {
@@ -24,33 +43,28 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.45);
-  z-index: 0;
+  z-index: -1;
 }
+
 .moviesGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.25rem; /* Converted 20px to 1.25rem */
-  justify-content: center; /* Optional: Center the movie items */
+  margin-top: 1rem;
+  margin-left: 20rem;
+  display: grid;
+  grid-template-columns: repeat(5, 0.18fr);
+  gap: 1rem; /* Converted 20px to 1.25rem */
 }
 
 .movieItem {
-  width: 12.5rem; /* Converted 200px to 12.5rem */
   text-align: center;
-  position: relative;
 }
 
 .moviePoster {
-  width: 90%;
-  height: 16rem; /* Converted 300px to 18.75rem */
+  width: 95%;
+  height: 15rem; /* Converted 300px to 18.75rem */
   border-radius: 0.625rem; /* Converted 10px to 0.625rem */
   object-fit: cover; /* Ensure the image covers the entire area without distortion */
 }
 
-.movieTitle {
-  margin-top: 0.3125rem; /* Converted 5px to 0.3125rem */
-  font-size: 1rem; /* Converted 16px to 1rem */
-  font-weight: bold;
-}
 
 .imageContainer {
   position: relative; /* Add this line to ensure the button is positioned relative to this container */
@@ -76,7 +90,7 @@
   margin-bottom: 0.625rem; 
 }
 
-.watchButton:hover{
+.watchButton:hover {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
@@ -84,9 +98,10 @@
   opacity: 1;
 }
 
-.footerSection{
+.footerSection {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 2; /* Add this line to ensure the footer is positioned above the overlay */
 }

@@ -186,7 +186,7 @@ exports.toggleWatchlist = async (req, res) => {
 
     if (watchlistItem) {
       await WatchlistModel.deleteOne({ _id: watchlistItem._id });
-      return res.status(200).json({ isFavourite: false, message: 'Removed from your watchlist' });
+      return res.status(200).json({ isFavourite: false, message: 'Removed from your watchlist successfully!' });
     } else {
       const newWatchlistItem = new WatchlistModel({
         user: userId,
@@ -194,7 +194,7 @@ exports.toggleWatchlist = async (req, res) => {
       });
 
       await newWatchlistItem.save();
-      return res.status(200).json({ isFavourite: true, message: 'Added to your watchlist' });
+      return res.status(200).json({ isFavourite: true, message: 'Added to your watchlist successfully!' });
     }
   } catch (error) {
     console.error('Toggle watchlist error:', error);

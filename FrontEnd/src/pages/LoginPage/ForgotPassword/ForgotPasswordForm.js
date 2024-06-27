@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ForgotPassword.module.css';
 import { FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa'; 
-import Loading from '../../public/LoadingEffect/Loading';
+import Loading from '../../../components/public/LoadingEffect/Loading';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');

@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import HomePage from '../pages/HomePage/HomePage';
 import RegisterPage from '../pages/RegisterPage/RegisterPage';
 import LoginPage from '../pages/LoginPage/LoginPage';
-import ForgotPasswordForm from '../components/auth/ForgotPassword/ForgotPasswordForm';
-import AdminFeatures from '../components/admin/AdminFeatures/AdminFeatures';
+import ForgotPasswordForm from '../pages/LoginPage/ForgotPassword/ForgotPasswordForm';
+import AdminFeatures from '../components/admin/AdminFeatures';
 import ProtectedRoute from '../components/auth/CheckRole';
-import UserFeatures from '../components/user/UserFeatures/UserFeatures';
+import UserFeatures from '../components/user/UserFeatures';
 import MovieDetail from '../pages/MovieDetail/MovieDetail';
 import SearchResults from '../pages/SearchResults/SearchResults';
 import Categories from '../pages/Categories/Categories';
@@ -23,7 +23,6 @@ function AppRouter() {
         <Route path="/genre/:genreName" element={<Categories />} />
         <Route path="/streaming/:id" element={<Streaming />} />
         <Route path="/test" element={<Test />} />
-
 
         {/* Authentication Routes */}
         <Route path="/register" element={<RegisterPage />} />

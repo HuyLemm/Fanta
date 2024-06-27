@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Register.module.css';
 import { setCookie } from '../../../utils/Cookies';
 import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
-import Loading from '../../public/LoadingEffect/Loading';
+import Loading from '../../../components/public/LoadingEffect/Loading'
 
 const RegisterForm = () => {
     const [email, setEmail] = useState('');

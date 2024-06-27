@@ -1,0 +1,23 @@
+/* Thêm vào file CSS của bạn */
+/* custom-toastify.css */
+.notification{
+  z-index: 9999
+
+}
+
+.Toastify__toast--info {
+    background: blue;
+  }
+  
+  .Toastify__toast--success {
+    background: green;
+  }
+  
+  .Toastify__toast--warning {
+    background: orange;
+  }
+  
+  .Toastify__toast--error {
+    background: red;
+  }
+  

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import MainContent from './MainContent';
-import RecommendedMovies from './RecommendedMovies';
+import MainContent from './MainContent/MainContent';
+import RecommendedMovies from './RecommendedMovies/RecommendedMovies';
 import styles from './MovieDetail.module.css';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/public/Footer/Footer';

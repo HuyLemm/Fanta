@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './Carousel.module.css';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../../utils/Cookies';
+import Notification, { notifyInfo, notifySuccess, notifyWarning, notifyError } from '../../../components/public/Notification/Notification';
+
 
 const Carousel = ({ type }) => {
   const carouselRef = useRef(null);
@@ -142,13 +144,16 @@ const Carousel = ({ type }) => {
         ...prevWatchlists,
         [movieId]: data.isFavourite
       }));
+      notifySuccess(data.message);
     } catch (error) {
       console.error('Toggle watchlist error:', error);
+      notifyError('Error adding to watchlist'); // Thêm thông báo lỗi
     }
   };
 
   return (
     <div className={styles.carousel} ref={carouselRef}>
+      <Notification /> 
       {loading ? (
         <div>Loading...</div>
       ) : (

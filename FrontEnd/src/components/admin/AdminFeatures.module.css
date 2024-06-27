@@ -1,5 +1,5 @@
 .panelPage{
-    background: url(../../../assets/images/panel.jpg);
+    background: url(./../../assets/images/panel.jpg);
     background-size: cover;
     width: 100dvw;
     height: 100vh;

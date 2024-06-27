@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styles from './AdminFeatures.module.css';
-import LeftSidebar from '../LeftSidebar/LeftSideBarAdmin';
-import CreateGenre from '../CreateGenre/CreateGenre';
-import CreateMovie from '../CreateMovie/CreateMovie';
-import UpdateMovie from '../UpdateMovie/UpdateMovie';
-import SeeProfile from '../Profile/Profile';
-import EditUser from '../EditUser/EditUser';
+import LeftSidebar from './LeftSidebar/LeftSideBarAdmin';
+import CreateGenre from './CreateGenre/CreateGenre';
+import CreateMovie from './CreateMovie/CreateMovie';
+import UpdateMovie from './UpdateMovie/UpdateMovie';
+import SeeProfile from './Profile/Profile';
+import EditUser from './EditUser/EditUser';
 
 const AdminFeatures = () => {
     const [currentFunction, setCurrentFunction] = useState('');
