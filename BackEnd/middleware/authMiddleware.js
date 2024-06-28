@@ -1,5 +1,6 @@
   const jwt = require("jsonwebtoken");
 
+  // Hàm kiểm tra token có lưu trong cookie không -> Đăng nhập hay chưa
   exports.authenticateToken = (req, res, next) => {
     const token = req.cookies.jwt || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
     if (!token) {

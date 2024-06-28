@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './CreateGenre.module.css';
 
+// Xử lý hàm tạo thể loại
 const CreateGenre = () => {
     const [genreName, setGenreName] = useState('');
     const [message, setMessage] = useState('');
     const token = getCookie('jwt');
+
+    // Xử lý call API đến backend để tạo thể loại
     const handleCreateGenre = async () => {
         try {
             const response = await fetch('http://localhost:5000/admin/create-genre', {
@@ -30,6 +33,7 @@ const CreateGenre = () => {
     };
 
     return (
+        // Section create genre
         <div className={styles.outer}>
             <h2 className={styles.h2}>Create Genre</h2>
             <div className={styles.section}>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './EditUser.module.css';
 
+// Xử lý chỉnh sửa người dùng
 const EditUser = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -9,6 +10,7 @@ const EditUser = () => {
     const [editField, setEditField] = useState('');
     const token = getCookie('jwt');
     useEffect(() => {
+        // Gọi API về BE để lấy tất cả người dùng
         const fetchUsers = async () => {
             try {
                 const response = await fetch('http://localhost:5000/admin/get-users', {
@@ -34,6 +36,7 @@ const EditUser = () => {
         fetchUsers();
     }, []);
 
+    // Lấy thông tin với user ID được chọn tương ứng
     const handleUserClick = async (userId) => {
         try {
             const response = await fetch(`http://localhost:5000/admin/get-user-by-id/${userId}`, {
@@ -55,6 +58,7 @@ const EditUser = () => {
         }
     };
 
+    // Chỉnh sửa thông tin với user ID được chọn tương ứng
     const handleUserUpdate = async (field, value) => {
         try {
             const response = await fetch(`http://localhost:5000/admin/update-user-by-id/${selectedUser._id}`, {
@@ -79,6 +83,7 @@ const EditUser = () => {
         }
     };
 
+    // Xóa tài khoản user ID được chọn tương ứng
     const handleDeleteUser = async () => {
         try {
             const response = await fetch(`http://localhost:5000/admin/delete-user-by-id/${selectedUser._id}`, {

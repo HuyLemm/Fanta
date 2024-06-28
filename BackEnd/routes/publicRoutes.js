@@ -4,8 +4,8 @@ const adminController = require('../controllers/adminController');
 const authMiddleware = require('../middleware/authMiddleware');
 const publicController = require('../controllers/publicController');
 
+// GET
 router.get('/get-top-rated-movies', publicController.getTopRatedMovies);
-router.get('/get-movie-details', adminController.getMovieDetails);
 router.get('/get-genres', publicController.getAllGenres);
 router.get('/get-genres-movie',publicController.getGenresAndSatisfiedMovie);
 router.get('/get-movie-by-id/:id', publicController.getMovieById);
@@ -19,6 +19,7 @@ router.get('/get-watchlist/:movieId', authMiddleware.authenticateToken, publicCo
 router.get('/check-role', authMiddleware.authenticateToken, publicController.checkRole);
 router.get('/get-tmdb-episode-images/:movieId', publicController.getTMDBEpisodeImages);
 
+// POST
 router.post('/get-cast-and-director-images', publicController.getCastAndDirectorImages);
 router.post('/get-recommended-movies', publicController.getRecommendedMovies)
 

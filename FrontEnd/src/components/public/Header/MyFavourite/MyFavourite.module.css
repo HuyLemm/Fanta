@@ -1,0 +1,19 @@
+.favouriteContainer {
+  margin-right: 2rem;
+  z-index: 1000;
+}
+
+.favoriteButton {
+  padding: 0.625rem 1.25rem; 
+  font-size: 1rem; 
+  background-color: #fb5607; 
+  color: #fff; 
+  border: none;
+  cursor: pointer;
+  border-radius: 0.3125rem; 
+  transition: background-color 0.3s ease;
+}
+
+.favoriteButton:hover {
+  background-color: #333; 
+}

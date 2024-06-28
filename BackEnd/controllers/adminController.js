@@ -11,7 +11,7 @@ const ReviewModel = require('../models/Review');
 const WatchlistModel = require('../models/Watchlist')
 const MovieSourceModel = require('../models/MovieSource');
 
-
+// Tạo admin sẵn
 exports.createAdmin = async (req, res) => {
   try {
     const existingAdmin = await AccountModel.findOne({ username: 'admin' });
@@ -35,6 +35,7 @@ exports.createAdmin = async (req, res) => {
   }
 };
 
+// Lấy thông tin của admin
 exports.getAdminProfile = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -50,6 +51,8 @@ exports.getAdminProfile = async (req, res) => {
   }
 };
 
+
+// Cập nhật thông tin của admin
 exports.updateAdminProfile = async (req, res) => {
   const { email, username } = req.body;
   try {
@@ -74,6 +77,7 @@ exports.updateAdminProfile = async (req, res) => {
   }
 };
 
+// Cập nhật mật khẩu của admin
 exports.updateAdminPassword = async (req, res) => {
   const { currentPassword, newPassword, confirmPassword } = req.body;
 
@@ -183,6 +187,7 @@ exports.findMovie = async (req, res) => {
   }
 };
 
+// Cập nhật thông tin phim
 exports.updateMovie = async (req, res) => {
   try {
       const { updatedMovieData, originalTitle } = req.body;
@@ -202,6 +207,7 @@ exports.updateMovie = async (req, res) => {
   }
 };
 
+// Lấy thông tin người dùng
 exports.getUsers = async (req, res) => {
   try {
       const users = await AccountModel.find({}, 'username role');
@@ -212,6 +218,7 @@ exports.getUsers = async (req, res) => {
   }
 };
 
+// Lấy thông tin người dùng qua ID
 exports.getUserById = async (req, res) => {
   try {
       const user = await AccountModel.findById(req.params.id).select('-password');
@@ -225,6 +232,7 @@ exports.getUserById = async (req, res) => {
   }
 };
 
+// Cập nhật thông tin người dùng qua ID
 exports.updateUserById = async (req, res) => {
   const { email, username } = req.body;
   try {
@@ -243,6 +251,7 @@ exports.updateUserById = async (req, res) => {
   }
 };
 
+// Xóa người dùng qua ID
 exports.deleteUserById = async (req, res) => {
   try {
       const user = await AccountModel.findByIdAndDelete(req.params.id);
@@ -256,6 +265,7 @@ exports.deleteUserById = async (req, res) => {
   }
 };
 
+// Xóa bình luận của người dùng
 exports.deleteReview = async (req, res) => {
   try {
     const { reviewId } = req.params;
@@ -273,6 +283,7 @@ exports.deleteReview = async (req, res) => {
   }
 };
 
+// Cấm người dùng qua ID
 exports.banUser = async (req, res) => {
   try {
     const { userId, banUntil } = req.body;
@@ -291,40 +302,3 @@ exports.banUser = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
-
-// Tạo một đánh giá
-exports.createReview = async (userId, movieId) => {
-
-};
-
-// Tạo danh sách xem
-exports.createWatchlist = async (userId, movieId) => {
-  
-};
-
-// Tạo nguồn phim
-exports.createMovieSource = async (movieId) => {
- 
-};
-
-// Lấy danh sách phim theo thể loại
-exports.getMoviesByGenre = async (genreName) => {
-  
-};
-
-
-exports.getMovies = async (req, res) => {
-    // Logic to get movies
-};
-  
-exports.getMovieDetails = async (req, res) => {
-    // Logic to get movie details
-};
-  
-exports.addMovieReview = async (req, res) => {
-    // Logic to add movie review
-};
-exports.addMovieComment = async (req, res) => {
-    // Logic to add movie comment
-};
- 

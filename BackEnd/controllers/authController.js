@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const tokenStore = require('../utils/tokenStore');
 
+// Khởi tạo gmail chủ để gửi gmail cho nguồi dùng
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth:{
@@ -13,12 +14,14 @@ const transporter = nodemailer.createTransport({
 
 })
 
+// Tạo mã xác nhận bất kì 
 const generateVerificationCode = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
 const verificationCodes = {};
 
+// Xử lý đăng nhập
 exports.register = async (req, res) => {
   
   const { email, username, password, confirmPassword } = req.body;
@@ -66,6 +69,7 @@ exports.register = async (req, res) => {
   }
 };
 
+// Xử lý xác thực code đăng nhập
 exports.verifyCodeRegister = async (req, res) => {
   const { email, username, password, code } = req.body;
 
@@ -91,6 +95,7 @@ exports.verifyCodeRegister = async (req, res) => {
   }
 };
 
+// Xử lý gửi lại code xác nhận lấy lại tài khoản
 exports.resendCodeForgot = async (req, res) => {
   const { email } = req.body;
 
@@ -116,6 +121,8 @@ exports.resendCodeForgot = async (req, res) => {
     res.status(500).json('Failed to resend code');
   }
 }
+
+// Xử lý gửi lại code xác nhận tạo tài khoản
 exports.resendCodeRegister = async (req, res) => {
   const { email } = req.body;
 
@@ -142,7 +149,7 @@ exports.resendCodeRegister = async (req, res) => {
   }
 };
 
-
+// Xử lý đăng nhập
 exports.login = async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -170,7 +177,7 @@ exports.login = async (req, res) => {
 };
 
 
-
+// Xử lý đăng xuất
 exports.logout = async (req, res) => {
   const token = req.cookies.jwt;
   if (!token) {
@@ -195,6 +202,7 @@ exports.logout = async (req, res) => {
   }
 };
 
+// Xử lý email xác nhận để lấy lại tài khoản
 exports.forgotPassword = async (req, res) => {
   const { email } = req.body;
 
@@ -220,7 +228,7 @@ exports.forgotPassword = async (req, res) => {
   }
 };
 
-
+// Xử lý code xác nhận có đúng hay không
 exports.verifyCodeForgot = async (req, res) => {
   const { email, verificationCode } = req.body;
 
@@ -231,7 +239,7 @@ exports.verifyCodeForgot = async (req, res) => {
   res.status(200).json('Verification code verified. You can now reset your password.');
 };
 
-
+// Xử lý đặt lại mật khẩu khi xác thực đúng
 exports.resetPassword = async (req, res) => {
   const { email, newPassword } = req.body;
 

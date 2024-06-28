@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { checkLoginStatus } from '../../utils/Cookies';
 
+// Hàm kiểm tra trạng route
 const ProtectedRoute = ({ children, role }) => {
   const [authStatus, setAuthStatus] = useState({
     checking: true,

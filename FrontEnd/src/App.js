@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import AppRouter from './routes/AppRoutes';
-import Logofanta from './components/public/FantaLogo/FantaLogo';
+import Header from './components/public/Header/Header';
 import { AuthProvider } from './components/auth/AuthContext';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="App">
-          <Logofanta />
+          <Header />
           <div className="content">
             <AppRouter />
           </div>

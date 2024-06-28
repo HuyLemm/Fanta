@@ -45,12 +45,10 @@
   }
   
   .episodesSection::-webkit-scrollbar-thumb {
-    background-color: #ff4500;
-    border-radius: 10px;
+    background-color: #101a2e;
   }
   
   .episodesSection::-webkit-scrollbar-track {
-    background-color: #333;
-    border-radius: 10px;
+    background-color: rgb(255,255,255,0.5);
   }
   

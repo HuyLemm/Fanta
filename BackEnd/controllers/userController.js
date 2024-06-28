@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const tokenStore = require('../utils/tokenStore');
 
+// Lấy thông tin người dùng
 exports.getUserProfile = async (req, res) => {
   try {
       const userId = req.user._id;
