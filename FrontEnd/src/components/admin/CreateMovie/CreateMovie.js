@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './CreateMovie.module.css';
 
+// Hàm xử lý tạo phim
 const CreateMovie = () => {
     const [movieData, setMovieData] = useState({
         title: '',
@@ -23,6 +24,7 @@ const CreateMovie = () => {
     const [numEpisodes, setNumEpisodes] = useState(0); // Number of episodes for series
     const token = getCookie('jwt');
 
+    // Gọi API về backend để xử lý
     const handleCreateMovie = async () => {
         try {
             const response = await fetch('http://localhost:5000/admin/create-movie', {
@@ -68,6 +70,7 @@ const CreateMovie = () => {
         setMovieData({ ...movieData, episodes: updatedEpisodes });
     };
 
+    // Xử lý tạo ra nhiều episodes
     const renderEpisodeInputs = () => {
         return Array.from({ length: numEpisodes }, (_, index) => (
             <div key={index} className={styles.episodeContainer}>
@@ -167,6 +170,8 @@ const CreateMovie = () => {
                 placeholder="Trailer URL"
                 className={styles.inputField}
             />
+
+            {/* Section tạo type theo series hay movies */}
             <select
                 value={movieData.type}
                 onChange={(e) => setMovieData({ ...movieData, type: e.target.value })}
@@ -175,6 +180,7 @@ const CreateMovie = () => {
                 <option value="movie">Movie</option>
                 <option value="series">Series</option>
             </select>
+
             {movieData.type === 'movie' && (
                 <>
                     <input

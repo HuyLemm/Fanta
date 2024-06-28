@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './Profile.module.css';
 
+// Xử lý chức năng Profile của admin
 const SeeProfile = () => {
     const [profile, setProfile] = useState({
         email: '',
@@ -17,7 +18,9 @@ const SeeProfile = () => {
     const [loading, setLoading] = useState(true);
     const [editField, setEditField] = useState('');
     const token = getCookie('jwt');
+
     useEffect(() => {
+        // Gọi API về BackEnd để lấy profile
         const fetchProfile = async () => {
             try {
                 const response = await fetch('http://localhost:5000/admin/get-profile', {
@@ -42,6 +45,7 @@ const SeeProfile = () => {
         fetchProfile();
     }, []);
 
+    // Gọi API về backend để thực hiện thay đổi profile
     const handleUpdate = async (field, value) => {
         try {
             const response = await fetch('http://localhost:5000/admin/update-profile', {
@@ -66,6 +70,7 @@ const SeeProfile = () => {
         }
     };
 
+    // Gọi API về backend để thực hiện thay đổi password
     const handlePasswordUpdate = async () => {
         if (passwords.newPassword !== passwords.confirmPassword) {
             setMessage('New password and confirm password do not match.');
@@ -126,8 +131,10 @@ const SeeProfile = () => {
     }
 
     return (
+
         <div className={styles.outer}> 
             <h2 className={styles.h2}>Admin Profile</h2>
+            {/* Section Email */}
             <div className={styles.section}>
                 <div className={styles['form-group']}>
                     <label>Email: </label>
@@ -150,6 +157,8 @@ const SeeProfile = () => {
                         </>
                     )}
                 </div>
+
+                {/* Section username */}
                 <div className={styles['form-group']}>
                     <label>Username: </label>
                     {editField === 'username' ? (
@@ -171,6 +180,8 @@ const SeeProfile = () => {
                         </>
                     )}
                 </div>
+
+                {/* Section password */}
                 <div className={styles['form-group']}>
                     <label>Password: </label>
                     {editField === 'password' ? (

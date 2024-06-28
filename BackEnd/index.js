@@ -16,6 +16,7 @@ const adminController = require('./controllers/adminController');
 
 const app = express();
 
+// Khởi tạo cấu hình CORS cho server
 const corsOptions = {
   origin: 'http://localhost:3000', // URL frontend của bạn
   credentials: true, // Cho phép gửi cookie

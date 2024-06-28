@@ -1,0 +1,57 @@
+.categoriesContainer {
+  position: relative;
+  margin-right: 15rem;
+}
+
+.categoriesButton {
+  padding: 0.625rem 1.25rem; 
+  font-size: 1rem; 
+  background-color: #fb5607;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.3125rem; 
+  transition: background-color 0.3s ease;
+}
+
+.categoriesButton:hover {
+  background-color: #333;
+}
+
+.categoriesDropdown {
+  position: absolute;
+  top: 2.5rem; 
+  left: 0;
+  background-color: #333;
+  color: #fff;
+  padding: 0.625rem; 
+  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.3); 
+  border-radius: 0.3125rem;
+  z-index: 1000;
+  display: flex;
+}
+
+.categoryColumn {
+  display: flex;
+  flex-direction: column;
+  margin-right: 1rem;
+  max-width: 120px; 
+}
+
+.categoryItem {
+  padding: 0.3125rem 0.625rem; 
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.3s ease;
+  width: 110%;
+  height: 110%;
+  border-radius: 0.4rem;
+  font-size: 0.93rem;
+}
+
+.categoryItem:hover {
+  background-color: #fb5607;
+}

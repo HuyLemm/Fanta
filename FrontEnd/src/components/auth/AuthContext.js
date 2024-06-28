@@ -3,6 +3,7 @@ import { checkLoginStatus } from '../../utils/Cookies';
 
 export const AuthContext = createContext();
 
+// Hàm kiểm tra trạng thái dăng nhập
 export const AuthProvider = ({ children }) => {
   const [authStatus, setAuthStatus] = useState({
     checking: true,

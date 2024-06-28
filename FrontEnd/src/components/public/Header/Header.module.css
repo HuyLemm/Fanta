@@ -1,0 +1,17 @@
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0.75rem;
+  z-index: 1000;
+  padding: 0.625rem 1.875rem;
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+

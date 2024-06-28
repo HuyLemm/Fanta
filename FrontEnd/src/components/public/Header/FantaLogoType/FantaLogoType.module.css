@@ -1,0 +1,41 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  padding: 0.625rem 1.875rem;
+}
+
+.header a {
+  display: inline-block;
+  margin-right: 12rem; /* Add some space between the logo and buttons */
+}
+
+.fanta {
+  width: 7.5rem; 
+  height: 3.75rem; 
+  object-fit: cover;
+}
+
+.typeButtons {
+  display: flex;
+  align-items: center;
+  margin-right: auto; /* Ensure it stretches to push other elements */
+}
+
+.movies, .series {
+  padding: 0.625rem 1.25rem; 
+  font-size: 1rem; 
+  background-color: #fb5607; 
+  color: #fff; 
+  border: none;
+  cursor: pointer;
+  border-radius: 0.3125rem; 
+  transition: background-color 0.3s ease;
+  margin: 0 1rem;
+}
+
+.movies:hover, .series:hover {
+  background-color: #333; 
+}

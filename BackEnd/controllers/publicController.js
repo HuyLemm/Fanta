@@ -11,6 +11,7 @@ const TMDB_API_KEY = 'd0d4e98bfef5c31d9d1e552a8d2163c3'; // Thay bằng API key 
 
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
+// Lấy hết thể loại
 exports.getAllGenres = async (req, res) => {
     try {
       const genres = await GenreModel.find({});
@@ -21,6 +22,7 @@ exports.getAllGenres = async (req, res) => {
     }
 };
 
+// Lấy thể loại theo type
 exports.getGenresAndSatisfiedMovie = async (req, res) => {
   try {
     const { type } = req.query;
@@ -40,7 +42,7 @@ exports.getGenresAndSatisfiedMovie = async (req, res) => {
   }
 };
 
-
+// Lấy top 5 phim đánh giá cao nhất
 exports.getTopRatedMovies = async (req, res) => {
   try {
     const { type } = req.query;
@@ -102,7 +104,7 @@ exports.getTopRatedMovies = async (req, res) => {
 };
 
 
-
+// Lấy phim theo id
 exports.getMovieById = async (req, res) => {
   try {
     const movie = await MovieModel.findById(req.params.id);
@@ -117,6 +119,7 @@ exports.getMovieById = async (req, res) => {
   }
 };
 
+// Tìm kiếm phim theo tiêu đề
 exports.searchMovies = async (req, res) => {
   try {
     const query = req.query.query;
@@ -140,6 +143,7 @@ exports.searchMovies = async (req, res) => {
   }
 };
 
+// Lấy phim theo thể loại
 exports.getMoviesByGenre = async (req, res) => {
   try {
     const genre = req.query.genre;
@@ -156,6 +160,7 @@ exports.getMoviesByGenre = async (req, res) => {
   }
 };
 
+// Lấy phim gợi ý theo thể loại
 exports.getRecommendedMovies = async (req, res) => {
   try {
     const { genres, currentMovieId } = req.body;
@@ -177,6 +182,7 @@ exports.getRecommendedMovies = async (req, res) => {
   }
 }
 
+// Lấy bình luận theo ID phim
 exports.getReviewsMovieId = async (req, res) => {
   try {
     const { movieId } = req.params;
@@ -188,6 +194,7 @@ exports.getReviewsMovieId = async (req, res) => {
   }
 }
 
+// Lấy thông tin người dùng trên trang web
 exports.getCurrentUser = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -204,6 +211,7 @@ exports.getCurrentUser = async (req, res) => {
   }
 };
 
+// Lấy đánh giá
 exports.getRating = async (req, res) => {
   const { movieId } = req.params;
 
@@ -215,6 +223,7 @@ exports.getRating = async (req, res) => {
   }
 }
 
+// Lấy đánh giá trung bình
 exports.getAverageRatings =   async (req, res) => { 
   const { movieId } = req.params;
 
@@ -233,6 +242,7 @@ exports.getAverageRatings =   async (req, res) => {
   }
 }
 
+// Kiểm tra watchlist có được thêm phim hay chưa
 exports.checkWatchlist = async (req, res) => {
   try {
     const { movieId } = req.params;
@@ -251,6 +261,7 @@ exports.checkWatchlist = async (req, res) => {
   }
 }
 
+// Kiểm tra role là admin hay user
 exports.checkRole = async (req, res) => {
   const user = {
     role: req.user.role,
@@ -259,7 +270,7 @@ exports.checkRole = async (req, res) => {
   res.json(user);
 }
 
-
+// Láy hình ảnh của đạo diễn và diễn viên qua API TMDB
 exports.getCastAndDirectorImages = async (req, res) => {
   const { cast, director } = req.body;
 
@@ -287,7 +298,7 @@ exports.getCastAndDirectorImages = async (req, res) => {
   }
 };
 
-
+// Láy hình ảnh của tập phim qua API TMDB
 exports.getTMDBEpisodeImages = async (req, res) => {
   const { movieId } = req.params;
 

@@ -3,7 +3,6 @@ const router = app.Router();
 const authController = require('../controllers/authController');
 const tokenStore = require('../utils/tokenStore');
 
-// Define routes for login and register
 //POST
 router.post('/register', authController.register);
 router.post('/verify-register', authController.verifyCodeRegister);
