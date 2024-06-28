@@ -8,9 +8,8 @@ npm install react-modal --force
 npm install react-toastify --force 
 
 color (orange):#fb5607
+color (gray): #333
+color (navi): #101a2e
 
 Color reference: https://coolors.co/palettes/trending
 
-
-.../auth/userinfo.email	
-.../auth/userinfo.profile	

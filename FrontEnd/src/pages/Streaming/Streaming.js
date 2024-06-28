@@ -121,36 +121,38 @@ const Streaming = () => {
   const videoType = streamingUrl && streamingUrl.includes('youtube') ? 'youtube' : 'mp4';
 
   return (
-    <div className={styles.background}>
-      <div className={styles.overlay}></div>
-      <div className={styles.streamingContainer}>
-        <div className={styles.contentWrapper}>
-          <div className={styles.mainContent}>
-            <div className={styles.videoSection}>
-              {streamingUrl ? (
-                <Video url={streamingUrl} type={videoType} />
-              ) : (
-                <div>No video available</div>
-              )}
+    <div>
+      <div className={styles.background}>
+        <div className={styles.overlay}></div>
+        <div className={styles.streamingContainer}>
+          <div className={styles.contentWrapper}>
+            <div className={styles.mainContent}>
+              <div className={styles.videoSection}>
+                {streamingUrl ? (
+                  <Video url={streamingUrl} type={videoType} />
+                ) : (
+                  <div>No video available</div>
+                )}
+              </div>
+              <div className={styles.header}>
+                <h1 className={styles.movieTitle}>{movie.title}</h1>
+                {movie.type === 'series' && (
+                  <div className={styles.epTitle}> &gt; EPISODE {currentEpisode + 1}</div>
+                )}
+              </div>
+              <RatingsDescription movie={movie} id={id} currentUser={currentUser} />
+              <People 
+                movie={movie} 
+                castImages={castImages} 
+                directorImages={directorImages} 
+              />
+              <Comments 
+                movieId={id} 
+                currentUser={currentUser} 
+              />
             </div>
-            <div className={styles.header}>
-              <h1 className={styles.movieTitle}>{movie.title}</h1>
-              {movie.type === 'series' && (
-                <div className={styles.epTitle}> &gt; EPISODE {currentEpisode + 1}</div>
-              )}
-            </div>
-            <RatingsDescription movie={movie} id={id} currentUser={currentUser} />
-            <People 
-              movie={movie} 
-              castImages={castImages} 
-              directorImages={directorImages} 
-            />
-            <Comments 
-              movieId={id} 
-              currentUser={currentUser} 
-            />
+            <Episode episodes={movie.episodes} episodeImages={episodeImages} setCurrentEpisode={setCurrentEpisode} />
           </div>
-          <Episode episodes={movie.episodes} episodeImages={episodeImages} setCurrentEpisode={setCurrentEpisode} />
         </div>
       </div>
       <Footer />

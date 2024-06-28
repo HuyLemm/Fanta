@@ -4,6 +4,7 @@ import styles from './Comment.module.css';
 import moment from 'moment';
 import { getCookie } from '../../../utils/Cookies';
 import { useNavigate } from 'react-router-dom';
+import Notification, { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../../components/public/Notification/Notification';
 
 const Comments = ({ movieId, currentUser }) => {
   const [comments, setComments] = useState([]);
@@ -27,7 +28,7 @@ const Comments = ({ movieId, currentUser }) => {
         const data = await response.json();
         setComments(data);
       } catch (error) {
-        console.error('Fetch comments error:', error);
+        notifyError('Fetch comments error:', error);
       }
     };
 
@@ -54,7 +55,7 @@ const Comments = ({ movieId, currentUser }) => {
       if (!response.ok) {
         const errorData = await response.json();
         if (response.status === 403) {
-          alert(errorData.message); // Hiển thị thông báo nếu người dùng bị cấm bình luận
+          notifyWarning(errorData.message); // Hiển thị thông báo nếu người dùng bị cấm bình luận
         } else {
           throw new Error('Failed to add comment');
         }
@@ -65,7 +66,7 @@ const Comments = ({ movieId, currentUser }) => {
       setComments((prevComments) => [...prevComments, newCommentData]);
       setNewComment('');
     } catch (error) {
-      console.error('Add comment error:', error);
+      notifyError('Add comment error:', error);
     }
   };
 
@@ -89,7 +90,7 @@ const Comments = ({ movieId, currentUser }) => {
 
       setComments((prevComments) => prevComments.filter(comment => comment._id !== commentId));
     } catch (error) {
-      console.error('Delete comment error:', error);
+      notifyError('Delete comment error:', error);
     }
   };
 
@@ -108,7 +109,7 @@ const Comments = ({ movieId, currentUser }) => {
       if (!response.ok) {
         const errorData = await response.json();
         if (response.status === 403) {
-          alert(errorData.message); // Hiển thị thông báo nếu người dùng bị cấm bình luận
+          notifyWarning(errorData.message); // Hiển thị thông báo nếu người dùng bị cấm bình luận
         } else {
           throw new Error('Failed to add comment');
         }
@@ -163,7 +164,7 @@ const Comments = ({ movieId, currentUser }) => {
         throw new Error('Failed to ban user');
       }
 
-      alert('User banned successfully');
+      notifySuccess('User banned successfully');
       closeBanModal(); // Đóng modal sau khi cấm người dùng
     } catch (error) {
       console.error('Ban user error:', error);
@@ -186,6 +187,7 @@ const Comments = ({ movieId, currentUser }) => {
   return (
     // Khu vực bình luận
     <div className={styles.commentsSection}>
+      <Notification />
       <h2>Comments</h2> {/* Tiêu đề */}
       {comments.length > 0 ? (
         comments.map(comment => (

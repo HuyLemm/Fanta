@@ -60,7 +60,7 @@
 
 .episodeTitle {
   color: #fff; /* Set default color to white */
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   margin-bottom: 0.5rem;
   white-space: normal;
   overflow: hidden; /* Prevent overflow */
@@ -74,7 +74,7 @@
 
 .episodeNumber {
   color: #ff4500; /* Màu cam */
-  font-size: 1rem;
+  font-size: 0.92rem;
   margin-bottom: 0.2rem;
 }
 
