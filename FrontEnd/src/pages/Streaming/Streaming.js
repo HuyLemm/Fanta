@@ -20,8 +20,18 @@ const Streaming = () => {
   const [episodeImages, setEpisodeImages] = useState({});
   const [castImages, setCastImages] = useState({});
   const [directorImages, setDirectorImages] = useState({});
+  const [currentEpisode, setCurrentEpisode] = useState(0);
   const navigate = useNavigate();
   const token = getCookie('jwt');
+
+  const getStreamingUrl = (movie) => {
+    if (movie.type === 'movie') {
+      return movie.streaming_url;
+    } else if (movie.type === 'series' && movie.episodes && movie.episodes.length > 0) {
+      return movie.episodes[currentEpisode].streaming_url;
+    }
+    return null;
+  };
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -107,19 +117,26 @@ const Streaming = () => {
     return <div>No movie data found</div>;
   }
 
-  return (
+  const streamingUrl = getStreamingUrl(movie);
+  const videoType = streamingUrl && streamingUrl.includes('youtube') ? 'youtube' : 'mp4';
 
+  return (
     <div className={styles.background}>
       <div className={styles.streamingContainer}>
-        
         <div className={styles.contentWrapper}>
           <div className={styles.mainContent}>
             <div className={styles.videoSection}>
-              <Video url={movie.streaming_url} type={movie.streaming_url.includes('youtube') ? 'youtube' : 'mp4'} />
+              {streamingUrl ? (
+                <Video url={streamingUrl} type={videoType} />
+              ) : (
+                <div>No video available</div>
+              )}
             </div>
             <div className={styles.header}>
-              <h1 className = {styles.movieTitle}>{movie.title}</h1>
-              <div className={styles.epTitle}> &gt; EPISODE 1</div>
+              <h1 className={styles.movieTitle}>{movie.title}</h1>
+              {movie.type === 'series' && (
+                <div className={styles.epTitle}> &gt; EPISODE {currentEpisode + 1}</div>
+              )}
             </div>
             <RatingsDescription movie={movie} id={id} currentUser={currentUser} />
             <People 
@@ -132,7 +149,7 @@ const Streaming = () => {
               currentUser={currentUser} 
             />
           </div>
-          <Episode episodes={movie.episodes} episodeImages={episodeImages} />
+          <Episode episodes={movie.episodes} episodeImages={episodeImages} setCurrentEpisode={setCurrentEpisode} />
         </div>
       </div>
       <Footer />

@@ -7,8 +7,9 @@
   }
   
   .streamingVideo {
-    width: 100%;
-    max-width: 800px;
-    height: 450px; /* You can adjust this height based on your needs */
+    width: 300%;
+    max-width: 100rem;
+    height: 44rem; /* You can adjust this height based on your needs */
+    object-fit: contain;
   }
   

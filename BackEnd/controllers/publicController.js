@@ -109,13 +109,17 @@ exports.getMovieById = async (req, res) => {
   try {
     const movie = await MovieModel.findById(req.params.id);
     if (!movie) {
-      res.status(404).json({ message: 'Movie not found' });
-    } else {
-      res.status(200).json(movie);
+      return res.status(404).send({ message: 'Movie not found' });
     }
+
+    let streamingUrl = movie.streaming_url;
+    if (movie.type === 'series' && movie.episodes && movie.episodes.length > 0) {
+      streamingUrl = movie.episodes[0].streaming_url;
+    }
+
+    res.send({ ...movie._doc, streamingUrl });
   } catch (error) {
-    console.error('Error fetching movie:', error);
-    res.status(500).json({ error: 'An error occurred while fetching movie' });
+    res.status(500).send({ message: error.message });
   }
 };
 

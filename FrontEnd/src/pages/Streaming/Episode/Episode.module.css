@@ -18,29 +18,89 @@
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.episodeImageContainer {
+  position: relative;
 }
 
 .episodeImage {
   width: 10rem;
   height: auto;
-  margin-right: 1rem;
   border-radius: 5px;
+  transition: transform 0.3s ease;
+}
+
+.episode:hover .episodeImage {
+  transform: scale(1.05);
+}
+
+/* Duration Styles */
+.episodeDuration {
+  color: #fff;
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.3rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  font-size: 0.75rem;
 }
 
 /* Episode Details Styles */
 .episodeDetails {
   display: flex;
   flex-direction: column;
+  margin-left: 1rem;
+  flex-grow: 1;
+  overflow: hidden;
 }
 
 .episodeTitle {
-  color: #ff4500;
-  font-size: 1.2rem;
+  color: #fff; /* Set default color to white */
+  font-size: 1.1rem;
   margin-bottom: 0.5rem;
+  white-space: normal;
+  overflow: hidden; /* Prevent overflow */
+  text-overflow: break-word; /* Add ellipsis (...) */
+  transition: color 0.3s ease; /* Add transition for color */
 }
 
-.episodeDuration {
-  color: #ccc;
+.episode:hover .episodeTitle {
+  color: #ff4500; /* Change color to orange on hover */
+}
+
+/* Play Button Styles */
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.playButton::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 15px solid white;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+.episode:hover .playButton {
+  opacity: 1;
 }
 
 /* Custom Scrollbar Styles */
@@ -49,12 +109,12 @@
 }
 
 .episodesSection::-webkit-scrollbar-thumb {
-  background-color: #ff4500;
+  background-color: #ff4500; 
   border-radius: 10px;
 }
+/* #ff4500 #101a2e */
 
 .episodesSection::-webkit-scrollbar-track {
-  background-color: #333;
+  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 10px;
 }
-
