@@ -1,6 +1,5 @@
 /* Episodes Section Styles */
 .episodesSection {
-<<<<<<< HEAD
   width: 25%;
   background-color: #333;
   padding: 1rem;
@@ -58,58 +57,4 @@
   background-color: #333;
   border-radius: 10px;
 }
-=======
-    width: 25%;
-    background-color: #333;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-height: 45rem; 
-    overflow-y: auto; 
-  }
-  
-  .episodesSection h2 {
-    color: #ff4500;
-  }
-  
-  .episode {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .episodeImage {
-    width: 10rem;
-    height: auto;
-    margin-right: 1rem;
-    border-radius: 5px;
-  }
-  
-  .episodeDetails {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .episodeTitle {
-    color: #ff4500;
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .episodeDuration {
-    color: #ccc;
-  }
-  
-  .episodesSection::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-  .episodesSection::-webkit-scrollbar-thumb {
-    background-color: #101a2e;
-  }
-  
-  .episodesSection::-webkit-scrollbar-track {
-    background-color: rgb(255,255,255,0.5);
-  }
-  
->>>>>>> 3698fa2e75ea657d8afe0f4cb7f924617393bc26
+
