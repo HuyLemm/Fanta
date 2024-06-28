@@ -104,7 +104,9 @@ const MainContent = ({ movie, handleWatchClick }) => {
                 <button className={styles.addToFavouriteButton} onClick={handleAddToFavourite}>
                   <div className={isFavourite ? styles.bookmarkIconActive : styles.bookmarkIcon} />
                 </button>
-                <div className={styles.favouriteText}>Favourite</div>
+                <div className={styles.hoverBox}>
+                  {isFavourite ? 'Remove from your favorite' : 'Add to favorite'}
+                </div>
               </div>
             </div>
             {/* Meta information */}

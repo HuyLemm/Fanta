@@ -139,6 +139,16 @@
   justify-content: center;
 }
 
+/*Favorite section*/
+
+.addToFavouriteContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-left: 1.5rem;
+  position: relative; 
+}
+
 /* Styles for the favourite text */
 .favouriteText {
   text-align: center;
@@ -171,6 +181,8 @@
   background-image: url('../../../assets/images/archive_no_bg.png');
   background-size: cover;
   display: inline-block;
+  margin-right: 0.15rem;
+  margin-left: 0.15rem;
 }
 
 .bookmarkIconActive {
@@ -189,6 +201,24 @@
   align-items: center;
   margin-bottom: 2rem;
   margin-left: 1.5rem;
+}
+
+/* Styles for the hover box */
+.hoverBox {
+  display: none;
+  position: absolute;
+  top: 1.2rem; 
+  left: 3rem; 
+  background-color: #fb5607;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  z-index: 1000; 
+  white-space: nowrap;
+}
+
+.addToFavouriteContainer:hover .hoverBox {
+  display: block;
 }
 
 /* Container for the title */
