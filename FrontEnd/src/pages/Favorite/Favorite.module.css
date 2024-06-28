@@ -1,9 +1,11 @@
+/* Container for the entire favorite movies section */
 .favoriteContainer {
   color: white;
   padding: 20px;
   margin-top: 3rem;
 }
 
+/* Layout for each movie row in the watchlist */
 .movieRow {
   display: flex;
   align-items: center;
@@ -12,10 +14,12 @@
   border-bottom: 1px solid #ccc;
 }
 
+/* Container for the movie poster */
 .posterContainer {
   position: relative;
 }
 
+/* Styling for the movie poster image */
 .poster {
   width: 150px;
   height: auto;
@@ -23,10 +27,12 @@
   transition: transform 0.3s ease;
 }
 
+/* Scale up the poster image on hover */
 .posterContainer:hover .poster {
   transform: scale(1.1);
 }
 
+/* Styling for the watch button */
 .posterContainer .watchButton {
   position: absolute;
   bottom: 10px;
@@ -45,28 +51,34 @@
   transition: all 0.3s ease;
 }
 
+/* Show the watch button on poster hover */
 .posterContainer:hover .watchButton {
   opacity: 1;
   visibility: visible;
 }
 
+/* Change background color of watch button on hover */
 .posterContainer:hover .watchButton:hover {
   background-color: rgb(0,0,0,0.5);
 }
 
+/* Container for the movie information */
 .movieInfo {
   flex: 1;
 }
 
+/* Styling for the movie title */
 .movieInfo h2 {
   margin: 0 0 10px;
 }
 
+/* Styling for the movie description paragraphs */
 .movieInfo p {
   margin: 5px 0;
   width: 75%;
 }
 
+/* Styling for the movie title color */
 .title {
   color: #fb5607;
 }

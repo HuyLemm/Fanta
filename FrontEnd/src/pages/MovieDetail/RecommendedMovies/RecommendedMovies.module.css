@@ -1,144 +1,152 @@
-    .recommendedSection {
-    padding: 1.25rem; /* Converted 20px to 1.25rem */
-    background-color: #111;
-    position: relative; /* Ensure recommendedSection is positioned correctly */
-    z-index: 0; /* Ensure it appears above other elements if necessary */
-  }
-  
-  /* Styles for recommended movies */
-  .recommendedTitle {
-    color: #fff;
-    font-size: 1.5rem; /* Converted 24px to 1.5rem */
-    margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
-  }
-  
-  .recommendedList {
-    display: flex;
-    gap: 1.25rem; /* Converted 20px to 1.25rem */
-    overflow-x: scroll;
-    padding-bottom: 0.625rem; /* Converted 10px to 0.625rem */
-  }
-  
-  .recommendedItem {
-    flex-shrink: 0;
-    width: 9.375rem; /* Converted 150px to 9.375rem */
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .recommendedImageContainer {
-    width: 100%;
-    height: 13.75rem; /* Converted 220px to 13.75rem */
-    overflow: hidden;
-    border-radius: 0.625rem; /* Converted 10px to 0.625rem */
-    position: relative;
-  }
-  
-  .recommendedImageContainer img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-  
-  .recommendedImageContainer:hover img {
-    transform: scale(1.1);
-  }
-  
-  .recommendedImageContainer .watchButton {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-  
-  .recommendedImageContainer:hover .watchButton {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  .recommendedContent {
-    color: #fff;
-    text-align: center;
-    padding: 0.625rem 0; /* Converted 10px to 0.625rem */
-    width: 100%;
-  }
-  
-  .recommendedItemTitle {
-    font-weight: 500;
-  }
-  
-  .prevRecommended, .nextRecommended {
-    background-color: #333;
-    border: none;
-    color: #fff;
-    padding: 0.625rem; /* Converted 10px to 0.625rem */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    z-index: 1;
-    width: 2.5rem; /* Converted 40px to 2.5rem */
-    height: 4.0625rem; /* Converted 65px to 4.0625rem */
-    margin-top: 5.3125rem; /* Converted 85px to 5.3125rem */
-    font-size: large;
-  }
-  
-  .prevRecommended:hover, .nextRecommended:hover {
-    background-color: #555;
-  }
-  
-  .prevRecommended {
-    position: absolute;
-    left: 0;
-  }
-  
-  .nextRecommended {
-    position: absolute;
-    right: 0;
-  }
-  
-  .recommendedItems {
-    display: flex;
-    gap: 1.25rem; /* Converted 20px to 1.25rem */
-    overflow-x: hidden;
-    overflow-y: hidden;
-    width: calc(100% - 5rem); /* Converted 80px to 5rem */
-  }
-  
-  .recommendedItems::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .recommendedList {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  body {
-    overflow-x: hidden;
-  }
-  
-  .watchButton {
-    position: absolute;
-    bottom: 0.625rem; /* Converted 10px to 0.625rem */
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    border-radius: 2.5rem; /* Converted 40px to 2.5rem */
-    background-color: #fb5607;
-    border: none;
-    outline: none;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
-    color: white;
-  }
-  
-  .watchButton:hover {
-    background-color: rgba(0, 0, 0, 0.9);
-  }
-  
+/* Container for the recommended movies section */
+.recommendedSection {
+  padding: 1.25rem; 
+  background-color: #111;
+  position: relative; 
+  z-index: 0; 
+}
+
+/* Title style for the recommended movies section */
+.recommendedTitle {
+  color: #fff;
+  font-size: 1.5rem; 
+  margin-bottom: 0.625rem;
+}
+
+/* Container for the list of recommended movies */
+.recommendedList {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: scroll;
+  padding-bottom: 0.625rem; 
+  position: relative;
+  overflow: hidden;
+}
+
+/* Individual items within the recommended list */
+.recommendedItem {
+  flex-shrink: 0;
+  width: 9.375rem; 
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Container for the movie images */
+.recommendedImageContainer {
+  width: 100%;
+  height: 13.75rem; 
+  overflow: hidden;
+  border-radius: 0.625rem; 
+  position: relative;
+}
+
+.recommendedImageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+/* Scale up the image on hover */
+.recommendedImageContainer:hover img {
+  transform: scale(1.1);
+}
+
+/* Watch button within image container */
+.recommendedImageContainer .watchButton {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Show watch button on hover */
+.recommendedImageContainer:hover .watchButton {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Content container for movie information */
+.recommendedContent {
+  color: #fff;
+  text-align: center;
+  padding: 0.625rem 0; 
+  width: 100%;
+}
+
+/* Styling for the movie title */
+.recommendedItemTitle {
+  font-weight: 500;
+}
+
+/* Button styles for navigating recommended movies */
+.prevRecommended, .nextRecommended {
+  background-color: #333;
+  border: none;
+  color: #fff;
+  padding: 0.625rem; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 1;
+  width: 2.5rem; 
+  height: 4.0625rem; 
+  margin-top: 5.3125rem; 
+  font-size: large;
+}
+
+.prevRecommended:hover, .nextRecommended:hover {
+  background-color: #555;
+}
+
+.prevRecommended {
+  position: absolute;
+  left: 0;
+}
+
+.nextRecommended {
+  position: absolute;
+  right: 0;
+}
+
+/* Container for the recommended items */
+.recommendedItems {
+  display: flex;
+  gap: 1.25rem; 
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: calc(100% - 5rem); 
+}
+
+.recommendedItems::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* General watch button styling */
+.watchButton {
+  position: absolute;
+  bottom: 0.625rem; 
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.625rem 1.25rem; 
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  border-radius: 2.5rem; 
+  background-color: #fb5607;
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.625rem; 
+  color: white;
+}
+
+.watchButton:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}

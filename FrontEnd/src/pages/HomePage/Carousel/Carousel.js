@@ -2,31 +2,30 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './Carousel.module.css';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../../utils/Cookies';
-import Notification, { notifyInfo, notifySuccess, notifyWarning, notifyError } from '../../../components/public/Notification/Notification';
-
+import Notification, { notifySuccess, notifyError } from '../../../components/public/Notification/Notification';
 
 const Carousel = ({ type }) => {
-  const carouselRef = useRef(null);
-  const sliderRef = useRef(null);
-  const thumbnailRef = useRef(null);
-  const navigate = useNavigate();
-  const token = getCookie('jwt');
+  const carouselRef = useRef(null); 
+  const sliderRef = useRef(null); 
+  const thumbnailRef = useRef(null); 
+  const navigate = useNavigate(); 
+  const token = getCookie('jwt'); // Get JWT token from cookies
 
-  const [movies, setMovies] = useState([]);
-  const [watchlists, setWatchlists] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [movies, setMovies] = useState([]); 
+  const [watchlists, setWatchlists] = useState({}); 
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        setLoading(true); // Start loading
+        setLoading(true); 
         const response = await fetch(`http://localhost:5000/public/get-top-rated-movies?type=${type || ''}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
         
-        // Check the type of each movie before setting it in state
+        // Filter movies based on type if specified
         const filteredMovies = data.filter(movie => !type || movie.type === type);
         setMovies(filteredMovies);
 
@@ -37,7 +36,7 @@ const Carousel = ({ type }) => {
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false); 
       }
     };
     fetchMovies();
@@ -144,10 +143,10 @@ const Carousel = ({ type }) => {
         ...prevWatchlists,
         [movieId]: data.isFavourite
       }));
-      notifySuccess(data.message);
+      notifySuccess(data.message); // Show success notification
     } catch (error) {
       console.error('Toggle watchlist error:', error);
-      notifyError('Error adding to watchlist'); // Thêm thông báo lỗi
+      notifyError('Error adding to watchlist'); // Show error notification
     }
   };
 
@@ -155,14 +154,16 @@ const Carousel = ({ type }) => {
     <div className={styles.carousel} ref={carouselRef}>
       <Notification /> 
       {loading ? (
-        <div>Loading...</div>
+        <div>Loading...</div> // Show loading message while fetching data
       ) : (
         <>
           <div className={styles.list} ref={sliderRef}>
             {movies.map((movie, index) => (
               <div className={styles.item} key={index}>
                 <div className={styles.overlay}></div>
+                {/* Movie background image */}
                 <img src={movie.background_url} alt={movie.title} className={styles.img}/>
+                {/* Content for the movie item */}
                 <div className={styles.content}>
                   <div className={styles.author}>{movie.director.join(', ')}</div>
                   <div className={styles.title}>{movie.title}</div>
@@ -178,6 +179,7 @@ const Carousel = ({ type }) => {
               </div>
             ))}
           </div>
+          {/* Thumbnails for the movies */}
           <div className={styles.thumbnail} ref={thumbnailRef}>
             {movies.map((movie, index) => (
               <div className={`${styles.item} ${styles.movieThumbnail}`} key={index}>
@@ -190,6 +192,7 @@ const Carousel = ({ type }) => {
               </div>
             ))}
           </div>
+          {/* Navigation arrows */}
           <div className={styles.arrows}>
             <button id="prev">&lt;</button>
             <button id="next">&gt;</button>

@@ -2,22 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Register.module.css';
 import { setCookie } from '../../../utils/Cookies';
-import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
-import Loading from '../../../components/public/LoadingEffect/Loading'
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Loading from '../../../components/public/LoadingEffect/Loading';
 
 const RegisterForm = () => {
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [email, setEmail] = useState(''); 
+    const [username, setUsername] = useState(''); 
+    const [password, setPassword] = useState(''); 
+    const [confirmPassword, setConfirmPassword] = useState(''); 
     const [showPassword, setShowPassword] = useState(false); 
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
-    const [verificationCode, setVerificationCode] = useState('');
-    const [message, setMessage] = useState('');
+    const [verificationCode, setVerificationCode] = useState(''); 
+    const [message, setMessage] = useState(''); 
     const [isCodeSent, setIsCodeSent] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [timer, setTimer] = useState(20);
-    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false); 
+    const [timer, setTimer] = useState(20); 
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         let countdown;
@@ -29,7 +29,7 @@ const RegisterForm = () => {
         return () => clearInterval(countdown);
     }, [isCodeSent, timer]);
 
-    // chức năng cho server duyệt xem tài khoản hợp lệ chưa
+    // Function to handle registration form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -39,7 +39,7 @@ const RegisterForm = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, username, password, confirmPassword}),
+                body: JSON.stringify({ email, username, password, confirmPassword }),
             });
 
             const data = await response.json();
@@ -59,7 +59,7 @@ const RegisterForm = () => {
         }
     };
 
-    // chức năng cho server duyệt code gửi tới gmail được tạo
+    // Function to handle email verification code submission
     const handleVerify = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -90,7 +90,7 @@ const RegisterForm = () => {
         }
     };
 
-    // chức năng cho server gửi code lại khi hết hạn
+    // Function to handle resending the verification code
     const handleResendCode = async () => {
         setIsLoading(true);
         try {
@@ -110,7 +110,6 @@ const RegisterForm = () => {
                 setMessage(data);
             }
         } catch (error) {
-
             setMessage('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
@@ -119,11 +118,13 @@ const RegisterForm = () => {
 
     return (
         <section className={styles['register-section']}>
+            {/* Loading overlay */}
             {isLoading && (
                 <div className={styles['loading-container']}>
                     <Loading className={styles['loading-icon']} />
                 </div>
             )}
+            {/* Form for registration */}
             {!isCodeSent ? (
                 <form className={styles['register-form']} onSubmit={handleSubmit}>
                     <h1>Register</h1>
@@ -160,7 +161,7 @@ const RegisterForm = () => {
                         <label>Password</label>
 
                         <span
-                            className={styles['show-password']} // Ensure className is set correctly
+                            className={styles['show-password']}
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -178,7 +179,7 @@ const RegisterForm = () => {
                         <label>Confirm Password</label>
 
                         <span
-                            className={styles['show-password']} // Ensure className is set correctly
+                            className={styles['show-password']}
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                         >
                             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
@@ -190,6 +191,7 @@ const RegisterForm = () => {
                     {message && <p className={styles['message']}>{message}</p>}
                 </form>
             ) : (
+                // Form for email verification
                 <form className={styles['register-form']} onSubmit={handleVerify}>
                     <h1>Verify Email</h1>
                     <div className={styles['inputbox']}>

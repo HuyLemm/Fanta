@@ -1,20 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import MainContent from './MainContent/MainContent';
 import RecommendedMovies from './RecommendedMovies/RecommendedMovies';
 import styles from './MovieDetail.module.css';
-import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/public/Footer/Footer';
 import Loading from '../../components/public/LoadingEffect/Loading';
 
 const MovieDetail = () => {
-  const { id } = useParams();
-  const [movie, setMovie] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [recommendedMovies, setRecommendedMovies] = useState([]);
-  const genreItemsRef = useRef([]);
-  const navigate = useNavigate();
+  const { id } = useParams(); 
+  const [movie, setMovie] = useState(null); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
+  const [recommendedMovies, setRecommendedMovies] = useState([]); 
+  const genreItemsRef = useRef([]); 
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -27,7 +26,7 @@ const MovieDetail = () => {
         const data = await response.json();
         console.log('Movie data:', data);
         setMovie(data);
-        fetchRecommendedMovies(data.genre, id);
+        fetchRecommendedMovies(data.genre, id); // Fetch recommended movies based on genre
       } catch (error) {
         console.error('Fetch movie error:', error);
         setError(error.message);
@@ -56,7 +55,7 @@ const MovieDetail = () => {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        setRecommendedMovies(data);
+        setRecommendedMovies(data); // Update state with recommended movies
       } catch (error) {
         console.error('Fetch recommended movies error:', error);
       }
@@ -65,15 +64,17 @@ const MovieDetail = () => {
     fetchMovie();
   }, [id]);
 
+  // Function to handle watch button click
   const handleWatchClick = () => {
     navigate(`/streaming/${id}`);
   };
 
+  // Function to handle watch button click for recommended movies
   const handleWatchClickRecommended = (movieId) => {
     navigate(`/movie/${movieId}`);
   };
 
-  const scrollAmount = 200;
+  const scrollAmount = 200; // Amount to scroll on button click
 
   const handleNextClick = (index) => {
     const genreItems = genreItemsRef.current[index];
@@ -103,20 +104,22 @@ const MovieDetail = () => {
   };
 
   if (loading) {
-    return <div><Loading/></div>;
+    return <div><Loading /></div>; 
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Error: {error}</div>; 
   }
 
   if (!movie) {
-    return <div>No movie data found</div>;
+    return <div>No movie data found</div>; 
   }
 
   return (
     <div className={styles.movieDetailContainer}>
+      {/* Main content section for movie details */}
       <MainContent movie={movie} handleWatchClick={handleWatchClick} />
+      {/* Section for recommended movies */}
       <RecommendedMovies
         recommendedMovies={recommendedMovies}
         genreItemsRef={genreItemsRef}
@@ -124,7 +127,8 @@ const MovieDetail = () => {
         handlePrevClick={handlePrevClick}
         handleWatchClickRecommended={handleWatchClickRecommended}
       />
-      <Footer/>
+      {/* Footer section */}
+      <Footer />
     </div>
   );
 };

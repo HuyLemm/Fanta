@@ -1,10 +1,11 @@
+/* Container for the registration section */
 .register-section {
     position: relative;
-    max-width: 25rem; /* Converted 400px to 25rem */
+    max-width: 25rem; 
     background-color: transparent;
-    border: 0.125rem solid white; /* Converted 2px to 0.125rem */
-    border-radius: 1.25rem; /* Converted 20px to 1.25rem */
-    backdrop-filter: blur(3.4375rem); /* Converted 55px to 3.4375rem */
+    border: 0.125rem solid white; 
+    border-radius: 1.25rem; 
+    backdrop-filter: blur(3.4375rem); 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,12 +14,14 @@
     color: #fb5607;
 }
 
+/* Styles for the registration form */
 .register-form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/* Heading style for the form */
 .register-form h1 {
     font-family: 'Hatton', sans-serif;
     font-size: 3rem;
@@ -26,13 +29,15 @@
     text-align: center;
 }
 
+/* Container for input boxes */
 .register-form .inputbox {
     position: relative;
-    margin: 1.875rem 0; /* Converted 30px to 1.875rem */
-    max-width: 19.375rem; /* Converted 310px to 19.375rem */
+    margin: 1.875rem 0; 
+    max-width: 19.375rem; 
     margin-bottom: 0;
 }
 
+/* Label styles for the input boxes */
 .register-form .inputbox label {
     position: absolute;
     top: 50%;
@@ -44,35 +49,33 @@
     transition: all 0.25s ease-in-out;
 }
 
-.register-form input:focus ~ label,
-.register-form input:valid ~ label {
-    top: -0.3125rem; /* Converted -5px to -0.3125rem */
-}
-
+/* Styles for input fields */
 .register-form .inputbox input {
     width: 100%;
-    height: 3.75rem; /* Converted 60px to 3.75rem */
+    height: 3.75rem; 
     background: transparent;
     border: none;
     outline: none;
     font-size: 1rem;
-    padding: 0 2.1875rem 0 0.3125rem; /* Converted 35px to 2.1875rem and 5px to 0.3125rem */
+    padding: 0 2.1875rem 0 0.3125rem; 
     color: white;
-    border-bottom: 0.125rem solid white; /* Converted 2px to 0.125rem */
+    border-bottom: 0.125rem solid white; 
 }
 
+/* Icon styles for input fields */
 .register-form .inputbox ion-icon {
     position: absolute;
-    right: 0.5rem; /* Converted 8px to 0.5rem */
+    right: 0.5rem; 
     color: white;
     font-size: 1.2rem;
-    top: 1.25rem; /* Converted 20px to 1.25rem */
+    top: 1.25rem; 
 }
 
+/* Styles for the submit button */
 .register-form button {
-    width: 8.75rem; /* Converted 140px to 8.75rem */
-    height: 2.5rem; /* Converted 40px to 2.5rem */
-    border-radius: 2.5rem; /* Converted 40px to 2.5rem */
+    width: 8.75rem; 
+    height: 2.5rem; 
+    border-radius: 2.5rem; 
     background-color: white;
     border: none;
     outline: none;
@@ -80,13 +83,15 @@
     font-size: 1rem;
     font-weight: 600;
     transition: all 0.4s ease;
-    margin-top: 1.5625rem; /* Converted 25px to 1.5625rem */
+    margin-top: 1.5625rem; 
 }
 
+/* Hover effect for the submit button */
 .register-form button:hover {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
+/* Styles for the message paragraph */
 .register-form .message {
     margin-top: 1.25rem; /* Converted 20px to 1.25rem */
     font-size: 1rem;
@@ -94,15 +99,17 @@
     text-align: center;
 }
 
+/* Loading spinner styles */
 .loading {
     text-align: center;
-    font-size: 1rem; /* Converted 16px to 1rem */
+    font-size: 1rem; 
     color: #333;
 }
 
+/* Styles for the show password button */
 .show-password {
     position: absolute;
-    right: 0.625rem; /* Converted 10px to 0.625rem */
+    right: 0.625rem; 
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -114,6 +121,7 @@
     transition: color 0.3s;
 }
 
+/* Container for the loading overlay */
 .loading-container {
     display: flex;
     justify-content: center;
@@ -128,11 +136,13 @@
     border-radius: 1.25rem; /* Converted 20px to 1.25rem */
 }
 
+/* Animation for the loading spinner */
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
+/* Styles for the timer paragraph */
 .timer {
     margin-top: 0.9375rem; /* Converted 15px to 0.9375rem */
     color: #fb5607;

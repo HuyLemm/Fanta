@@ -16,6 +16,7 @@ const Comments = ({ movieId, currentUser }) => {
   const token = getCookie('jwt');
   const navigate = useNavigate();
 
+  // Lấy danh sách các bình luận cho phim hiện tại
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -33,6 +34,7 @@ const Comments = ({ movieId, currentUser }) => {
     fetchComments();
   }, [movieId]);
 
+  // Thêm bình luận mới
   const handleAddComment = async () => {
     if (!token) {
       navigate('/login');
@@ -67,6 +69,7 @@ const Comments = ({ movieId, currentUser }) => {
     }
   };
 
+  // Xóa bình luận
   const handleDeleteComment = async (commentId) => {
     try {
       const url = currentUser?.role === 'admin'
@@ -90,6 +93,7 @@ const Comments = ({ movieId, currentUser }) => {
     }
   };
 
+  // Chỉnh sửa bình luận
   const handleEditComment = async (commentId) => {
     try {
       const response = await fetch(`http://localhost:5000/user/update-reviews/${commentId}`, {
@@ -122,6 +126,7 @@ const Comments = ({ movieId, currentUser }) => {
     }
   };
 
+  // Cấm người dùng
   const handleBanUser = async () => {
     const banUntil = new Date();
     switch (banDuration.unit) {
@@ -159,17 +164,19 @@ const Comments = ({ movieId, currentUser }) => {
       }
 
       alert('User banned successfully');
-      closeBanModal(); // Close the modal after banning the user
+      closeBanModal(); // Đóng modal sau khi cấm người dùng
     } catch (error) {
       console.error('Ban user error:', error);
     }
   };
 
+  // Mở modal cấm người dùng
   const openBanModal = (userId) => {
     setSelectedUserId(userId);
     setIsModalOpen(true);
   };
 
+  // Đóng modal cấm người dùng
   const closeBanModal = () => {
     setIsModalOpen(false);
     setBanDuration({ value: 0, unit: 'seconds' });
@@ -177,8 +184,9 @@ const Comments = ({ movieId, currentUser }) => {
   };
 
   return (
+    // Khu vực bình luận
     <div className={styles.commentsSection}>
-      <h2>Comments</h2>
+      <h2>Comments</h2> {/* Tiêu đề */}
       {comments.length > 0 ? (
         comments.map(comment => (
           <div key={comment._id} className={styles.comment}>

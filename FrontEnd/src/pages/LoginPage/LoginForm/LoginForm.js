@@ -13,6 +13,7 @@ const LoginForm = () => {
     const [message, setMessage] = useState('');
     const navigate = useNavigate(); 
 
+    // Kiểm tra localStorage để tự động điền thông tin nếu người dùng đã lưu trước đó
     useEffect(() => {
         const savedUsername = localStorage.getItem('username');
         const savedPassword = localStorage.getItem('password');
@@ -23,7 +24,7 @@ const LoginForm = () => {
         }
     }, []);
 
-    // chức năng cho server duyệt tai khoản dùng
+    // Gửi thông tin đăng nhập đến server để xác thực
     const handleSubmit = async (e) => {
         e.preventDefault();
   
@@ -39,7 +40,7 @@ const LoginForm = () => {
             const data = await response.json();
             if (response.ok) {
                 setMessage(data.message);
-                setCookie('jwt', data.token, 1);
+                setCookie('jwt', data.token, 1); // Lưu token vào cookie
                 if (rememberMe) {
                     localStorage.setItem('username', username);
                     localStorage.setItem('password', password);
@@ -47,7 +48,7 @@ const LoginForm = () => {
                     localStorage.removeItem('username');
                     localStorage.removeItem('password');
                 }
-                navigate('/'); 
+                navigate('/'); // Chuyển hướng người dùng về trang chủ
             } else {
                 setMessage(data);
                 setPassword('');  
@@ -58,10 +59,11 @@ const LoginForm = () => {
         }
     };
 
-    return(
+    return (
+        // Khu vực đăng nhập
         <section className={styles['login-section']}>
             <form className={styles['login-form']} onSubmit={handleSubmit}>
-                <h1>Login</h1>
+                <h1>Login</h1> {/* Tiêu đề */}
                 <div className={styles['inputbox']}>
                     <ion-icon name="mail-outline"></ion-icon>
                     <input
@@ -112,7 +114,6 @@ const LoginForm = () => {
                 </div>
                 
                 <SocialButton/>
-
 
                 {message && <p className={styles['message']}>{message}</p>}
             </form>

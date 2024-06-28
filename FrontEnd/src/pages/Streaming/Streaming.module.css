@@ -1,3 +1,5 @@
+
+/* Streaming Container Styles */
 .background{
   background: url('../../assets/images/streaming.jpg');
   width: 100%;
@@ -13,6 +15,7 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 0;
 }
+
 .streamingContainer {
   display: flex;
   flex-direction: column;
@@ -29,18 +32,19 @@
 
 }
 
-.movieTitle{
+.movieTitle {
   font-family: 'Hatton', sans-serif;
   margin-top: 2rem;
 }
 
+/* Header Styles */
 .header {
   width: 100%;
   margin-bottom: 1rem;
   display: flex;
 }
 
-.epTitle{
+.epTitle {
   margin-left: 1.5rem;
   color: rgb(255,255,255,0.75);
   font-size: 2rem;
@@ -52,17 +56,20 @@
   font-size: 2.4rem;
 }
 
+/* Content Wrapper Styles */
 .contentWrapper {
   display: flex;
   width: 100%;
   margin-bottom: 2rem;
 }
 
+/* Main Content Styles */
 .mainContent {
   width: 80%;
   margin-right: 2rem;
 }
 
+/* Video Section Styles */
 .videoSection {
   width: 100%;
 }
@@ -73,3 +80,17 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+
+/* Episodes Section Styles */
+.episodesSection {
+  width: 20%;
+  background-color: #333;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 45rem;
+  overflow-y: auto;
+}
+
+

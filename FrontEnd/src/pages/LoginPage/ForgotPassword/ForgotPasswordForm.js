@@ -19,7 +19,7 @@ const ForgotPassword = () => {
 
     const navigate = useNavigate();
 
-
+    // Đếm ngược thời gian cho việc gửi lại mã xác nhận
     useEffect(() => {
         let countdown;
         if (step === 2 && timer > 0) {
@@ -30,7 +30,7 @@ const ForgotPassword = () => {
         return () => clearInterval(countdown);
     }, [step, timer]);
 
-    // chức năng cho server duyệt email nếu quên mật khảu
+    // Gửi email để lấy mã xác nhận
     const handleEmailSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -48,7 +48,7 @@ const ForgotPassword = () => {
                 setMessage(data);
                 setIsCodeSent(true);
                 setTimer(20);
-                setStep(2);
+                setStep(2); // Chuyển sang bước nhập mã xác nhận
             } else {
                 setMessage(data);
                 setEmail('');
@@ -60,7 +60,7 @@ const ForgotPassword = () => {
         }
     };
 
-    // chức năng cho server duyệt code được gửi đến gmail 
+    // Xác nhận mã đã gửi đến email
     const handleCodeSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -76,7 +76,7 @@ const ForgotPassword = () => {
             const data = await response.json();
             if (response.ok) {
                 setMessage(data);
-                setStep(3);
+                setStep(3); // Chuyển sang bước nhập mật khẩu mới
             } else {
                 setMessage(data);
                 setVerificationCode('');
@@ -88,7 +88,7 @@ const ForgotPassword = () => {
         }
     };
 
-    // chức năng cho server gửi lại mã code khi hết hạn
+    // Gửi lại mã xác nhận nếu hết hạn
     const handleResendCode = async () => {
         setIsLoading(true);
         try {
@@ -114,7 +114,7 @@ const ForgotPassword = () => {
         }
     };
 
-    // chức năng cho server thay đổi mật khảu
+    // Đặt lại mật khẩu mới
     const handlePasswordReset = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -136,7 +136,7 @@ const ForgotPassword = () => {
             const message = await response.json();
             if (response.ok) {
                 setMessage(message);
-                setStep(4);
+                setStep(4); // Hoàn thành
                 navigate('/login');
             } else {
                 setNewPassword('');
@@ -151,7 +151,7 @@ const ForgotPassword = () => {
     };
 
     return (
-        <div className = {styles.forgotpasswordPage}>
+        <div className={styles.forgotpasswordPage}>
             <section className={styles['forgot-password-section']}>
                 {isLoading && (
                     <div className={styles['loading-container']}>
@@ -160,7 +160,7 @@ const ForgotPassword = () => {
                 )}
                 {step === 1 && (
                     <form className={styles['forgot-password-form']} onSubmit={handleEmailSubmit}>
-                        <h1>Forgot Password</h1>
+                        <h1>Forgot Password</h1> {/* Tiêu đề */}
                         <div className={styles['inputbox']}>
                             <ion-icon name="mail-outline"></ion-icon>
                             <input
@@ -177,7 +177,7 @@ const ForgotPassword = () => {
                 )}
                 {step === 2 && (
                     <form className={styles['forgot-password-form']} onSubmit={handleCodeSubmit}>
-                        <h1>Verify Code</h1>
+                        <h1>Verify Code</h1> {/* Tiêu đề */}
                         <div className={styles['inputbox']}>
                             <ion-icon name="key-outline"></ion-icon>
                             <input
@@ -187,21 +187,19 @@ const ForgotPassword = () => {
                                 required
                             />
                             <label>Verification Code</label>
-                            </div>
-                            <button type="submit" className={styles['button']}>Verify</button>
-
-                            {timer > 0 ? (
-                                <p className={styles['timer']}>Code expires in: {timer}s</p>
-                            ) : (
-                                <button type="button" className={styles['button']} onClick={handleResendCode}>Resend Code</button>
-                            )}
-
-                            {message && <p className={styles['message']}>{message}</p>}
+                        </div>
+                        <button type="submit" className={styles['button']}>Verify</button>
+                        {timer > 0 ? (
+                            <p className={styles['timer']}>Code expires in: {timer}s</p>
+                        ) : (
+                            <button type="button" className={styles['button']} onClick={handleResendCode}>Resend Code</button>
+                        )}
+                        {message && <p className={styles['message']}>{message}</p>}
                     </form>
                 )}
                 {step === 3 && (
                     <form className={styles['forgot-password-form']} onSubmit={handlePasswordReset}>
-                        <h1>Reset Password</h1>
+                        <h1>Reset Password</h1> {/* Tiêu đề */}
                         <div className={styles['inputbox']}>
                             <ion-icon name="lock-closed-outline"></ion-icon>
                             <input
@@ -211,10 +209,9 @@ const ForgotPassword = () => {
                                 required
                             />
                             <label>New Password</label>
-
                             <span
                                 className={styles['show-password']}
-                                onClick={() => setShowNewPassword(!showNewPassword)} 
+                                onClick={() => setShowNewPassword(!showNewPassword)}
                             >
                                 {showNewPassword ? <FaEyeSlash /> : <FaEye />}
                             </span>
@@ -228,10 +225,9 @@ const ForgotPassword = () => {
                                 required
                             />
                             <label>Confirm Password</label>
-
                             <span
                                 className={styles['show-password']}
-                                onClick={() => setShowConfirmPassword(!showConfirmPassword)} 
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                             >
                                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                             </span>
@@ -242,7 +238,7 @@ const ForgotPassword = () => {
                 )}
                 {step === 4 && (
                     <div className={styles['message']}>
-                        <h1>{message}</h1>
+                        <h1>{message}</h1> {/* Thông báo hoàn thành */}
                     </div>
                 )}
             </section>

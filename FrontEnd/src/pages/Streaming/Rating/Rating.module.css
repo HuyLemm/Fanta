@@ -1,3 +1,4 @@
+/* Rating Section Styles */
 .ratingSection {
   width: 100%;
   display: flex;
@@ -9,6 +10,7 @@
   color: #ff4500;
 }
 
+/* Stars Rating Styles */
 .stars {
   display: flex;
   align-items: center;
@@ -26,6 +28,7 @@
   color: gold;
 }
 
+/* Description Section Styles */
 .descriptionSection {
   color: white;
 }
@@ -34,6 +37,7 @@
   color: #fb5607;
 }
 
+/* Description Text Styles */
 .descriptionText {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -50,7 +54,8 @@
   transition: all 0.3 ease;
 }
 
-.morebutton{
+/* Toggle Button Styles */
+.morebutton {
   display: flex;
   flex-direction: row-reverse;
 }
@@ -66,4 +71,3 @@
   display: block; 
   text-align: right;  
 }
-

@@ -1,4 +1,4 @@
-
+/* Form Styles */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -6,47 +6,48 @@
   color: white;
 }
 
+/* Social Login Section */
 .login-form .social-login {
-  margin-top: 1.25rem; /* Converted 20px to 1.25rem */
+  margin-top: 1.25rem;
   text-align: center;
 }
 
 .login-form .social-login p {
-  margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
+  margin-bottom: 0.625rem;
 }
 
+/* Social Login Buttons Styles */
 .login-form .social-login-buttons {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 24px;
-  }
-  
-  .login-form .social-login-button {
-    margin-right: 10px;
-    width: 49px;
-    height: 49px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    border-radius: 50%; /* Bo tròn hoàn toàn */
-    text-decoration: none;
-    font-size: 24px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .login-form .google-login {
-    background-color: #db4437;
-  }
-  
-  .login-form .facebook-login {
-    background-color: #3b5998;
-  }
-  
-  .login-form .twitter-login {
-    background-color: #1da1f2;
-  }
-  
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 24px;
+}
 
+.login-form .social-login-button {
+  margin-right: 10px;
+  width: 49px;
+  height: 49px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border-radius: 50%; /* Bo tròn hoàn toàn */
+  text-decoration: none;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Specific Social Login Button Styles */
+.login-form .google-login {
+  background-color: #db4437;
+}
+
+.login-form .facebook-login {
+  background-color: #3b5998;
+}
+
+.login-form .twitter-login {
+  background-color: #1da1f2;
+}

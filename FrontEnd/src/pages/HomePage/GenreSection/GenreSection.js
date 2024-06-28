@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import styles from './GenreSection.module.css';
 
 const GenreSection = ({ type }) => {
-  const genreItemsRef = useRef([]);
-  const [genres, setGenres] = useState([]);
-  const navigate = useNavigate();
+  const genreItemsRef = useRef([]); 
+  const [genres, setGenres] = useState([]); 
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -28,7 +28,7 @@ const GenreSection = ({ type }) => {
     fetchGenres();
   }, [type]);
 
-  const scrollAmount = 200;
+  const scrollAmount = 200; // Amount to scroll on button click
 
   const handleNextClick = (index) => {
     const genreItems = genreItemsRef.current[index];
@@ -58,7 +58,7 @@ const GenreSection = ({ type }) => {
   };
 
   const handleWatchClick = (movieId) => {
-    navigate(`/movie/${movieId}`);
+    navigate(`/movie/${movieId}`); // Navigate to the movie detail page
   };
 
   return (
@@ -66,21 +66,27 @@ const GenreSection = ({ type }) => {
       {genres.length > 0 && genres.map((genre, index) => (
         <div key={index} className={styles.genreSection}>
           <h2>{genre.name + ' Movies'}</h2>
+          {/* Container for genre items */}
           <div className={styles.genreList}>
+            {/* Previous button */}
             <button className={styles.prevGenre} onClick={() => handlePrevClick(index)}>&lt;</button>
+            {/* Scrollable list of movies */}
             <div className={styles.genreItems} ref={(el) => genreItemsRef.current[index] = el}>
               {genre.movies && genre.movies.map((movie, movieIndex) => (
                 <div className={styles.item} key={movieIndex}>
+                  {/* Container for movie image and watch button */}
                   <div className={styles.imageContainer}>
                     <img src={movie.poster_url} alt={movie.title} />
                     <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}>Watch</button>
                   </div>
+                  {/* Movie title */}
                   <div className={styles.content}>
                     <div className={styles.title}>{movie.title}</div>
                   </div>
                 </div>
               ))}
             </div>
+            {/* Next button */}
             <button className={styles.nextGenre} onClick={() => handleNextClick(index)}>&gt;</button>
           </div>
         </div>
