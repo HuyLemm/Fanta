@@ -122,6 +122,7 @@ const Streaming = () => {
 
   return (
     <div className={styles.background}>
+      <div className={styles.overlay}></div>
       <div className={styles.streamingContainer}>
         <div className={styles.contentWrapper}>
           <div className={styles.mainContent}>

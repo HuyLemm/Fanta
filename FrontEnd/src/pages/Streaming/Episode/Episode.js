@@ -11,7 +11,6 @@ const formatDuration = (minutes) => {
 
 const Episode = ({ episodes, episodeImages, setCurrentEpisode }) => {
   return (
-    // Episode section
     <div className={styles.episodesSection}>
       <h2>Episodes</h2> {/* Tiêu đề */}
       <div className={styles.episodesContainer}>
@@ -31,6 +30,7 @@ const Episode = ({ episodes, episodeImages, setCurrentEpisode }) => {
               <div className={styles.episodeDuration}>{formatDuration(episode.duration)}</div> {/* Thời lượng tập phim */}
             </div>
             <div className={styles.episodeDetails}>
+              <p className={styles.episodeNumber}>Episode {index + 1}</p> {/* Số tập phim */}
               <p className={styles.episodeTitle}>{episode.title}</p> {/* Tiêu đề tập phim */}
             </div>
           </div>
