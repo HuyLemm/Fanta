@@ -5,12 +5,12 @@ import { getCookie } from '../../../utils/Cookies';
 import Notification, { notifyInfo, notifySuccess, notifyWarning, notifyError } from '../../../components/public/Notification/Notification';
 
 const MainContent = ({ movie, handleWatchClick }) => {
-  const [averageRating, setAverageRating] = useState(0);
-  const [numberOfRatings, setNumberOfRatings] = useState(0);
-  const [isFavourite, setIsFavourite] = useState(false);
-  const token = getCookie('jwt');
-
+  const [averageRating, setAverageRating] = useState(0); 
+  const [numberOfRatings, setNumberOfRatings] = useState(0); 
+  const [isFavourite, setIsFavourite] = useState(false); 
+  const token = getCookie('jwt'); 
   useEffect(() => {
+    // Fetch average rating of the movie
     const fetchAverageRating = async () => {
       try {
         const response = await fetch(`http://localhost:5000/public/get-average-rating/${movie._id}`);
@@ -25,6 +25,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
       }
     };
 
+    // Check if the movie is in the user's favourite list
     const checkIfFavourite = async () => {
       try {
         const response = await fetch(`http://localhost:5000/public/get-watchlist/${movie._id}`, {
@@ -46,6 +47,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
     checkIfFavourite();
   }, [movie._id, token]);
 
+  // Extract YouTube ID from the trailer URL
   const getYouTubeId = (url) => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|v=)([^#]*).*/;
     const match = url.match(regExp);
@@ -54,6 +56,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
 
   const trailerId = getYouTubeId(movie.trailer_url);
 
+  // Handle add to favourite button click
   const handleAddToFavourite = async () => {
     try {
       const response = await fetch(`http://localhost:5000/user/toggle-watchlist`, {
@@ -69,26 +72,29 @@ const MainContent = ({ movie, handleWatchClick }) => {
       }
       const data = await response.json();
       setIsFavourite(data.isFavourite);
-      notifySuccess(data.message); 
+      notifySuccess(data.message); // Notify success
     } catch (error) {
       console.error('Toggle watchlist error:', error);
-      notifyError('Error adding to watchlist'); // Thêm thông báo lỗi
+      notifyError('Error adding to watchlist'); // Notify error
     }
   };
 
+  // Calculate average duration for series
   const averageDuration = movie.type === 'series' && movie.episodes.length > 0
     ? Math.round(movie.episodes.reduce((total, episode) => total + episode.duration, 0) / movie.episodes.length)
     : null;
 
+  // Capitalize the first letter of a string
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
   return (
     <section className={styles.mainSection}>
-      <Notification /> 
+      <Notification />
       <div className={styles.background} style={{ backgroundImage: `url(${movie.background_url})` }}>
         <div className={styles.overlay}></div>
+        {/* Content area */}
         <div className={styles.content}>
           <img src={movie.poster_url} alt={movie.title} className={styles.poster} />
           <div className={styles.details}>
@@ -101,6 +107,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
                 <div className={styles.favouriteText}>Favourite</div>
               </div>
             </div>
+            {/* Meta information */}
             <p className={styles.meta}>
               <span className={styles.quality}>HD</span>
               <span className={styles.genres}>{movie.genre.join(', ')}</span>
@@ -112,11 +119,14 @@ const MainContent = ({ movie, handleWatchClick }) => {
                 <span className={styles.duration}>{averageDuration} mins/episode</span>
               )}
             </p>
-            <div>{numberOfRatings > 0 ? (
-              <p className={styles.cast}><strong className={styles.dir}>Rating: </strong>{averageRating.toFixed(1)}/5.0 ({numberOfRatings} rated)</p>
+            {/* Rating information */}
+            <div>
+              {numberOfRatings > 0 ? (
+                <p className={styles.cast}><strong className={styles.dir}>Rating: </strong>{averageRating.toFixed(1)}/5.0 ({numberOfRatings} rated)</p>
               ) : (
-              <p className={styles.cast}><strong className={styles.dir}>Rating: </strong>Unrated</p>
-              )}</div>
+                <p className={styles.cast}><strong className={styles.dir}>Rating: </strong>Unrated</p>
+              )}
+            </div>
             <p className={styles.director}><strong className={styles.dir}>Director:</strong> {movie.director.join(', ')}</p>
             <p className={styles.cast}><strong className={styles.dir}>Cast: </strong>{movie.cast.join(', ')}</p>
             <p className={styles.description}>{movie.brief_description}</p>
@@ -124,6 +134,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
           </div>
         </div>
       </div>
+      {/* Trailer section */}
       <div className={styles.trailerSection}>
         {trailerId ? (
           <YouTube videoId={trailerId} opts={{ width: '150%', height: '250rem' }} />

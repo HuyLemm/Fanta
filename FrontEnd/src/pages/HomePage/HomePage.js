@@ -6,14 +6,16 @@ import GenreSection from './GenreSection/GenreSection';
 import Footer from '../../components/public/Footer/Footer';
 
 function HomePage() {
-  const location = useLocation();
-  const [type, setType] = useState(null);
+  const location = useLocation(); // Hook to get the current location
+  const [type, setType] = useState(null); // State to store the type query parameter
 
   useEffect(() => {
+    // Parse the query parameters from the URL
     const queryParams = new URLSearchParams(location.search);
     const typeParam = queryParams.get('type');
     setType(typeParam);
 
+    // Handle page refresh logic to prevent unwanted reload loops
     if (!sessionStorage.getItem('isRefreshed')) {
       sessionStorage.setItem('isRefreshed', 'true');
       window.location.reload();
@@ -26,7 +28,7 @@ function HomePage() {
     <div className={styles.homePage}>
       <Carousel type={type} />
       <GenreSection type={type} />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+/* Base styles for the carousel component */
 .carousel {
   height: 93vh;
   margin-top: -3.125rem; /* Converted -50px to -3.125rem */
@@ -6,6 +7,7 @@
   position: relative;
 }
 
+/* Item styles within the list */
 .list .item {
   width: 100%;
   height: 100%;
@@ -22,6 +24,7 @@
   z-index: -1;
 }
 
+/* Overlay effect for items */
 .overlay {
   position: absolute;
   top: 0;
@@ -32,6 +35,7 @@
   z-index: 0;
 }
 
+/* Content styles within items */
 .list .item .content {
   position: absolute;
   top: 20%;
@@ -62,6 +66,7 @@
   color: #f1683a;
 }
 
+/* Button styles within items */
 .list .item .buttons {
   display: grid;
   grid-template-columns: repeat(2, 8.125rem); /* Converted 130px to 8.125rem */
@@ -85,6 +90,7 @@
   font-weight: 600;
 }
 
+/* Thumbnail styles */
 .thumbnail {
   position: absolute;
   bottom: 3.125rem; /* Converted 50px to 3.125rem */
@@ -109,6 +115,7 @@
   border-radius: 1.25rem; /* Converted 20px to 1.25rem */
 }
 
+/* Content styles within thumbnails */
 .thumbnail .item .content {
   color: #fff;
   position: absolute;
@@ -125,13 +132,15 @@
   font-weight: 300;
 }
 
+/* Hover effect for movie thumbnail */
 .movieThumbnail {
   position: relative;
 }
 
-.des{
+.des {
   font-size: 1.2rem;
 }
+
 .movieThumbnail .movieInfo {
   position: absolute;
   text-align: center;
@@ -149,8 +158,6 @@
   flex-direction: column-reverse;
   justify-content: space-between;
 }
-
-
 
 .movieThumbnail:hover .movieInfo {
   opacity: 1;
@@ -177,6 +184,7 @@
   justify-self: center;
 }
 
+/* Arrow button styles */
 .arrows {
   position: absolute;
   top: 80%;
@@ -372,7 +380,8 @@
   }
 }
 
-.more{
+/* Button style for the 'more' button */
+.more {
   display: flex;
   background-color: #fb5607;
   border: 0.0625rem solid #fb5607; /* Converted 1px to 0.0625rem */

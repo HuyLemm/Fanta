@@ -1,187 +1,199 @@
-/* MovieDetail.module.css */
+/* Container for the main section */
+.mainSection {
+  position: relative;
+  z-index: 1;
+  height: 88vh;
+}
 
-  
-  .mainSection {
-    position: relative; 
-    z-index: 1; 
-    height: 88vh;
-  }
-  
-  .background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-  }
-  
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: -1;
-  }
-  
-  .content {
-    display: flex;
-    align-items: center;
-    padding: 2.5rem; /* Converted 40px to 2.5rem */
-    margin: 9.375rem 3.75rem; /* Converted 150px 60px to 9.375rem 3.75rem */
-  }
-  
-  .poster {
-    width: 18.75rem; /* Converted 300px to 18.75rem */
-    height: auto;
-    border-radius: 0.625rem; /* Converted 10px to 0.625rem */
-    margin-right: 2.5rem; /* Converted 40px to 2.5rem */
-  }
-  
-  .details {
-    max-width: 37.5rem; /* Converted 600px to 37.5rem */
-  }
-  
-  .title {
-    font-family: 'Hatton', sans-serif;
-    font-size: 3rem; /* Converted 3em to 3rem */
-    font-weight: bold;
-    margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
-  }
-  
-  .meta {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.25rem; 
-    width: 100dvw;
-  }
-  
-  .meta span {
-    margin-right: 0.9375rem; /* Converted 15px to 0.9375rem */
-    font-size: 1rem; /* Converted 1em to 1rem */
-    padding: 0.3125rem 0.625rem; /* Converted 5px 10px to 0.3125rem 0.625rem */
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 0.3125rem; /* Converted 5px to 0.3125rem */
-  }
-  
-  .rating {
-    background-color: #ffcc00;
-    color: white;
-  }
-  
-  .quality {
-    background-color: #00cc66;
-  }
-  
-  .genres {
-    background-color: #0066cc;
-  }
-  
-  .releaseDate, .duration {
-    background-color: #999999;
-  }
-  
-  .director, .cast {
-    font-size: 1.2rem;
-    margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
-  }
-  
-  .description {
-    font-size: 1.2rem;
-    margin-bottom: 1.25rem; /* Converted 20px to 1.25rem */
-  }
-  
-  .watchNowButton {
-    padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #fb5607;
-    border: none;
-    border-radius: 0.3125rem; /* Converted 5px to 0.3125rem */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .watchNowButton:hover {
-    background-color: #cc7a00;
-  }
-  
-  .dir {
-    color: #fb5607;
-  }
-  
-  .trailerSection {
-    padding: 1.25rem;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-right: 10rem;
-    width: 25%; /* Adjust width as needed */
-    height: 100%; /* Make it span the height of the section */
-    z-index: 1; /* Ensure it stays above other elements */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .favouriteText{
-    text-align: center;
-    margin-left: 0.5rem;
-    margin-top: 1rem;
-    color: rgb(255,255,255,0.7);
-  }
-  
-  .addToFavouriteButton {
-    border: none;
-    cursor: pointer;
-  }
-  
-  .addToFavouriteButton {
-    background: #fb5607;
-    cursor: pointer;
-    padding-right: 0.3rem;
-    padding-top: 0.3rem;
-    border-radius: 0.75rem;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
-    z-index: 1000;
-  }
-  
-  .bookmarkIcon {
-    width: 2rem;
-    height: 2rem;
-    background-image: url('../../../assets/images/archive_no_bg.png');
-    background-size: cover;
-    display: inline-block;
-  }
-  
-  .bookmarkIconActive {
-    width: 2rem;
-    height: 2rem;
-    background-image: url('../../../assets/images/archive_filled_no_bg.png');
-    background-size: cover;
-    filter: brightness(0);
-    display: inline-block;
-    margin-left: 0.3rem;
-  }
-  
-  .addToFavouriteButton:hover {
-    background-color: #cc7a00;
-  }
-  
-  .addToFavouriteContainer{
-    display: flex;
-    align-items: center;
-    margin-bottom: 2rem;
-    margin-left: 1.5rem;
-  }
-  
-  .titleContainer {
-    display: flex;
-    align-items: center;
-    width: 100dvw;
-  }
+/* Background image for the main section */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+/* Overlay effect for the background image */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: -1;
+}
+
+/* Content container */
+.content {
+  display: flex;
+  align-items: center;
+  padding: 2.5rem; 
+  margin: 9.375rem 3.75rem; 
+}
+
+/* Styles for the movie poster */
+.poster {
+  width: 18.75rem; 
+  height: auto;
+  border-radius: 0.625rem; 
+  margin-right: 2.5rem; 
+}
+
+/* Container for the movie details */
+.details {
+  max-width: 37.5rem; 
+}
+
+/* Styles for the movie title */
+.title {
+  font-family: 'Hatton', sans-serif;
+  font-size: 3rem; 
+  font-weight: bold;
+  margin-bottom: 0.625rem; 
+}
+
+/* Container for meta information */
+.meta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  width: 100dvw;
+}
+
+.meta span {
+  margin-right: 0.9375rem; /* Converted 15px to 0.9375rem */
+  font-size: 1rem; 
+  padding: 0.3125rem 0.625rem; 
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 0.3125rem; 
+}
+
+/* Background color styles for various meta information */
+.rating {
+  background-color: #ffcc00;
+  color: white;
+}
+
+.quality {
+  background-color: #00cc66;
+}
+
+.genres {
+  background-color: #0066cc;
+}
+
+.releaseDate, .duration {
+  background-color: #999999;
+}
+
+/* Styles for director and cast information */
+.director, .cast {
+  font-size: 1.2rem;
+  margin-bottom: 0.625rem;
+}
+
+/* Styles for movie description */
+.description {
+  font-size: 1.2rem;
+  margin-bottom: 1.25rem; 
+}
+
+/* Styles for the watch now button */
+.watchNowButton {
+  padding: 0.625rem 1.25rem; 
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #fb5607;
+  border: none;
+  border-radius: 0.3125rem; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.watchNowButton:hover {
+  background-color: #cc7a00;
+}
+
+/* Styles for the director label */
+.dir {
+  color: #fb5607;
+}
+
+/* Container for the trailer section */
+.trailerSection {
+  padding: 1.25rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 10rem;
+  width: 25%; 
+  height: 100%; 
+  z-index: 1; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Styles for the favourite text */
+.favouriteText {
+  text-align: center;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Styles for the add to favourite button */
+.addToFavouriteButton {
+  border: none;
+  cursor: pointer;
+  background: #fb5607;
+  padding-right: 0.3rem;
+  padding-top: 0.3rem;
+  border-radius: 0.75rem;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.addToFavouriteButton:hover {
+  background-color: #cc7a00;
+}
+
+/* Styles for the bookmark icon */
+.bookmarkIcon {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../assets/images/archive_no_bg.png');
+  background-size: cover;
+  display: inline-block;
+}
+
+.bookmarkIconActive {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../assets/images/archive_filled_no_bg.png');
+  background-size: cover;
+  filter: brightness(0);
+  display: inline-block;
+  margin-left: 0.3rem;
+}
+
+/* Container for the add to favourite button */
+.addToFavouriteContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-left: 1.5rem;
+}
+
+/* Container for the title */
+.titleContainer {
+  display: flex;
+  align-items: center;
+  width: 100dvw;
+}

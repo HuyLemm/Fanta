@@ -1,3 +1,4 @@
+/* Styles for the h2 element */
 .h2 {
   font-family: 'Hatton', sans-serif;
   font-size: 1.75rem;
@@ -7,6 +8,7 @@
   z-index: 1;
 }
 
+/* Layout styles for the genre movies page */
 .genreMoviesPage {
   width: 100vw;
   height: 100vh;
@@ -46,6 +48,7 @@
   z-index: -1;
 }
 
+/* Grid layout for displaying movies */
 .moviesGrid {
   margin-top: 1rem;
   margin-left: 20rem;
@@ -58,6 +61,7 @@
   text-align: center;
 }
 
+/* Styling for movie poster images */
 .moviePoster {
   width: 95%;
   height: 15rem; /* Converted 300px to 18.75rem */
@@ -65,11 +69,12 @@
   object-fit: cover; /* Ensure the image covers the entire area without distortion */
 }
 
-
+/* Container for the movie image and watch button */
 .imageContainer {
   position: relative; /* Add this line to ensure the button is positioned relative to this container */
 }
 
+/* Styles for the watch button */
 .watchButton {
   position: absolute;
   bottom: 0.625rem; /* Converted 10px to 0.625rem */
@@ -90,14 +95,17 @@
   margin-bottom: 0.625rem; 
 }
 
+/* Hover effect for the watch button */
 .watchButton:hover {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
+/* Show the watch button on image hover */
 .imageContainer:hover .watchButton {
   opacity: 1;
 }
 
+/* Footer section styles */
 .footerSection {
   position: absolute;
   bottom: 0;

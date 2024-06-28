@@ -1,37 +1,44 @@
+/* Base styles for each genre section */
 .genreSection {
-  padding: 1.25rem; /* Converted 20px to 1.25rem */
+  padding: 1.25rem; 
   background-color: #111;
-  margin:0.2rem 0; /* Converted 20px to 1.25rem */
-  height: 20.9375rem; /* Converted 335px to 20.9375rem */
+  margin: 0.2rem 0; 
+  height: 20.9375rem;
 }
 
+/* Styling for genre section headings */
 .genreSection h2 {
   color: #fff;
-  font-size: 1.5rem; /* Converted 24px to 1.5rem */
-  margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
+  font-size: 1.5rem;
+  margin-bottom: 0.625rem; 
 }
 
+/* Container for the list of genres */
 .genreList {
   display: flex;
-  gap: 1.25rem; /* Converted 20px to 1.25rem */
+  gap: 1.25rem; 
   overflow-x: scroll;
-  padding-bottom: 0.625rem; /* Converted 10px to 0.625rem */
+  padding-bottom: 0.625rem; 
+  position: relative;
+  overflow: hidden;
 }
 
+/* Individual items within the genre list */
 .item {
   flex-shrink: 0;
-  width: 9.375rem; /* Converted 150px to 9.375rem */
+  width: 9.375rem; 
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Container for movie images */
 .imageContainer {
   width: 100%;
-  height: 13.75rem; /* Converted 220px to 13.75rem */
+  height: 13.75rem; 
   overflow: hidden;
-  border-radius: 0.625rem; /* Converted 10px to 0.625rem */
+  border-radius: 0.625rem; 
   position: relative;
 }
 
@@ -42,15 +49,17 @@
   transition: transform 0.3s ease;
 }
 
+/* Scale up the image on hover */
 .imageContainer:hover img {
   transform: scale(1.1);
 }
 
+/* Watch button within image container */
 .imageContainer .watchButton {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  border-radius: 2.5rem; /* Converted 40px to 2.5rem */
+  border-radius: 2.5rem; 
   background-color: #fb5607;
   border: none;
   outline: none;
@@ -58,41 +67,46 @@
   font-size: 0.85rem;
   font-weight: 600;
   transition: all 0.4s ease;
-  margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
+  margin-bottom: 0.625rem; 
   color: white;
 }
 
+/* Show the watch button on hover */
 .imageContainer:hover .watchButton {
   opacity: 1;
   visibility: visible;
 }
 
+/* Content container for movie information */
 .content {
   color: #fff;
   text-align: center;
-  padding: 0.625rem 0; /* Converted 10px to 0.625rem */
+  padding: 0.625rem 0; 
   width: 100%;
 }
 
+/* Styling for movie title */
 .title {
   font-weight: 500;
 }
 
+/* Styling for description */
 .description {
   font-weight: 300;
 }
 
+/* Button styles for navigating genres */
 .prevGenre, .nextGenre {
   background-color: #333;
   border: none;
   color: #fff;
-  padding: 0.625rem; /* Converted 10px to 0.625rem */
+  padding: 0.625rem; 
   cursor: pointer;
   transition: background-color 0.3s ease;
   z-index: 1;
-  width: 2.5rem; /* Converted 40px to 2.5rem */
-  height: 4.0625rem; /* Converted 65px to 4.0625rem */
-  margin-top: 5.3125rem; /* Converted 85px to 5.3125rem */
+  width: 2.5rem; 
+  height: 4.0625rem; 
+  margin-top: 5.3125rem; 
   font-size: large;
 }
 
@@ -110,37 +124,34 @@
   right: 0;
 }
 
+/* Container for genre items */
 .genreItems {
   display: flex;
-  gap: 1.25rem; /* Converted 20px to 1.25rem */
+  gap: 1.25rem; 
   overflow-x: hidden;
   overflow-y: hidden;
-  width: calc(100% - 5rem); /* Converted 80px to 5rem */
+  width: calc(100% - 5rem); 
 }
 
 .genreItems::-webkit-scrollbar {
   display: none;
 }
 
-.genreList {
-  position: relative;
-  overflow: hidden;
-}
-
 body {
   overflow-x: hidden;
 }
 
+/* General watch button styling */
 .watchButton {
   position: absolute;
-  bottom: 0.625rem; /* Converted 10px to 0.625rem */
+  bottom: 0.625rem; 
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.7);
   font-weight: bold;
   color: white;
   border: none;
-  padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
+  padding: 0.625rem 1.25rem; 
   cursor: pointer;
   transition: background-color 0.3s ease;
 }

@@ -1,3 +1,4 @@
+/* Styles for the search results heading */
 .h2 {
   font-family: 'Hatton', sans-serif;
   font-size: 1.75rem;
@@ -7,6 +8,7 @@
   z-index: 1;
 }
 
+/* Layout for the search results page */
 .searchResultsPage {
   width: 100vw;
   height: 100vh;
@@ -14,6 +16,7 @@
   flex-direction: column;
 }
 
+/* Container for the search results content */
 .searchResultsContainer {
   display: flex;
   flex: 1;
@@ -22,6 +25,7 @@
   padding-top: 4rem; /* Add padding-top to create space from the header */
 }
 
+/* Main content area */
 .mainContent {
   flex: 7;
   padding: 1.25rem; /* Converted 20px to 1.25rem */
@@ -30,12 +34,14 @@
   z-index: 0;
 }
 
+/* Sidebar area */
 .sidebar {
   flex: 3;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 
+/* Overlay effect */
 .overlay {
   position: absolute;
   top: 0;
@@ -46,6 +52,7 @@
   z-index: -1;
 }
 
+/* Grid layout for displaying movies */
 .moviesGrid {
   margin-top: 1rem;
   margin-left: 20rem;
@@ -54,29 +61,34 @@
   gap: 1rem; /* Converted 20px to 1.25rem */
 }
 
+/* Individual movie item */
 .movieItem {
   text-align: center;
 }
 
+/* Styling for movie posters */
 .moviePoster {
   width: 95%;
-  height: 15rem; /* Converted 300px to 18.75rem */
-  border-radius: 0.625rem; /* Converted 10px to 0.625rem */
-  object-fit: cover; /* Ensure the image covers the entire area without distortion */
+  height: 15rem; 
+  border-radius: 0.625rem; 
+  object-fit: cover; 
 }
 
+/* Styling for movie title */
 .movieTitle {
-  margin-top: -0.3125rem; /* Converted -5px to -0.3125rem */
-  font-size: 1rem; /* Converted 16px to 1rem */
+  margin-top: -0.3125rem; 
+  font-size: 1rem; 
   font-weight: bold;
 }
 
+/* Container for image and watch button */
 .imageContainer {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
+/* Styling for watch button */
 .watchButton {
   position: absolute;
   bottom: 2.1875rem; /* Converted 35px to 2.1875rem */
@@ -93,21 +105,24 @@
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
-  color: white;  
+  color: white;
 }
 
+/* Hover effect for watch button */
 .watchButton:hover {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
+/* Show watch button on hover */
 .imageContainer:hover .watchButton {
   opacity: 1;
 }
 
+/* Footer section styles */
 .footerSection {
-  position:absolute;
+  position: absolute;
   bottom: 0;
-  left:0;
+  left: 0;
   right: 0;
   z-index: 2; /* Add this line to ensure the footer is positioned above the overlay */
 }

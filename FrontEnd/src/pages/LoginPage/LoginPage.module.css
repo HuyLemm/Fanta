@@ -1,4 +1,5 @@
-.loginPage{
+/* Page Background */
+.loginPage {
     background: url(../../assets/images/auth.png);
     background-size: cover;
     width: 100dvw;

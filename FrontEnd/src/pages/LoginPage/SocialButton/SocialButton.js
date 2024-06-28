@@ -4,6 +4,7 @@ import { FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
 import styles from './SocialButton.module.css';
 
 const SocialButton = ({ setMessage, setCookie, navigate }) => {
+    // Xử lý khi Google login thành công
     const handleGoogleLoginSuccess = async (tokenResponse) => {
         try {
             const response = await fetch('http://localhost:5000/auth/google-login', {
@@ -17,8 +18,8 @@ const SocialButton = ({ setMessage, setCookie, navigate }) => {
             const data = await response.json();
             if (response.ok) {
                 setMessage(data.message);
-                setCookie('jwt', data.token, 1);
-                navigate('/');
+                setCookie('jwt', data.token, 1); // Lưu token vào cookie
+                navigate('/'); // Chuyển hướng người dùng về trang chủ
             } else {
                 setMessage(data.message);
             }
@@ -27,6 +28,7 @@ const SocialButton = ({ setMessage, setCookie, navigate }) => {
         }
     };
 
+    // Cấu hình Google login
     const googleLogin = useGoogleLogin({
         onSuccess: handleGoogleLoginSuccess,
         onError: () => {
@@ -36,17 +38,18 @@ const SocialButton = ({ setMessage, setCookie, navigate }) => {
     });
 
     return (
+        // Khu vực đăng nhập bằng social platform
         <div className={styles['login-form']}>
-            <p>Or log in with:</p>
+            <p>Or log in with:</p> {/* Thông báo */}
             <div className={styles['social-login-buttons']}>
                 <button type="button" className={`${styles['social-login-button']} ${styles['google-login']}`} onClick={() => googleLogin()}>
-                    <FaGoogle />
+                    <FaGoogle /> {/* Nút Google */}
                 </button>
                 <button type="button" className={`${styles['social-login-button']} ${styles['facebook-login']}`} onClick={() => googleLogin()}>
-                    <FaFacebookF />
+                    <FaFacebookF /> {/* Nút Facebook */}
                 </button>
                 <button type="button" className={`${styles['social-login-button']} ${styles['twitter-login']}`} onClick={() => googleLogin()}>
-                    <FaTwitter />
+                    <FaTwitter /> {/* Nút Twitter */}
                 </button>
             </div>
         </div>

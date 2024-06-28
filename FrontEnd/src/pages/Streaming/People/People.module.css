@@ -1,34 +1,36 @@
+/* People Section Styles */
 .peopleSection {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    margin: 1rem 0;
-  }
-  
-  .peopleContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .person {
-    text-align: center;
-  }
-  
-  .personImage {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .personName {
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  .personRole {
-    font-style: italic;
-    color: gray;
-  }
-  
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+/* Container for People Styles */
+.peopleContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Individual Person Styles */
+.person {
+  text-align: center;
+}
+
+.personImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.personName {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.personRole {
+  font-style: italic;
+  color: gray;
+}

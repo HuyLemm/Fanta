@@ -9,6 +9,7 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
   const token = getCookie('jwt');
   const navigate = useNavigate();
 
+  // Lấy đánh giá của người dùng cho phim hiện tại
   useEffect(() => {
     const fetchUserRating = async () => {
       try {
@@ -27,6 +28,7 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
     fetchUserRating();
   }, [id, currentUser]);
 
+  // Xử lý khi người dùng click để đánh giá
   const handleRatingClick = async (ratingValue) => {
     if (!token) {
       navigate('/login');
@@ -56,8 +58,9 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
 
   return (
     <>
+      {/* Khu vực đánh giá */}
       <div className={styles.ratingSection}>
-        <h2>Rating:</h2>
+        <h2>Rating:</h2> {/* Tiêu đề */}
         <div className={styles.stars}>
           {[...Array(5)].map((_, index) => (
             <span
@@ -71,15 +74,16 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
         </div>
       </div>
 
+      {/* Khu vực mô tả */}
       <div className={styles.descriptionSection}>
-        <h2 className={styles.headerDescription}>Description</h2>
+        <h2 className={styles.headerDescription}>Description</h2> {/* Tiêu đề */}
         <p className={`${styles.descriptionText} ${isExpanded ? styles.expanded : ''}`}>
           {movie.full_description}
         </p>
         <div className={styles.morebutton}>
-        <button className={styles.toggleButton} onClick={() => setIsExpanded(!isExpanded)}>
-          {isExpanded ? 'Collapse' : 'More'}
-        </button>
+          <button className={styles.toggleButton} onClick={() => setIsExpanded(!isExpanded)}>
+            {isExpanded ? 'Collapse' : 'More'}
+          </button> {/* Nút mở rộng hoặc thu gọn mô tả */}
         </div>
       </div>
     </>
