@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Streaming.module.css';
 import { getCookie } from '../../utils/Cookies';
 import Loading from '../../components/public/LoadingEffect/Loading';
+import Video from './Video/Video';
 
 import Episode from './Episode/Episode';
 import RatingsDescription from './Rating/RatingsDescription';
@@ -113,10 +114,7 @@ const Streaming = () => {
         <div className={styles.contentWrapper}>
           <div className={styles.mainContent}>
             <div className={styles.videoSection}>
-              <video className={styles.streamingVideo} controls>
-                <source src={movie.streaming_url} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              <Video url={movie.streaming_url} type={movie.streaming_url.includes('youtube') ? 'youtube' : 'mp4'} />
             </div>
             <div className={styles.header}>
               <h1 className = {styles.movieTitle}>{movie.title}</h1>

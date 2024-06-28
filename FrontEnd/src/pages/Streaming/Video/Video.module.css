@@ -1,0 +1,14 @@
+.videoContainer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .streamingVideo {
+    width: 100%;
+    max-width: 800px;
+    height: 450px; /* You can adjust this height based on your needs */
+  }
+  
