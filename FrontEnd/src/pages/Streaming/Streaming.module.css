@@ -1,6 +1,5 @@
-<<<<<<< HEAD
+
 /* Streaming Container Styles */
-=======
 .background{
   background: url('../../assets/images/streaming.jpg');
   width: 100%;
@@ -16,7 +15,7 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 0;
 }
->>>>>>> 3698fa2e75ea657d8afe0f4cb7f924617393bc26
+
 .streamingContainer {
   display: flex;
   flex-direction: column;
@@ -81,7 +80,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-<<<<<<< HEAD
+
 
 /* Episodes Section Styles */
 .episodesSection {
@@ -93,5 +92,5 @@
   max-height: 45rem;
   overflow-y: auto;
 }
-=======
->>>>>>> 3698fa2e75ea657d8afe0f4cb7f924617393bc26
+
+

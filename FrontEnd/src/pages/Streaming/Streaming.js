@@ -107,33 +107,7 @@ const Streaming = () => {
   }
 
   return (
-<<<<<<< HEAD
-    <div className={styles.streamingContainer}> {/*Trang streaming*/}
-      <div className={styles.contentWrapper}> 
-        <div className={styles.mainContent}>
-          <div className={styles.videoSection}>
-            <video className={styles.streamingVideo} controls> {/*Streaming box */}
-              <source src={movie.streaming_url} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div className={styles.header}> {/*title */}
-            <h1 className = {styles.movieTitle}>{movie.title}</h1>
-            <div className={styles.epTitle}> &gt; EPISODE 1</div>
-          </div>
-          <RatingsDescription movie={movie} id={id} currentUser={currentUser} /> {/*Rating và description */}
-          <People 
-            movie={movie} 
-            castImages={castImages} 
-            directorImages={directorImages} 
-          /> {/*Cast và Director */}
-          <Comments 
-            movieId={id} 
-            currentUser={currentUser} 
-          />
-        </div> {/*Comment section */}
-        <Episode episodes={movie.episodes} episodeImages={episodeImages} /> {/*Đặt theo bố cục nằm bên phải toàn bộ trang */}
-=======
+
     <div className={styles.background}>
       <div className={styles.streamingContainer}>
         
@@ -162,7 +136,6 @@ const Streaming = () => {
           </div>
           <Episode episodes={movie.episodes} episodeImages={episodeImages} />
         </div>
->>>>>>> 3698fa2e75ea657d8afe0f4cb7f924617393bc26
       </div>
       <Footer />
     </div>
