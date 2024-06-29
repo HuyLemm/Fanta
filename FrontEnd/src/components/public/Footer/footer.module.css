@@ -9,7 +9,7 @@
 }
 
 .more{
-  text-decoration: underline;
+  text-decoration: underline !important;
   color: aliceblue;
 }
 
