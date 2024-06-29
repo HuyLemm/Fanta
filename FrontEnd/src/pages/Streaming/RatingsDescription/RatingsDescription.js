@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './RatingsDescription.module.css';
 import { getCookie } from '../../../utils/Cookies';
 import { useNavigate } from 'react-router-dom';
-import Notification, {notifyError, notifySuccess, notifyInfo, notifyWarning} from '../../../components/public/Notification/Notification';
+import {notifyError, notifySuccess, notifyInfo, notifyWarning} from '../../../components/public/Notification/Notification';
 
 const RatingsDescription = ({ movie, id, currentUser }) => {
   const [userRating, setUserRating] = useState(0);
@@ -61,7 +61,6 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
     <>
       {/* Khu vực đánh giá */}
       <div className={styles.ratingSection}>
-        <Notification />
         <h2>Rating:</h2> {/* Tiêu đề */}
         <div className={styles.stars}>
           {[...Array(5)].map((_, index) => (

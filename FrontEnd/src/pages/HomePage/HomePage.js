@@ -4,6 +4,7 @@ import styles from './HomePage.module.css';
 import Carousel from './Carousel/Carousel';
 import GenreSection from './GenreSection/GenreSection';
 import Footer from '../../components/public/Footer/Footer';
+import Notification from '../../components/public/Notification/Notification';
 
 function HomePage() {
   const location = useLocation(); // Hook to get the current location
@@ -26,6 +27,7 @@ function HomePage() {
 
   return (
     <div className={styles.homePage}>
+      <Notification />
       <Carousel type={type} />
       <GenreSection type={type} />
       <Footer />

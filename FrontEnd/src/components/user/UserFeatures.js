@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './UserFeatures.module.css';
 import LeftSidebar from './LeftSideBar/LeftSideBarUser';
 import SeeProfile from './Profile/Profile';
+import Notification from '../public/Notification/Notification';
 
 const UserFeatures = () => {
     const [currentFunction, setCurrentFunction] = useState('');
@@ -17,6 +18,7 @@ const UserFeatures = () => {
 
     return (
         <div className= {styles.panelPage}>
+            <Notification />
             <section className={styles['user-features']}>
                 <div className={styles['user-container']}>
                     <LeftSidebar setCurrentFunction={setCurrentFunction} />

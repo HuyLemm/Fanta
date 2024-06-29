@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './UpdateMovie.module.css';
-import Notification, { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
+import { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
 
 // Hàm cập nhật phim theo tên phim 
 const UpdateMovie = () => {

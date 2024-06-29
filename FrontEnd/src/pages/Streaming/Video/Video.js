@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Video.module.css';
-import Notification from '../../../components/public/Notification/Notification';
 
 const Video = ({ url, type }) => {
   const getYouTubeId = (url) => {
@@ -29,7 +28,6 @@ const Video = ({ url, type }) => {
 
   return (
     <div className={styles.videoContainer}>
-      <Notification />
       <video className={styles.streamingVideo} controls>
         <source src={url} type="video/mp4" />
         Your browser does not support the video tag.

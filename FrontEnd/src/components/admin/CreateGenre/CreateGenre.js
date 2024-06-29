@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './CreateGenre.module.css';
-import Notification, { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../../components/public/Notification/Notification';
+import { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../../components/public/Notification/Notification';
 // Xử lý hàm tạo thể loại
 const CreateGenre = () => {
     const [genreName, setGenreName] = useState('');
@@ -34,7 +34,6 @@ const CreateGenre = () => {
     return (
         // Section create genre
         <div className={styles.outer}>
-            <Notification />
             <h2 className={styles.h2}>Create Genre</h2>
             <div className={styles.section}>
                 <input

@@ -1,23 +1,30 @@
-/* Thêm vào file CSS của bạn */
 /* custom-toastify.css */
-.notification{
-  z-index: 9999
+.Toastify__toast {
+  width: 25rem; /* Đặt chiều rộng container */
+  font-size: 1rem; /* Cỡ chữ */
+  padding: 10px; /* Khoảng cách bên trong */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  text-align: center; /* Căn giữa nội dung văn bản */
 
 }
 
+.Toastify__toast-body {
+  white-space: nowrap; /* Ngăn toast xuống dòng */
+}
+
 .Toastify__toast--info {
-    background: blue;
-  }
-  
-  .Toastify__toast--success {
-    background: green;
-  }
-  
-  .Toastify__toast--warning {
-    background: orange;
-  }
-  
-  .Toastify__toast--error {
-    background: red;
-  }
-  
+  background: blue; /* Màu nền thông báo info */
+}
+
+.Toastify__toast--success {
+  background: green; /* Màu nền thông báo success */
+}
+
+.Toastify__toast--warning {
+  background: orange; /* Màu nền thông báo warning */
+}
+
+.Toastify__toast--error {
+  background: red; /* Màu nền thông báo error */
+}

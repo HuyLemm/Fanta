@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './EditUser.module.css';
-import Notification, { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
+import { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
 
 // Xử lý chỉnh sửa người dùng
 const EditUser = () => {
@@ -120,7 +120,6 @@ const EditUser = () => {
 
     return (
         <div className={styles.outer}>
-            <Notification/>
             <h2 className={styles.h2}>Edit Users</h2>
             <div className={styles.section}>
                 {selectedUser ? (

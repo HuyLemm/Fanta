@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './Profile.module.css';
-import Notification, { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
+import { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
 
 const SeeProfile = () => {
     const [profile, setProfile] = useState({
@@ -128,7 +128,6 @@ const SeeProfile = () => {
 
     return (
         <div className={styles.section}>
-            <Notification />
             <h2 className={styles.h2}>User Profile</h2>
             <div className={styles['form-group']}>
                 <label>Email: </label>
