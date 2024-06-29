@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './RecommendedMovies.module.css';
-
+import Notification from '../../../components/public/Notification/Notification';
 const RecommendedMovies = ({ recommendedMovies, genreItemsRef, handleNextClick, handlePrevClick, handleWatchClickRecommended }) => {
   return (
     <section className={styles.recommendedSection}>
+      <Notification />
       <h2 className={styles.recommendedTitle}>Recommended Movies</h2>
       {/* Container for the list of recommended movies */}
       <div className={styles.recommendedList}>

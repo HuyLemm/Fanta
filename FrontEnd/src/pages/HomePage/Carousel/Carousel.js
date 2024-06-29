@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './Carousel.module.css';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../../utils/Cookies';
-import Notification, { notifySuccess, notifyError } from '../../../components/public/Notification/Notification';
+import Notification, { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../../components/public/Notification/Notification';
 
 const Carousel = ({ type }) => {
   const carouselRef = useRef(null); 
@@ -34,7 +34,7 @@ const Carousel = ({ type }) => {
           checkIfWatchlisted(movie.id, token);
         });
       } catch (error) {
-        console.error('Error fetching data:', error);
+        notifyError('Error fetching data:', error);
       } finally {
         setLoading(false); 
       }
@@ -115,7 +115,7 @@ const Carousel = ({ type }) => {
         [movieId]: data.isFavourite
       }));
     } catch (error) {
-      console.error('Check if watchlisted error:', error);
+      notifyError('Check if watchlisted error:', error);
     }
   };
 
@@ -145,7 +145,7 @@ const Carousel = ({ type }) => {
       }));
       notifySuccess(data.message); // Show success notification
     } catch (error) {
-      console.error('Toggle watchlist error:', error);
+      notifyError('Toggle watchlist error:', error);
       notifyError('Error adding to watchlist'); // Show error notification
     }
   };

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import styles from './Rating.module.css';
+import styles from './RatingsDescription.module.css';
 import { getCookie } from '../../../utils/Cookies';
 import { useNavigate } from 'react-router-dom';
+import Notification, {notifyError, notifySuccess, notifyInfo, notifyWarning} from '../../../components/public/Notification/Notification';
 
 const RatingsDescription = ({ movie, id, currentUser }) => {
   const [userRating, setUserRating] = useState(0);
@@ -21,7 +22,7 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
         const userRate = data.find(rating => rating.userId._id === currentUser?._id);
         setUserRating(userRate ? userRate.rating : 0);
       } catch (error) {
-        console.error('Fetch rating error:', error);
+        notifyError('Fetch rating error:', error);
       }
     };
 
@@ -52,7 +53,7 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
       const newRating = await response.json();
       setUserRating(newRating.rating);
     } catch (error) {
-      console.error('Add rating error:', error);
+      notifyError('Add rating error:', error);
     }
   };
 
@@ -60,6 +61,7 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
     <>
       {/* Khu vực đánh giá */}
       <div className={styles.ratingSection}>
+        <Notification />
         <h2>Rating:</h2> {/* Tiêu đề */}
         <div className={styles.stars}>
           {[...Array(5)].map((_, index) => (

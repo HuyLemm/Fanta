@@ -4,6 +4,7 @@ import styles from './Register.module.css';
 import { setCookie } from '../../../utils/Cookies';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Loading from '../../../components/public/LoadingEffect/Loading';
+import Notification, {notifyError, notifySuccess,notifyWarning,notifyInfo} from '../../../components/public/Notification/Notification';
 
 const RegisterForm = () => {
     const [email, setEmail] = useState(''); 
@@ -13,7 +14,6 @@ const RegisterForm = () => {
     const [showPassword, setShowPassword] = useState(false); 
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
     const [verificationCode, setVerificationCode] = useState(''); 
-    const [message, setMessage] = useState(''); 
     const [isCodeSent, setIsCodeSent] = useState(false);
     const [isLoading, setIsLoading] = useState(false); 
     const [timer, setTimer] = useState(20); 
@@ -44,16 +44,16 @@ const RegisterForm = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage(data);
+                notifySuccess(data);
                 setIsCodeSent(true);
                 setTimer(20);
             } else {
-                setMessage(data);
+                notifyWarning(data);
                 setPassword('');
                 setConfirmPassword('');
             }
         } catch (error) {
-            setMessage('An error occurred. Please try again later.');
+            notifyError('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
         }
@@ -75,15 +75,15 @@ const RegisterForm = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage(data.message);
+                notifySuccess(data.message);
                 setCookie('jwt', data.token, 1);
                 navigate('/');
             } else {
-                setMessage(data);
+                notifyWarning(data);
                 setVerificationCode('');
             }
         } catch (error) {
-            setMessage('An error occurred. Please try again later.');
+            notifyError('An error occurred. Please try again later.');
             setVerificationCode('');
         } finally {
             setIsLoading(false);
@@ -104,13 +104,13 @@ const RegisterForm = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage(data);
+                notifySuccess(data);
                 setTimer(20);
             } else {
-                setMessage(data);
+                notifyWarning(data);
             }
         } catch (error) {
-            setMessage('An error occurred. Please try again later.');
+            notifyError('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
         }
@@ -118,6 +118,7 @@ const RegisterForm = () => {
 
     return (
         <section className={styles['register-section']}>
+            <Notification />
             {/* Loading overlay */}
             {isLoading && (
                 <div className={styles['loading-container']}>
@@ -188,7 +189,6 @@ const RegisterForm = () => {
 
                     <button type="submit" className={styles['button2']}>Sign Up</button>
 
-                    {message && <p className={styles['message']}>{message}</p>}
                 </form>
             ) : (
                 // Form for email verification
@@ -213,7 +213,6 @@ const RegisterForm = () => {
                         <button type="button" className={styles['button2']} onClick={handleResendCode}>Resend Code</button>
                     )}
 
-                    {message && <p className={styles['message']}>{message}</p>}
                 </form>
             )}
         </section>

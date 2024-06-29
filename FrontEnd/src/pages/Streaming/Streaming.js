@@ -6,10 +6,12 @@ import Loading from '../../components/public/LoadingEffect/Loading';
 import Video from './Video/Video';
 
 import Episode from './Episode/Episode';
-import RatingsDescription from './Rating/RatingsDescription';
+import RatingsDescription from './RatingsDescription/RatingsDescription';
 import People from './People/People';
 import Comments from './Comment/Comments';
 import Footer from '../../components/public/Footer/Footer';
+
+import Notification, { notifyError, notifySuccess, notifyWarning, notifyInfo } from '../../components/public/Notification/Notification';
 
 const Streaming = () => {
   const { id } = useParams();
@@ -47,7 +49,7 @@ const Streaming = () => {
         const data = await response.json();
         setCurrentUser(data);
       } catch (error) {
-        console.error('Error fetching current user:', error);
+        notifyError('Error fetching current user:', error);
       }
     };
 
@@ -61,7 +63,7 @@ const Streaming = () => {
         setMovie(data);
         fetchCastAndDirectorImages(data.cast, data.director);
       } catch (error) {
-        setError(error.message);
+        notifyError(error.message);
       } finally {
         setLoading(false);
       }
@@ -83,7 +85,7 @@ const Streaming = () => {
         setCastImages(data.castImages);
         setDirectorImages(data.directorImages);
       } catch (error) {
-        console.error('Fetch images error:', error);
+        notifyError('Fetch images error:', error);
       }
     };
 
@@ -96,7 +98,7 @@ const Streaming = () => {
         const data = await response.json();
         setEpisodeImages(data);
       } catch (error) {
-        console.error('Fetch episode images error:', error);
+        notifyError('Fetch episode images error:', error);
       }
     };
 
@@ -122,6 +124,7 @@ const Streaming = () => {
 
   return (
     <div>
+      <Notification />
       <div className={styles.background}>
         <div className={styles.overlay}></div>
         <div className={styles.streamingContainer}>

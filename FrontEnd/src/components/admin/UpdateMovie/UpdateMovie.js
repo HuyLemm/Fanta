@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './UpdateMovie.module.css';
+import Notification, { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
 
+// Hàm cập nhật phim theo tên phim 
 const UpdateMovie = () => {
     const [searchTitle, setSearchTitle] = useState('');
     const [movieData, setMovieData] = useState(null);
     const [isEditingField, setIsEditingField] = useState(null);
     const [editFieldValue, setEditFieldValue] = useState('');
     const [numEpisodes, setNumEpisodes] = useState(0); // Number of episodes for series
-    const [message, setMessage] = useState('');
     const token = getCookie('jwt');
 
     useEffect(() => {
@@ -43,15 +44,14 @@ const UpdateMovie = () => {
                 if (data) {
                     data.release_date = formatDate(data.release_date); // Format date before setting
                     setMovieData(data);
-                    setMessage('');
                 } else {
-                    setMessage('Movie not found.');
+                    notifyWarning('Movie not found.');
                 }
             } else {
-                setMessage(`Error finding movie: ${data.error}`);
+                notifyError(`Error finding movie: ${data.error}`);
             }
         } catch (error) {
-            setMessage(`Error finding movie: ${error.message}`);
+            notifyError(`Error finding movie: ${error.message}`);
         }
     };
 
@@ -83,15 +83,15 @@ const UpdateMovie = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage(`Movie updated successfully: ${JSON.stringify(data)}`);
+                notifyInfo(`Movie updated successfully: ${JSON.stringify(data)}`);
                 data.release_date = formatDate(data.release_date); // Format date before setting
                 setMovieData(data);
                 setIsEditingField(null);
             } else {
-                setMessage(`Error updating movie: ${data.error}`);
+                notifyError(`Error updating movie: ${data.error}`);
             }
         } catch (error) {
-            setMessage(`Error updating movie: ${error.message}`);
+            notifyError(`Error updating movie: ${error.message}`);
         }
     };
 
@@ -256,7 +256,6 @@ const UpdateMovie = () => {
                             </button>
                         </div>
                     )}
-                    <p>{message}</p>
                 </>
             ) : (
                 <>

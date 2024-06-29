@@ -1,10 +1,12 @@
 import React from 'react';
 import styles from './People.module.css';
+import Notification from '../../../components/public/Notification/Notification';
 
 const People = ({ movie, castImages, directorImages }) => {
   return (
     // Khu vực hiển thị danh sách diễn viên và đạo diễn
     <div className={styles.peopleSection}>
+      <Notification />
       <div className={styles.peopleContainer}>
         {[...movie.director, ...movie.cast].map((person, index) => (
           <div key={index} className={styles.person}>

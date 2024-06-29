@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './Profile.module.css';
+import Notification, { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
 
 const SeeProfile = () => {
     const [profile, setProfile] = useState({
@@ -14,7 +15,6 @@ const SeeProfile = () => {
         newPassword: '',
         confirmPassword: ''
     });
-    const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(true);
     const [editField, setEditField] = useState('');
     const token = getCookie('jwt');
@@ -32,11 +32,11 @@ const SeeProfile = () => {
                 if (response.ok) {
                     setProfile(data);
                 } else {
-                    setMessage(`Error fetching profile: ${data.error}`);
+                    notifyError(`Error fetching profile: ${data.error}`);
                 }
                 setLoading(false);
             } catch (error) {
-                setMessage(`Error fetching profile: ${error.message}`);
+                notifyError(`Error fetching profile: ${error.message}`);
                 setLoading(false);
             }
         };
@@ -57,19 +57,19 @@ const SeeProfile = () => {
             const data = await response.json();
             if (response.ok) {
                 setProfile(prevProfile => ({ ...prevProfile, [field]: value }));
-                setMessage(data.message);
+                notifySuccess(data.message);
                 setEditField('');
             } else {
-                setMessage(`Error updating profile: ${data.error}`);
+                notifyError(`Error updating profile: ${data.error}`);
             }
         } catch (error) {
-            setMessage(`Error updating profile: ${error.message}`);
+            notifyError(`Error updating profile: ${error.message}`);
         }
     };
 
     const handlePasswordUpdate = async () => {
         if (passwords.newPassword !== passwords.confirmPassword) {
-            setMessage('New password and confirm password do not match.');
+            notifyWarning('New password and confirm password do not match.');
             return;
         }
         try {
@@ -84,7 +84,7 @@ const SeeProfile = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage(data.message);
+                notifySuccess(data.message);
                 setEditField('');
                 setPasswords({
                     currentPassword: '',
@@ -92,10 +92,10 @@ const SeeProfile = () => {
                     confirmPassword: ''
                 });
             } else {
-                setMessage(`Error updating password: ${data.error}`);
+                notifyError(`Error updating password: ${data.error}`);
             }
         } catch (error) {
-            setMessage(`Error updating password: ${error.message}`);
+            notifyError(`Error updating password: ${error.message}`);
         }
     };
 
@@ -128,6 +128,7 @@ const SeeProfile = () => {
 
     return (
         <div className={styles.section}>
+            <Notification />
             <h2 className={styles.h2}>User Profile</h2>
             <div className={styles['form-group']}>
                 <label>Email: </label>
@@ -231,7 +232,6 @@ const SeeProfile = () => {
                     </>
                 )}
             </div>
-            <p>{message}</p>
         </div>
     );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SearchResults.module.css';
 import Footer from '../../components/public/Footer/Footer';
+import Notification, { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../components/public/Notification/Notification';
 
 const SearchResults = () => {
   const [movies, setMovies] = useState([]); // State to store search results
@@ -20,7 +21,7 @@ const SearchResults = () => {
         const data = await response.json();
         setMovies(data); // Update state with fetched search results
       } catch (error) {
-        console.error('Error fetching search results:', error); // Log errors if any
+        notifyError('Error fetching search results:', error); // Log errors if any
       }
     };
 
@@ -36,6 +37,7 @@ const SearchResults = () => {
 
   return (
     <div className={styles.searchResultsPage}>
+      <Notification />
       <div className={styles.searchResultsContainer}>
         {/* Main content area */}
         <div className={styles.mainContent}>

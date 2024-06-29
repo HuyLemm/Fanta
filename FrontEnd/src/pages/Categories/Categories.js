@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Categories.module.css';
 import Footer from '../../components/public/Footer/Footer';
-
+import Notification, { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../components/public/Notification/Notification';
 const GenreMovies = () => {
   const { genreName } = useParams(); 
   const [movies, setMovies] = useState([]); 
@@ -16,7 +16,7 @@ const GenreMovies = () => {
         const data = await response.json();
         setMovies(data); // Update the state with fetched movies
       } catch (error) {
-        console.error('Error fetching movies:', error); // Log errors if any
+        notifyError('Error fetching movies:', error); // Log errors if any
       }
     };
 
@@ -31,6 +31,7 @@ const GenreMovies = () => {
 
   return (
     <div className={styles.genreMoviesPage}>
+      <Notification />
       {/* Main container for genre movies page */}
       <div className={styles.genreMoviesContainer}>
         <div className={styles.mainContent}>

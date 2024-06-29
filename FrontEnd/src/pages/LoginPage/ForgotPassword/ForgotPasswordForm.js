@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './ForgotPassword.module.css';
 import { FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa'; 
 import Loading from '../../../components/public/LoadingEffect/Loading';
+import Notification, {notifyError, notifySuccess,notifyWarning,notifyInfo} from '../../../components/public/Notification/Notification';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
@@ -11,7 +12,6 @@ const ForgotPassword = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showNewPassword, setShowNewPassword] = useState(false); 
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
-    const [message, setMessage] = useState('');
     const [step, setStep] = useState(1);
     const [isCodeSent, setIsCodeSent] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -45,16 +45,16 @@ const ForgotPassword = () => {
             });
             const data = await response.json(); 
             if (response.ok) {
-                setMessage(data);
+                notifySuccess(data);
                 setIsCodeSent(true);
                 setTimer(20);
                 setStep(2); // Chuyển sang bước nhập mã xác nhận
             } else {
-                setMessage(data);
+                notifyWarning(data);
                 setEmail('');
             }
         } catch (error) {
-            setMessage('An error occurred. Please try again later.');
+            notifyError('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
         }
@@ -75,14 +75,14 @@ const ForgotPassword = () => {
             });
             const data = await response.json();
             if (response.ok) {
-                setMessage(data);
+                notifySuccess(data);
                 setStep(3); // Chuyển sang bước nhập mật khẩu mới
             } else {
-                setMessage(data);
+                notifyWarning(data);
                 setVerificationCode('');
             }
         } catch (error) {
-            setMessage('An error occurred. Please try again later.');
+            notifyError('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
         }
@@ -102,13 +102,13 @@ const ForgotPassword = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage(data);
+                notifySuccess(data);
                 setTimer(20);
             } else {
-                setMessage(data);
+                notifyWarning(data);
             }
         } catch (error) {
-            setMessage('An error occurred. Please try again later.');
+            notifyError('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
         }
@@ -120,7 +120,7 @@ const ForgotPassword = () => {
         setIsLoading(true);
 
         if (newPassword !== confirmPassword) {
-            setMessage('Passwords do not match.');
+            notifyWarning('Passwords do not match.');
             setIsLoading(false);
             return;
         }
@@ -135,16 +135,15 @@ const ForgotPassword = () => {
             });
             const message = await response.json();
             if (response.ok) {
-                setMessage(message);
-                setStep(4); // Hoàn thành
+                notifySuccess(message);
                 navigate('/login');
             } else {
                 setNewPassword('');
                 setConfirmPassword('');
-                setMessage(message);
+                notifyWarning(message);
             }
         } catch (error) {
-            setMessage('An error occurred. Please try again later.');
+            notifyError('An error occurred. Please try again later.');
         } finally {
             setIsLoading(false);
         }
@@ -152,6 +151,7 @@ const ForgotPassword = () => {
 
     return (
         <div className={styles.forgotpasswordPage}>
+            <Notification />
             <section className={styles['forgot-password-section']}>
                 {isLoading && (
                     <div className={styles['loading-container']}>
@@ -172,7 +172,6 @@ const ForgotPassword = () => {
                             <label>Email</label>
                         </div>
                         <button type="submit" className={styles['button']}>Send Verification Code</button>
-                        {message && <p className={styles['message']}>{message}</p>}
                     </form>
                 )}
                 {step === 2 && (
@@ -194,7 +193,6 @@ const ForgotPassword = () => {
                         ) : (
                             <button type="button" className={styles['button']} onClick={handleResendCode}>Resend Code</button>
                         )}
-                        {message && <p className={styles['message']}>{message}</p>}
                     </form>
                 )}
                 {step === 3 && (
@@ -233,13 +231,7 @@ const ForgotPassword = () => {
                             </span>
                         </div>
                         <button type="submit" className={styles['button']}>Reset Password</button>
-                        {message && <p className={styles['message']}>{message}</p>}
                     </form>
-                )}
-                {step === 4 && (
-                    <div className={styles['message']}>
-                        <h1>{message}</h1> {/* Thông báo hoàn thành */}
-                    </div>
                 )}
             </section>
         </div>

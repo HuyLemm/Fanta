@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../utils/Cookies';
 import styles from './Favorite.module.css';
 import Loading from '../../components/public/LoadingEffect/Loading';
+import Notification, {notifyError, notifySuccess,notifyWarning,notifyInfo} from '../../components/public/Notification/Notification';
 
 const Favourite = () => {
   const [watchlist, setWatchlist] = useState([]); 
@@ -26,7 +27,7 @@ const Favourite = () => {
         const data = await response.json();
         setWatchlist(data); // Update the state with fetched watchlist
       } catch (error) {
-        setError(error.message); // Set error message if any
+        notifyError(error.message); // Set error message if any
       } finally {
         setLoading(false); // Set loading to false after fetch
       }
@@ -49,6 +50,7 @@ const Favourite = () => {
 
   return (
     <div className={styles.favoriteContainer}>
+    <Notification />
       <h1>Your Favorite Movies</h1>
       {watchlist.length > 0 ? (
         // Map through the watchlist and display each movie item

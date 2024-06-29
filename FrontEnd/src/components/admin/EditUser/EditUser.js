@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './EditUser.module.css';
+import Notification, { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
 
 // Xử lý chỉnh sửa người dùng
 const EditUser = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [message, setMessage] = useState('');
     const [editField, setEditField] = useState('');
     const token = getCookie('jwt');
     useEffect(() => {
@@ -30,7 +30,7 @@ const EditUser = () => {
                 const filteredUsers = data.filter(user => user.role !== 'admin');
                 setUsers(filteredUsers);
             } catch (error) {
-                setMessage(`Error fetching users: ${error.message}`);
+                notifyError(`Error fetching users: ${error.message}`);
             }
         };
         fetchUsers();
@@ -54,7 +54,7 @@ const EditUser = () => {
             const data = await response.json();
             setSelectedUser(data);
         } catch (error) {
-            setMessage(`Error fetching user details: ${error.message}`);
+            notifyError(`Error fetching user details: ${error.message}`);
         }
     };
 
@@ -76,10 +76,10 @@ const EditUser = () => {
 
             const data = await response.json();
             setSelectedUser(prevUser => ({ ...prevUser, [field]: value }));
-            setMessage('User updated successfully!');
+            notifySuccess('User updated successfully!');
             setEditField('');
         } catch (error) {
-            setMessage(`Error updating user: ${error.message}`);
+            notifyError(`Error updating user: ${error.message}`);
         }
     };
 
@@ -98,11 +98,11 @@ const EditUser = () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            setMessage('User deleted successfully!');
+            notifySuccess('User deleted successfully!');
             setUsers(users.filter(user => user._id !== selectedUser._id));
             setSelectedUser(null);
         } catch (error) {
-            setMessage(`Error deleting user: ${error.message}`);
+            notifyError(`Error deleting user: ${error.message}`);
         }
     };
 
@@ -120,9 +120,9 @@ const EditUser = () => {
 
     return (
         <div className={styles.outer}>
+            <Notification/>
             <h2 className={styles.h2}>Edit Users</h2>
             <div className={styles.section}>
-                {message && <p>{message}</p>}
                 {selectedUser ? (
                     <div className={styles['form-group']}>
                         <label>Username:</label>

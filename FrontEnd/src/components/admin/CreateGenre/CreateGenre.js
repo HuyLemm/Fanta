@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './CreateGenre.module.css';
-
+import Notification, { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../../components/public/Notification/Notification';
 // Xử lý hàm tạo thể loại
 const CreateGenre = () => {
     const [genreName, setGenreName] = useState('');
-    const [message, setMessage] = useState('');
     const token = getCookie('jwt');
 
     // Xử lý call API đến backend để tạo thể loại
@@ -22,19 +21,20 @@ const CreateGenre = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage(`Genre created successfully: ${JSON.stringify(data)}`);
+                notifyInfo(`Genre created successfully: ${JSON.stringify(data)}`);
                 setGenreName('');
             } else {
-                setMessage(`Error creating genre: ${data.error}`);
+                notifyError(`Error creating genre: ${data.error}`);
             }
         } catch (error) {
-            setMessage(`Error creating genre: ${error.message}`);
+            notifyError(`Error creating genre: ${error.message}`);
         }
     };
 
     return (
         // Section create genre
         <div className={styles.outer}>
+            <Notification />
             <h2 className={styles.h2}>Create Genre</h2>
             <div className={styles.section}>
                 <input
@@ -45,7 +45,6 @@ const CreateGenre = () => {
                     className={styles.inputField}
                 />
                 <button onClick={handleCreateGenre} className={styles.btn}>Create Genre</button>
-                <p>{message}</p>
             </div>
         </div>
     );

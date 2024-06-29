@@ -11,6 +11,8 @@
     align-items: center;
     padding: 2rem 3rem;
     overflow: hidden;
+    font-weight: bold;
+    font-size: 1.1rem;
     color: #fb5607;
 }
 

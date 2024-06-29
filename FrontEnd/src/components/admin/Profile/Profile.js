@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './Profile.module.css';
+import Notification, { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
 
 // Xử lý chức năng Profile của admin
 const SeeProfile = () => {
@@ -14,7 +15,6 @@ const SeeProfile = () => {
         newPassword: '',
         confirmPassword: ''
     });
-    const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(true);
     const [editField, setEditField] = useState('');
     const token = getCookie('jwt');
@@ -34,11 +34,11 @@ const SeeProfile = () => {
                 if (response.ok) {
                     setProfile(data);
                 } else {
-                    setMessage(`Error fetching profile: ${data.error}`);
+                    notifyError(`Error fetching profile: ${data.error}`);
                 }
                 setLoading(false);
             } catch (error) {
-                setMessage(`Error fetching profile: ${error.message}`);
+                notifyError(`Error fetching profile: ${error.message}`);
                 setLoading(false);
             }
         };
@@ -60,20 +60,20 @@ const SeeProfile = () => {
             const data = await response.json();
             if (response.ok) {
                 setProfile(prevProfile => ({ ...prevProfile, [field]: value }));
-                setMessage(data.message);
+                notifySuccess(data.message);
                 setEditField('');
             } else {
-                setMessage(`Error updating profile: ${data.error}`);
+                notifyError(`Error updating profile: ${data.error}`);
             }
         } catch (error) {
-            setMessage(`Error updating profile: ${error.message}`);
+            notifyError(`Error updating profile: ${error.message}`);
         }
     };
 
     // Gọi API về backend để thực hiện thay đổi password
     const handlePasswordUpdate = async () => {
         if (passwords.newPassword !== passwords.confirmPassword) {
-            setMessage('New password and confirm password do not match.');
+            notifyWarning('New password and confirm password do not match.');
             return;
         }
         try {
@@ -88,7 +88,7 @@ const SeeProfile = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage(data.message);
+                notifySuccess(data.message);
                 setEditField('');
                 setPasswords({
                     currentPassword: '',
@@ -96,10 +96,10 @@ const SeeProfile = () => {
                     confirmPassword: ''
                 });
             } else {
-                setMessage(`Error updating password: ${data.error}`);
+                notifyError(`Error updating password: ${data.error}`);
             }
         } catch (error) {
-            setMessage(`Error updating password: ${error.message}`);
+            notifyInfo(`Error updating password: ${error.message}`);
         }
     };
 
@@ -133,6 +133,7 @@ const SeeProfile = () => {
     return (
 
         <div className={styles.outer}> 
+            <Notification/>
             <h2 className={styles.h2}>Admin Profile</h2>
             {/* Section Email */}
             <div className={styles.section}>
@@ -220,7 +221,6 @@ const SeeProfile = () => {
                         </>
                     )}
                 </div>
-                <p>{message}</p>
             </div>
         </div>
     );

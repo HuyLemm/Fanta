@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './CreateMovie.module.css';
+import Notification, { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
 
 // Hàm xử lý tạo phim
 const CreateMovie = () => {
@@ -20,7 +21,6 @@ const CreateMovie = () => {
         streaming_url: '',
         episodes: [] // Only for series
     });
-    const [message, setMessage] = useState('');
     const [numEpisodes, setNumEpisodes] = useState(0); // Number of episodes for series
     const token = getCookie('jwt');
 
@@ -38,7 +38,7 @@ const CreateMovie = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage(`Movie created successfully: ${JSON.stringify(data)}`);
+                notifyInfo(`Movie created successfully: ${JSON.stringify(data)}`);
                 setMovieData({
                     title: '',
                     brief_description: '',
@@ -57,10 +57,10 @@ const CreateMovie = () => {
                 });
                 setNumEpisodes(0);
             } else {
-                setMessage(`Error creating movie: ${data.error}`);
+                notifyError(`Error creating movie: ${data.error}`);
             }
         } catch (error) {
-            setMessage(`Error creating movie: ${error.message}`);
+            notifyError(`Error creating movie: ${error.message}`);
         }
     };
 
@@ -99,6 +99,7 @@ const CreateMovie = () => {
 
     return (
         <div className={styles.section}>
+            <Notification/>
             <h2 className={styles.h2}>Create Movie</h2>
             <input
                 type="text"
@@ -212,7 +213,7 @@ const CreateMovie = () => {
                 </div>
             )}
             <button onClick={handleCreateMovie} className={styles.btn}>Create Movie</button>
-            <p>{message}</p>
+            
         </div>
     );
 };

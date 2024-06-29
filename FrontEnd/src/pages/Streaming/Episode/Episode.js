@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Episode.module.css';
+import Notification from '../../../components/public/Notification/Notification';
 
 const formatDuration = (minutes) => {
   const hours = Math.floor(minutes / 60);
@@ -12,6 +13,7 @@ const formatDuration = (minutes) => {
 const Episode = ({ episodes, episodeImages, setCurrentEpisode }) => {
   return (
     <div className={styles.episodesSection}>
+      <Notification />
       <h2>Episodes</h2> {/* Tiêu đề */}
       <div className={styles.episodesContainer}>
         {episodes.map((episode, index) => (

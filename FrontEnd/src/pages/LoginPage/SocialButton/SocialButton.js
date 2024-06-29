@@ -2,6 +2,7 @@ import React from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
 import styles from './SocialButton.module.css';
+import Notification, {notifyError, notifySuccess, notifyInfo, notifyWarning} from '../../../components/public/Notification/Notification';
 
 const SocialButton = ({ setMessage, setCookie, navigate }) => {
     // Xử lý khi Google login thành công
@@ -17,14 +18,14 @@ const SocialButton = ({ setMessage, setCookie, navigate }) => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage(data.message);
+                notifySuccess(data.message);
                 setCookie('jwt', data.token, 1); // Lưu token vào cookie
                 navigate('/'); // Chuyển hướng người dùng về trang chủ
             } else {
-                setMessage(data.message);
+                notifyWarning(data.message);
             }
         } catch (error) {
-            setMessage('An error occurred. Please try again later.');
+            notifyError('An error occurred. Please try again later.');
         }
     };
 
@@ -32,7 +33,7 @@ const SocialButton = ({ setMessage, setCookie, navigate }) => {
     const googleLogin = useGoogleLogin({
         onSuccess: handleGoogleLoginSuccess,
         onError: () => {
-            setMessage('Failed to login with Google. Please try again later.');
+            notifyError('Failed to login with Google. Please try again later.');
         },
         redirect_uri: 'http://localhost:3000' 
     });
@@ -40,6 +41,7 @@ const SocialButton = ({ setMessage, setCookie, navigate }) => {
     return (
         // Khu vực đăng nhập bằng social platform
         <div className={styles['login-form']}>
+            <Notification />
             <p>Or log in with:</p> {/* Thông báo */}
             <div className={styles['social-login-buttons']}>
                 <button type="button" className={`${styles['social-login-button']} ${styles['google-login']}`} onClick={() => googleLogin()}>

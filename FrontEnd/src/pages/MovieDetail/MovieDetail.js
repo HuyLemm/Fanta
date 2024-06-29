@@ -5,6 +5,7 @@ import RecommendedMovies from './RecommendedMovies/RecommendedMovies';
 import styles from './MovieDetail.module.css';
 import Footer from '../../components/public/Footer/Footer';
 import Loading from '../../components/public/LoadingEffect/Loading';
+import Notification, { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../components/public/Notification/Notification';
 
 const MovieDetail = () => {
   const { id } = useParams(); 
@@ -18,17 +19,15 @@ const MovieDetail = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        console.log(`Fetching movie with ID: ${id}`);
         const response = await fetch(`http://localhost:5000/public/get-movie-by-id/${id}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        console.log('Movie data:', data);
         setMovie(data);
         fetchRecommendedMovies(data.genre, id); // Fetch recommended movies based on genre
       } catch (error) {
-        console.error('Fetch movie error:', error);
+        notifyError('Fetch movie error:', error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -57,7 +56,7 @@ const MovieDetail = () => {
         const data = await response.json();
         setRecommendedMovies(data); // Update state with recommended movies
       } catch (error) {
-        console.error('Fetch recommended movies error:', error);
+        notifyError('Fetch recommended movies error:', error);
       }
     };
 
@@ -117,6 +116,7 @@ const MovieDetail = () => {
 
   return (
     <div className={styles.movieDetailContainer}>
+      <Notification />
       {/* Main content section for movie details */}
       <MainContent movie={movie} handleWatchClick={handleWatchClick} />
       {/* Section for recommended movies */}

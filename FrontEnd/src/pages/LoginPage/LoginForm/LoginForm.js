@@ -4,13 +4,13 @@ import styles from './LoginForm.module.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { setCookie } from '../../../utils/Cookies';
 import SocialButton from '../SocialButton/SocialButton';
+import Notification, { notifyError, notifySuccess,notifyWarning,notifyInfo } from '../../../components/public/Notification/Notification';
 
 const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
-    const [message, setMessage] = useState('');
     const navigate = useNavigate(); 
 
     // Kiểm tra localStorage để tự động điền thông tin nếu người dùng đã lưu trước đó
@@ -39,7 +39,7 @@ const LoginForm = () => {
 
             const data = await response.json();
             if (response.ok) {
-                setMessage(data.message);
+                notifySuccess(data.message);
                 setCookie('jwt', data.token, 1); // Lưu token vào cookie
                 if (rememberMe) {
                     localStorage.setItem('username', username);
@@ -50,11 +50,11 @@ const LoginForm = () => {
                 }
                 navigate('/'); // Chuyển hướng người dùng về trang chủ
             } else {
-                setMessage(data);
+                notifyWarning(data);
                 setPassword('');  
             }
         } catch (error) {
-            setMessage('An error occurred. Please try again later.');
+            notifyError('An error occurred. Please try again later.');
             setPassword('');  
         }
     };
@@ -62,6 +62,7 @@ const LoginForm = () => {
     return (
         // Khu vực đăng nhập
         <section className={styles['login-section']}>
+            <Notification />
             <form className={styles['login-form']} onSubmit={handleSubmit}>
                 <h1>Login</h1> {/* Tiêu đề */}
                 <div className={styles['inputbox']}>
@@ -114,8 +115,6 @@ const LoginForm = () => {
                 </div>
                 
                 <SocialButton/>
-
-                {message && <p className={styles['message']}>{message}</p>}
             </form>
         </section>
     );

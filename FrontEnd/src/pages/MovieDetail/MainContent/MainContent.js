@@ -21,7 +21,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
         setAverageRating(data.averageRating);
         setNumberOfRatings(data.numberOfRatings);
       } catch (error) {
-        console.error('Fetch average rating error:', error);
+        notifyError('Fetch average rating error:', error);
       }
     };
 
@@ -39,7 +39,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
         const data = await response.json();
         setIsFavourite(data.isFavourite);
       } catch (error) {
-        console.error('Check if favourite error:', error);
+        notifyError('Check if favourite error:', error);
       }
     };
 
@@ -74,7 +74,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
       setIsFavourite(data.isFavourite);
       notifySuccess(data.message); // Notify success
     } catch (error) {
-      console.error('Toggle watchlist error:', error);
+      notifyError('Toggle watchlist error:', error);
       notifyError('Error adding to watchlist'); // Notify error
     }
   };

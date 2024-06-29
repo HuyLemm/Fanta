@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './GenreSection.module.css';
-
+import Notification, { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../../components/public/Notification/Notification';
 const GenreSection = ({ type }) => {
   const genreItemsRef = useRef([]); 
   const [genres, setGenres] = useState([]); 
@@ -21,7 +21,7 @@ const GenreSection = ({ type }) => {
 
         setGenres(topGenres);
       } catch (error) {
-        console.error('Error fetching genres:', error);
+        notifyError('Error fetching genres:', error);
       }
     };
 
@@ -63,6 +63,7 @@ const GenreSection = ({ type }) => {
 
   return (
     <div className={styles.genreSectionsContainer}>
+      <Notification />
       {genres.length > 0 && genres.map((genre, index) => (
         <div key={index} className={styles.genreSection}>
           <h2>{genre.name + ' Movies'}</h2>

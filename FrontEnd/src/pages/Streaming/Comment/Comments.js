@@ -123,7 +123,7 @@ const Comments = ({ movieId, currentUser }) => {
       setEditingCommentId(null);
       setEditingCommentText('');
     } catch (error) {
-      console.error('Edit comment error:', error);
+      notifyError('Edit comment error:', error);
     }
   };
 
@@ -167,7 +167,7 @@ const Comments = ({ movieId, currentUser }) => {
       notifySuccess('User banned successfully');
       closeBanModal(); // Đóng modal sau khi cấm người dùng
     } catch (error) {
-      console.error('Ban user error:', error);
+      notifyError('Ban user error:', error);
     }
   };
 
