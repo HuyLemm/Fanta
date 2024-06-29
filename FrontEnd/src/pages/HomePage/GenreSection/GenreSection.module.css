@@ -21,6 +21,7 @@
   padding-bottom: 0.625rem; 
   position: relative;
   overflow: hidden;
+  padding: 0 2.5rem; /* Add padding to make space for the buttons */
 }
 
 /* Individual items within the genre list */
@@ -104,10 +105,11 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   z-index: 1;
-  width: 2.5rem; 
+  width: 2rem; 
   height: 4.0625rem; 
-  margin-top: 5.3125rem; 
   font-size: large;
+  top: 40%; /* Center vertically */
+  transform: translateY(-50%); /* Center vertically */
 }
 
 .prevGenre:hover, .nextGenre:hover {
@@ -116,12 +118,12 @@
 
 .prevGenre {
   position: absolute;
-  left: 0;
+  left:0; /* Move just inside the container */
 }
 
 .nextGenre {
   position: absolute;
-  right: 0;
+  right: 0; /* Move just inside the container */
 }
 
 /* Container for genre items */
@@ -130,7 +132,8 @@
   gap: 1.25rem; 
   overflow-x: hidden;
   overflow-y: hidden;
-  width: calc(100% - 5rem); 
+  width: calc(100% - 5rem); /* Adjust width to account for padding */
+  padding-bottom: 0.625rem; 
 }
 
 .genreItems::-webkit-scrollbar {
