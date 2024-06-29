@@ -85,6 +85,15 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
         <div className={styles.morebutton}>
           <button className={styles.toggleButton} onClick={() => setIsExpanded(!isExpanded)}>
             {isExpanded ? 'Collapse' : 'More'}
+            <svg
+              className={`${styles.arrowIcon} ${isExpanded ? styles.rotateUp : ''}`}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
           </button> {/* Nút mở rộng hoặc thu gọn mô tả */}
         </div>
       </div>

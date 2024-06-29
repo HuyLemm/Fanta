@@ -13,7 +13,7 @@ const Header = () => {
       <div className={styles.navContainer}>
         <Categories />
         <Search />
-        <Favourite />
+        <Favourite/>
         <UserIcon />
       </div>
     </header>

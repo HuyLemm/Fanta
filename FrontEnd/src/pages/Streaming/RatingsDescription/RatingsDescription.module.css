@@ -68,6 +68,19 @@
   font-size: 1rem;
   margin-top: 0.5rem;
   text-decoration: underline;
-  display: block; 
-  text-align: right;  
+  display: flex; 
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.arrowIcon {
+  margin-left: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.3s;
+  font-weight: 600;
+}
+
+.rotateUp {
+  transform: rotate(180deg);
 }

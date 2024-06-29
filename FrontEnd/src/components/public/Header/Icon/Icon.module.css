@@ -1,6 +1,6 @@
+/* Icon.module.css */
 .userContainer {
   position: relative;
-  align-items: center;
   margin-right: 2rem;
 }
 
@@ -10,92 +10,66 @@
 }
 
 .userIcon img {
-  width: 2.5rem; 
-  height: 2.5rem; 
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 2rem;
 }
 
 .dropdown {
-  margin-right: -2rem;
   position: absolute;
-  top: 3.125rem; 
-  right: 0;
-  background-color: rgb(255, 255, 255, 0.5);
-  border: 0.0625rem solid #fb5607; 
-  border-radius: 0.3125rem; 
-  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1); 
-  padding: 0.625rem; 
-  z-index: 1001;
+  top: 3rem;
+  left: 50%; /* Căn giữa dropbox theo chiều ngang */
+  transform: translateX(-50%) translateY(-0.625rem); /* Dịch chuyển dropbox để căn giữa và áp dụng hiệu ứng đi xuống */
+  background-color: #333;
+  color: #fff;
+  padding: 0.625rem;
+  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.3);
+  border-radius: 0.3125rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   opacity: 0;
-  transform: translateY(-0.625rem); 
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
-  display: flex; 
-  flex-direction: column; 
-  align-items: center;
 }
 
 .dropdownVisible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0); /* Chỉ thay đổi trục Y khi hiển thị */
   pointer-events: auto;
 }
 
-.loginButton {
-  margin-top: 0.3125rem; 
-  width: 5.625rem; 
-  height: 2.5rem; 
-  border-radius: 2.5rem; 
-  background-color: #fb5607;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: all 0.4s ease;
-  margin-bottom: 0.625rem; 
-  color: white;
-}
-
-.adminButton {
-  margin-top: 0.3125rem; 
+.loginButton, .adminButton, .userButton {
+  margin-top: 0.3125rem;
   width: 7.5rem;
-  height: 2.5rem; 
-  border-radius: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.3125rem;
   background-color: #fb5607;
   border: none;
   outline: none;
   cursor: pointer;
   font-size: 0.85rem;
   font-weight: 600;
-  transition: all 0.4s ease;
-  margin-bottom: 0.625rem; 
+  transition: background-color 0.3s ease, color 0.3s ease;
   color: white;
-}
-
-.userButton {
-  margin-top: 0.3125rem; 
-  width: 7.5rem; 
-  height: 2.5rem; 
-  border-radius: 2.5rem; 
-  background-color: #fb5607;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: all 0.4s ease;
-  margin-bottom: 0.625rem; 
-  color: white;
+  padding: 0.3125rem 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .loginButton:hover,
 .userButton:hover,
 .adminButton:hover {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: #333;
   color: #fb5607;
 }
 
 .adminpic {
   border-radius: 2rem;
+}
+
+.icon {
+  margin-right: 0.5rem;
 }

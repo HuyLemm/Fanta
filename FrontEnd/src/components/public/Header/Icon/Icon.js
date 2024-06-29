@@ -1,5 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaUser, FaSignOutAlt } from 'react-icons/fa';
 import userIcon from '../../../../assets/images/user.png';
 import guestIcon from '../../../../assets/images/guest.png';
 import adminIcon from '../../../../assets/images/admin.jpg';
@@ -78,7 +79,9 @@ const UserIcon = () => {
             <img src={guestIcon} alt="Guest Icon" />
           </div>
           <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
-            <button onClick={handleLoginClick} className={styles.loginButton}>Login</button>
+            <button onClick={handleLoginClick} className={styles.loginButton}>
+              <FaUser className={styles.icon} /> Login
+            </button>
           </div>
         </div>
       );
@@ -97,8 +100,12 @@ const UserIcon = () => {
             <img src={adminIcon} alt="Admin Icon" className={styles.adminpic} onError={handleImageError} />
           </div>
           <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
-            <button onClick={handleAdminClick} className={styles.adminButton}>Admin Panel</button>
-            <button onClick={handleLogout} className={styles.loginButton}>Logout</button>
+            <button onClick={handleAdminClick} className={styles.adminButton}>
+              <FaUser className={styles.icon} /> Admin Panel
+            </button>
+            <button onClick={handleLogout} className={styles.loginButton}>
+              <FaSignOutAlt className={styles.icon} /> Logout
+            </button>
           </div>
         </div>
       );
@@ -111,8 +118,12 @@ const UserIcon = () => {
             <img src={userAvatar} alt="User Icon" onError={handleImageError} />
           </div>
           <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
-            <button onClick={handleUserClick} className={styles.userButton}>User Profile</button>
-            <button onClick={handleLogout} className={styles.loginButton}>Logout</button>
+            <button onClick={handleUserClick} className={styles.userButton}>
+              <FaUser className={styles.icon} /> User Profile
+            </button>
+            <button onClick={handleLogout} className={styles.loginButton}>
+              <FaSignOutAlt className={styles.icon} /> Logout
+            </button>
           </div>
         </div>
       );

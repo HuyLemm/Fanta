@@ -236,7 +236,7 @@ const Comments = ({ movieId, currentUser }) => {
           </div>
         ))
       ) : (
-        <div>No comments found</div>
+        <div>Share your thoughts</div>
       )}
       <div className={styles.addComment}>
         <textarea
