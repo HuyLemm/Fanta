@@ -4,7 +4,7 @@ import styles from './LoginForm.module.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { setCookie } from '../../../utils/Cookies';
 import SocialButton from '../SocialButton/SocialButton';
-import Notification, { notifyError, notifySuccess,notifyWarning,notifyInfo } from '../../../components/public/Notification/Notification';
+import { notifyError, notifySuccess,notifyWarning,notifyInfo } from '../../../components/public/Notification/Notification';
 
 const LoginForm = () => {
     const [username, setUsername] = useState('');
@@ -62,7 +62,6 @@ const LoginForm = () => {
     return (
         // Khu vực đăng nhập
         <section className={styles['login-section']}>
-            <Notification />
             <form className={styles['login-form']} onSubmit={handleSubmit}>
                 <h1>Login</h1> {/* Tiêu đề */}
                 <div className={styles['inputbox']}>

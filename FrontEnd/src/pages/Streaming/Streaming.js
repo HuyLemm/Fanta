@@ -49,7 +49,7 @@ const Streaming = () => {
         const data = await response.json();
         setCurrentUser(data);
       } catch (error) {
-        notifyError('Error fetching current user:', error);
+        console.log('Error fetching current user:', error);
       }
     };
 
@@ -85,7 +85,7 @@ const Streaming = () => {
         setCastImages(data.castImages);
         setDirectorImages(data.directorImages);
       } catch (error) {
-        notifyError('Fetch images error:', error);
+        console.log('Fetch images error:', error);
       }
     };
 
@@ -98,7 +98,7 @@ const Streaming = () => {
         const data = await response.json();
         setEpisodeImages(data);
       } catch (error) {
-        notifyError('Fetch episode images error:', error);
+        console.log('Fetch episode images error:', error);
       }
     };
 

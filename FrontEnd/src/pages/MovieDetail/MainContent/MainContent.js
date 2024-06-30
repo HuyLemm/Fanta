@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 import styles from './MainContent.module.css';
 import { getCookie } from '../../../utils/Cookies';
-import Notification, { notifyInfo, notifySuccess, notifyWarning, notifyError } from '../../../components/public/Notification/Notification';
+import { notifyInfo, notifySuccess, notifyWarning, notifyError } from '../../../components/public/Notification/Notification';
 
 const MainContent = ({ movie, handleWatchClick }) => {
   const [averageRating, setAverageRating] = useState(0); 
@@ -39,7 +39,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
         const data = await response.json();
         setIsFavourite(data.isFavourite);
       } catch (error) {
-        notifyError('Check if favourite error:', error);
+        console.log('Check if favourite error:', error);
       }
     };
 
@@ -74,8 +74,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
       setIsFavourite(data.isFavourite);
       notifySuccess(data.message); // Notify success
     } catch (error) {
-      notifyError('Toggle watchlist error:', error);
-      notifyError('Error adding to watchlist'); // Notify error
+      notifyWarning('You need to log in first to add to favourite');
     }
   };
 
@@ -91,7 +90,6 @@ const MainContent = ({ movie, handleWatchClick }) => {
 
   return (
     <section className={styles.mainSection}>
-      <Notification />
       <div className={styles.background} style={{ backgroundImage: `url(${movie.background_url})` }}>
         <div className={styles.overlay}></div>
         {/* Content area */}

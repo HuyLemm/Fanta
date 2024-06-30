@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './CreateMovie.module.css';
-import Notification, { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
+import { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
 
 // Hàm xử lý tạo phim
 const CreateMovie = () => {
@@ -99,7 +99,6 @@ const CreateMovie = () => {
 
     return (
         <div className={styles.section}>
-            <Notification/>
             <h2 className={styles.h2}>Create Movie</h2>
             <input
                 type="text"

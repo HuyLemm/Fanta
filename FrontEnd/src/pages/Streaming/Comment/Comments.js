@@ -4,7 +4,7 @@ import styles from './Comment.module.css';
 import moment from 'moment';
 import { getCookie } from '../../../utils/Cookies';
 import { useNavigate } from 'react-router-dom';
-import Notification, { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../../components/public/Notification/Notification';
+import { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../../components/public/Notification/Notification';
 
 const Comments = ({ movieId, currentUser }) => {
   const [comments, setComments] = useState([]);
@@ -38,7 +38,7 @@ const Comments = ({ movieId, currentUser }) => {
   // Thêm bình luận mới
   const handleAddComment = async () => {
     if (!token) {
-      navigate('/login');
+      notifyWarning('Please login to add a comment');
       return;
     }
 
@@ -187,7 +187,6 @@ const Comments = ({ movieId, currentUser }) => {
   return (
     // Khu vực bình luận
     <div className={styles.commentsSection}>
-      <Notification />
       <h2>Comments</h2> {/* Tiêu đề */}
       {comments.length > 0 ? (
         comments.map(comment => (

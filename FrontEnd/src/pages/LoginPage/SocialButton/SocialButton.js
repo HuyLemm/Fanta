@@ -2,7 +2,7 @@ import React from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { FaGoogle, FaFacebookF, FaTwitter } from 'react-icons/fa';
 import styles from './SocialButton.module.css';
-import Notification, {notifyError, notifySuccess, notifyInfo, notifyWarning} from '../../../components/public/Notification/Notification';
+import {notifyError, notifySuccess, notifyInfo, notifyWarning} from '../../../components/public/Notification/Notification';
 
 const SocialButton = ({ setMessage, setCookie, navigate }) => {
     // Xử lý khi Google login thành công
@@ -41,7 +41,6 @@ const SocialButton = ({ setMessage, setCookie, navigate }) => {
     return (
         // Khu vực đăng nhập bằng social platform
         <div className={styles['login-form']}>
-            <Notification />
             <p>Or log in with:</p> {/* Thông báo */}
             <div className={styles['social-login-buttons']}>
                 <button type="button" className={`${styles['social-login-button']} ${styles['google-login']}`} onClick={() => googleLogin()}>

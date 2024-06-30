@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './ForgotPassword.module.css';
 import { FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa'; 
 import Loading from '../../../components/public/LoadingEffect/Loading';
-import Notification, {notifyError, notifySuccess,notifyWarning,notifyInfo} from '../../../components/public/Notification/Notification';
+import {notifyError, notifySuccess,notifyWarning,notifyInfo} from '../../../components/public/Notification/Notification';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
@@ -151,7 +151,6 @@ const ForgotPassword = () => {
 
     return (
         <div className={styles.forgotpasswordPage}>
-            <Notification />
             <section className={styles['forgot-password-section']}>
                 {isLoading && (
                     <div className={styles['loading-container']}>

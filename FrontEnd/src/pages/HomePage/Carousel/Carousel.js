@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './Carousel.module.css';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../../utils/Cookies';
-import Notification, { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../../components/public/Notification/Notification';
+import { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../../components/public/Notification/Notification';
+import Loading from '../../../components/public/LoadingEffect/Loading';
 
 const Carousel = ({ type }) => {
   const carouselRef = useRef(null); 
@@ -115,7 +116,7 @@ const Carousel = ({ type }) => {
         [movieId]: data.isFavourite
       }));
     } catch (error) {
-      notifyError('Check if watchlisted error:', error);
+      console.log('Check if watchlisted error:', error);
     }
   };
 
@@ -145,16 +146,14 @@ const Carousel = ({ type }) => {
       }));
       notifySuccess(data.message); // Show success notification
     } catch (error) {
-      notifyError('Toggle watchlist error:', error);
-      notifyError('Error adding to watchlist'); // Show error notification
+      notifyWarning('You need to log in first to archive');
     }
   };
 
   return (
     <div className={styles.carousel} ref={carouselRef}>
-      <Notification /> 
       {loading ? (
-        <div>Loading...</div> // Show loading message while fetching data
+        <div><Loading /></div> // Show loading message while fetching data
       ) : (
         <>
           <div className={styles.list} ref={sliderRef}>

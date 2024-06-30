@@ -6,6 +6,7 @@ import CreateMovie from './CreateMovie/CreateMovie';
 import UpdateMovie from './UpdateMovie/UpdateMovie';
 import SeeProfile from './Profile/Profile';
 import EditUser from './EditUser/EditUser';
+import Notification from '../../components/public/Notification/Notification';
 
 const AdminFeatures = () => {
     const [currentFunction, setCurrentFunction] = useState('');
@@ -29,6 +30,7 @@ const AdminFeatures = () => {
 
     return (
         <div className={styles.panelPage}>
+            <Notification />
             <section className={styles['admin-features']}>
                 <div className={styles['admin-container']}>
                     <div className={styles.sidebar}>

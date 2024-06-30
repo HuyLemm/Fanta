@@ -4,7 +4,7 @@ import styles from './Register.module.css';
 import { setCookie } from '../../../utils/Cookies';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Loading from '../../../components/public/LoadingEffect/Loading';
-import Notification, {notifyError, notifySuccess,notifyWarning,notifyInfo} from '../../../components/public/Notification/Notification';
+import {notifyError, notifySuccess,notifyWarning,notifyInfo} from '../../../components/public/Notification/Notification';
 
 const RegisterForm = () => {
     const [email, setEmail] = useState(''); 
@@ -118,7 +118,6 @@ const RegisterForm = () => {
 
     return (
         <section className={styles['register-section']}>
-            <Notification />
             {/* Loading overlay */}
             {isLoading && (
                 <div className={styles['loading-container']}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './Profile.module.css';
-import Notification, { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
+import { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
 
 // Xử lý chức năng Profile của admin
 const SeeProfile = () => {
@@ -133,7 +133,6 @@ const SeeProfile = () => {
     return (
 
         <div className={styles.outer}> 
-            <Notification/>
             <h2 className={styles.h2}>Admin Profile</h2>
             {/* Section Email */}
             <div className={styles.section}>
