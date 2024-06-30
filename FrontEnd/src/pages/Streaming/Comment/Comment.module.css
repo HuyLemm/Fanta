@@ -81,7 +81,7 @@
 }
 
 .addComment button:hover {
-  background-color: #e63900;
+  background-color: #333;
 }
 
 /* Avatar Styles */
@@ -119,7 +119,7 @@
 }
 
 .comButton:hover {
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: #333;
 }
 
 /* Comment Info Styles */
