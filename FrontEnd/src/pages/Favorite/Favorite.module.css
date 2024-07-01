@@ -36,7 +36,7 @@
 .posterContainer .watchButton {
   position: absolute;
   bottom: 10px;
-  left: 50%;
+  left: 44%;
   transform: translateX(-50%);
   opacity: 0;
   visibility: hidden;

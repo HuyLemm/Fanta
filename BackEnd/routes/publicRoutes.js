@@ -18,8 +18,11 @@ router.get('/get-average-rating/:movieId', publicController.getAverageRatings)
 router.get('/get-watchlist/:movieId', authMiddleware.authenticateToken, publicController.checkWatchlist)
 router.get('/check-role', authMiddleware.authenticateToken, publicController.checkRole);
 router.get('/get-tmdb-episode-images/:movieId', publicController.getTMDBEpisodeImages);
+router.get('/get-history/:videoId', authMiddleware.authenticateToken,authMiddleware.checkWatchHistory, publicController.getHistory);
+router.get('/get-history-for-user', authMiddleware.authenticateToken, publicController.getHistoryForUser);
 
 // POST
+router.post('/save-history', authMiddleware.authenticateToken, publicController.saveHistory);
 router.post('/get-cast-and-director-images', publicController.getCastAndDirectorImages);
 router.post('/get-recommended-movies', publicController.getRecommendedMovies)
 

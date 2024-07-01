@@ -1,5 +1,5 @@
   const jwt = require("jsonwebtoken");
-
+  const HistoryModel = require('../models/History');
   // Hàm kiểm tra token có lưu trong cookie không -> Đăng nhập hay chưa
   exports.authenticateToken = (req, res, next) => {
     const token = req.cookies.jwt || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
@@ -36,4 +36,22 @@
         res.status(403).json('Access Denied: Requires Admin Role');
       }
     });
+  };
+
+  exports.checkWatchHistory = async (req, res, next) => {
+    const { videoId } = req.params;
+    const userId = req.user._id;
+  
+    try {
+      const history = await HistoryModel.findOne({ userId, videoId });
+      if (history) {
+        req.watchHistory = history;
+      } else {
+        req.watchHistory = { currentTime: 0 };
+      }
+      next();
+    } catch (err) {
+      console.error('Failed to fetch history:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
   };

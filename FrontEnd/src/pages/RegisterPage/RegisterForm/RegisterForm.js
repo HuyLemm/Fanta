@@ -49,6 +49,8 @@ const RegisterForm = () => {
                 setTimer(20);
             } else {
                 notifyWarning(data);
+                setEmail('');
+                setUsername('');
                 setPassword('');
                 setConfirmPassword('');
             }

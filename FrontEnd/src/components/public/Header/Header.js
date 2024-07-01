@@ -6,6 +6,7 @@ import Favourite from './MyFavourite/MyFavourite';
 import UserIcon from './Icon/Icon';
 import styles from './Header.module.css';
 import Notification from '../Notification/Notification';
+import History from './History/History';
 
 const Header = () => {
   return (
@@ -15,6 +16,7 @@ const Header = () => {
       <div className={styles.navContainer}>
         <Categories />
         <Search />
+        <History />
         <Favourite/>
         <UserIcon />
       </div>

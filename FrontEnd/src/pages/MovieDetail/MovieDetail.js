@@ -65,8 +65,10 @@ const MovieDetail = () => {
 
   // Function to handle watch button click
   const handleWatchClick = () => {
+    sessionStorage.setItem('hasReloaded', 'false');
     navigate(`/streaming/${id}`);
   };
+
 
   // Function to handle watch button click for recommended movies
   const handleWatchClickRecommended = (movieId) => {

@@ -42,14 +42,12 @@ const UserIcon = () => {
     navigate('/user');
   };
 
-  const handleLogout = async (e) => {
+  const handleLogout = async () => {
     try {
       const response = await fetch('http://localhost:5000/auth/logout', {
         method: 'POST',
         credentials: 'include',
       });
-
-      const data = await response.json();
 
       if (response.ok) {
         setAuthStatus({
@@ -60,7 +58,7 @@ const UserIcon = () => {
         });
         navigate('/');
       } else {
-        console.error('Error logging out:', data.error);
+        console.error('Error logging out');
       }
     } catch (error) {
       console.error('Error logging out:', error);

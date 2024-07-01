@@ -23,11 +23,21 @@ function getCookie(cname) {
 
   const checkLoginStatus = async () => {
     try {
+      const token = getCookie('jwt');
+      if (!token) {
+        return {
+          loggedIn: false,
+          role: null,
+          avatar: null,
+        };
+      }
+  
       const response = await fetch('http://localhost:5000/public/check-role', {
         method: 'GET',
-        credentials: 'include', 
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
       });
   
@@ -36,9 +46,12 @@ function getCookie(cname) {
         return {
           loggedIn: true,
           role: data.role,
-          avatar: data.avatar, // Add avatar to the response
+          avatar: data.avatar,
         };
       } else {
+        if (response.status !== 401) {
+          console.error('Failed to check login status:', response.statusText);
+        }
         return {
           loggedIn: false,
           role: null,
@@ -53,8 +66,7 @@ function getCookie(cname) {
         avatar: null,
       };
     }
-  };
-  
+  };  
 
   
   export { setCookie, getCookie, checkLoginStatus}

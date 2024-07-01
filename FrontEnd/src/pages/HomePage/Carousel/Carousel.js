@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './Carousel.module.css';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../../utils/Cookies';
-import { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../../components/public/Notification/Notification';
+import { notifySuccess, notifyError, notifyWarning } from '../../../components/public/Notification/Notification';
 import Loading from '../../../components/public/LoadingEffect/Loading';
 
 const Carousel = ({ type }) => {
@@ -30,10 +30,14 @@ const Carousel = ({ type }) => {
         const filteredMovies = data.filter(movie => !type || movie.type === type);
         setMovies(filteredMovies);
 
-        // Fetch watchlist status for each movie
-        filteredMovies.forEach(movie => {
-          checkIfWatchlisted(movie.id, token);
-        });
+        // Fetch watchlist status for each movie if token is available
+        if (token) {
+          filteredMovies.forEach(movie => {
+            checkIfWatchlisted(movie.id, token);
+          });
+        } else {
+          setWatchlists({});
+        }
       } catch (error) {
         notifyError('Error fetching data:', error);
       } finally {
@@ -101,6 +105,8 @@ const Carousel = ({ type }) => {
   }, [loading]);
 
   const checkIfWatchlisted = async (movieId, token) => {
+    if (!token) return;
+
     try {
       const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
         headers: {
@@ -125,6 +131,11 @@ const Carousel = ({ type }) => {
   };
 
   const handleWatchlistClick = async (movieId) => {
+    if (!token) {
+      notifyWarning('You need to log in first to archive');
+      return;
+    }
+
     try {
       const response = await fetch(`http://localhost:5000/user/toggle-watchlist`, {
         method: 'POST',
@@ -146,7 +157,7 @@ const Carousel = ({ type }) => {
       }));
       notifySuccess(data.message); // Show success notification
     } catch (error) {
-      notifyWarning('You need to log in first to archive');
+      notifyError('Error updating watchlist:', error);
     }
   };
 

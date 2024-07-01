@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import styles from './Streaming.module.css';
 import { getCookie } from '../../utils/Cookies';
 import Loading from '../../components/public/LoadingEffect/Loading';
@@ -23,7 +23,9 @@ const Streaming = () => {
   const [castImages, setCastImages] = useState({});
   const [directorImages, setDirectorImages] = useState({});
   const [currentEpisode, setCurrentEpisode] = useState(0);
+  const [initialTime, setInitialTime] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const token = getCookie('jwt');
 
   const getStreamingUrl = (movie) => {
@@ -48,6 +50,7 @@ const Streaming = () => {
         }
         const data = await response.json();
         setCurrentUser(data);
+        console.log('Fetched current user:', data);
       } catch (error) {
         console.log('Error fetching current user:', error);
       }
@@ -61,6 +64,7 @@ const Streaming = () => {
         }
         const data = await response.json();
         setMovie(data);
+        console.log('Fetched movie:', data);
         fetchCastAndDirectorImages(data.cast, data.director);
       } catch (error) {
         notifyError(error.message);
@@ -84,6 +88,7 @@ const Streaming = () => {
         const data = await response.json();
         setCastImages(data.castImages);
         setDirectorImages(data.directorImages);
+        console.log('Fetched cast and director images:', data);
       } catch (error) {
         console.log('Fetch images error:', error);
       }
@@ -96,18 +101,76 @@ const Streaming = () => {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        setEpisodeImages(data);
+        // Chuyển đổi dữ liệu từ array thành object
+        const episodeImagesObject = data.reduce((acc, image, index) => {
+          acc[index] = image;
+          return acc;
+        }, {});
+        setEpisodeImages(episodeImagesObject);
+        console.log('Fetched episode images:', data);
       } catch (error) {
         console.log('Fetch episode images error:', error);
       }
     };
 
-    fetchCurrentUser();
-    fetchMovie();
-    fetchEpisodeImages(id);
+    const fetchInitialTime = async (videoId) => {
+      try {
+        console.log('Fetching initial time for videoId:', videoId);
+        const response = await fetch(`http://localhost:5000/public/get-history/${videoId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Failed to load watch time');
+        }
+        const data = await response.json();
+        console.log('Fetched initial time:', data.currentTime);
+        setInitialTime(data.currentTime || 0);
+      } catch (err) {
+        console.error('Failed to load watch time:', err);
+        setInitialTime(0); // Set initialTime to 0 if there's an error
+      }
+    };
+
+    const fetchData = async () => {
+      setLoading(true);
+      await fetchCurrentUser();
+      await fetchMovie();
+      await fetchEpisodeImages(id);
+      await fetchInitialTime(id);
+      setLoading(false);
+    };
+
+    fetchData();
   }, [id, token]);
 
-  if (loading) {
+  useEffect(() => {
+    const hasReloaded = sessionStorage.getItem('hasReloaded');
+    console.log('Checking sessionStorage hasReloaded:', hasReloaded);
+    if (hasReloaded === 'false' && initialTime !== null) {
+      console.log('Reloading page...');
+      sessionStorage.setItem('hasReloaded', 'true');
+      window.location.reload(); // Tự động khởi động lại trang
+    }
+  }, [initialTime]);
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (location.pathname !== `/streaming/${id}`) {
+        console.log('Removing sessionStorage hasReloaded');
+        sessionStorage.removeItem('hasReloaded');
+      }
+    };
+
+    window.addEventListener('beforeunload', handleRouteChange);
+    return () => {
+      window.removeEventListener('beforeunload', handleRouteChange);
+      handleRouteChange();
+    };
+  }, [location.pathname, id]);
+
+  if (loading || initialTime === null) {
     return <div><Loading/></div>;
   }
 
@@ -121,6 +184,7 @@ const Streaming = () => {
 
   const streamingUrl = getStreamingUrl(movie);
   const videoType = streamingUrl && streamingUrl.includes('youtube') ? 'youtube' : 'mp4';
+  const videoId = movie._id; // Đảm bảo rằng videoId được truyền đúng cách từ movie
 
   return (
     <div>
@@ -132,7 +196,7 @@ const Streaming = () => {
             <div className={styles.mainContent}>
               <div className={styles.videoSection}>
                 {streamingUrl ? (
-                  <Video url={streamingUrl} type={videoType} />
+                  <Video url={streamingUrl} type={videoType} videoId={videoId} initialTime={initialTime} />
                 ) : (
                   <div>No video available</div>
                 )}

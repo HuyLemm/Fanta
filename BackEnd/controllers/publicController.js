@@ -6,6 +6,7 @@ const ReviewModel = require('../models/Review');
 const RatingModel = require('../models/Rating');
 const WatchlistModel = require('../models/Watchlist');
 const AccountModel = require('../models/Account');
+const HistoryModel = require('../models/History');
 
 const TMDB_API_KEY = 'd0d4e98bfef5c31d9d1e552a8d2163c3'; // Thay bằng API key của bạn
 
@@ -367,3 +368,58 @@ exports.getTMDBEpisodeImages = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+exports.saveHistory = async (req, res) => {
+  const { videoId, currentTime, type, latestEpisode } = req.body;
+  const userId = req.user._id;
+
+  try {
+    let history = await HistoryModel.findOneAndUpdate(
+      { userId, videoId },
+      { currentTime, updatedAt: Date.now(), type, latestEpisode },
+      { new: true, upsert: true }
+    );
+
+    res.status(200).json(history);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+exports.getHistory = async (req, res) => {
+  const { videoId } = req.params;
+  const userId = req.user._id;
+
+  try {
+    const history = await HistoryModel.findOne({ userId, videoId });
+    if (!history) {
+      return res.status(404).json({ error: 'History not found' });
+    }
+    res.status(200).json(history);
+  } catch (err) {
+    console.error('Failed to fetch history:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+exports.getHistoryForUser = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const history = await HistoryModel.find({ userId }).sort({ updatedAt: -1 }).exec();
+    const movieIds = history.map(h => h.videoId);
+    const movies = await MovieModel.find({ _id: { $in: movieIds } }).exec();
+    
+    const historyWithMovies = history.map(h => {
+      const movie = movies.find(m => m._id.toString() === h.videoId);
+      return {
+        ...h._doc,
+        movie
+      };
+    });
+
+    res.status(200).json(historyWithMovies);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch history' });
+  }
+}
