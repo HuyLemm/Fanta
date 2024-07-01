@@ -1,12 +1,16 @@
+/* Favorite.module.css */
+
 /* Container for the entire favorite movies section */
 .favoriteContainer {
   color: white;
   padding: 20px;
   margin-top: 3rem;
+  width: 80vw;
 }
 
 /* Layout for each movie row in the watchlist */
 .movieRow {
+  position: relative;
   display: flex;
   align-items: center;
   margin-bottom: 20px;
@@ -33,10 +37,10 @@
 }
 
 /* Styling for the watch button */
-.posterContainer .watchButton {
+.watchButton {
   position: absolute;
   bottom: 10px;
-  left: 44%;
+  left: 50%;
   transform: translateX(-50%);
   opacity: 0;
   visibility: hidden;
@@ -48,7 +52,6 @@
   padding: 10px 20px;
   border-radius: 2rem;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 /* Show the watch button on poster hover */
@@ -59,7 +62,7 @@
 
 /* Change background color of watch button on hover */
 .posterContainer:hover .watchButton:hover {
-  background-color: rgb(0,0,0,0.5);
+  background-color: #333;
 }
 
 /* Container for the movie information */
@@ -81,4 +84,46 @@
 /* Styling for the movie title color */
 .title {
   color: #fb5607;
+}
+
+/* Styling cho nút Edit */
+.editButton {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-color: #fb5607;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 1rem;
+}
+
+/* Dropdown container */
+.dropdown {
+  position: absolute;
+  right: 10px;
+  top: 40px;
+  background-color: #fb5607;
+  border-radius: 1rem;
+  z-index: 1;
+  border: 0.1rem #fb5607 solid;
+}
+
+/* Dropdown buttons */
+.dropdownButton {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #fb5607;
+  color: white;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 1rem;
+}
+
+.dropdownButton:hover {
+  background-color: #333;
+  color: white;
 }
