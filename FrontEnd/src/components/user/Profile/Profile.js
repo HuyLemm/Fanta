@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './Profile.module.css';
-import { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
+import { notifyError, notifySuccess, notifyInfo, notifyWarning } from '../../public/Notification/Notification';
 
 const SeeProfile = () => {
     const [profile, setProfile] = useState({
@@ -18,6 +18,7 @@ const SeeProfile = () => {
     const [loading, setLoading] = useState(true);
     const [editField, setEditField] = useState('');
     const token = getCookie('jwt');
+
     useEffect(() => {
         const fetchProfile = async () => {
             try {
@@ -127,92 +128,12 @@ const SeeProfile = () => {
     }
 
     return (
-        <div className={styles.section}>
-            <h2 className={styles.h2}>User Profile</h2>
-            <div className={styles['form-group']}>
-                <label>Email: </label>
-                {editField === 'email' ? (
-                    <>
-                        <input
-                            type="email"
-                            name="email"
-                            value={profile.email}
-                            onChange={handleFieldChange}
-                            className={styles.inputField}
-                        />
-                        <button onClick={() => handleUpdate('email', profile.email)} className={styles.btn}>Confirm</button>
-                        <button onClick={handleCancel} className={styles.btn}>Cancel</button>
-                    </>
-                ) : (
-                    <>
-                        <span>{profile.email}</span>
-                        <button onClick={() => setEditField('email')} className={styles.btn}>Update</button>
-                    </>
-                )}
-            </div>
-            <div className={styles['form-group']}>
-                <label>Username: </label>
-                {editField === 'username' ? (
-                    <>
-                        <input
-                            type="text"
-                            name="username"
-                            value={profile.username}
-                            onChange={handleFieldChange}
-                            className={styles.inputField}
-                        />
-                        <button onClick={() => handleUpdate('username', profile.username)} className={styles.btn}>Confirm</button>
-                        <button onClick={handleCancel} className={styles.btn}>Cancel</button>
-                    </>
-                ) : (
-                    <>
-                        <span>{profile.username}</span>
-                        <button onClick={() => setEditField('username')} className={styles.btn}>Update</button>
-                    </>
-                )}
-            </div>
-            <div className={styles['form-group']}>
-                <label>Password: </label>
-                {editField === 'password' ? (
-                    <>
-                        <input
-                            type="password"
-                            name="currentPassword"
-                            value={passwords.currentPassword}
-                            onChange={handlePasswordFieldChange}
-                            placeholder="Current Password"
-                            className={styles.inputField}
-                        />
-                        <input
-                            type="password"
-                            name="newPassword"
-                            value={passwords.newPassword}
-                            onChange={handlePasswordFieldChange}
-                            placeholder="New Password"
-                            className={styles.inputField}
-                        />
-                        <input
-                            type="password"
-                            name="confirmPassword"
-                            value={passwords.confirmPassword}
-                            onChange={handlePasswordFieldChange}
-                            placeholder="Confirm New Password"
-                            className={styles.inputField}
-                        />
-                        <button onClick={handlePasswordUpdate} className={styles.btn}>Confirm</button>
-                        <button onClick={handleCancel} className={styles.btn}>Cancel</button>
-                    </>
-                ) : (
-                    <>
-                        <span>********</span>
-                        <button onClick={() => setEditField('password')} className={styles.btn}>Update</button>
-                    </>
-                )}
-            </div>
-            <div className={styles['form-group']}>
-                <label>Avatar: </label>
+        <div className={styles.profileContainer}>
+            <div className={styles.profileHeader}>
+                <img src={profile.avatar} alt="Avatar" className={styles.avatar} />
+                <h2 className={styles.username}>{profile.username}</h2>
                 {editField === 'avatar' ? (
-                    <>
+                    <div className={styles.formGroup}>
                         <input
                             type="text"
                             name="avatar"
@@ -221,15 +142,100 @@ const SeeProfile = () => {
                             placeholder="Enter avatar URL"
                             className={styles.inputField}
                         />
-                        <button onClick={() => handleUpdate('avatar', profile.avatar)} className={styles.btn}>Confirm</button>
-                        <button onClick={handleCancel} className={styles.btn}>Cancel</button>
-                    </>
+                        <button onClick={() => handleUpdate('avatar', profile.avatar)} className={styles.changePhotoBtn}>Confirm</button>
+                        <button onClick={handleCancel} className={styles.changePhotoBtn}>Cancel</button>
+                    </div>
                 ) : (
-                    <>
-                        <img src={profile.avatar} alt="Avatar" className={styles.avatar} />
-                        <button onClick={() => setEditField('avatar')} className={styles.btn}>Update</button>
-                    </>
+                    <button onClick={() => setEditField('avatar')} className={styles.changePhotoBtn}>Change photo</button>
                 )}
+            </div>
+            <div className={styles.profileSection}>
+                <div className={styles.section}>
+                    <h3 className={styles.sectionTitle}>Email</h3>
+                    <div className={styles.formGroup}>
+                        {editField === 'email' ? (
+                            <>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={profile.email}
+                                    onChange={handleFieldChange}
+                                    className={styles.inputField}
+                                />
+                                <button onClick={() => handleUpdate('email', profile.email)} className={styles.btn}>Confirm</button>
+                                <button onClick={handleCancel} className={styles.btn}>Cancel</button>
+                            </>
+                        ) : (
+                            <>
+                                <span>{profile.email}</span>
+                                <button onClick={() => setEditField('email')} className={styles.btn}>Update</button>
+                            </>
+                        )}
+                    </div>
+                </div>
+                <div className={styles.section}>
+                    <h3 className={styles.sectionTitle}>Username</h3>
+                    <div className={styles.formGroup}>
+                        {editField === 'username' ? (
+                            <>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    value={profile.username}
+                                    onChange={handleFieldChange}
+                                    className={styles.inputField}
+                                />
+                                <button onClick={() => handleUpdate('username', profile.username)} className={styles.btn}>Confirm</button>
+                                <button onClick={handleCancel} className={styles.btn}>Cancel</button>
+                            </>
+                        ) : (
+                            <>
+                                <span>{profile.username}</span>
+                                <button onClick={() => setEditField('username')} className={styles.btn}>Update</button>
+                            </>
+                        )}
+                    </div>
+                </div>
+                <div className={styles.section}>
+                    <h3 className={styles.sectionTitle}>Password</h3>
+                    <div className={styles.formGroup}>
+                        {editField === 'password' ? (
+                            <>
+                                <input
+                                    type="password"
+                                    name="currentPassword"
+                                    value={passwords.currentPassword}
+                                    onChange={handlePasswordFieldChange}
+                                    placeholder="Current Password"
+                                    className={styles.inputField}
+                                />
+                                <input
+                                    type="password"
+                                    name="newPassword"
+                                    value={passwords.newPassword}
+                                    onChange={handlePasswordFieldChange}
+                                    placeholder="New Password"
+                                    className={styles.inputField}
+                                />
+                                <input
+                                    type="password"
+                                    name="confirmPassword"
+                                    value={passwords.confirmPassword}
+                                    onChange={handlePasswordFieldChange}
+                                    placeholder="Confirm New Password"
+                                    className={styles.inputField}
+                                />
+                                <button onClick={handlePasswordUpdate} className={styles.btn}>Confirm</button>
+                                <button onClick={handleCancel} className={styles.btn}>Cancel</button>
+                            </>
+                        ) : (
+                            <>
+                                <span>********</span>
+                                <button onClick={() => setEditField('password')} className={styles.btn}>Update</button>
+                            </>
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     );

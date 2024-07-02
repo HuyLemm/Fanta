@@ -1,34 +1,121 @@
-.h2{
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.profileHeader {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.username {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.changePhotoBtn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    margin: 0 1rem;
+}
+
+.changePhotoBtn:hover {
+    background-color: #0056b3;
+}
+
+.profileSection {
+    width: 100%;
+}
+
+.section {
+    background-color: #2c2c2c;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    border: 0.1rem white solid;
+}
+
+.sectionTitle {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background-color: #1c1c1c;
+    padding: 0 10px;
+    font-size: 1.2rem;
+    color: #f0f0f0;
+    border-radius: 1rem;
+}
+
+.formGroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+label {
+    margin-right: 10px;
 }
 
 .inputField {
-    width: 100%;
-    padding: 1.25rem; /* Converted 20px to 1.25rem */
-    margin-bottom: 1.25rem; /* Converted 20px to 1.25rem */
-    border: 0.0625rem solid #ccc; /* Converted 1px to 0.0625rem */
-    border-radius: 0.25rem; /* Converted 4px to 0.25rem */
-    font-size: 1.125rem; /* Converted 18px to 1.125rem */
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    border-radius: 1rem;
+    margin-top: 0.5rem;
+}
+
+textarea.inputField {
+    height: 100px;
 }
 
 .btn {
-    padding: 0.75rem 1.5rem; /* Converted 12px 24px to 0.75rem 1.5rem */
-    border: none;
-    border-radius: 0.25rem; /* Converted 4px to 0.25rem */
-    background-color: #28a745;
+    padding: 10px 20px;
+    margin-left: 5px;
+    background-color:#007bff ;
     color: white;
-    font-size: 0.75rem; /* Converted 12px to 0.75rem */
+    border: none;
+    border-radius: 2rem;
     cursor: pointer;
-    margin: 0.625rem; /* Converted 10px to 0.625rem */
 }
 
 .btn:hover {
-    background-color: #218838;
+    background-color: rgb(255,255,255,0.5);
 }
 
-.message {
-    margin-top: 1.25rem; /* Converted 20px to 1.25rem */
-    font-size: 1rem;
+.submitBtn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
     color: white;
-    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submitBtn:hover {
+    background-color: #0056b3;
 }
