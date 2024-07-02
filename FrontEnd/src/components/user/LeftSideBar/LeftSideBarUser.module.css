@@ -13,13 +13,12 @@
 
 .sidebar .btn {
     display: block;
-    width: 100%;
+    width: 125%;
     margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
     padding: 0.625rem; /* Converted 10px to 0.625rem */
     color: #fff;
     border: none;
-    cursor: pointer;
-    border-radius: 0.625rem; /* Converted 10px to 0.625rem */
+    cursor: pointer; 
     background: transparent;
     font-size: larger;
     transition: all 0.3s ease;
