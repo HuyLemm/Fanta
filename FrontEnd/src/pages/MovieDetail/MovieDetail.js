@@ -6,6 +6,7 @@ import styles from './MovieDetail.module.css';
 import Footer from '../../components/public/Footer/Footer';
 import Loading from '../../components/public/LoadingEffect/Loading';
 import Notification, { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../components/public/Notification/Notification';
+import { getCookie } from '../../utils/Cookies';
 
 const MovieDetail = () => {
   const { id } = useParams(); 
@@ -13,8 +14,10 @@ const MovieDetail = () => {
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null); 
   const [recommendedMovies, setRecommendedMovies] = useState([]); 
+  const [watchHistory, setWatchHistory] = useState(null);
   const genreItemsRef = useRef([]); 
   const navigate = useNavigate(); 
+  const token = getCookie('jwt');
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -26,18 +29,12 @@ const MovieDetail = () => {
         const data = await response.json();
         setMovie(data);
         fetchRecommendedMovies(data.genre, id); // Fetch recommended movies based on genre
+        fetchWatchHistory(data._id); // Fetch watch history
       } catch (error) {
         notifyError('Fetch movie error:', error);
         setError(error.message);
       } finally {
         setLoading(false);
-      }
-
-      if (!sessionStorage.getItem('isRefreshed')) {
-        sessionStorage.setItem('isRefreshed', 'true');
-        window.location.reload();
-      } else {
-        sessionStorage.removeItem('isRefreshed');
       }
     };
 
@@ -60,15 +57,33 @@ const MovieDetail = () => {
       }
     };
 
+    const fetchWatchHistory = async (movieId) => {
+      try {
+        const response = await fetch(`http://localhost:5000/public/get-history/${movieId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Failed to load watch history');
+        }
+        const data = await response.json();
+        setWatchHistory(data);
+      } catch (err) {
+        console.error('Failed to load watch history:', err);
+      }
+    };
+
     fetchMovie();
-  }, [id]);
+  }, [id, token]);
 
   // Function to handle watch button click
   const handleWatchClick = () => {
+    const episode = watchHistory && watchHistory.latestEpisode ? watchHistory.latestEpisode - 1 : 0;
+    const time = watchHistory && watchHistory.currentTime ? watchHistory.currentTime : 0;
     sessionStorage.setItem('hasReloaded', 'false');
-    navigate(`/streaming/${id}`);
+    navigate(`/streaming/${id}`, { state: { episode, time } });
   };
-
 
   // Function to handle watch button click for recommended movies
   const handleWatchClickRecommended = (movieId) => {

@@ -72,7 +72,7 @@ const History = () => {
   }, []);
 
   const handleHistoryClick = (movieId) => {
-    sessionStorage.removeItem('hasReloaded');
+    sessionStorage.setItem('hasReloaded', 'false');
     navigate(`/streaming/${movieId}`);
   };
 
@@ -106,16 +106,16 @@ const History = () => {
           ) : (
             history.map((item) => {
               const currentTime = formatTime(item.currentTime);
-              const totalTime = formatTime(item.movie.duration * 60); // Assuming duration is in minutes
-              const progressPercentage = (item.currentTime / (item.movie.duration * 60)) * 100;
+              const totalTime = item.movie && item.movie.duration ? formatTime(item.movie.duration * 60) : '00:00:00';
+              const progressPercentage = item.movie && item.movie.duration ? (item.currentTime / (item.movie.duration * 60)) * 100 : 0;
 
               return (
                 <div key={item._id} className={styles.historyItem} onClick={() => handleHistoryClick(item.movie._id)}>
                   <img src={item.movie.background_url} alt={item.movie.title} className={styles.backgroundImage} />
                   <div className={styles.historyDetails}>
                     <h3 className={styles.movieTitle}>{item.movie.title}</h3>
-                    {item.movie.type === 'series' && (
-                      <p className={styles.episodeInfo}>Watched Up to Ep {Math.floor(item.currentTime / (item.movie.duration * 60) * item.movie.episodes.length) + 1}</p>
+                    {item.movie.type === 'series' && item.latestEpisode !== undefined && (
+                      <p className={styles.episodeInfo}>Watched Up to Ep {item.latestEpisode}</p>
                     )}
                     <div className={styles.progressTime}>
                       <span>{currentTime}/{totalTime}</span>
