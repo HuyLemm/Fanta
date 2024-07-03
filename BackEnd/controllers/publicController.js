@@ -369,30 +369,33 @@ exports.getTMDBEpisodeImages = async (req, res) => {
   }
 };
 
+// controllers/publicController.js
 exports.saveHistory = async (req, res) => {
-  const { videoId, currentTime, type, latestEpisode } = req.body;
+  const { videoId, currentTime, latestEpisode } = req.body;
   const userId = req.user._id;
 
   try {
-    let history = await HistoryModel.findOneAndUpdate(
-      { userId, videoId },
-      { currentTime, updatedAt: Date.now(), type, latestEpisode },
-      { new: true, upsert: true }
+    console.log(`Saving history for user: ${userId}, videoId: ${videoId}, currentTime: ${currentTime}, latestEpisode: ${latestEpisode}`);
+    const history = await HistoryModel.findOneAndUpdate(
+      { userId, movieId: videoId },
+      { currentTime, latestEpisode, updatedAt: Date.now() },
+      { upsert: true, new: true }
     );
-
     res.status(200).json(history);
   } catch (err) {
-    console.error(err);
+    console.error('Failed to save history:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
 
+// controllers/publicController.js
 exports.getHistory = async (req, res) => {
   const { videoId } = req.params;
   const userId = req.user._id;
 
   try {
-    const history = await HistoryModel.findOne({ userId, videoId });
+    const history = await HistoryModel.findOne({ userId, movieId: videoId });
+    console.log(`Fetched history for user: ${userId}, videoId: ${videoId}, history: ${history}`);
     if (!history) {
       return res.status(404).json({ error: 'History not found' });
     }
@@ -401,25 +404,47 @@ exports.getHistory = async (req, res) => {
     console.error('Failed to fetch history:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
+
 
 exports.getHistoryForUser = async (req, res) => {
   try {
     const userId = req.user._id;
     const history = await HistoryModel.find({ userId }).sort({ updatedAt: -1 }).exec();
-    const movieIds = history.map(h => h.videoId);
+    const movieIds = history.map(h => h.movieId);
     const movies = await MovieModel.find({ _id: { $in: movieIds } }).exec();
     
     const historyWithMovies = history.map(h => {
-      const movie = movies.find(m => m._id.toString() === h.videoId);
+      const movie = movies.find(m => m._id.toString() === h.movieId.toString());
+      let duration = movie.duration;
+
+      console.log(`Processing movie: ${movie.title}, type: ${movie.type}`);
+      
+      if (movie.type === 'series' && h.latestEpisode !== undefined) {
+        console.log(`Searching for episode ${h.latestEpisode} in series ${movie.title}`);
+        const episode = movie.episodes[h.latestEpisode - 1]; // Assuming episodeNumber is 1-based index
+        if (episode) {
+          duration = episode.duration;
+          console.log(`Found episode ${h.latestEpisode} with duration ${episode.duration} minutes`);
+        } else {
+          console.log(`Episode ${h.latestEpisode} not found for series ${movie.title}`);
+        }
+      }
+
+      console.log(`Final duration for movie ${movie.title}: ${duration} minutes`);
+
       return {
         ...h._doc,
-        movie
+        movie: {
+          ...movie._doc,
+          duration,
+        }
       };
     });
 
     res.status(200).json(historyWithMovies);
   } catch (error) {
+    console.error('Failed to fetch history:', error);
     res.status(500).json({ error: 'Failed to fetch history' });
   }
-}
+};
