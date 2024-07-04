@@ -20,10 +20,20 @@
 .searchResultsContainer {
   display: flex;
   flex: 1;
-  background: url(../../assets/images/background.jpg);
+  background: url(../../assets/images/streaming.jpg);
   background-size: cover;
   padding-top: 4rem; /* Add padding-top to create space from the header */
 }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: -1;
+} 
 
 /* Main content area */
 .mainContent {

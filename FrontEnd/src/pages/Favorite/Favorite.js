@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../utils/Cookies';
 import styles from './Favorite.module.css';
 import Loading from '../../components/public/LoadingEffect/Loading';
-import Notification, { notifyError } from '../../components/public/Notification/Notification';
+import Notification, { notifyError, notifySuccess } from '../../components/public/Notification/Notification';
 
 const Favourite = () => {
   const [watchlist, setWatchlist] = useState([]);
+  const [displayList, setDisplayList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeDropdown, setActiveDropdown] = useState(null); // State to manage active dropdown
+  const [isFiltered, setIsFiltered] = useState(false); // State to track if the list is filtered
   const token = getCookie('jwt');
   const navigate = useNavigate();
 
@@ -26,6 +28,7 @@ const Favourite = () => {
         }
         const data = await response.json();
         setWatchlist(data);
+        setDisplayList(data);
       } catch (error) {
         notifyError(error.message);
       } finally {
@@ -40,12 +43,37 @@ const Favourite = () => {
     navigate(`/movie/${movieId}`);
   };
 
-  const handleRemoveFromFavorite = (movieId) => {
-    // Logic to remove movie from favorites
+  const handleRemoveFromFavorite = async (movieId) => {
+    try {
+      const response = await fetch('http://localhost:5000/user/remove-from-favorite', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ movieId })
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const updatedWatchlist = watchlist.filter(item => item.movie._id !== movieId);
+      setWatchlist(updatedWatchlist);
+      setDisplayList(updatedWatchlist);
+      notifySuccess('Removed from your favorite successfully!');
+    } catch (error) {
+      notifyError(error.message);
+    }
   };
 
   const handleSimilarGenre = (genre) => {
-    // Logic to show movies of similar genre
+    const similarMovies = watchlist.filter(item => item.movie.genre.includes(genre));
+    setDisplayList(similarMovies);
+    setIsFiltered(true);
+  };
+
+  const handleShowAll = () => {
+    setDisplayList(watchlist);
+    setIsFiltered(false);
   };
 
   const toggleDropdown = (movieId) => {
@@ -72,8 +100,11 @@ const Favourite = () => {
     <div className={styles.favoriteContainer}>
       <Notification />
       <h1>Your Favorite Movies</h1>
-      {watchlist.length > 0 ? (
-        watchlist.map((item) => (
+      {isFiltered && (
+        <button className={styles.showAllButton} onClick={handleShowAll}>Show All</button>
+      )}
+      {displayList.length > 0 ? (
+        displayList.map((item) => (
           <div key={item._id} className={styles.movieRow}>
             <div className={styles.posterContainer}>
               <img
@@ -118,7 +149,7 @@ const Favourite = () => {
                 </button>
                 <button
                   className={styles.dropdownButton}
-                  onClick={() => handleSimilarGenre(item.movie.genre)}
+                  onClick={() => handleSimilarGenre(item.movie.genre[0])} // Gọi hàm với thể loại đầu tiên
                 >
                   Similar genre
                 </button>

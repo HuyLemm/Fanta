@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import styles from './Streaming.module.css';
 import { getCookie } from '../../utils/Cookies';
 import Loading from '../../components/public/LoadingEffect/Loading';
@@ -18,44 +18,20 @@ const Streaming = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-  const [episodeImages, setEpisodeImages] = useState({});
-  const [castImages, setCastImages] = useState({});
-  const [directorImages, setDirectorImages] = useState({});
-  const [currentEpisode, setCurrentEpisode] = useState(() => {
+  const [initialEpisode, setInitialEpisode] = useState(() => {
     const savedEpisode = sessionStorage.getItem('currentEpisode');
     return savedEpisode ? parseInt(savedEpisode, 10) : (location.state?.episode || 0);
   });
-  const [initialTime, setInitialTime] = useState(location.state?.time || null);
-  const navigate = useNavigate();
+  const [initialTime, setInitialTime] = useState(location.state?.time || 0);
   const token = getCookie('jwt');
-  const isSwitchingEpisode = useRef(false);
 
   const getStreamingUrl = (movie) => {
     if (movie.type === 'movie') {
       return movie.streaming_url;
     } else if (movie.type === 'series' && movie.episodes && movie.episodes.length > 0) {
-      return movie.episodes[currentEpisode].streaming_url;
+      return movie.episodes[initialEpisode].streaming_url;
     }
     return null;
-  };
-
-  const saveCurrentTime = async (videoId, currentTime, latestEpisode) => {
-    try {
-      console.log(`Saving current time: ${currentTime} and latest episode: ${latestEpisode} for movieId: ${videoId}`);
-      const response = await fetch('http://localhost:5000/public/save-history', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ videoId, currentTime, latestEpisode }),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to save watch time');
-      }
-    } catch (err) {
-      console.error('Failed to save watch time:', err);
-    }
   };
 
   useEffect(() => {
@@ -84,47 +60,8 @@ const Streaming = () => {
         }
         const data = await response.json();
         setMovie(data);
-        await fetchCastAndDirectorImages(data.cast, data.director);
       } catch (error) {
         notifyError(error.message);
-      }
-    };
-
-    const fetchCastAndDirectorImages = async (cast, director) => {
-      try {
-        const response = await fetch('http://localhost:5000/public/get-cast-and-director-images', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ cast, director })
-        });
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-        const data = await response.json();
-        setCastImages(data.castImages);
-        setDirectorImages(data.directorImages);
-        console.log('Fetched cast and director images:', data);
-      } catch (error) {
-        console.log('Fetch images error:', error);
-      }
-    };
-
-    const fetchEpisodeImages = async (movieId) => {
-      try {
-        const response = await fetch(`http://localhost:5000/public/get-tmdb-episode-images/${movieId}`);
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-        const data = await response.json();
-        const episodeImagesObject = data.reduce((acc, image, index) => {
-          acc[index] = image;
-          return acc;
-        }, {});
-        setEpisodeImages(episodeImagesObject);
-      } catch (error) {
-        console.log('Fetch episode images error:', error);
       }
     };
 
@@ -155,15 +92,16 @@ const Streaming = () => {
     const fetchData = async () => {
       await fetchCurrentUser();
       await fetchMovie();
-      await fetchEpisodeImages(id);
       if (!location.state) {
-        await fetchInitialTime(id, currentEpisode);
+        await fetchInitialTime(id, initialEpisode);
+      } else {
+        setInitialTime(location.state.time || 0);
       }
       setLoading(false);
     };
 
     fetchData();
-  }, [id, token, currentEpisode, location.state]);
+  }, [id, token, initialEpisode, location.state]);
 
   useEffect(() => {
     const hasReloaded = sessionStorage.getItem('hasReloaded');
@@ -175,33 +113,8 @@ const Streaming = () => {
     }
   }, [initialTime]);
 
-  
-  useEffect(() => {
-    sessionStorage.setItem('currentEpisode', currentEpisode);
-  }, [currentEpisode]);
-
-  const handleEpisodeChange = async (index) => {
-    console.log(`Changing to episode: ${index + 1}`);
-    sessionStorage.setItem('hasReloaded', 'false');
-
-    // Lưu tập mới và thời gian 0 ngay lập tức
-    isSwitchingEpisode.current = true;
-    await saveCurrentTime(id, 0, index + 1);
-    setCurrentEpisode(index); // Đặt tập mới
-    setInitialTime(0); // Đặt thời gian của tập mới về 0
-    console.log(`New currentEpisode: ${index}, initialTime: 0`);
-    setTimeout(() => {
-      isSwitchingEpisode.current = false;
-    }, 1); // Thời gian chờ tùy chỉnh để đảm bảo đã chuyển tập xong
-
-  };
-
-  useEffect(() => {
-    console.log(`Streaming component updated: currentEpisode = ${currentEpisode}, initialTime = ${initialTime}`);
-  }, [currentEpisode, initialTime]);
-
   if (loading || initialTime === null) {
-    return <div><Loading/></div>;
+    return <div><Loading /></div>;
   }
 
   if (error) {
@@ -231,9 +144,9 @@ const Streaming = () => {
                     type={videoType}
                     videoId={videoId}
                     initialTime={initialTime}
-                    currentEpisode={currentEpisode}
+                    currentEpisode={initialEpisode}
                     setInitialTime={setInitialTime}
-                    isSwitchingEpisode={isSwitchingEpisode}
+                    isSwitchingEpisode={false}
                   />
                 ) : (
                   <div>No video available</div>
@@ -242,21 +155,26 @@ const Streaming = () => {
               <div className={styles.header}>
                 <h1 className={styles.movieTitle}>{movie.title}</h1>
                 {movie.type === 'series' && (
-                  <div className={styles.epTitle}> &gt; EPISODE {currentEpisode + 1}</div>
+                  <div className={styles.epTitle}> &gt; EPISODE {initialEpisode + 1}</div>
                 )}
               </div>
               <RatingsDescription movie={movie} id={id} currentUser={currentUser} />
               <People 
                 movie={movie} 
-                castImages={castImages} 
-                directorImages={directorImages} 
               />
               <Comments 
                 movieId={id} 
                 currentUser={currentUser} 
               />
             </div>
-            <Episode episodes={movie.episodes} episodeImages={episodeImages} setCurrentEpisode={handleEpisodeChange} />
+            <Episode 
+              movieId={movie._id} 
+              episodes={movie.episodes} 
+              type={movie.type} 
+              initialEpisode={initialEpisode} 
+              initialTime={initialTime} 
+              genres={movie.genre}
+            />
           </div>
         </div>
       </div>

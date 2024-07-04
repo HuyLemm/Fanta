@@ -5,7 +5,8 @@
   color: white;
   padding: 20px;
   margin-top: 3rem;
-  width: 80vw;
+  width: 70vw;
+  height: auto;
 }
 
 /* Layout for each movie row in the watchlist */

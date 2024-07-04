@@ -78,11 +78,18 @@ const MovieDetail = () => {
   }, [id, token]);
 
   // Function to handle watch button click
-  const handleWatchClick = () => {
-    const episode = watchHistory && watchHistory.latestEpisode ? watchHistory.latestEpisode - 1 : 0;
-    const time = watchHistory && watchHistory.currentTime ? watchHistory.currentTime : 0;
+  const handleWatchClick = () => { 
     sessionStorage.setItem('hasReloaded', 'false');
-    navigate(`/streaming/${id}`, { state: { episode, time } });
+    navigate(`/streaming/${id}`);
+    if (token) {
+      if (watchHistory) {
+        navigate(`/streaming/${id}`, { state: { time: watchHistory.currentTime, episode: watchHistory.latestEpisode - 1 } });
+      } else {
+        navigate(`/streaming/${id}`);
+      }
+    } else {
+      navigate(`/streaming/${id}`);
+    }
   };
 
   // Function to handle watch button click for recommended movies

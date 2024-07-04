@@ -375,7 +375,6 @@ exports.saveHistory = async (req, res) => {
   const userId = req.user._id;
 
   try {
-    console.log(`Saving history for user: ${userId}, videoId: ${videoId}, currentTime: ${currentTime}, latestEpisode: ${latestEpisode}`);
     const history = await HistoryModel.findOneAndUpdate(
       { userId, movieId: videoId },
       { currentTime, latestEpisode, updatedAt: Date.now() },
@@ -395,7 +394,6 @@ exports.getHistory = async (req, res) => {
 
   try {
     const history = await HistoryModel.findOne({ userId, movieId: videoId });
-    console.log(`Fetched history for user: ${userId}, videoId: ${videoId}, history: ${history}`);
     if (!history) {
       return res.status(404).json({ error: 'History not found' });
     }
@@ -418,22 +416,16 @@ exports.getHistoryForUser = async (req, res) => {
       const movie = movies.find(m => m._id.toString() === h.movieId.toString());
       let duration = movie.duration;
 
-      console.log(`Processing movie: ${movie.title}, type: ${movie.type}`);
-      
       if (movie.type === 'series' && h.latestEpisode !== undefined) {
-        console.log(`Searching for episode ${h.latestEpisode} in series ${movie.title}`);
         const episode = movie.episodes[h.latestEpisode - 1]; // Assuming episodeNumber is 1-based index
         if (episode) {
           duration = episode.duration;
-          console.log(`Found episode ${h.latestEpisode} with duration ${episode.duration} minutes`);
         } else {
           console.log(`Episode ${h.latestEpisode} not found for series ${movie.title}`);
         }
       }
 
-      console.log(`Final duration for movie ${movie.title}: ${duration} minutes`);
-
-      return {
+      return { 
         ...h._doc,
         movie: {
           ...movie._doc,
@@ -448,3 +440,50 @@ exports.getHistoryForUser = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch history' });
   }
 };
+
+exports.getTop6SimilarMoviesAndTopRated = async (req, res) => {
+  try {
+    const { genres, currentMovieId } = req.body; // Lấy danh sách thể loại và ID phim hiện tại từ yêu cầu
+
+    if (!genres || !Array.isArray(genres) || genres.length === 0) {
+      return res.status(400).json({ message: 'Genres are required and must be an array.' });
+    }
+
+    if (!currentMovieId) {
+      return res.status(400).json({ message: 'Current movie ID is required.' });
+    }
+
+    // Tìm các bộ phim có nhiều thể loại giống nhau nhất
+    let movies = await MovieModel.find({
+      _id: { $ne: currentMovieId }, // Loại trừ phim hiện tại
+      genre: { $in: genres }
+    });
+
+    // Tính toán số lượng thể loại khớp và rating trung bình cho mỗi phim
+    movies = await Promise.all(
+      movies.map(async (movie) => {
+        const matchedGenres = movie.genre.filter((genre) => genres.includes(genre)).length;
+        const ratings = await RatingModel.find({ movieId: movie._id });
+        const averageRating = ratings.length
+          ? ratings.reduce((acc, rating) => acc + rating.rating, 0) / ratings.length
+          : 0;
+        return { ...movie._doc, matchedGenres, averageRating };
+      })
+    );
+
+    // Sắp xếp các phim dựa trên số lượng thể loại khớp và rating trung bình
+    movies.sort((a, b) => {
+      if (b.matchedGenres !== a.matchedGenres) {
+        return b.matchedGenres - a.matchedGenres;
+      }
+      return b.averageRating - a.averageRating;
+    });
+
+    console.log('Recommended Movies:', movies.slice(0, 6));
+
+    res.json(movies.slice(0, 8)); // Giới hạn kết quả đến 6 phim
+  } catch (error) {
+    console.error('Error fetching similar movies:', error);
+    res.status(500).send('Server Error');
+  }
+}

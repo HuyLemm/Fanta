@@ -16,8 +16,10 @@ router.put('/update-reviews/:reviewId', authMiddleware.isUser, userController.up
 router.post('/add-reviews/:movieId', authMiddleware.isUser, userController.addReviews);
 router.post('/add-and-update-rating/:movieId', authMiddleware.isUser, userController.addOrupdateRating);
 router.post('/toggle-watchlist', authMiddleware.isUser, userController.toggleWatchlist);
+router.post('/get-similar-genre-movies', authMiddleware.isUser, userController.getSimilarGenreMovies);
 
 // DELETE
 router.delete('/delete-reviews/:reviewId', authMiddleware.isUser, userController.deleteReview);
+router.delete('/remove-from-favorite', authMiddleware.isUser, userController.removeFromFavorite);
 
 module.exports = router;

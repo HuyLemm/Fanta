@@ -214,3 +214,36 @@ exports.getFavorite = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+exports.removeFromFavorite = async (req, res) => {
+  try {
+    const { movieId } = req.body;
+    const userId = req.user._id; 
+
+    // Xóa bộ phim khỏi danh sách yêu thích của người dùng
+    await WatchlistModel.findOneAndDelete({ user: userId, movie: movieId });
+
+    res.status(200).json({ message: 'Removed from favourites successfully' });
+  } catch (error) {
+    console.error('Error removing from favourites:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+exports.getSimilarGenreMovies = async (req, res) => {
+  try {
+    const { genre } = req.body;
+    const userId = req.user._id; // Giả sử bạn có user ID từ token
+
+    // Tìm các bộ phim trong danh sách yêu thích của người dùng có cùng thể loại
+    const watchlist = await WatchlistModel.find({ user: userId }).populate('movie');
+    const similarMovies = watchlist
+      .filter(item => item.movie.genre.includes(genre))
+      .map(item => item.movie);
+
+    res.status(200).json(similarMovies);
+  } catch (error) {
+    console.error('Error fetching similar genre movies:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
