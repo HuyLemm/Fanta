@@ -5,9 +5,10 @@
 
 .historyButton {
   padding: 0.625rem 1.25rem;
-  font-size: 1rem;
-  background-color: #fb5607;
-  color: #fff;
+  padding-bottom: 0rem;
+  font-size: 1.7rem;
+  background:transparent;
+  color: #fb5607;
   border: none;
   cursor: pointer;
   border-radius: 0.3125rem;
@@ -15,7 +16,7 @@
 }
 
 .historyButton:hover {
-  background-color: #333;
+  color: #333;
 }
 
 .historyDropdown {
