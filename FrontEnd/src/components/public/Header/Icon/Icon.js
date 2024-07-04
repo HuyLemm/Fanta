@@ -120,7 +120,7 @@ const UserIcon = () => {
               <FaUser className={styles.icon} /> User Profile
             </button>
             <button onClick={handleLogout} className={styles.loginButton}>
-              <FaSignOutAlt className={styles.icon} /> Logout
+              <FaSignOutAlt className={styles.logouticon} /> Logout
             </button>
           </div>
         </div>

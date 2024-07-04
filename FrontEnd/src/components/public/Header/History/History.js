@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../../../utils/Cookies';
 import { AuthContext } from '../../../../components/auth/AuthContext';
+import { FaRegClock } from "react-icons/fa6";
 import styles from './History.module.css';
 
 const formatTime = (seconds) => {
@@ -83,7 +84,7 @@ const History = () => {
         onMouseEnter={() => setShowHistory(true)}
         onMouseLeave={() => setShowHistory(false)}
       >
-        History
+        <FaRegClock />
       </button>
       {showHistory && (
         <div

@@ -56,7 +56,7 @@
   padding: 0.3125rem 0.625rem;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+
 }
 
 .loginButton:hover,
@@ -72,4 +72,8 @@
 
 .icon {
   margin-right: 0.5rem;
+}
+
+.logouticon{
+  margin-right: 1.5rem;
 }
