@@ -4,9 +4,8 @@
 }
 
 .historyButton {
-  padding: 0.625rem 1.25rem;
-  padding-bottom: 0rem;
-  font-size: 1.7rem;
+  padding: 0rem 0.625rem;
+  font-size: 2rem;
   background:transparent;
   color: #fb5607;
   border: none;
