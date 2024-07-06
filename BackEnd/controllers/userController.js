@@ -220,8 +220,13 @@ exports.removeFromFavorite = async (req, res) => {
     const { movieId } = req.body;
     const userId = req.user._id; 
 
-    // Xóa bộ phim khỏi danh sách yêu thích của người dùng
-    await WatchlistModel.findOneAndDelete({ user: userId, movie: movieId });
+    if (Array.isArray(movieId)) {
+      // Xóa một mảng các phim khỏi danh sách yêu thích
+      await WatchlistModel.deleteMany({ user: userId, movie: { $in: movieId } });
+    } else {
+      // Xóa một phim khỏi danh sách yêu thích
+      await WatchlistModel.findOneAndDelete({ user: userId, movie: movieId });
+    }
 
     res.status(200).json({ message: 'Removed from favourites successfully' });
   } catch (error) {

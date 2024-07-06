@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 import styles from './MainContent.module.css';
 import { getCookie } from '../../../utils/Cookies';
+import { capitalizeFirstLetter } from '../../../utils/Function';
 import { notifyInfo, notifySuccess, notifyWarning, notifyError } from '../../../components/public/Notification/Notification';
 
 const MainContent = ({ movie, handleWatchClick }) => {
@@ -82,11 +83,6 @@ const MainContent = ({ movie, handleWatchClick }) => {
   const averageDuration = movie.type === 'series' && movie.episodes.length > 0
     ? Math.round(movie.episodes.reduce((total, episode) => total + episode.duration, 0) / movie.episodes.length)
     : null;
-
-  // Capitalize the first letter of a string
-  const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
 
   return (
     <section className={styles.mainSection}>

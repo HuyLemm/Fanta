@@ -65,7 +65,7 @@ const GenreSection = ({ type }) => {
     <div className={styles.genreSectionsContainer}>
       {genres.length > 0 && genres.map((genre, index) => (
         <div key={index} className={styles.genreSection}>
-          <h2>{genre.name + ' Movies'}</h2>
+          <h2>{genre.name + (type === 'series' ? ' Series' : ' Movies')}</h2> {/* Updated title logic */}
           {/* Container for genre items */}
           <div className={styles.genreList}>
             {/* Previous button */}

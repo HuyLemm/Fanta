@@ -1,12 +1,83 @@
-/* Favorite.module.css */
-
 /* Container for the entire favorite movies section */
 .favoriteContainer {
   color: white;
   padding: 20px;
-  margin-top: 3rem;
+  margin-top: 5rem;
   width: 70vw;
-  height: auto;
+  height: 96vh; /* Adjust the height to make the container fit within the viewport */
+  background-color: rgba(0, 0, 0, 0.7); /* Add semi-transparent background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow */
+  display: flex;
+  flex-direction: column; /* Arrange children in a column */
+  align-items: center; /* Center align children horizontally */
+  margin-left: auto;
+  margin-right: auto;
+  position: relative; /* Added for positioning fixed header */
+}
+
+.h2 {
+  font-family: 'Hatton', sans-serif;
+  font-size: 2rem;
+  color: aliceblue;
+  z-index: 1;
+  flex-grow: 1; /* Added to make it occupy available space */
+  margin-left: 3rem;
+  text-align: center;
+
+}
+
+/* Header that will be fixed at the top */
+.fixedHeader {
+  background-color: rgba(0, 0, 0, 0.8); /* Background color to match the container */
+  padding: 10px;
+  z-index: 1; /* Ensure the header is above the content */
+  display: flex; /* Added to arrange title and button */
+  align-items: center;
+  justify-content: center; /* Center title */
+  position: absolute; /* Change to absolute */
+  top: 20px; /* Positioning inside the container */
+  left: 20px; /* Positioning inside the container */
+  right: 20px; /* Positioning inside the container */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+}
+
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  position: absolute; /* Position absolutely inside the header */
+  right: 10px; /* Align to the right side of the header */
+  top: 50%;
+  transform: translateY(-50%); /* Center vertically */
+  z-index: 1;
+  
+}
+
+/* Content inside the container that can scroll */
+.scrollableContent {
+  width: 100%;
+  height: calc(100% - 100px); /* Adjust height to leave space for the fixed header */
+  overflow-y: auto; /* Allow vertical scrolling */
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 4rem; /* Add margin to the top to avoid overlap with fixed header */
+}
+
+/* Custom Scrollbar Styles */
+.favoriteContainer::-webkit-scrollbar, .scrollableContent::-webkit-scrollbar {
+  width: 10px;
+}
+
+.favoriteContainer::-webkit-scrollbar-thumb, .scrollableContent::-webkit-scrollbar-thumb {
+  background-color: #ff4500;
+  border-radius: 10px;
+}
+
+.favoriteContainer::-webkit-scrollbar-track, .scrollableContent::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
 }
 
 /* Layout for each movie row in the watchlist */
@@ -17,6 +88,12 @@
   margin-bottom: 20px;
   padding: 10px;
   border-bottom: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.1); /* Add semi-transparent background */
+  border-radius: 10px; /* Rounded corners for movie row */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow for movie row */
+  width: 90%; /* Make movie row take full width */
+  max-width: 1000px; /* Optional: Limit the maximum width of movie row */
+  margin: 0 auto; /* Center movie row horizontally */
 }
 
 /* Container for the movie poster */
@@ -41,7 +118,7 @@
 .watchButton {
   position: absolute;
   bottom: 10px;
-  left: 50%;
+  left: 45%;
   transform: translateX(-50%);
   opacity: 0;
   visibility: hidden;
@@ -127,4 +204,38 @@
 .dropdownButton:hover {
   background-color: #333;
   color: white;
+}
+
+/* Checkbox styles */
+.checkbox {
+  margin-right: 10px;
+}
+
+/* Delete selected button */
+.deleteSelectedButton {
+  margin-left: 10px;
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.deleteSelectedButton:hover {
+  background-color: #333;
+}
+
+.selectButton {
+  background-color: #fb5607;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 1rem;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.selectButton:hover {
+  background-color: #333;
 }
