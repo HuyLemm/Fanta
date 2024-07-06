@@ -48,11 +48,6 @@
   transition: transform 0.3s ease;
 }
 
-/* Phóng to ảnh khi hover */
-.imageContainer:hover img {
-  transform: scale(1.2); /* Thay đổi giá trị scale để phóng to hơn */
-}
-
 /* Watch button trong container hình ảnh */
 .imageContainer .watchButton {
   opacity: 0;
@@ -70,10 +65,72 @@
   color: white;
 }
 
-
 .imageContainer:hover .watchButton {
   opacity: 1;
   visibility: visible;
+}
+
+/* Hover section styles */
+.hoverSection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  z-index: 10;
+}
+
+.item:hover .hoverSection {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hoverSection .topSection {
+  height: 60%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hoverSection .bottomSection {
+  height: 40%;
+  background-color: black;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.hoverSection .topLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hoverSection .watchButton {
+  margin-bottom: 0.5rem;
+}
+
+.hoverSection .genre {
+  margin-top: 0;
+}
+
+.genre{
+  font-size: 0.5rem;
+}
+
+.hoverSection:hover {
+  transform: scale(1.3);
 }
 
 /* Content container for movie information */
@@ -87,11 +144,6 @@
 /* Styling for movie title */
 .title {
   font-weight: 500;
-}
-
-/* Styling for description */
-.description {
-  font-weight: 300;
 }
 
 /* Button styles for navigating genres */
@@ -132,7 +184,7 @@
   overflow-y: hidden;
   width: calc(100% - 5rem); /* Adjust width to account for padding */
   padding-bottom: 0.625rem; 
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 }
 
 .genreItems::-webkit-scrollbar {
@@ -145,16 +197,15 @@ body {
 
 /* General watch button styling */
 .watchButton {
-  position: absolute;
+  position: relative;
   bottom: 0.625rem; 
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   transition: background-color 0.3s ease;
   background-color: #fb5607;
   border: none;
   border-radius: 50%;
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './GenreSection.module.css';
-import { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../../components/public/Notification/Notification';
+import { notifyError } from '../../../components/public/Notification/Notification';
 import { FaPlay } from 'react-icons/fa';
 
 const GenreSection = ({ type }) => {
-  const genreItemsRef = useRef([]); 
-  const [genres, setGenres] = useState([]); 
-  const navigate = useNavigate(); 
+  const genreItemsRef = useRef([]);
+  const [genres, setGenres] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -80,6 +80,15 @@ const GenreSection = ({ type }) => {
                   <div className={styles.imageContainer}>
                     <img src={movie.poster_url} alt={movie.title} />
                     <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
+                    <div className={styles.hoverSection}>
+                      <div className={styles.topSection} style={{ backgroundImage: `url(${movie.background_url})` }}></div>
+                      <div className={styles.bottomSection}>
+                        <div className={styles.topLeft}>
+                          <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
+                          <div className={styles.genre}>{movie.brief_description}</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   {/* Movie title */}
                   <div className={styles.content}>
