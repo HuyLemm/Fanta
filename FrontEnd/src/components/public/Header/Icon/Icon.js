@@ -6,6 +6,7 @@ import guestIcon from '../../../../assets/images/guest.png';
 import adminIcon from '../../../../assets/images/admin.jpg';
 import styles from './Icon.module.css';
 import { AuthContext } from '../../../../components/auth/AuthContext';
+import Loading from '../../../public/LoadingEffect/Loading';
 
 const UserIcon = () => {
   const { authStatus, setAuthStatus } = useContext(AuthContext);
@@ -67,7 +68,7 @@ const UserIcon = () => {
 
   const renderUserIcon = () => {
     if (authStatus.checking) {
-      return <div>Loading...</div>;
+      return <div><Loading/></div>;
     }
 
     if (!authStatus.loggedIn) {

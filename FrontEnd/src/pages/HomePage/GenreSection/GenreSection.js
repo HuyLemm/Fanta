@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './GenreSection.module.css';
 import { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../../components/public/Notification/Notification';
+import { FaPlay } from 'react-icons/fa';
+
 const GenreSection = ({ type }) => {
   const genreItemsRef = useRef([]); 
   const [genres, setGenres] = useState([]); 
@@ -77,7 +79,7 @@ const GenreSection = ({ type }) => {
                   {/* Container for movie image and watch button */}
                   <div className={styles.imageContainer}>
                     <img src={movie.poster_url} alt={movie.title} />
-                    <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}>Watch</button>
+                    <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
                   </div>
                   {/* Movie title */}
                   <div className={styles.content}>
