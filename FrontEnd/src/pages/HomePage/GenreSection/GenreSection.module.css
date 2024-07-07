@@ -84,17 +84,21 @@
   justify-content: space-between;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.4s ease;
   z-index: 10;
+  transform-origin: top; /* Set the transform origin to top left */
 }
 
 .item:hover .hoverSection {
   opacity: 1;
   visibility: visible;
+  transform: scale(1.3); /* Scale the hover section */
+  z-index: 20; /* Ensure it appears on top */
 }
 
+/* Other styles remain unchanged */
 .hoverSection .topSection {
-  height: 60%;
+  height: 40%;
   background-size: cover;
   background-position: center;
   display: flex;
@@ -103,7 +107,7 @@
 }
 
 .hoverSection .bottomSection {
-  height: 40%;
+  height: 60%;
   background-color: black;
   padding: 1rem;
   display: flex;
@@ -125,7 +129,7 @@
   margin-top: 0;
 }
 
-.genre{
+.genre {
   font-size: 0.5rem;
 }
 
@@ -144,26 +148,26 @@
 /* Styling for movie title */
 .title {
   font-weight: 500;
+  font-size: 1.1rem;
 }
 
 /* Button styles for navigating genres */
 .prevGenre, .nextGenre {
-  background-color: #333;
+  background:transparent;
   border: none;
-  color: #fff;
-  padding: 0.625rem; 
+  color: #fff; 
   cursor: pointer;
   transition: background-color 0.3s ease;
   z-index: 1;
   width: 2rem; 
   height: 4.0625rem; 
-  font-size: large;
-  top: 40%; /* Center vertically */
+  font-size: 2.5rem;
+  top: 50%; /* Center vertically */
   transform: translateY(-50%); /* Center vertically */
 }
 
 .prevGenre:hover, .nextGenre:hover {
-  background-color: #555;
+  color: #fb5607;
 }
 
 .prevGenre {
@@ -173,7 +177,7 @@
 
 .nextGenre {
   position: absolute;
-  right: 0; /* Move just inside the container */
+  right: 0; 
 }
 
 /* Container for genre items */

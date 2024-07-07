@@ -4,8 +4,8 @@
   padding: 20px;
   margin-top: 5rem;
   width: 70vw;
-  height: 96vh; /* Adjust the height to make the container fit within the viewport */
-  background-color: rgba(0, 0, 0, 0.7); /* Add semi-transparent background */
+  height: 90vh; /* Adjust the height to make the container fit within the viewport */
+  background-color: rgba(0, 0, 0, 0.5); 
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow */
   display: flex;
@@ -28,8 +28,7 @@
 }
 
 /* Header that will be fixed at the top */
-.fixedHeader {
-  background-color: rgba(0, 0, 0, 0.8); /* Background color to match the container */
+.fixedHeader { /* Background color to match the container */
   padding: 10px;
   z-index: 1; /* Ensure the header is above the content */
   display: flex; /* Added to arrange title and button */
@@ -107,6 +106,7 @@
   height: auto;
   margin-right: 20px;
   transition: transform 0.3s ease;
+  border-radius: 0.5rem;
 }
 
 /* Scale up the poster image on hover */

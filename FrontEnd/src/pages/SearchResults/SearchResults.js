@@ -38,10 +38,10 @@ const SearchResults = () => {
   return (
     <div className={styles.searchResultsPage}>
       <Notification />
+      <div className={styles.overlay}></div> 
       <div className={styles.searchResultsContainer}>
         {/* Main content area */}
         <div className={styles.mainContent}>
-          <div className={styles.overlay}></div>
           {/* Heading for search results */}
           <h2 className={styles.h2}>Search Results for: "{getQuery()}"</h2>
           <div className={styles.moviesGrid}>

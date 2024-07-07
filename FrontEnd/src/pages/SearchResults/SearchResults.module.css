@@ -14,6 +14,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative; /* Ensure the page is the relative parent for overlay */
 }
 
 /* Container for the search results content */
@@ -25,14 +26,15 @@
   padding-top: 4rem; /* Add padding-top to create space from the header */
 }
 
+/* Overlay effect */
 .overlay {
-  position: absolute;
+  position: fixed; /* Changed to fixed to cover the entire page */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: -1;
+  background: rgba(0, 0, 0, 0.7); /* Adjusted opacity for a dim effect */
+  z-index: 2; /* Ensure it sits above the content */
 } 
 
 /* Main content area */
@@ -41,25 +43,14 @@
   padding: 1.25rem; /* Converted 20px to 1.25rem */
   color: aliceblue;
   position: relative;
-  z-index: 0;
+  z-index: 3; /* Ensure it sits above the overlay */
 }
 
 /* Sidebar area */
 .sidebar {
   flex: 3;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-
-/* Overlay effect */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.45);
-  z-index: -1;
+  z-index: 3;
 }
 
 /* Grid layout for displaying movies */
@@ -69,6 +60,7 @@
   display: grid;
   grid-template-columns: repeat(5, 0.18fr);
   gap: 1rem; /* Converted 20px to 1.25rem */
+  z-index: 3; /* Ensure it sits above the overlay */
 }
 
 /* Individual movie item */
@@ -134,9 +126,5 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 2; /* Add this line to ensure the footer is positioned above the overlay */
-}
-
-.h {
-  color: aliceblue;
+  z-index: 3; /* Ensure the footer is positioned above the overlay */
 }

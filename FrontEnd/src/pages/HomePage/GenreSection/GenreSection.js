@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './GenreSection.module.css';
 import { notifyError } from '../../../components/public/Notification/Notification';
+import { GrNext } from "react-icons/gr";
+import { GrPrevious } from "react-icons/gr";
 import { FaPlay } from 'react-icons/fa';
 
 const GenreSection = ({ type }) => {
@@ -71,7 +73,7 @@ const GenreSection = ({ type }) => {
           {/* Container for genre items */}
           <div className={styles.genreList}>
             {/* Previous button */}
-            <button className={styles.prevGenre} onClick={() => handlePrevClick(index)}>&lt;</button>
+            <button className={styles.prevGenre} onClick={() => handlePrevClick(index)}><GrPrevious /></button>
             {/* Scrollable list of movies */}
             <div className={styles.genreItems} ref={(el) => genreItemsRef.current[index] = el}>
               {genre.movies && genre.movies.map((movie, movieIndex) => (
@@ -98,7 +100,7 @@ const GenreSection = ({ type }) => {
               ))}
             </div>
             {/* Next button */}
-            <button className={styles.nextGenre} onClick={() => handleNextClick(index)}>&gt;</button>
+            <button className={styles.nextGenre} onClick={() => handleNextClick(index)}><GrNext /></button>
           </div>
         </div>
       ))}
