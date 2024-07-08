@@ -24,7 +24,6 @@
   flex-grow: 1; /* Added to make it occupy available space */
   margin-left: 3rem;
   text-align: center;
-
 }
 
 /* Header that will be fixed at the top */
@@ -40,18 +39,30 @@
   right: 20px; /* Positioning inside the container */
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
 
+.showAllButton {
+  background-color: #fb5607; /* Màu nền giống nút select */
+  color: white; /* Màu chữ */
+  border: none; /* Không viền */
+  padding: 10px 20px; /* Khoảng đệm */
+  border-radius: 1rem; /* Bo góc */
+  cursor: pointer; /* Con trỏ */
+  margin-right: auto; /* Đẩy sang trái */
+}
+
+.showAllButton:hover {
+  background-color: #333; /* Màu nền khi hover */
 }
 
 .buttonGroup {
   display: flex;
   align-items: center;
-  position: absolute; /* Position absolutely inside the header */
-  right: 10px; /* Align to the right side of the header */
+  position: absolute; 
+  right: 10px; 
   top: 50%;
   transform: translateY(-50%); /* Center vertically */
   z-index: 1;
-  
 }
 
 /* Content inside the container that can scroll */
@@ -87,12 +98,12 @@
   margin-bottom: 20px;
   padding: 10px;
   border-bottom: 1px solid #ccc;
-  background-color: rgba(255, 255, 255, 0.1); /* Add semi-transparent background */
-  border-radius: 10px; /* Rounded corners for movie row */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow for movie row */
-  width: 90%; /* Make movie row take full width */
-  max-width: 1000px; /* Optional: Limit the maximum width of movie row */
-  margin: 0 auto; /* Center movie row horizontally */
+  background-color: rgba(255, 255, 255, 0.1); 
+  border-radius: 10px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  width: 90%; 
+  max-width: 1000px; 
+  margin: 0 auto; 
 }
 
 /* Container for the movie poster */
@@ -207,8 +218,65 @@
 }
 
 /* Checkbox styles */
+.checkboxWrapper {
+  position: relative;
+  width: 20px; /* Set the width to reserve space */
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
 .checkbox {
-  margin-right: 10px;
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  visibility: hidden; /* Initially hidden */
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  background:transparent;
+  border: 2px solid #fb5607;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.checkboxAll{
+  margin-right: 0.5rem;
+}
+
+.checkbox:checked {
+  background-color: #fb5607;
+  border-color: #fb5607;
+}
+
+.checkbox:checked::after {
+  content: '✔';
+  color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checkboxAll {
+  margin-right: 0.5rem;
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  background:transparent;
+  border: 2px solid #fb5607;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.checkboxAll:checked {
+  background-color: #fb5607;
+  border-color: #fb5607;
+}
+
+.selecting .checkbox {
+  visibility: visible;
 }
 
 /* Delete selected button */

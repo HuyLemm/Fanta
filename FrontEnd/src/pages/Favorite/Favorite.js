@@ -114,7 +114,6 @@ const Favourite = () => {
     setSelectedMovies([]);
   };
 
-
   if (loading) {
     return (
       <div>
@@ -129,16 +128,19 @@ const Favourite = () => {
 
   return (
     <div className={styles.body}>
-      <div className={styles.favoriteContainer}>
+      <div className={`${styles.favoriteContainer} ${isSelecting ? styles.selecting : ''}`}>
         <Notification />
         <div className={styles.fixedHeader}>
+          {isFiltered && (
+            <button className={styles.showAllButton} onClick={handleShowAll}>Show All</button>
+          )}
           <h1 className={styles.h2}>Your Favorite Movies</h1>
           <div className={styles.buttonGroup}>
             {isSelecting && (
               <>
                 <input
                   type="checkbox"
-                  className={styles.checkbox}
+                  className={styles.checkboxAll}
                   onChange={handleSelectAll}
                   checked={selectedMovies.length === watchlist.length}
                 />
@@ -160,21 +162,18 @@ const Favourite = () => {
             </button>
           </div>
         </div>
-        {isFiltered && (
-          <button className={styles.showAllButton} onClick={handleShowAll}>Show All</button>
-        )}
         <div className={styles.scrollableContent}>
           {displayList.length > 0 ? (
             displayList.map((item) => (
               <div key={item._id} className={styles.movieRow}>
-                {isSelecting && (
+                <div className={styles.checkboxWrapper}>
                   <input
                     type="checkbox"
                     className={styles.checkbox}
                     onChange={() => handleSelectMovie(item.movie._id)}
                     checked={selectedMovies.includes(item.movie._id)}
                   />
-                )}
+                </div>
                 <div className={styles.posterContainer}>
                   <img
                     src={item.movie.poster_url}
@@ -194,7 +193,8 @@ const Favourite = () => {
                     <strong>Genre:</strong> {item.movie.genre.join(', ')}
                   </p>
                   <p>
-                    <strong>Duration:</strong> {item.movie.type === 'movie' ? `${item.movie.duration} mins` : `${calculateAverageDuration(item.movie.episodes)} mins/episode`}                  </p>
+                    <strong>Duration:</strong> {item.movie.type === 'movie' ? `${item.movie.duration} mins` : `${calculateAverageDuration(item.movie.episodes)} mins/episode`}
+                  </p>
                   <p>
                     <strong>Release:</strong> {new Date(item.movie.release_date).getFullYear()}
                   </p>
@@ -217,7 +217,7 @@ const Favourite = () => {
                     </button>
                     <button
                       className={styles.dropdownButton}
-                      onClick={() => handleSimilarGenre(item.movie.genre[0])} // Gọi hàm với thể loại đầu tiên
+                      onClick={() => handleSimilarGenre(item.movie.genre[0])}
                     >
                       Similar genre
                     </button>
