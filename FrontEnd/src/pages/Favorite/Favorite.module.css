@@ -4,16 +4,16 @@
   padding: 20px;
   margin-top: 5rem;
   width: 70vw;
-  height: 90vh; /* Adjust the height to make the container fit within the viewport */
+  height: 90vh; 
   background-color: rgba(0, 0, 0, 0.5); 
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow */
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   display: flex;
-  flex-direction: column; /* Arrange children in a column */
-  align-items: center; /* Center align children horizontally */
+  flex-direction: column; 
+  align-items: center; 
   margin-left: auto;
   margin-right: auto;
-  position: relative; /* Added for positioning fixed header */
+  position: relative; 
 }
 
 .h2 {
@@ -21,38 +21,38 @@
   font-size: 2rem;
   color: aliceblue;
   z-index: 1;
-  flex-grow: 1; /* Added to make it occupy available space */
+  flex-grow: 1; 
   margin-left: 3rem;
   text-align: center;
 }
 
 /* Header that will be fixed at the top */
-.fixedHeader { /* Background color to match the container */
+.fixedHeader { 
   padding: 10px;
-  z-index: 1; /* Ensure the header is above the content */
-  display: flex; /* Added to arrange title and button */
+  z-index: 1; 
+  display: flex; 
   align-items: center;
-  justify-content: center; /* Center title */
-  position: absolute; /* Change to absolute */
-  top: 20px; /* Positioning inside the container */
-  left: 20px; /* Positioning inside the container */
-  right: 20px; /* Positioning inside the container */
+  justify-content: center; 
+  position: absolute; 
+  top: 20px; 
+  left: 20px; 
+  right: 20px; 
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
 .showAllButton {
-  background-color: #fb5607; /* Màu nền giống nút select */
-  color: white; /* Màu chữ */
-  border: none; /* Không viền */
-  padding: 10px 20px; /* Khoảng đệm */
-  border-radius: 1rem; /* Bo góc */
-  cursor: pointer; /* Con trỏ */
-  margin-right: auto; /* Đẩy sang trái */
+  background-color: #fb5607; 
+  color: white; 
+  border: none;
+  padding: 10px 20px; 
+  border-radius: 1rem; 
+  cursor: pointer; 
+  margin-right: auto; 
 }
 
 .showAllButton:hover {
-  background-color: #333; /* Màu nền khi hover */
+  background-color: #333; 
 }
 
 .buttonGroup {
@@ -61,18 +61,18 @@
   position: absolute; 
   right: 10px; 
   top: 50%;
-  transform: translateY(-50%); /* Center vertically */
+  transform: translateY(-50%); 
   z-index: 1;
 }
 
 /* Content inside the container that can scroll */
 .scrollableContent {
   width: 100%;
-  height: calc(100% - 100px); /* Adjust height to leave space for the fixed header */
-  overflow-y: auto; /* Allow vertical scrolling */
+  height: calc(100% - 100px); 
+  overflow-y: auto; 
   padding: 10px;
   box-sizing: border-box;
-  margin-top: 4rem; /* Add margin to the top to avoid overlap with fixed header */
+  margin-top: 4rem; 
 }
 
 /* Custom Scrollbar Styles */
