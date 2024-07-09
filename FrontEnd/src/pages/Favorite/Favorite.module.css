@@ -49,6 +49,8 @@
   border-radius: 1rem; 
   cursor: pointer; 
   margin-right: auto; 
+  position: absolute;
+  left: 0;
 }
 
 .showAllButton:hover {
