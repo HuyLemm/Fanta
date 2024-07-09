@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './GenreSection.module.css';
 import { notifyError } from '../../../components/public/Notification/Notification';
 import { GrNext, GrPrevious } from "react-icons/gr";
-import { FaPlay } from 'react-icons/fa';
+import { FaPlay} from 'react-icons/fa';
 
 const GenreSection = ({ type }) => {
   const genreItemsRef = useRef([]);
@@ -80,7 +80,6 @@ const GenreSection = ({ type }) => {
                 <div className={styles.item} key={movieIndex}>
                   <div className={styles.imageContainer}>
                     <img src={movie.poster_url} alt={movie.title} />
-                    <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
                     <div className={styles.hoverSection}>
                       <div className={styles.topSection} style={{ backgroundImage: `url(${movie.background_url})` }}></div>
                       <div className={styles.bottomSection}>

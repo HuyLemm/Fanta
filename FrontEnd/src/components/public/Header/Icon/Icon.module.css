@@ -40,7 +40,7 @@
   pointer-events: auto;
 }
 
-.loginButton, .adminButton, .userButton {
+.loginButton, .adminButton, .userButton, .logoutButton {
   margin-top: 0.3125rem;
   width: 7.5rem;
   height: 2.5rem;
@@ -55,13 +55,17 @@
   color: white;
   padding: 0.3125rem 0.625rem;
   display: flex;
-  align-items: center;
+  align-items: center;  
+}
 
+.loginButton{
+  justify-content: space-evenly;
 }
 
 .loginButton:hover,
 .userButton:hover,
-.adminButton:hover {
+.adminButton:hover,
+.logoutButton:hover {
   background-color: #333;
   color: #fb5607;
 }
