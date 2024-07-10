@@ -186,7 +186,7 @@ Video.propTypes = {
   initialTime: PropTypes.number,
   currentEpisode: PropTypes.number,
   setInitialTime: PropTypes.func.isRequired,
-  isSwitchingEpisode: PropTypes.object.isRequired,
+  isSwitchingEpisode: PropTypes.bool.isRequired,
 };
 
 export default Video;

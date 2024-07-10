@@ -1,3 +1,4 @@
+// History.js
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../../../utils/Cookies';
@@ -12,7 +13,7 @@ const formatTime = (seconds) => {
   return `${h}:${m}:${s}`;
 };
 
-const History = () => {
+const History = ({ setCurrentFunction }) => {
   const [showHistory, setShowHistory] = useState(false);
   const [history, setHistory] = useState([]);
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const History = () => {
   const fetchHistory = async () => {
     const token = getCookie('jwt');
     if (!token) {
-      setHistory(null);
+      setHistory([]);
       return;
     }
 
@@ -55,7 +56,7 @@ const History = () => {
     if (authStatus.loggedIn) {
       fetchHistory();
     } else {
-      setHistory(null);
+      setHistory([]);
     }
   }, [authStatus.loggedIn]);
 
@@ -77,6 +78,12 @@ const History = () => {
     navigate(`/streaming/${movieId}`);
   };
 
+  const handleSeeMoreClick = () => {
+    navigate('/history');
+  };
+
+  const displayedHistory = history.slice(0, 3);
+
   return (
     <div className={styles.historyContainer} ref={historyRef}>
       <button
@@ -92,42 +99,46 @@ const History = () => {
           onMouseEnter={() => setShowHistory(true)}
           onMouseLeave={() => setShowHistory(false)}
         >
-          {history === null ? (
-            <div className={styles.historyItem}>
-              <div className={styles.historyDetails}>
-                <h3>No history found</h3>
-              </div>
-            </div>
-          ) : history.length === 0 ? (
+          {history.length === 0 ? (
             <div className={styles.historyItem}>
               <div className={styles.historyDetails}>
                 <h3>No history available</h3>
               </div>
             </div>
           ) : (
-            history.map((item) => {
-              const currentTime = formatTime(item.currentTime);
-              const totalTime = item.movie && item.movie.duration ? formatTime(item.movie.duration * 60) : '00:00:00';
-              const progressPercentage = item.movie && item.movie.duration ? (item.currentTime / (item.movie.duration * 60)) * 100 : 0;
+            <>
+              {displayedHistory.map((item) => {
+                const currentTime = formatTime(item.currentTime);
+                const totalTime = item.movie && item.movie.duration ? formatTime(item.movie.duration * 60) : '00:00:00';
+                const progressPercentage = item.movie && item.movie.duration ? (item.currentTime / (item.movie.duration * 60)) * 100 : 0;
 
-              return (
-                <div key={item._id} className={styles.historyItem} onClick={() => handleHistoryClick(item.movie._id)}>
-                  <img src={item.movie.background_url} alt={item.movie.title} className={styles.backgroundImage} />
-                  <div className={styles.historyDetails}>
-                    <h3 className={styles.movieTitle}>{item.movie.title}</h3>
-                    {item.movie.type === 'series' && item.latestEpisode !== undefined && (
-                      <p className={styles.episodeInfo}>Watched Up to Ep {item.latestEpisode}</p>
-                    )}
-                    <div className={styles.progressTime}>
-                      <span>{currentTime}/{totalTime}</span>
-                    </div>
-                    <div className={styles.progressBar}>
-                      <div className={styles.progress} style={{ width: `${progressPercentage}%` }}></div>
+                return (
+                  <div key={item._id} className={styles.historyItem} onClick={() => handleHistoryClick(item.movie._id)}>
+                    <img src={item.movie.background_url} alt={item.movie.title} className={styles.backgroundImage} />
+                    <div className={styles.historyDetails}>
+                      <h3 className={styles.movieTitle}>{item.movie.title}</h3>
+                      {item.movie.type === 'series' && item.latestEpisode !== undefined && (
+                        <p className={styles.episodeInfo}>Watched Up to Ep {item.latestEpisode}</p>
+                      )}
+                      <div className={styles.progressTime}>
+                        <span>{currentTime}/{totalTime}</span>
+                      </div>
+                      <div className={styles.progressBar}>
+                        <div className={styles.progress} style={{ width: `${progressPercentage}%` }}></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })
+                );
+              })}
+              {history.length > 3 && (
+                <button
+                  className={styles.showMoreButton}
+                  onClick={handleSeeMoreClick}
+                >
+                  See More
+                </button>
+              )}
+            </>
           )}
         </div>
       )}

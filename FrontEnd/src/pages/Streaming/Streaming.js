@@ -65,7 +65,7 @@ const Streaming = () => {
       }
     };
 
-    const fetchInitialTime = async (movieId, episode) => {
+    const fetchInitialTime = async (movieId) => {
       try {
         console.log('Fetching initial time for movieId:', movieId);
         const response = await fetch(`http://localhost:5000/public/get-history/${movieId}`, {
@@ -78,13 +78,16 @@ const Streaming = () => {
         }
         const data = await response.json();
         console.log('Fetched initial time and episode:', data.currentTime, data.latestEpisode);
-        if (episode === data.latestEpisode - 1) {
+        if (data.latestEpisode && data.latestEpisode > 0) {
+          setInitialEpisode(data.latestEpisode - 1);
           setInitialTime(data.currentTime || 0);
         } else {
+          setInitialEpisode(0);
           setInitialTime(0);
         }
       } catch (err) {
         console.error('Failed to load watch time:', err);
+        setInitialEpisode(0);
         setInitialTime(0);
       }
     };
@@ -93,7 +96,7 @@ const Streaming = () => {
       await fetchCurrentUser();
       await fetchMovie();
       if (!location.state) {
-        await fetchInitialTime(id, initialEpisode);
+        await fetchInitialTime(id);
       } else {
         setInitialTime(location.state.time || 0);
       }
@@ -101,7 +104,7 @@ const Streaming = () => {
     };
 
     fetchData();
-  }, [id, token, initialEpisode, location.state]);
+  }, [id, token, location.state]);
 
   useEffect(() => {
     const hasReloaded = sessionStorage.getItem('hasReloaded');
@@ -174,6 +177,8 @@ const Streaming = () => {
               initialEpisode={initialEpisode} 
               initialTime={initialTime} 
               genres={movie.genre}
+              setInitialEpisode={setInitialEpisode}
+              setInitialTime={setInitialTime}
             />
           </div>
         </div>

@@ -33,7 +33,8 @@ exports.getGenresAndSatisfiedMovie = async (req, res) => {
       { $match: matchStage }, // Apply match stage for filtering by type
       { $unwind: "$genre" },
       { $group: { _id: "$genre", movies: { $push: "$$ROOT" } } },
-      { $project: { _id: 0, name: "$_id", movies: "$movies" } }
+      { $project: { _id: 0, name: "$_id", movies: "$movies" } },
+      { $sort: { name: 1 } } // Sort genres alphabetically
     ]);
 
     res.json(genres);
