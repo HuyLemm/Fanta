@@ -102,8 +102,8 @@ const UserIcon = () => {
             <button onClick={handleAdminClick} className={styles.adminButton}>
               <FaUser className={styles.icon} /> Admin Panel
             </button>
-            <button onClick={handleLogout} className={styles.loginButton}>
-              <FaSignOutAlt className={styles.icon} /> Logout
+            <button onClick={handleLogout} className={styles.logoutButton}>
+              <FaSignOutAlt className={styles.logouticon} /> Logout
             </button>
           </div>
         </div>
@@ -120,7 +120,7 @@ const UserIcon = () => {
             <button onClick={handleUserClick} className={styles.userButton}>
               <FaUser className={styles.icon} /> User Profile
             </button>
-            <button onClick={handleLogout} className={styles.loginButton}>
+            <button onClick={handleLogout} className={styles.logoutButton}>
               <FaSignOutAlt className={styles.logouticon} /> Logout
             </button>
           </div>
