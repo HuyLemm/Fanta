@@ -1,3 +1,4 @@
+// AppRouter.js
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import HomePage from '../pages/HomePage/HomePage';
 import RegisterPage from '../pages/RegisterPage/RegisterPage';
@@ -13,7 +14,7 @@ import Streaming from '../pages/Streaming/Streaming';
 import Favorite from '../pages/Favorite/Favorite';
 import Test from '../pages/Tests/Test';
 
-function AppRouter() {
+function AppRouter({ currentFunction, setCurrentFunction }) {
   return (
       <Routes>
         {/* Public Routes */}
@@ -34,16 +35,9 @@ function AppRouter() {
         {/* Admin Routes */}
         <Route path="/admin" element={<ProtectedRoute role="admin"><AdminFeatures /></ProtectedRoute>} />
 
-        {/* <Route path="/admin/add-genre" element={<checkRole role="admin"><AddGenre /></checkRole>} />
-        <Route path="/admin/add-movie" element={<checkRole role="admin"><AddMovie /></checkRole>} />
-        <Route path="/admin/update-movie" element={<checkRole role="admin"><UpdateMovie /></checkRole>} /> */}
-
         {/* User Routes */}
-        <Route path="/user" element={<ProtectedRoute role="user"><UserFeatures /></ProtectedRoute>} />
+        <Route path="/user" element={<ProtectedRoute role="user"><UserFeatures currentFunction={currentFunction} setCurrentFunction={setCurrentFunction} /></ProtectedRoute>} />
         <Route path="/favorite" element={<ProtectedRoute role="user"><Favorite /></ProtectedRoute>} />
-        {/* <Route path="/user" element={<checkRole role="user"><HomePage /></checkRole>} />
-        <Route path="/profile" element={<checkRole role="user"><ViewProfile /></checkRole>} />
-        <Route path="/profile/update" element={<checkRole role="user"><UpdateProfile /></checkRole>} /> */}
       </Routes>
   );
 }

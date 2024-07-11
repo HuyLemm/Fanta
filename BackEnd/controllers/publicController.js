@@ -480,11 +480,57 @@ exports.getTop6SimilarMoviesAndTopRated = async (req, res) => {
       return b.averageRating - a.averageRating;
     });
 
-    console.log('Recommended Movies:', movies.slice(0, 6));
-
     res.json(movies.slice(0, 8)); // Giới hạn kết quả đến 6 phim
   } catch (error) {
     console.error('Error fetching similar movies:', error);
     res.status(500).send('Server Error');
+  }
+}
+
+exports.getTopRatedMoviesByGenre = async (req, res) => {
+  try {
+    const { genre } = req.query;
+
+    if (!genre) {
+      return res.status(400).json({ message: 'Genre is required' });
+    }
+
+    // Lấy tất cả phim của thể loại này
+    const movies = await MovieModel.find({ genre: genre });
+
+    // Lấy danh sách các movieId
+    const movieIds = movies.map(movie => movie._id);
+
+    // Tính trung bình rating của từng movie và sắp xếp theo rating giảm dần
+    const topRatedMovies = await RatingModel.aggregate([
+      { $match: { movieId: { $in: movieIds } } },
+      {
+        $group: {
+          _id: '$movieId',
+          averageRating: { $avg: '$rating' }
+        }
+      },
+      { $sort: { averageRating: -1 } },
+      { $limit: 5 },
+      {
+        $lookup: {
+          from: 'movies',
+          localField: '_id',
+          foreignField: '_id',
+          as: 'movie'
+        }
+      },
+      { $unwind: '$movie' }
+    ]);
+
+    const result = topRatedMovies.map(item => ({
+      ...item.movie,
+      averageRating: item.averageRating
+    }));
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error fetching top rated movies:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 }

@@ -38,7 +38,7 @@ const CreateMovie = () => {
 
             const data = await response.json();
             if (response.ok) {
-                notifyInfo(`Movie created successfully: ${JSON.stringify(data)}`);
+                notifyInfo(`Movie created successfully: ${JSON.stringify(data.title)}`);
                 setMovieData({
                     title: '',
                     brief_description: '',

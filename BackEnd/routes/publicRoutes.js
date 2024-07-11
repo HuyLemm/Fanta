@@ -20,6 +20,7 @@ router.get('/check-role', authMiddleware.authenticateToken, publicController.che
 router.get('/get-tmdb-episode-images/:movieId', publicController.getTMDBEpisodeImages);
 router.get('/get-history/:videoId', authMiddleware.authenticateToken,authMiddleware.checkWatchHistory, publicController.getHistory);
 router.get('/get-history-for-user', authMiddleware.authenticateToken, publicController.getHistoryForUser);
+router.get('/get-top-rated-movies-by-genre', publicController.getTopRatedMoviesByGenre);
 
 // POST
 router.post('/save-history', authMiddleware.authenticateToken, publicController.saveHistory);

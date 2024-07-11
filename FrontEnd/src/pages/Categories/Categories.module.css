@@ -14,17 +14,18 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
- .genreMoviesContainer {
+.genreMoviesContainer {
   display: flex;
   flex: 1;
   background: url(../../assets/images/streaming.jpg);
   background-size: cover;
-  padding-top: 4rem; 
-} 
+  padding-top: 4rem;
+}
 
- .overlay {
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -32,85 +33,139 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
   z-index: -1;
-} 
+}
 
 .mainContent {
   flex: 7;
-  padding: 1.25rem; /* Converted 20px to 1.25rem */
+  padding: 1.25rem;
   color: aliceblue;
   position: relative;
   z-index: 0;
 }
 
+.background{
+  background: rgba(128, 128, 128, 0.8); /* Màu xám với độ mờ */
+}
 .sidebar {
   flex: 3;
-  background: rgba(0, 0, 0, 0.5);
+  margin-top: 3rem;
   z-index: 1;
+  padding: 1rem;
+  color: white;
+  border-radius: 10px; /* Bo góc */
 }
 
-/* Grid layout for displaying movies */
+.topRatedHeader {
+  font-family: 'Hatton', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.topRatedList {
+  list-style: none;
+  padding: 0;
+}
+
+.topRatedItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.topRatedMovie {
+  display: flex;
+  align-items: center;
+}
+
+.topRatedPoster {
+  width: 7rem;
+  height: auto;
+  margin-right: 1rem;
+}
+
+.topRatedDetails {
+  display: flex;
+  flex-direction: column;
+}
+
 .moviesGrid {
   margin-top: 1rem;
   margin-left: 20rem;
   display: grid;
-  grid-template-columns: repeat(5, 0.2fr);
-  gap: 1rem; /* Converted 20px to 1.25rem */
+  grid-template-columns: repeat(5, 1fr); /* Ensure 5 columns */
+  gap: 1rem;
 }
 
 .movieItem {
   text-align: center;
 }
 
-/* Styling for movie poster images */
 .moviePoster {
-  margin-bottom: 0.4rem;
   width: 100%;
-  height: 17rem; /* Converted 300px to 18.75rem */
-  border-radius: 0.625rem; /* Converted 10px to 0.625rem */
-  object-fit: cover; /* Ensure the image covers the entire area without distortion */
+  height: 18rem; 
+  position: relative;
+  overflow: visible; 
 }
 
-/* Container for the movie image and watch button */
 .imageContainer {
-  position: relative; /* Add this line to ensure the button is positioned relative to this container */
+  position: relative;
 }
 
-/* Styles for the watch button */
 .watchButton {
   position: absolute;
-  bottom: 0.625rem; /* Converted 10px to 0.625rem */
+  bottom: 0.625rem;
   left: 50%;
   transform: translateX(-50%);
   color: white;
   border: none;
-  padding: 0.625rem 1.25rem; /* Converted 10px 20px to 0.625rem 1.25rem */
+  padding: 0.625rem 1.25rem;
   opacity: 0;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  border-radius: 2.5rem; 
+  border-radius: 2.5rem;
   background-color: #fb5607;
   border: none;
   outline: none;
   cursor: pointer;
   font-size: 0.85rem;
   font-weight: 600;
-  margin-bottom: 0.625rem; 
+  margin-bottom: 0.625rem;
 }
 
-/* Hover effect for the watch button */
 .watchButton:hover {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
-/* Show the watch button on image hover */
 .imageContainer:hover .watchButton {
   opacity: 1;
 }
 
 /* Footer section styles */
 .footerSection {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 2; /* Add this line to ensure the footer is positioned above the overlay */
+  z-index: 2;
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center; /* Center the pagination buttons */
+  align-items: center; /* Center the buttons vertically */
+  margin: 1rem 0;
+}
+
+.pageButton {
+  background-color: #fb5607;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.pageButton:hover {
+  background-color: rgba(0, 0, 0, 0.9);
 }

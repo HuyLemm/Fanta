@@ -20,7 +20,7 @@ const FantaLogoType = () => {
         <img src={fantaImage} className={styles.fanta} alt="Fanta" />
       </a>
       <div className={styles.typeButtons}>
-        <button className={styles.movies} onClick={handleMovieClick}>Movie</button>
+        <button className={styles.movies} onClick={handleMovieClick}>Movies</button>
         <button className={styles.series} onClick={handleSeriesClick}>Series</button>
       </div>
     </header>

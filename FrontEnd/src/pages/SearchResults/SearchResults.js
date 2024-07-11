@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SearchResults.module.css';
 import Footer from '../../components/public/Footer/Footer';
-import Notification, { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../components/public/Notification/Notification';
+import Notification, { notifyError } from '../../components/public/Notification/Notification';
+import Loading from '../../components/public/LoadingEffect/Loading';
 
 const SearchResults = () => {
   const [movies, setMovies] = useState([]); // State to store search results
+  const [topRatedMovies, setTopRatedMovies] = useState([]); // State to store top rated movies
   const navigate = useNavigate(); // Hook for programmatic navigation
 
   // Function to get query parameter from URL
@@ -25,9 +27,23 @@ const SearchResults = () => {
       }
     };
 
+    const fetchTopRatedMovies = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/public/get-top-rated-movies`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setTopRatedMovies(data);
+      } catch (error) {
+        notifyError('Error fetching top rated movies:', error);
+      }
+    };
+
     if (query) {
       fetchSearchResults(); // Fetch search results if query exists
     }
+    fetchTopRatedMovies(); // Fetch top rated movies
   }, []);
 
   // Function to handle watch button click
@@ -38,34 +54,45 @@ const SearchResults = () => {
   return (
     <div className={styles.searchResultsPage}>
       <Notification />
-      <div className={styles.overlay}></div> 
-      <div className={styles.searchResultsContainer}>
-        {/* Main content area */}
-        <div className={styles.mainContent}>
-          {/* Heading for search results */}
-          <h2 className={styles.h2}>Search Results for: "{getQuery()}"</h2>
-          <div className={styles.moviesGrid}>
-            {movies.length > 0 ? (
-              // Map through movies and display each movie item
-              movies.map((movie) => (
-                <div key={movie._id} className={styles.movieItem}>
-                  {/* Container for movie image and watch button */}
-                  <div className={styles.imageContainer}>
-                    <img src={movie.poster_url} alt={movie.title} className={styles.moviePoster} />
-                    <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}>Watch</button>
+      <div className={styles.outerContainer}>
+        <div className={styles.searchResultsContainer}>
+          <div className={styles.mainContent}>
+            <div className={styles.overlay}></div>
+            <h2 className={styles.h2}>Search Results for: "{getQuery()}"</h2>
+            <div className={styles.moviesGrid}>
+              {movies.length > 0 ? (
+                movies.map((movie) => (
+                  <div key={movie._id} className={styles.movieItem}>
+                    <div className={styles.imageContainer}>
+                      <img src={movie.poster_url} alt={movie.title} className={styles.moviePoster} />
+                      <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}>Watch</button>
+                    </div>
                   </div>
-                </div>
-              ))
-            ) : (
-              <div>No movies found</div> // Display message if no movies are found
-            )}
+                ))
+              ) : (
+                <div>No movies found</div>
+              )}
+            </div>
+          </div>
+          <div className={`${styles.sidebar} ${styles.background}`}>
+            <h3 className={styles.topRatedHeader}>Trending Movies</h3>
+            <ul className={styles.topRatedList}>
+              {topRatedMovies.map(movie => (
+                <li key={movie._id} className={styles.topRatedItem}>
+                  <div className={styles.topRatedMovie}>
+                    <img src={movie.poster_url} alt={movie.title} className={styles.topRatedPoster} />
+                    <div className={styles.topRatedDetails}>
+                      <p>{movie.title}</p>
+                      <p> ♥ {movie.averageRating.toFixed(1)}/5.0</p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <div className={styles.sidebar}></div>
       </div>
-      <div className={styles.footerSection}>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };

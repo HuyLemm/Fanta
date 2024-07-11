@@ -63,33 +63,37 @@ const FullHistory = () => {
 
   return (
     <div className={styles.historyContainer}>
-      <h1 className={styles.heading}>Your Full History</h1>
+      <h1 className={styles.heading}>History</h1>
       {history.length === 0 ? (
         <div className={styles.noHistory}>No history available</div>
       ) : (
-        history.map((item) => {
-          const currentTime = formatTime(item.currentTime);
-          const totalTime = item.movie && item.movie.duration ? formatTime(item.movie.duration * 60) : '00:00:00';
-          const progressPercentage = item.movie && item.movie.duration ? (item.currentTime / (item.movie.duration * 60)) * 100 : 0;
+        <div className={styles.gridContainer}>
+          {history.map((item) => {
+            const currentTime = formatTime(item.currentTime);
+            const totalTime = item.movie && item.movie.duration ? formatTime(item.movie.duration * 60) : '00:00:00';
+            const progressPercentage = item.movie && item.movie.duration ? (item.currentTime / (item.movie.duration * 60)) * 100 : 0;
 
-          return (
-            <div key={item._id} className={styles.historyItem} onClick={() => handleHistoryClick(item.movie._id)}>
-              <img src={item.movie.background_url} alt={item.movie.title} className={styles.backgroundImage} />
-              <div className={styles.historyDetails}>
+            return (
+              <div key={item._id} className={styles.gridItem} onClick={() => handleHistoryClick(item.movie._id)}>
+                <div className={styles.imageContainer}>
+                  <img src={item.movie.background_url} alt={item.movie.title} className={styles.backgroundImage} />
+                  {item.movie.type === 'series' && item.latestEpisode !== undefined ? (
+                    <p className={styles.episodeInfo}>Watch to Episode {item.latestEpisode}</p>
+                  ) : null}
+                  <div className={styles.timeInfo}>
+                    {currentTime}/{totalTime}
+                  </div>
+                </div>
+                <div className={styles.historyDetails}>
+                  <div className={styles.progressBar}>
+                    <div className={styles.progress} style={{ width: `${progressPercentage}%` }}></div>
+                  </div>
+                </div>
                 <h3 className={styles.movieTitle}>{item.movie.title}</h3>
-                {item.movie.type === 'series' && item.latestEpisode !== undefined && (
-                  <p className={styles.episodeInfo}>Watched Up to Ep {item.latestEpisode}</p>
-                )}
-                <div className={styles.progressTime}>
-                  <span>{currentTime}/{totalTime}</span>
-                </div>
-                <div className={styles.progressBar}>
-                  <div className={styles.progress} style={{ width: `${progressPercentage}%` }}></div>
-                </div>
               </div>
-            </div>
-          );
-        })
+            );
+          })}
+        </div>
       )}
     </div>
   );

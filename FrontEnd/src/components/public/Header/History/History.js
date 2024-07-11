@@ -1,10 +1,10 @@
 // History.js
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../../../utils/Cookies';
 import { AuthContext } from '../../../../components/auth/AuthContext';
 import { FaRegClock } from "react-icons/fa6";
 import styles from './History.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const formatTime = (seconds) => {
   const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
@@ -16,9 +16,9 @@ const formatTime = (seconds) => {
 const History = ({ setCurrentFunction }) => {
   const [showHistory, setShowHistory] = useState(false);
   const [history, setHistory] = useState([]);
-  const navigate = useNavigate();
   const historyRef = useRef(null);
   const { authStatus } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const fetchHistory = async () => {
     const token = getCookie('jwt');
@@ -79,7 +79,10 @@ const History = ({ setCurrentFunction }) => {
   };
 
   const handleSeeMoreClick = () => {
-    navigate('/history');
+    if (setCurrentFunction) {
+      setCurrentFunction('My History');
+    }
+    navigate('/user');
   };
 
   const displayedHistory = history.slice(0, 3);

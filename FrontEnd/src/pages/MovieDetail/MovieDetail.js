@@ -73,7 +73,6 @@ const MovieDetail = () => {
         console.error('Failed to load watch history:', err);
       }
     };
-
     fetchMovie();
   }, [id, token]);
 
