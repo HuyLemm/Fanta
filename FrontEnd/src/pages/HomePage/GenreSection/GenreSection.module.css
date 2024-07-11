@@ -213,6 +213,11 @@ body {
   overflow-x: hidden;
 }
 
+.buttonComb{
+  display: flex;
+  flex-direction: row;
+}
+
 /* General watch button styling */
 .watchButton {
   position: relative;
@@ -235,4 +240,26 @@ body {
 
 .watchButton:hover {
   background-color: #333;
+}
+
+.addToFavoritesButton {
+  position: relative;
+  bottom: 0.625rem; 
+  left: 0.5rem;  
+  transition: background-color 0.3s ease;
+  background-color: #fb5607; 
+  border: none;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.75rem;
+  cursor: pointer;
+  margin-bottom: 0.625rem;
+}
+
+.addToFavoritesButton:hover {
+  background-color: #666;
 }
