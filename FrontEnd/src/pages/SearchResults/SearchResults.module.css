@@ -11,7 +11,6 @@
 /* Layout for the search results page */
 .searchResultsPage {
   width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -32,11 +31,10 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
-  z-index: -1;
+  z-index: 0;
 }
 
 .mainContent {
-  flex: 7;
   padding: 1.25rem;
   color: aliceblue;
   position: relative;
@@ -44,13 +42,14 @@
 }
 
 
-.sidebar {
-  flex: 3;
+.sidebar { 
   margin-top: 3rem;
+  margin-bottom: 2rem;
   z-index: 1;
   padding: 1rem;
   color: white;
-  border-radius: 10px; /* Bo góc */
+  background-color: #333;
+  border-radius: 1.5rem; 
 }
 
 .topRatedHeader {
@@ -99,7 +98,7 @@
 }
 
 .moviePoster {
-  width: 100%;
+  width: 90%;
   height: 18rem; 
   position: relative;
   overflow: visible; 
@@ -139,9 +138,5 @@
 
 /* Footer section styles */
 .footerSection {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 2;
 }

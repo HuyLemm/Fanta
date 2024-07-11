@@ -32,27 +32,29 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
-  z-index: -1;
+  z-index: 0;
 }
 
-.mainContent {
-  flex: 7;
+.mainContent { 
   padding: 1.25rem;
   color: aliceblue;
   position: relative;
-  z-index: 0;
+  z-index: 1;
 }
 
 .background{
   background: rgba(128, 128, 128, 0.8); /* Màu xám với độ mờ */
 }
 .sidebar {
-  flex: 3;
   margin-top: 3rem;
   z-index: 1;
   padding: 1rem;
   color: white;
-  border-radius: 10px; /* Bo góc */
+  background-color: #333;
+  border-radius: 1rem; 
+  margin-bottom: 3rem;
+  width: 20%;
+  margin-right: 12rem;
 }
 
 .topRatedHeader {
@@ -141,10 +143,6 @@
 
 /* Footer section styles */
 .footerSection {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 2;
 }
 

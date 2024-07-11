@@ -63,10 +63,10 @@ const GenreMovies = () => {
   return (
     <div className={styles.genreMoviesPage}>
       <Notification />
+      <div className={styles.overlay}></div>
       <div className={styles.outerContainer}>
         <div className={styles.genreMoviesContainer}>
           <div className={styles.mainContent}>
-            <div className={styles.overlay}></div>
             <h2 className={styles.h2}>Movies in {genreName}</h2>
             <div className={styles.moviesGrid}>
               {currentMovies.length > 0 ? (
@@ -108,7 +108,7 @@ const GenreMovies = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className={styles.footerSection}><Footer /></div>
     </div>
   );
 };

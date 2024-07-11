@@ -54,10 +54,10 @@ const SearchResults = () => {
   return (
     <div className={styles.searchResultsPage}>
       <Notification />
+      <div className={styles.overlay}></div>
       <div className={styles.outerContainer}>
         <div className={styles.searchResultsContainer}>
           <div className={styles.mainContent}>
-            <div className={styles.overlay}></div>
             <h2 className={styles.h2}>Search Results for: "{getQuery()}"</h2>
             <div className={styles.moviesGrid}>
               {movies.length > 0 ? (
@@ -92,7 +92,7 @@ const SearchResults = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className={styles.footerSection}><Footer /></div>
     </div>
   );
 };
