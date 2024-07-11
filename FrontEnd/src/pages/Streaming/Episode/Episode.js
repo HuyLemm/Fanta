@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Episode.module.css';
 import { getCookie } from '../../../utils/Cookies';
 import Loading from '../../../components/public/LoadingEffect/Loading';
 import { useNavigate } from 'react-router-dom';
-
 
 const formatDuration = (minutes) => {
   const hours = Math.floor(minutes / 60);
@@ -13,12 +12,11 @@ const formatDuration = (minutes) => {
   return `${hours > 0 ? String(hours).padStart(2, '0') + ':' : ''}${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 };
 
-const Episode = ({ movieId, episodes, type, initialEpisode, initialTime, genres }) => {
+const Episode = ({ movieId, episodes, type, initialEpisode, initialTime, genres, setInitialEpisode, setInitialTime }) => {
   const [currentEpisode, setCurrentEpisode] = useState(initialEpisode);
   const [episodeImages, setEpisodeImages] = useState({});
   const [similarMovies, setSimilarMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const isSwitchingEpisode = useRef(false);
   const token = getCookie('jwt');
   const navigate = useNavigate();
 
@@ -36,25 +34,6 @@ const Episode = ({ movieId, episodes, type, initialEpisode, initialTime, genres 
       setEpisodeImages(episodeImagesObject);
     } catch (error) {
       console.log('Fetch episode images error:', error);
-    }
-  };
-
-  const saveCurrentTime = async (videoId, currentTime, latestEpisode) => {
-    try {
-      console.log(`Saving current time: ${currentTime} and latest episode: ${latestEpisode} for movieId: ${videoId}`);
-      const response = await fetch('http://localhost:5000/public/save-history', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ videoId, currentTime, latestEpisode }),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to save watch time');
-      }
-    } catch (err) {
-      console.error('Failed to save watch time:', err);
     }
   };
 
@@ -80,24 +59,37 @@ const Episode = ({ movieId, episodes, type, initialEpisode, initialTime, genres 
     }
   };
 
+  const saveCurrentTime = async (videoId, currentTime, latestEpisode) => {
+    try {
+      console.log(`Saving current time: ${currentTime} and latest episode: ${latestEpisode} for movieId: ${videoId}`);
+      const response = await fetch('http://localhost:5000/public/save-history', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ videoId, currentTime, latestEpisode }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to save watch time');
+      }
+    } catch (err) {
+      console.error('Failed to save watch time:', err);
+    }
+  };
+
   const handleEpisodeChange = async (index) => {
     console.log(`Changing to episode: ${index + 1}`);
     sessionStorage.setItem('hasReloaded', 'false');
-
-    isSwitchingEpisode.current = true;
     await saveCurrentTime(movieId, 0, index + 1);
+    setInitialEpisode(index);
     setCurrentEpisode(index);
-    initialTime = 0;
-    console.log(`New currentEpisode: ${index}, initialTime: 0`);
-    setTimeout(() => {
-      isSwitchingEpisode.current = false;
-    }, 1);
+    setInitialTime(0);
   };
 
   const handleMovieClick = (movieId) => {
     navigate(`/movie/${movieId}`);
   };
-
 
   useEffect(() => {
     if (type === 'series') {
@@ -157,7 +149,6 @@ const Episode = ({ movieId, episodes, type, initialEpisode, initialTime, genres 
                 <div className={styles.movieInfo}>
                   <p className={styles.movieGenre}>Rating: {movie.averageRating.toFixed(1)}</p>
                   <p className={styles.movieTitle}>{movie.title}</p>
-
                 </div>
               </div>
             ))}
@@ -175,6 +166,8 @@ Episode.propTypes = {
   initialEpisode: PropTypes.number,
   initialTime: PropTypes.number,
   genres: PropTypes.array.isRequired,
+  setInitialEpisode: PropTypes.func.isRequired,
+  setInitialTime: PropTypes.func.isRequired,
 };
 
 export default Episode;

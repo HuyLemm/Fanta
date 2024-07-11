@@ -1,12 +1,17 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './GenreSection.module.css';
 import { notifyError } from '../../../components/public/Notification/Notification';
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { FaPlay} from 'react-icons/fa';
 import { FaCheckCircle } from 'react-icons/fa';
+import { getCookie } from '../../../utils/Cookies';
+
 
 const GenreSection = ({ type }) => {
+  const { id } = useParams(); 
+  const [watchHistory, setWatchHistory] = useState(null);
+  const token = getCookie('jwt');
   const genreItemsRef = useRef([]);
   const [genres, setGenres] = useState([]);
   const navigate = useNavigate();
@@ -50,7 +55,40 @@ const GenreSection = ({ type }) => {
     }
   };
 
-  const handleWatchClick = (movieId) => {
+  const handleWatchClick = async (movieId) => {
+    const fetchWatchHistory = async (movieId) => {
+      try {
+        const response = await fetch(`http://localhost:5000/public/get-history/${movieId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Failed to load watch history');
+        }
+        const data = await response.json();
+        setWatchHistory(data);
+        return data;
+      } catch (err) {
+        console.error('Failed to load watch history:', err);
+        return null;
+      }
+    };
+
+    sessionStorage.setItem('hasReloaded', 'false');
+    if (token) {
+      const history = await fetchWatchHistory(movieId); // Fetch watch history for the specific movie
+      if (history) {
+        navigate(`/streaming/${movieId}`, { state: { time: history.currentTime, episode: history.latestEpisode - 1 } });
+      } else {
+        navigate(`/streaming/${movieId}`);
+      }
+    } else {
+      navigate(`/streaming/${movieId}`);
+    }
+  };
+
+  const handleMoreDetailsClick = (movieId) => {
     navigate(`/movie/${movieId}`);
   };
 
@@ -60,7 +98,7 @@ const GenreSection = ({ type }) => {
       return (
         <span>
           {lines.slice(0, 12).join(' ')}...{' '}
-          <div className={styles.seeMore} onClick={() => handleWatchClick(movieId)}>
+          <div className={styles.seeMore} onClick={() => handleMoreDetailsClick(movieId)}>
             More Details
           </div>
         </span>

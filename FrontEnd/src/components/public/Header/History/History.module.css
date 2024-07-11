@@ -95,3 +95,17 @@
   color: #fff;
   margin-top: 5px;
 }
+
+.showMoreButton {
+  background-color: #fb5607;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.showMoreButton:hover {
+  background-color: #333;
+}

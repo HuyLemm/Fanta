@@ -1,3 +1,4 @@
+// Header.js
 import React from 'react';
 import FantaLogoType from './FantaLogoType/FantaLogoType';
 import Categories from './Categories/Categories';
@@ -8,7 +9,7 @@ import styles from './Header.module.css';
 import Notification from '../Notification/Notification';
 import History from './History/History';
 
-const Header = () => {
+const Header = ({ setCurrentFunction }) => {
   return (
     <header className={styles.header}>
       <Notification />
@@ -16,8 +17,8 @@ const Header = () => {
       <div className={styles.navContainer}>
         <Categories />
         <Search />
-        <History />
-        <Favourite/>
+        <History setCurrentFunction={setCurrentFunction} />
+        <Favourite />
         <UserIcon />
       </div>
     </header>
