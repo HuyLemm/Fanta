@@ -60,6 +60,7 @@
   overflow: hidden;
   border-radius: 8px;
   transition: transform 0.2s;
+  width: 20%;
 }
 
 .gridItem:hover {
@@ -102,7 +103,7 @@
   position: absolute;
   bottom: 10px;
   right: 10px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.75);
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 0.9rem;
@@ -127,14 +128,14 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  visibility: hidden;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  width: 2rem;
+  height: 2rem;
   appearance: none;
   background: transparent;
   border: 2px solid #fb5607;
   border-radius: 2rem;
+  z-index: 2;
 }
 
 .checkboxAll {
@@ -145,6 +146,7 @@
   background: transparent;
   border: 2px solid #fb5607;
   border-radius: 2rem;
+  cursor: pointer;
 }
 
 .checkbox:checked {
@@ -163,6 +165,16 @@
 
 .selecting .checkbox {
   visibility: visible;
+}
+
+.checkboxAll:checked {
+  background-color: #fb5607;
+  border-color: #fb5607;
+}
+
+.checkboxAll:checked::after {
+  color: black;
+  transform: translate(-50%, -50%);
 }
 
 /* Delete selected button */
@@ -192,4 +204,21 @@
 
 .selectButton:hover {
   background-color: #333;
+}
+
+/* Overlay for the image container */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15rem;
+  height: 8rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 8px 8px 0 0;
+}
+
+.imageContainer.selecting .overlay {
+  opacity: 1;
 }
