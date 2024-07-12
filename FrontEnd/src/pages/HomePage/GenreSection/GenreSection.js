@@ -1,19 +1,22 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './GenreSection.module.css';
-import { notifyError } from '../../../components/public/Notification/Notification';
+import { notifyError, notifySuccess, notifyWarning } from '../../../components/public/Notification/Notification';
 import { GrNext, GrPrevious } from "react-icons/gr";
-import { FaPlay} from 'react-icons/fa';
-import { FaCheckCircle } from 'react-icons/fa';
+import { FaPlay, FaCheckCircle, FaStar } from 'react-icons/fa';
+import { IoIosAddCircle } from "react-icons/io";
 import { getCookie } from '../../../utils/Cookies';
 
-
-const GenreSection = ({ type }) => {
+const GenreSection = ({ type, currentUser }) => {
   const { id } = useParams(); 
   const [watchHistory, setWatchHistory] = useState(null);
   const token = getCookie('jwt');
   const genreItemsRef = useRef([]);
   const [genres, setGenres] = useState([]);
+  const [watchlists, setWatchlists] = useState({});
+  const [ratings, setRatings] = useState({});
+  const [hoveredMovie, setHoveredMovie] = useState(null);
+  const [movieRatings, setMovieRatings] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,13 +29,27 @@ const GenreSection = ({ type }) => {
         const topGenres = sortedGenres.slice(0, 4);
 
         setGenres(topGenres);
+        if (token) {
+          topGenres.forEach(genre => {
+            genre.movies.forEach(movie => {
+              checkIfWatchlisted(movie._id);
+              fetchUserRating(movie._id);
+            });
+          });
+        }
       } catch (error) {
         notifyError('Error fetching genres:', error);
       }
     };
 
     fetchGenres();
-  }, [type]);
+  }, [type, token]);
+
+  useEffect(() => {
+    if (hoveredMovie) {
+      fetchUserRating(hoveredMovie);
+    }
+  }, [hoveredMovie]);
 
   const scrollAmount = 200;
 
@@ -107,6 +124,106 @@ const GenreSection = ({ type }) => {
     return description;
   };
 
+  const checkIfWatchlisted = async (movieId) => {
+    if (!token) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setWatchlists(prevWatchlists => ({
+        ...prevWatchlists,
+        [movieId]: data.isFavourite
+      }));
+    } catch (error) {
+      console.log('Check if watchlisted error:', error);
+    }
+  };
+
+  const handleFavoriteClick = async (movieId) => {
+    if (!token) {
+      notifyWarning('You need to log in first to archive');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/user/toggle-favorite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ movieId })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setWatchlists(prevWatchlists => ({
+        ...prevWatchlists,
+        [movieId]: data.isFavourite
+      }));
+      notifySuccess(data.message);
+    } catch (error) {
+      notifyError('Error updating favorites:', error);
+    }
+  };
+
+  const fetchUserRating = async (movieId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-rating/${movieId}`);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      const userRate = data.find(rating => rating.userId._id === currentUser?._id);
+      setRatings(prevRatings => ({
+        ...prevRatings,
+        [movieId]: userRate ? userRate.rating : 0
+      }));
+    } catch (error) {
+      notifyError('Fetch rating error:', error);
+    }
+  };
+
+  const handleRatingClick = async (movieId, rating) => {
+    if (!token) {
+      notifyWarning('You need to log in first to rate');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/user/add-and-update-rating/${movieId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ rating })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add rating');
+      }
+
+      const newRating = await response.json();
+      setRatings(prevRatings => ({
+        ...prevRatings,
+        [movieId]: newRating.rating
+      }));
+    } catch (error) {
+      notifyError('Add rating error:', error);
+    }
+  };
+
   return (
     <div className={styles.genreSectionsContainer}>
       {genres.length > 0 && genres.map((genre, index) => (
@@ -116,17 +233,43 @@ const GenreSection = ({ type }) => {
             <button className={styles.prevGenre} onClick={() => handlePrevClick(index)}><GrPrevious /></button>
             <div className={styles.genreItems} ref={(el) => genreItemsRef.current[index] = el}>
               {genre.movies && genre.movies.map((movie, movieIndex) => (
-                <div className={styles.item} key={movieIndex}>
+                <div 
+                  className={styles.item} 
+                  key={movieIndex}
+                  onMouseEnter={() => setHoveredMovie(movie._id)}
+                  onMouseLeave={() => setHoveredMovie(null)}
+                >
                   <div className={styles.imageContainer}>
                     <img src={movie.poster_url} alt={movie.title} />
                     <div className={styles.hoverSection}>
                       <div className={styles.topSection} style={{ backgroundImage: `url(${movie.background_url})` }}></div>
                       <div className={styles.bottomSection}>
                         <div className={styles.topLeft}>
-                        <div className={styles.buttonComb}>
-                          <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
-                          <button className={styles.addToFavoritesButton} onClick={() => handleWatchClick(movie._id)}><FaCheckCircle /></button>
-                        </div>
+                          <div className={styles.buttonComb}>
+                            <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
+                            <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(movie._id)}>
+                              {watchlists[movie._id] ? <FaCheckCircle /> : <IoIosAddCircle />}
+                            </button>
+                            <div className={styles.ratingContainer}>
+                              {hoveredMovie === movie._id ? (
+                                [...Array(5)].map((_, i) => (
+                                  <FaStar
+                                    key={i}
+                                    className={styles.star}
+                                    onClick={() => handleRatingClick(movie._id, i + 1)}
+                                    style={{
+                                      color: i < (ratings[movie._id] || 0) ? '#ffc107' : '#e4e5e9'
+                                    }}
+                                  />
+                                ))
+                              ) : (
+                                <FaStar
+                                  className={styles.singleStar}
+                                  style={{ color: ratings[movie._id] ? '#ffc107' : '#e4e5e9' }}
+                                />
+                              )}
+                            </div>
+                          </div>
                           <div className={styles.genre}>{truncateDescription(movie.full_description, movie._id)}</div>
                         </div>
                       </div>

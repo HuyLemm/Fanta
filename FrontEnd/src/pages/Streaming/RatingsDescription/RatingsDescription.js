@@ -32,7 +32,7 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
   // Xử lý khi người dùng click để đánh giá
   const handleRatingClick = async (ratingValue) => {
     if (!token) {
-      navigate('/login');
+      notifyWarning('You need to log in first to rate');
       return;
     }
 

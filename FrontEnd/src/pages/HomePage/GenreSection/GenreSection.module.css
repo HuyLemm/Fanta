@@ -262,3 +262,30 @@ body {
 .addToFavoritesButton:hover {
   background-color: #666;
 }
+
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.star {
+  cursor: pointer;
+  transition: color 0.2s;
+  margin-left: 5px;
+  border: 1px solid orange;
+  background-color: black;
+}
+
+.star:hover,
+.ratingContainer:hover .star {
+  color: orange;
+}
+
+.singleStar {
+  border: 1px solid orange;
+  background-color: black;
+  cursor: pointer;
+  transition: color 0.2s;
+  margin-left: 5px;
+}
