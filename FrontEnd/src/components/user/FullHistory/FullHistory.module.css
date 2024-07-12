@@ -166,6 +166,16 @@
   visibility: visible;
 }
 
+.checkboxAll:checked {
+  background-color: #fb5607;
+  border-color: #fb5607;
+}
+
+.checkboxAll:checked::after {
+  color: black;
+  transform: translate(-50%, -50%);
+}
+
 /* Delete selected button */
 .deleteSelectedButton {
   margin-left: 10px;
