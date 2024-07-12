@@ -146,6 +146,7 @@
   background: transparent;
   border: 2px solid #fb5607;
   border-radius: 2rem;
+  cursor: pointer;
 }
 
 .checkbox:checked {
