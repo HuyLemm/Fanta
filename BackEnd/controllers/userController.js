@@ -1,6 +1,7 @@
 const AccountModel = require('../models/Account');
 const ReviewModel = require('../models/Review');
 const RatingModel = require('../models/Rating');
+const HistoryModel = require('../models/History');
 const WatchlistModel = require('../models/Watchlist');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -250,5 +251,21 @@ exports.getSimilarGenreMovies = async (req, res) => {
   } catch (error) {
     console.error('Error fetching similar genre movies:', error);
     res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+exports.removeHistory = async(req, res) => {
+  const { movieIds } = req.body;
+  const userId = req.user._id;
+
+  if (!Array.isArray(movieIds) || movieIds.length === 0) {
+    return res.status(400).json({ message: 'No movie IDs provided' });
+  }
+
+  try {
+    await HistoryModel.deleteMany({ userId, movieId: { $in: movieIds } });
+    res.status(200).json({ message: 'Selected history deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete selected history', error });
   }
 }

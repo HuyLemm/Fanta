@@ -1,87 +1,195 @@
 .historyContainer {
-    padding: 20px;
-    color: #fff;
-  }
-  
-  .heading {
-    font-size: 2em;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .noHistory {
-    text-align: center;
-    font-size: 1.5em;
-  }
-  
-  .gridContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  
-  .gridItem {
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 8px;
-    transition: transform 0.2s;
-  }
-  
-  .gridItem:hover {
-    transform: scale(1.05);
-  }
-  
-  .imageContainer {
-    position: relative;
-  }
-  
-  .backgroundImage {
-    width: 15rem;
-    height: 8rem;
-    border-radius: 8px 8px 0 0;
-    object-fit: cover;
-  }
-  
-  .historyDetails {
-    padding: 10px;
-    color: #fff;
-  }
-  
-  .movieTitle {
-    margin: 10px 0 0;
-    text-align: center;
-    font-size: 1em;
-  }
-  
-  .episodeInfo {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    font-size: 0.8rem;
-  }
-  
-  .timeInfo {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    font-size: 0.9rem;
-  }
-  
-  .progressBar {
-    width: 100%;
-    height: 5px;
-    background: #444;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  
-  .progress {
-    height: 5px;
-    background: #4caf50;
-  }
-  
+  padding: 20px;
+  color: #fff;
+}
+
+.heading {
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.noHistory {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.fixedHeader { 
+  padding: 10px;
+  z-index: 1; 
+  display: flex; 
+  align-items: center;
+  justify-content: center; 
+  position: sticky; 
+  top: 20px; 
+  left: 20px; 
+  right: 20px; 
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.h2 {
+  font-family: 'Hatton', sans-serif;
+  font-size: 2rem;
+  color: aliceblue;
+  z-index: 1;
+  flex-grow: 1; 
+  margin-left: 3rem;
+  text-align: center;
+}
+
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  position: absolute; 
+  right: 10px; 
+  top: 50%;
+  transform: translateY(-50%); 
+  z-index: 1;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.gridItem {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.gridItem:hover {
+  transform: scale(1.05);
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.backgroundImage {
+  width: 15rem;
+  height: 8rem;
+  border-radius: 8px 8px 0 0;
+  object-fit: cover;
+}
+
+.historyDetails {
+  padding: 10px;
+  color: #fff;
+}
+
+.movieTitle {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 1em;
+}
+
+.episodeInfo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.timeInfo {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.progressBar {
+  width: 100%;
+  height: 5px;
+  background: #444;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.progress {
+  height: 5px;
+  background: #4caf50;
+}
+
+/* Checkbox styles */
+.checkbox {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  visibility: hidden;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  background: transparent;
+  border: 2px solid #fb5607;
+  border-radius: 2rem;
+}
+
+.checkboxAll {
+  margin-right: 0.5rem;
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  background: transparent;
+  border: 2px solid #fb5607;
+  border-radius: 2rem;
+}
+
+.checkbox:checked {
+  background-color: #fb5607;
+  border-color: #fb5607;
+}
+
+.checkbox:checked::after {
+  content: '✔';
+  color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.selecting .checkbox {
+  visibility: visible;
+}
+
+/* Delete selected button */
+.deleteSelectedButton {
+  margin-left: 10px;
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.deleteSelectedButton:hover {
+  background-color: #333;
+}
+
+.selectButton {
+  background-color: #fb5607;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 1rem;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.selectButton:hover {
+  background-color: #333;
+}

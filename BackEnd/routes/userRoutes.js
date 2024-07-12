@@ -21,5 +21,5 @@ router.post('/get-similar-genre-movies', authMiddleware.isUser, userController.g
 // DELETE
 router.delete('/delete-reviews/:reviewId', authMiddleware.isUser, userController.deleteReview);
 router.delete('/remove-from-favorite', authMiddleware.isUser, userController.removeFromFavorite);
-
+router.delete('/remove-history', authMiddleware.isUser, userController.removeHistory);
 module.exports = router;
