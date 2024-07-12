@@ -113,7 +113,6 @@ const FullHistory = () => {
   return (
     <div className={styles.historyContainer}>
       <Notification />
-      <h1 className={styles.heading}>History</h1>
       {history.length === 0 ? (
         <div className={styles.noHistory}>No history available</div>
       ) : (
@@ -155,7 +154,7 @@ const FullHistory = () => {
 
           return (
             <div key={item._id} className={styles.gridItem} onClick={() => handleHistoryClick(item.movie._id)}>
-              <div className={styles.imageContainer}>
+              <div className={`${styles.imageContainer} ${isSelecting ? styles.selecting : ''}`}>
                 {isSelecting && (
                   <input
                     type="checkbox"
@@ -165,6 +164,7 @@ const FullHistory = () => {
                   />
                 )}
                 <img src={item.movie.background_url} alt={item.movie.title} className={styles.backgroundImage} />
+                <div className={styles.overlay}></div>
                 {item.movie.type === 'series' && item.latestEpisode !== undefined ? (
                   <p className={styles.episodeInfo}>Watch to Episode {item.latestEpisode}</p>
                 ) : null}
