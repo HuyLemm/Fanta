@@ -229,6 +229,23 @@ exports.getRating = async (req, res) => {
   }
 }
 
+exports.getRatingHover = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { movieId } = req.params;
+
+    const rating = await RatingModel.findOne({ userId, movieId });
+
+    if (rating) {
+      return res.json(rating);
+    } else {
+      return res.json(null);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 // Lấy đánh giá trung bình
 exports.getAverageRatings =   async (req, res) => { 
   const { movieId } = req.params;
