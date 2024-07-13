@@ -87,7 +87,7 @@
   visibility: hidden;
   transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.4s ease;
   z-index: 10;
-  transform-origin: top; /* Set the transform origin to top left */
+  transform-origin: top; 
 }
 
 .item:hover .hoverSection {
@@ -213,13 +213,13 @@ body {
   overflow-x: hidden;
 }
 
-.buttonComb{
+.buttonComb {
   display: flex;
   flex-direction: row;
 }
 
 /* General watch button styling */
-.watchButton {
+.watchButton, .addToFavoritesButton, .symbolicStarContainer {
   position: relative;
   bottom: 0.625rem; 
   left: 0;
@@ -237,8 +237,12 @@ body {
   margin-bottom: 0.625rem;
 }
 
-.watchButton:hover {
+.watchButton:hover, .starContainer:hover, .symbolicStarContainer:hover {
   background-color: #333;
+}
+
+.plus {
+  font-size: 3rem;
 }
 
 .addToFavoritesButton {
@@ -263,29 +267,65 @@ body {
   background-color: #666;
 }
 
-.ratingContainer {
-  display: flex;
-  align-items: center;
-  position: relative;
+/* Symbolic star styling */
+.symbolicStar {
+  color: black;
+  transition: color 0.2s;
 }
 
-.star {
+.starContainer{
+  position: relative;
+  bottom: 0.625rem; 
+  left: 0;
+  transition: background-color 0.3s ease;
+  background-color: #fb5607;
+  border: none;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-bottom: 0.625rem;
+}
+
+/* General star styling inside starContainer */
+.starContainer .star {
   cursor: pointer;
   transition: color 0.2s;
-  margin-left: 5px;
-  border: 1px solid orange;
-  background-color: black;
+  margin: 0;
+  border: none;
+  background-color: transparent;
 }
 
-.star:hover,
-.ratingContainer:hover .star {
+.starContainer .star:hover,
+.ratingContainer:hover .starContainer .star {
   color: orange;
 }
 
 .singleStar {
-  border: 1px solid orange;
-  background-color: black;
+  border: none;
+  background-color: transparent;
   cursor: pointer;
   transition: color 0.2s;
-  margin-left: 5px;
+}
+
+/* Star container with hidden stars by default */
+.ratingContainer {  
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 1rem;
+}
+
+/* Hide stars by default */
+.ratingContainer .starContainer {
+  display: none;
+}
+
+/* Show stars when hovering over the symbolic star */
+.ratingContainer:hover .starContainer {
+  display: flex;
 }

@@ -49,9 +49,11 @@
 }
 
 .gridContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .gridItem {
@@ -60,7 +62,7 @@
   overflow: hidden;
   border-radius: 8px;
   transition: transform 0.2s;
-  width: 20%;
+  width: 15rem;
 }
 
 .gridItem:hover {
