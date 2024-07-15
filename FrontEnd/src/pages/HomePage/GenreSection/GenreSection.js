@@ -261,9 +261,6 @@ const GenreSection = ({ type, currentUser }) => {
                                 {watchlists[movie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
                               </button>
                               <div className={styles.ratingContainer}>
-                                <div className={styles.symbolicStarContainer}>
-                                  <FaStar className={styles.symbolicStar} />
-                                </div>
                                 {hoveredMovie === movie._id && (
                                   [...Array(5)].map((_, i) => (
                                     <div key={i} className={styles.starContainer}>

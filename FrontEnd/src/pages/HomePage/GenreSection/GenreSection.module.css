@@ -237,7 +237,7 @@ body {
   margin-bottom: 0.625rem;
 }
 
-.watchButton:hover, .starContainer:hover, .symbolicStarContainer:hover {
+.watchButton:hover, .starContainer:hover{
   background-color: #333;
 }
 
@@ -267,15 +267,7 @@ body {
   background-color: #666;
 }
 
-/* Symbolic star styling */
-.symbolicStar {
-  color: black;
-  transition: color 0.2s;
-}
-
 .starContainer{
-  position: relative;
-  bottom: 0.625rem; 
   left: 0;
   transition: background-color 0.3s ease;
   background-color: #fb5607;
@@ -288,7 +280,6 @@ body {
   align-items: center;
   font-size: 1.5rem;
   cursor: pointer;
-  margin-bottom: 0.625rem;
 }
 
 /* General star styling inside starContainer */
@@ -305,27 +296,13 @@ body {
   color: orange;
 }
 
-.singleStar {
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
 /* Star container with hidden stars by default */
 .ratingContainer {  
   display: flex;
   align-items: center;
   position: relative;
   margin-left: 1rem;
+  bottom:0.95rem;
 }
 
-/* Hide stars by default */
-.ratingContainer .starContainer {
-  display: none;
-}
 
-/* Show stars when hovering over the symbolic star */
-.ratingContainer:hover .starContainer {
-  display: flex;
-}
