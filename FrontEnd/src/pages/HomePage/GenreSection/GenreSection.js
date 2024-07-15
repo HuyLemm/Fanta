@@ -17,6 +17,7 @@ const GenreSection = ({ type, currentUser }) => {
   const [watchlists, setWatchlists] = useState({});
   const [ratings, setRatings] = useState({});
   const [hoveredMovie, setHoveredMovie] = useState(null);
+  const [hoveredStarMovie, setHoveredStarMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -260,15 +261,28 @@ const GenreSection = ({ type, currentUser }) => {
                               <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(movie._id)}>
                                 {watchlists[movie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
                               </button>
-                              <div className={styles.ratingContainer}>
-                                {hoveredMovie === movie._id && (
-                                  [...Array(5)].map((_, i) => (
+                              <div 
+                                className={styles.ratingContainer}
+                                onMouseEnter={() => setHoveredStarMovie(movie._id)}
+                                onMouseLeave={() => setHoveredStarMovie(null)}
+                              >
+                                <div className={styles.starContainer}>
+                                  <FaStar
+                                    className={styles.star}
+                                    onClick={() => handleRatingClick(movie._id, 1)}
+                                    style={{
+                                      color: hoveredStarMovie === movie._id || (ratings[movie._id] || 0) >= 1 ? '#ffc107' : '#e4e5e9'
+                                    }}
+                                  />
+                                </div>
+                                {hoveredStarMovie === movie._id && (
+                                  [...Array(4)].map((_, i) => (
                                     <div key={i} className={styles.starContainer}>
                                       <FaStar
                                         className={styles.star}
-                                        onClick={() => handleRatingClick(movie._id, i + 1)}
+                                        onClick={() => handleRatingClick(movie._id, i + 2)}
                                         style={{
-                                          color: i < (ratings[movie._id] || 0) ? '#ffc107' : '#e4e5e9'
+                                          color: i + 2 <= (ratings[movie._id] || 0) ? '#ffc107' : '#e4e5e9'
                                         }}
                                       />
                                     </div>
