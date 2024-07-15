@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../../utils/Cookies';
 import { notifySuccess, notifyError, notifyWarning } from '../../../components/public/Notification/Notification';
 import Loading from '../../../components/public/LoadingEffect/Loading';
+import MovieModal from '../MovieModal/MovieModal'; // Import the MovieModal component
 
 const Carousel = ({ type }) => {
   const carouselRef = useRef(null); 
@@ -15,6 +16,8 @@ const Carousel = ({ type }) => {
   const [movies, setMovies] = useState([]); 
   const [watchlists, setWatchlists] = useState({}); 
   const [loading, setLoading] = useState(true); 
+  const [selectedMovie, setSelectedMovie] = useState(null); // State to manage the selected movie
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal open/close
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -161,6 +164,16 @@ const Carousel = ({ type }) => {
     }
   };
 
+  const openModal = (movie) => {
+    setSelectedMovie(movie);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedMovie(null);
+    setIsModalOpen(false);
+  };
+
   return (
     <div className={styles.carousel} ref={carouselRef}>
       {loading ? (
@@ -192,11 +205,13 @@ const Carousel = ({ type }) => {
           {/* Thumbnails for the movies */}
           <div className={styles.thumbnail} ref={thumbnailRef}>
             {movies.map((movie, index) => (
-              <div className={`${styles.item} ${styles.movieThumbnail}`} key={index}>
+              <div 
+                className={`${styles.item} ${styles.movieThumbnail}`} 
+                key={index}
+              >
                 <img src={movie.poster_url} alt={movie.title} />
-                <div className={styles.content}></div>
                 <div className={styles.movieInfo}>
-                  <a href={`/movie/${movie.id}`}>See More</a>
+                  <button className={styles.more} onClick={() => openModal(movie)}>See More</button>
                   <h3 className={styles.h3}>{movie.title}</h3>
                 </div>
               </div>
@@ -208,6 +223,11 @@ const Carousel = ({ type }) => {
             <button id="next">&gt;</button>
           </div>
           <div className={styles.time}></div>
+          <MovieModal
+            isOpen={isModalOpen}
+            onRequestClose={closeModal}
+            movie={selectedMovie}
+          />
         </>
       )}
     </div>
