@@ -8,9 +8,10 @@ import { IoIosAddCircle } from "react-icons/io";
 import { getCookie } from '../../../utils/Cookies';
 import Loading from '../../../components/public/LoadingEffect/Loading';
 
-const GenreSection = ({ type, currentUser }) => {
+const GenreSection = ({ type }) => {
   const { id } = useParams();
-  const [watchHistory, setWatchHistory] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [history, setHistory] = useState([]);
   const token = getCookie('jwt');
   const genreItemsRef = useRef([]);
   const [genres, setGenres] = useState([]);
@@ -22,13 +23,20 @@ const GenreSection = ({ type, currentUser }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
     const fetchGenres = async () => {
       try {
         const response = await fetch(`http://localhost:5000/public/get-genres-movie?type=${type || ''}`);
-        const data = await response.json();
+        let data = await response.json();
+        console.log('Fetched genres:', data);
+
+        // Shuffle movies within each genre
+        data.forEach(genre => {
+          genre.movies = genre.movies.sort(() => 0.5 - Math.random());
+        });
 
         const sortedGenres = data.sort((a, b) => b.movies.length - a.movies.length);
-        const topGenres = sortedGenres.slice(0, 4);
+        const topGenres = sortedGenres.slice(0, 3);
 
         setGenres(topGenres);
         if (token) {
@@ -43,9 +51,52 @@ const GenreSection = ({ type, currentUser }) => {
         setLoading(false);
       }
     };
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/public/get-current-user', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        console.log('Fetched current user:', data);
+        setCurrentUser(data);
+      } catch (error) {
+        console.log('Error fetching current user:', error);
+      }
+    };
 
     fetchGenres();
+    fetchCurrentUser();
+    fetchHistory();
   }, [type, token]);
+
+  const fetchHistory = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/public/get-history-for-user', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      console.log('Fetched history:', data);
+      if (Array.isArray(data)) {
+        setHistory(data);
+      } else {
+        setHistory([]);
+      }
+    } catch (error) {
+      notifyError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (hoveredMovie) {
@@ -86,7 +137,6 @@ const GenreSection = ({ type, currentUser }) => {
           throw new Error('Failed to load watch history');
         }
         const data = await response.json();
-        setWatchHistory(data);
         return data;
       } catch (err) {
         console.error('Failed to load watch history:', err);
@@ -112,42 +162,21 @@ const GenreSection = ({ type, currentUser }) => {
   };
 
   const truncateDescription = (description, movieId) => {
+    if (!description) return '';
+    
     const lines = description.split(' ');
     if (lines.length > 10) {
       return (
-        <span>
+        <>
           {lines.slice(0, 12).join(' ')}...{' '}
           <div className={styles.seeMore} onClick={() => handleMoreDetailsClick(movieId)}>
             More Details
           </div>
-        </span>
+        </>
       );
     }
     return description;
   };
-
-  const checkIfWatchlisted = async (movieId) => {
-    if (!token) return;
-
-    try {
-      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
-      const data = await response.json();
-      setWatchlists(prevWatchlists => ({
-        ...prevWatchlists,
-        [movieId]: data.isFavourite
-      }));
-    } catch (error) {
-      console.log('Check if watchlisted error:', error);
-    }
-  };
-
   const handleFavoriteClick = async (movieId) => {
     if (!token) {
       notifyWarning('You need to log in first to archive');
@@ -190,6 +219,7 @@ const GenreSection = ({ type, currentUser }) => {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
       const data = await response.json();
+      console.log('Fetched rating for movie:', movieId, data);
       const userRate = data ? data.rating : 0;
       const newRatings = {
         ...ratings,
@@ -237,74 +267,152 @@ const GenreSection = ({ type, currentUser }) => {
       {loading ? (
         <Loading />
       ) : (
-        genres.length > 0 && genres.map((genre, index) => (
-          <div key={index} className={styles.genreSection}>
-            <h2>{genre.name + (type === 'series' ? ' Series' : ' Movies')}</h2>
-            <div className={styles.genreList}>
-              <button className={styles.prevGenre} onClick={() => handlePrevClick(index)}><GrPrevious /></button>
-              <div className={styles.genreItems} ref={(el) => genreItemsRef.current[index] = el}>
-                {genre.movies && genre.movies.map((movie, movieIndex) => (
-                  <div 
-                    className={styles.item} 
-                    key={movieIndex}
-                    onMouseEnter={() => setHoveredMovie(movie._id)}
-                    onMouseLeave={() => setHoveredMovie(null)}
-                  >
-                    <div className={styles.imageContainer}>
-                      <img src={movie.poster_url} alt={movie.title} />
-                      <div className={styles.hoverSection}>
-                        <div className={styles.topSection} style={{ backgroundImage: `url(${movie.background_url})` }}></div>
-                        <div className={styles.bottomSection}>
-                          <div className={styles.topLeft}>
-                            <div className={styles.buttonComb}>
-                              <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
-                              <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(movie._id)}>
-                                {watchlists[movie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
-                              </button>
-                              <div 
-                                className={styles.ratingContainer}
-                                onMouseEnter={() => setHoveredStarMovie(movie._id)}
-                                onMouseLeave={() => setHoveredStarMovie(null)}
-                              >
-                                <div className={styles.starContainer}>
-                                  <FaStar
-                                    className={styles.star}
-                                    onClick={() => handleRatingClick(movie._id, 1)}
-                                    style={{
-                                      color: hoveredStarMovie === movie._id || (ratings[movie._id] || 0) >= 1 ? '#ffc107' : '#e4e5e9'
-                                    }}
-                                  />
-                                </div>
-                                {hoveredStarMovie === movie._id && (
-                                  [...Array(4)].map((_, i) => (
-                                    <div key={i} className={styles.starContainer}>
+        <>
+          {currentUser && history.length > 0 && (
+            <div className={styles.genreSection}>
+              <h2>Continue Watching for {currentUser.username}</h2>
+              <div className={styles.genreList}>
+                <button className={styles.prevGenre} onClick={() => handlePrevClick('continue')}><GrPrevious /></button>
+                <div className={styles.genreItems} ref={(el) => genreItemsRef.current['continue'] = el}>
+                  {history.map((historyItem, movieIndex) => {
+                    const movie = historyItem.movie;
+                    const progress = (historyItem.currentTime / (movie.duration * 60)) * 100;
+                    return (
+                      <div 
+                        className={styles.item} 
+                        key={movieIndex}
+                        onMouseEnter={() => setHoveredMovie(movie._id)}
+                        onMouseLeave={() => setHoveredMovie(null)}
+                      >
+                        <div className={styles.imageContainer}>
+                          <img src={movie.poster_url} alt={movie.title} />
+                          <div className={styles.hoverSection}>
+                            <div className={styles.topSection} style={{ backgroundImage: `url(${movie.background_url})` }}></div>
+                            <div className={styles.bottomSection}>
+                              <div className={styles.topLeft}>
+                                <div className={styles.progressBarHover} style={{ width: `${progress}%` }}></div>
+                                <div className={styles.buttonComb}>
+                                  <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
+                                  <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(movie._id)}>
+                                    {watchlists[movie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
+                                  </button>
+                                  <div 
+                                    className={styles.ratingContainer}
+                                    onMouseEnter={() => setHoveredStarMovie(movie._id)}
+                                    onMouseLeave={() => setHoveredStarMovie(null)}
+                                  >
+                                    <div className={styles.starContainer}>
                                       <FaStar
                                         className={styles.star}
-                                        onClick={() => handleRatingClick(movie._id, i + 2)}
+                                        onClick={() => handleRatingClick(movie._id, 1)}
                                         style={{
-                                          color: i + 2 <= (ratings[movie._id] || 0) ? '#ffc107' : '#e4e5e9'
+                                          color: hoveredStarMovie === movie._id || (ratings[movie._id] || 0) >= 1 ? '#ffc107' : '#e4e5e9'
                                         }}
                                       />
                                     </div>
-                                  ))
-                                )}
+                                    {hoveredStarMovie === movie._id && (
+                                      [...Array(4)].map((_, i) => (
+                                        <div key={i} className={styles.starContainer}>
+                                          <FaStar
+                                            className={styles.star}
+                                            onClick={() => handleRatingClick(movie._id, i + 2)}
+                                            style={{
+                                              color: i + 2 <= (ratings[movie._id] || 0) ? '#ffc107' : '#e4e5e9'
+                                            }}
+                                          />
+                                        </div>
+                                      ))
+                                    )}
+                                  </div>
+                                </div>
+                                <div className={styles.genre}>{truncateDescription(movie.full_description, movie._id)}</div>
                               </div>
                             </div>
-                            <div className={styles.genre}>{truncateDescription(movie.full_description, movie._id)}</div>
                           </div>
                         </div>
+                        <div className={styles.content}>
+                          <div className={styles.progressBar} style={{ width: `${progress}%` }}></div>
+                          <div className={styles.title}>{movie.title}</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className={styles.content}>
-                      <div className={styles.title}>{movie.title}</div>
-                    </div>
-                  </div>
-                ))}
+                    );
+                  })}
+                </div>
+                <button className={styles.nextGenre} onClick={() => handleNextClick('continue')}><GrNext /></button>
               </div>
-              <button className={styles.nextGenre} onClick={() => handleNextClick(index)}><GrNext /></button>
             </div>
-          </div>
-        ))
+          )}
+          {genres.length > 0 && genres.map((genre, index) => (
+            <div key={index} className={styles.genreSection}>
+              <h2>{genre.name + (type === 'series' ? ' Series' : ' Movies')}</h2>
+              <div className={styles.genreList}>
+                <button className={styles.prevGenre} onClick={() => handlePrevClick(index)}><GrPrevious /></button>
+                <div className={styles.genreItems} ref={(el) => genreItemsRef.current[index] = el}>
+                  {genre.movies && genre.movies.map((movie, movieIndex) => {
+                    return (
+                      <div 
+                        className={styles.item} 
+                        key={movieIndex}
+                        onMouseEnter={() => setHoveredMovie(movie._id)}
+                        onMouseLeave={() => setHoveredMovie(null)}
+                      >
+                        <div className={styles.imageContainer}>
+                          <img src={movie.poster_url} alt={movie.title} />
+                          <div className={styles.hoverSection}>
+                            <div className={styles.topSection} style={{ backgroundImage: `url(${movie.background_url})` }}></div>
+                            <div className={styles.bottomSection}>
+                              <div className={styles.topLeft}>
+                                <div className={styles.buttonComb}>
+                                  <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
+                                  <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(movie._id)}>
+                                    {watchlists[movie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
+                                  </button>
+                                  <div 
+                                    className={styles.ratingContainer}
+                                    onMouseEnter={() => setHoveredStarMovie(movie._id)}
+                                    onMouseLeave={() => setHoveredStarMovie(null)}
+                                  >
+                                    <div className={styles.starContainer}>
+                                      <FaStar
+                                        className={styles.star}
+                                        onClick={() => handleRatingClick(movie._id, 1)}
+                                        style={{
+                                          color: (ratings[movie._id] || 0) >= 1 ? '#ffc107' : '#e4e5e9'
+                                        }}
+                                      />
+                                    </div>
+                                    {hoveredStarMovie === movie._id && (
+                                      [...Array(4)].map((_, i) => (
+                                        <div key={i} className={styles.starContainer}>
+                                          <FaStar
+                                            className={styles.star}
+                                            onClick={() => handleRatingClick(movie._id, i + 2)}
+                                            style={{
+                                              color: i + 2 <= (ratings[movie._id] || 0) ? '#ffc107' : '#e4e5e9'
+                                            }}
+                                          />
+                                        </div>
+                                      ))
+                                    )}
+                                  </div>
+                                </div>
+                                <div className={styles.genre}>{truncateDescription(movie.full_description, movie._id)}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className={styles.content}>
+                          <div className={styles.title}>{movie.title}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <button className={styles.nextGenre} onClick={() => handleNextClick(index)}><GrNext /></button>
+              </div>
+            </div>
+          ))}
+        </>
       )}
     </div>
   );

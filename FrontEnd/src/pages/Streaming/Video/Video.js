@@ -29,6 +29,20 @@ const Video = ({ url, type, videoId, initialTime, currentEpisode, setInitialTime
     }
   }, [videoId]);
 
+  const handleStateSave = async () => {
+    if (!videoId) return;
+    let currentTime = 0;
+
+    if (type === 'youtube' && playerRef.current) {
+      currentTime = playerRef.current.getCurrentTime();
+    } else if (videoRef.current) {
+      currentTime = videoRef.current.currentTime;
+    }
+
+    console.log(`State save - current time: ${currentTime}`);
+    await saveCurrentTime(currentTime, currentEpisode);
+  };
+
   useEffect(() => {
     const setInitialTimeInPlayer = () => {
       console.log(`Setting initial time: ${initialTime} for type: ${type}, currentEpisode: ${currentEpisode}`);
@@ -43,53 +57,23 @@ const Video = ({ url, type, videoId, initialTime, currentEpisode, setInitialTime
 
     setInitialTimeInPlayer();
     
-    const handlePause = async() => {
-      if (!videoId) return;
-      let currentTime = 0;
-
-      if (type === 'youtube' && playerRef.current) {
-        currentTime = playerRef.current.getCurrentTime();
-      } else if (videoRef.current) {
-        currentTime = videoRef.current.currentTime;
-      }
-
-      console.log(`Before pause - current time: ${currentTime}`);
-      await saveCurrentTime(currentTime, currentEpisode);
-    };
-
-    const handleBeforeUnload = async () => {
-      if (!videoId) return;
-      let currentTime = 0;
-
-      if (type === 'youtube' && playerRef.current) {
-        currentTime = playerRef.current.getCurrentTime();
-      } else if (videoRef.current) {
-        currentTime = videoRef.current.currentTime;
-      }
-
-      console.log(`Before unload - current time: ${currentTime}`);
-      await saveCurrentTime(currentTime, currentEpisode);
-    };
+    const handlePause = handleStateSave;
+    const handleBeforeUnload = handleStateSave;
 
     const handleVisibilityChange = async () => {
       if (document.visibilityState === 'hidden') {
-        if (!videoId) return;
-        let currentTime = 0;
-
-        if (type === 'youtube' && playerRef.current) {
-          currentTime = playerRef.current.getCurrentTime();
-        } else if (videoRef.current) {
-          currentTime = videoRef.current.currentTime;
-        }
-
-        console.log(`Visibility change (hidden) - current time: ${currentTime}`);
-        await saveCurrentTime(currentTime, currentEpisode);
+        await handleStateSave();
       }
+    };
+
+    const handlePopState = async () => {
+      await handleStateSave();
     };
 
     if (videoId) {
       window.addEventListener('beforeunload', handleBeforeUnload);
       document.addEventListener('visibilitychange', handleVisibilityChange);
+      window.addEventListener('popstate', handlePopState);
       if (videoRef.current) {
         videoRef.current.addEventListener('pause', handlePause);
       }
@@ -99,6 +83,7 @@ const Video = ({ url, type, videoId, initialTime, currentEpisode, setInitialTime
       if (videoId) {
         window.removeEventListener('beforeunload', handleBeforeUnload);
         document.removeEventListener('visibilitychange', handleVisibilityChange);
+        window.removeEventListener('popstate', handlePopState);
         if (videoRef.current) {
           videoRef.current.removeEventListener('pause', handlePause);
         }
