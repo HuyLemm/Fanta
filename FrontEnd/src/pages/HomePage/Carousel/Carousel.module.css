@@ -156,7 +156,7 @@
   border-radius: 1.25rem; /* Converted 20px to 1.25rem */
   display: flex;
   flex-direction: column-reverse;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .movieThumbnail:hover .movieInfo {
@@ -386,8 +386,14 @@
   background-color: #fb5607;
   border: 0.0625rem solid #fb5607; /* Converted 1px to 0.0625rem */
   color: white;
-  padding: 0.65rem 2rem;
+  padding: 0.35rem 1rem;
   font-size: 0.975rem;
   cursor: pointer;
   justify-content: center;
+  border-radius: 2rem;
+}
+
+.more:hover{
+  background-color: #333;
+  border: #333;
 }

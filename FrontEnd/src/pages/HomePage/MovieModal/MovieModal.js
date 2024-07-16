@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import YouTube from 'react-youtube';
 import styles from './MovieModal.module.css';
+import { BiSolidLike } from "react-icons/bi";
 
 Modal.setAppElement('#root');
 
@@ -50,8 +51,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
           <div className={styles.buttons}>
             <button className={styles.playButton}>Play</button>
             <button className={styles.telepartyButton}>Start a Teleparty</button>
-            <button className={styles.addToListButton}>+</button>
-            <button className={styles.downloadButton}>⤓</button>
+            <button className={styles.addToListButton}><BiSolidLike /></button>
           </div>
         </div>
         <div className={styles.details}>
