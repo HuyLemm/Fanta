@@ -43,7 +43,6 @@ exports.getGenresAndSatisfiedMovie = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
 // Lấy top 5 phim đánh giá cao nhất
 exports.getTopRatedMovies = async (req, res) => {
   try {
