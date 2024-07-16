@@ -40,15 +40,14 @@
   color: white;
   cursor: pointer;
   z-index: 3;
-  border: #fb5607 0.15rem solid;
-  border-radius: 2rem; 
 }
 
 .videoWrapper {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 28rem; /* 16:9 aspect ratio */
   overflow: hidden;
+  margin-bottom: 9rem;
 }
 
 .video {
@@ -94,6 +93,10 @@
   border-radius: 10px;
   width: 100%;
   margin-top: -20px; /* Adjust this value to reduce gap */
+  display: flex;
+  margin-right: 3rem;
+  padding-left: 3rem;
+  height: 18rem;
 }
 
 .title {
@@ -102,14 +105,28 @@
   color: #fb5607;
 }
 
+.sect{
+  font-size: 1.2rem;
+  color: #333;
+}
+
 .description {
   margin: 10px 0;
 }
 
 .meta {
-  display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: flex-start;
   margin: 10px 0;
+  width: 30%;
+}
+
+.left{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-right: 5rem;
+  width: 70%;
 }
 
 .cast {

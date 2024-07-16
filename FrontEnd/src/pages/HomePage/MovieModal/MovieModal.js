@@ -55,16 +55,18 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
           </div>
         </div>
         <div className={styles.details}>
-          <h2 className={styles.title}>{movie.title}</h2>
-          <p className={styles.description}>{movie.brief_description}</p>
-          <div className={styles.meta}>
-            <span>{movie.release_date}</span>
-            <span>{movie.genre.join(', ')}</span>
-            <span>{movie.director.join(', ')}</span>
-          </div>
-          <div className={styles.cast}>
-            <h3>Cast:</h3>
+          <div className={styles.left}>
+            <h1 className={styles.title}>{movie.title}</h1>
+            <p className={styles.description}>{movie.brief_description}</p>
+            <div className={styles.cast}>
+              <h2 className={styles.sect}>Cast:</h2>
             <p>{movie.cast.join(', ')}</p>
+          </div>
+          </div>
+          <div className={styles.meta}>
+            <div> <h2 className={styles.sect}>Date: </h2>{movie.release_date}</div>
+            <div><h2 className={styles.sect}>Genre: </h2>{movie.genre.join(', ')}</div>
+            <div><h2 className={styles.sect}>Director: </h2>{movie.director.join(', ')}</div>
           </div>
         </div>
       </div>
