@@ -54,19 +54,19 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
             <button className={styles.addToListButton}><BiSolidLike /></button>
           </div>
         </div>
+        <h1 className={styles.title}>{movie.title}</h1>
+        <p className={styles.description}>{movie.brief_description}</p>
         <div className={styles.details}>
           <div className={styles.left}>
-            <h1 className={styles.title}>{movie.title}</h1>
-            <p className={styles.description}>{movie.brief_description}</p>
             <div className={styles.cast}>
               <h2 className={styles.sect}>Cast:</h2>
-            <p>{movie.cast.join(', ')}</p>
+              <p>{movie.cast.join(', ')}</p>
+              <div><h2 className={styles.sect}>Director: </h2>{movie.director.join(', ')}</div>
           </div>
           </div>
           <div className={styles.meta}>
             <div> <h2 className={styles.sect}>Date: </h2>{movie.release_date}</div>
             <div><h2 className={styles.sect}>Genre: </h2>{movie.genre.join(', ')}</div>
-            <div><h2 className={styles.sect}>Director: </h2>{movie.director.join(', ')}</div>
           </div>
         </div>
       </div>
