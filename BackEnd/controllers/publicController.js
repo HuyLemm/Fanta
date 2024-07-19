@@ -550,3 +550,48 @@ exports.getTopRatedMoviesByGenre = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
+
+exports.getTop10Movies = async (req, res) => {
+  try {
+    const topMovies = await RatingModel.aggregate([
+      {
+        $group: {
+          _id: "$movieId",
+          averageRating: { $avg: "$rating" }
+        }
+      },
+      {
+        $sort: { averageRating: -1 }
+      },
+      {
+        $limit: 10
+      },
+      {
+        $lookup: {
+          from: "movies",
+          localField: "_id",
+          foreignField: "_id",
+          as: "movieDetails"
+        }
+      },
+      {
+        $unwind: "$movieDetails"
+      },
+      {
+        $project: {
+          _id: 0,
+          movieDetails: 1,
+          averageRating: 1
+        }
+      }
+    ]);
+
+    res.json(topMovies.map(item => ({
+      ...item.movieDetails,
+      averageRating: item.averageRating
+    })));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch top movies' });
+  }
+}

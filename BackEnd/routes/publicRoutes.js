@@ -22,6 +22,7 @@ router.get('/get-tmdb-episode-images/:movieId', publicController.getTMDBEpisodeI
 router.get('/get-history/:videoId', authMiddleware.authenticateToken,authMiddleware.checkWatchHistory, publicController.getHistory);
 router.get('/get-history-for-user', authMiddleware.authenticateToken, publicController.getHistoryForUser);
 router.get('/get-top-rated-movies-by-genre', publicController.getTopRatedMoviesByGenre);
+router.get('/get-top-10-movies', publicController.getTop10Movies);
 
 // POST
 router.post('/save-history', authMiddleware.authenticateToken, publicController.saveHistory);
