@@ -412,7 +412,7 @@ const GenreSection = ({ type, setCurrentFunction }) => {
                                 <div className={styles.buttonComb}>
                                   <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
                                   <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(movie._id)}>
-                                    {watchlists[movie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
+                                    {watchlists[movie._id] ? <FaCheckCircle /> : <FaPlusCircle className={styles.plus} />}
                                   </button>
                                   <div 
                                     className={styles.ratingContainer}
@@ -486,7 +486,7 @@ const GenreSection = ({ type, setCurrentFunction }) => {
                                 <div className={styles.buttonComb}>
                                   <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
                                   <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(movie._id)}>
-                                    {watchlists[movie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
+                                    {watchlists[movie._id] ? <FaCheckCircle /> : <FaPlusCircle className={styles.plus} />}
                                   </button>
                                   <div 
                                     className={styles.ratingContainer}
