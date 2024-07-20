@@ -393,7 +393,18 @@
   border-radius: 2rem;
 }
 
-.more:hover{
+.moreMain {
+  display: flex;
+  background-color: #fb5607;
+  border: 0.0625rem solid #fb5607; /* Converted 1px to 0.0625rem */
+  color: white;
+  padding: 0.35rem 1rem;
+  font-size: 0.975rem;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.more:hover, .moreMain:hover{
   background-color: #333;
   border: #333;
 }

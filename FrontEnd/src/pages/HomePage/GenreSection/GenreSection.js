@@ -4,7 +4,7 @@ import styles from './GenreSection.module.css';
 import { notifyError, notifySuccess, notifyWarning } from '../../../components/public/Notification/Notification';
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { FaPlay, FaCheckCircle, FaStar } from 'react-icons/fa';
-import { IoIosAddCircle } from "react-icons/io";
+import { FaPlusCircle } from "react-icons/fa";
 import { getCookie } from '../../../utils/Cookies';
 import Loading from '../../../components/public/LoadingEffect/Loading';
 
@@ -335,7 +335,7 @@ const GenreSection = ({ type, setCurrentFunction }) => {
                                 <div className={styles.buttonComb}>
                                   <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
                                   <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(movie._id)}>
-                                    {watchlists[movie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
+                                    {watchlists[movie._id] ? <FaCheckCircle /> : <FaPlusCircle className={styles.plus} />}
                                   </button>
                                   <div 
                                     className={styles.ratingContainer}
@@ -412,7 +412,7 @@ const GenreSection = ({ type, setCurrentFunction }) => {
                                 <div className={styles.buttonComb}>
                                   <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
                                   <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(movie._id)}>
-                                    {watchlists[movie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
+                                    {watchlists[movie._id] ? <FaCheckCircle /> : <FaPlusCircle className={styles.plus} />}
                                   </button>
                                   <div 
                                     className={styles.ratingContainer}
@@ -486,7 +486,7 @@ const GenreSection = ({ type, setCurrentFunction }) => {
                                 <div className={styles.buttonComb}>
                                   <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
                                   <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(movie._id)}>
-                                    {watchlists[movie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
+                                    {watchlists[movie._id] ? <FaCheckCircle /> : <FaPlusCircle className={styles.plus} />}
                                   </button>
                                   <div 
                                     className={styles.ratingContainer}
@@ -561,7 +561,7 @@ const GenreSection = ({ type, setCurrentFunction }) => {
                                 <div className={styles.buttonComb}>
                                   <button className={styles.watchButton} onClick={() => handleWatchClick(movie._id)}><FaPlay /></button>
                                   <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(movie._id)}>
-                                    {watchlists[movie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
+                                    {watchlists[movie._id] ? <FaCheckCircle /> : <FaPlusCircle className={styles.plus} />}
                                   </button>
                                   <div 
                                     className={styles.ratingContainer}

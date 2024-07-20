@@ -267,10 +267,6 @@ body {
   background-color: #333;
 }
 
-.plus {
-  font-size: 3rem;
-}
-
 .addToFavoritesButton {
   position: relative;
   bottom: 0.625rem; 
@@ -341,12 +337,11 @@ body {
 
 .progressBarHover {
   position: absolute;
-  bottom: 5px;
+  top:40%;
   left: 0;
   height: 5px;
   background-color: red;
   width: 100%;
-  /* Adjust color and height as needed */
 }
 
 .posterRanking {
