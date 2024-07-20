@@ -9,6 +9,7 @@
   color: white;
   outline: none;
   overflow: hidden;
+  height: 50rem;
 }
 
 .overlay {
@@ -45,9 +46,9 @@
 .videoWrapper {
   position: relative;
   width: 100%;
-  padding-bottom: 28rem; /* 16:9 aspect ratio */
+  padding-bottom: 20.8rem; /* 16:9 aspect ratio */
   overflow: hidden;
-  margin-bottom: 4rem;
+  margin-bottom: 8rem;
 }
 
 .video {
@@ -114,6 +115,7 @@
   margin-bottom:  5rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+  text-align: left;
 }
 
 .meta {
@@ -121,6 +123,7 @@
   justify-content: flex-start;
   margin: 10px 0;
   width: 30%;
+  align-items: start;
 }
 
 .left{
@@ -129,8 +132,16 @@
   justify-content: flex-start;
   margin-right: 5rem;
   width: 70%;
+  align-items: center;
 }
 
 .cast {
   margin: 20px 0;
+  display: flex;
+}
+
+.metaitem{
+  display: flex;
+  justify-content: row;
+
 }
