@@ -8,6 +8,49 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const tokenStore = require('../utils/tokenStore');
 
+
+exports.createUsers = async (req, res) => {
+  try {
+    // Array to hold the user creation promises
+    const userPromises = [];
+
+    // Loop to create 10 users
+    for (let i = 1; i <= 10; i++) {
+      const username = `${i}`;
+      const password = `${i}`;
+      const email = `user${i}@example.com`;
+
+      // Check if the user already exists
+      const existingUser = await AccountModel.findOne({ username: username });
+      if (existingUser) {
+        console.log(`User ${username} already exists`);
+      } else {
+        // Hash the password before saving to database
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new AccountModel({
+          email: email,
+          username: username,
+          password: hashedPassword,
+          avatar: '', // Default avatar can be added if necessary
+          role: 'user',
+          bannedUntil: null
+        });
+
+        // Add the save promise to the array
+        userPromises.push(newUser.save());
+      }
+    }
+
+    // Await all user creation promises
+    await Promise.all(userPromises);
+
+    // Send a success response
+    console.log('Users created successfully');
+  } catch (error) {
+    console.error('Error creating users:', error);
+  }
+}
 // Lấy thông tin người dùng
 exports.getUserProfile = async (req, res) => {
   try {
