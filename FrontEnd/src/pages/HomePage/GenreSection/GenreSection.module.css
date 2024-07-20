@@ -6,11 +6,46 @@
   width: 100dvw;
 }
 
+/* Container for the title and explore button */
+.titleContainer {
+  font-family: 'Hatton', sans-serif;
+  display: inline-block;
+  position: relative;;
+}
+
+.titleContainer:hover .exploreButton {
+  display: inline-block;
+}
+
+.titleContainer:hover h2 {
+  cursor: pointer;
+}
+
 /* Styling for genre section headings */
-.genreSection h2 {
-  color: #fff;
-  font-size: 1.5rem;
-  margin-bottom: 0.625rem; 
+.titleContainer h2 {
+  font-family: 'Hatton', sans-serif;;
+
+  display: inline-block;
+  color: #fff;  
+  font-size: 1.75rem;
+  margin-bottom: 0.625rem;
+  transition: color 0.3s;
+}
+
+/* Styling for the explore button */
+.exploreButton {
+  display: none;
+  color: #00aaff;
+  font-size: 1rem;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+
+  transition: all 0.3s ease-in-out;
+}
+
+.exploreButton:hover {
+  opacity: 0.8;
 }
 
 /* Container for the list of genres */
@@ -307,4 +342,18 @@ body {
   background-color: red;
   width: 100%;
   /* Adjust color and height as needed */
+}
+
+.posterRanking {
+  font-family: 'Hatton', sans-serif;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* semi-transparent background */
+  color: white;
+  text-align: center;
+  padding: 5px;
+  font-size: 1.5rem;
+  font-weight: bold;
 }

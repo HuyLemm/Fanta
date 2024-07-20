@@ -18,7 +18,7 @@ function AppRouter({ currentFunction, setCurrentFunction }) {
   return (
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage currentFunction={currentFunction} setCurrentFunction={setCurrentFunction}/>} />
         <Route path="/movie/:id" element={<MovieDetail />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/genre/:genreName" element={<Categories />} />
