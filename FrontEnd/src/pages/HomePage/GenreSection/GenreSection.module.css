@@ -336,12 +336,12 @@ body {
 }
 
 .progressBarHover {
-  bottom: 5px;
+  position: absolute;
+  top:40%;
   left: 0;
   height: 5px;
   background-color: red;
   width: 100%;
-  /* Adjust color and height as needed */
 }
 
 .posterRanking {
