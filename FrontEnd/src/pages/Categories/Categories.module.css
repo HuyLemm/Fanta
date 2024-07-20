@@ -158,6 +158,7 @@
   visibility: visible;
   transform: scale(1.3); 
   z-index: 20; 
+  height: 87%;
 }
 
 .hoverSection .topSection {
