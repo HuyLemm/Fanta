@@ -226,6 +226,10 @@ exports.toggleWatchlist = async (req, res) => {
   try {
     const { movieId } = req.body;
     const userId = req.user._id;
+    
+    if (!movieId) {
+      return res.status(400).json({ message: 'Movie ID is required' });
+    }
 
     const watchlistItem = await WatchlistModel.findOne({ user: userId, movie: movieId });
 

@@ -129,6 +129,26 @@ const Carousel = ({ type }) => {
     }
   };
 
+  const updateWatchlistStatuses = async () => {
+    if (!token) return;
+
+    try {
+      for (const movie of movies) {
+        await checkIfWatchlisted(movie.id, token);
+      }
+    } catch (error) {
+      console.error('Error updating watchlist statuses:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (token && movies.length > 0) {
+      const interval = setInterval(updateWatchlistStatuses, 60000); // Update every 60 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [token, movies]);
+
   const handleWatchClick = (movieId) => {
     navigate(`/movie/${movieId}`);
   };

@@ -134,6 +134,50 @@ const GenreSection = ({ type, setCurrentFunction }) => {
     }
   }, [hoveredMovie]);
 
+  const checkIfWatchlisted = async (movieId, token) => {
+    if (!token) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setWatchlists(prevWatchlists => ({
+        ...prevWatchlists,
+        [movieId]: data.isFavourite
+      }));
+    } catch (error) {
+      console.log('Check if watchlisted error:', error);
+    }
+  };
+
+  const updateWatchlistStatuses = async () => {
+    if (!token) return;
+
+    try {
+      for (const genre of genres) {
+        for (const movie of genre.movies) {
+          await checkIfWatchlisted(movie._id, token);
+        }
+      }
+    } catch (error) {
+      console.error('Error updating watchlist statuses:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (token && genres.length > 0) {
+      const interval = setInterval(updateWatchlistStatuses, 60000); // Update every 60 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [token, genres]);
+
   const scrollAmount = 200;
 
   const handleNextClick = (index) => {

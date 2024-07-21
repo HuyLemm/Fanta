@@ -3,13 +3,13 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70rem;
+  width: 60rem;
   background: rgba(0, 0, 0, 0.75);
   border-radius: 10px;
   color: white;
   outline: none;
   overflow: hidden;
-  height: 50rem;
+  height: auto;
 }
 
 .overlay {
@@ -32,13 +32,12 @@
 
 .closeButton {
   position: absolute;
-  top: 2rem;
-  right: 3rem;
-  padding: 0 0.5rem;
-  font-size: 2rem;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2.5rem;
   background: none;
   border: none;
-  color: white;
+  color: gray ;
   cursor: pointer;
   z-index: 3;
 }
@@ -46,31 +45,34 @@
 .videoWrapper {
   position: relative;
   width: 100%;
-  padding-bottom: 20.8rem; /* 16:9 aspect ratio */
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
   overflow: hidden;
-  margin-bottom: 8rem;
+  margin: 0; /* Remove any margin */
 }
 
 .video {
   position: absolute;
   top: 0;
   left: 0;
-  width: 70rem;
-  height: 50rem;
+  width: 100%;
+  height: 100%;
   pointer-events: none; /* Disable interactions */
 }
 
 .buttons {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 1rem;
+  left: 9%;
   display: flex;
   gap: 10px;
   z-index: 2;
 }
 
-.playButton, .telepartyButton, .addToListButton, .downloadButton {
+.playButton { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -4rem;
   color: white;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   border-radius: 0.5rem;
@@ -78,18 +80,43 @@
   border: none;
   outline: none;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   transition: all 0.4s ease;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
 }
 
-.playButton:hover, .telepartyButton:hover, .addToListButton:hover, .downloadButton:hover {
+.addToListButton, .muteButton, .starButton {
+  color: white;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  border-radius: 50%;
+  background-color: #fb5607;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.8rem;
+  transition: all 0.4s ease;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.playButton:hover, .addToListButton:hover, .starButton:hover, .muteButton:hover {
   background: #333;
+}
+
+.muteButtonContainer {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.5%;
+  z-index: 2;
 }
 
 .details {
   z-index: 2;
-  background: rgba(0, 0, 0, 0.6);
   padding: 20px;
   border-radius: 10px;
   width: 100%;
@@ -97,7 +124,7 @@
   display: flex;
   margin-right: 3rem;
   padding-left: 3rem;
-  height: 15rem;
+  height: auto;
 }
 
 .title {
@@ -106,13 +133,13 @@
   color: #fb5607;
 }
 
-.sect{
+.sect {
   font-size: 1.2rem;
-  color: #333;
+  color: gray;
 }
 
 .description {
-  margin-bottom:  5rem;
+  margin-bottom: 1rem; /* Adjust margin */
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   text-align: left;
@@ -126,7 +153,7 @@
   align-items: start;
 }
 
-.left{
+.left {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -140,8 +167,30 @@
   display: flex;
 }
 
-.metaitem{
+.metaitem {
   display: flex;
   justify-content: row;
+}
 
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  margin-left: 9rem;
+}
+
+.starButton .star {
+  cursor: pointer;
+  transition: color 0.2s;
+  border: none;
+  background-color: transparent;
+}
+
+.starContainer .star:hover,
+.ratingContainer:hover .starContainer .star {
+  color: orange;
+}
+
+.ratingContainer:hover .hiddenStars {
+  display: flex;
 }

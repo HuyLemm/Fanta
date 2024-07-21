@@ -55,7 +55,7 @@
   margin-bottom: 3rem;
   width: 20%;
   margin-right: 10rem;
-  max-height: 65rem;
+  max-height: 71rem;
 }
 
 .topRatedHeader {
@@ -81,9 +81,10 @@
 }
 
 .topRatedPoster {
-  width: 7rem;
+  width: 8rem;
   height: auto;
   margin-right: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .topRatedDetails {
@@ -91,6 +92,12 @@
   flex-direction: column;
 }
 
+.topRatedDetails h1 {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 100;
+  color: #fb5607;
+}
 .moviesGrid {
   margin-top: 1rem;
   margin-left: 20rem;
@@ -101,6 +108,10 @@
 
 .movieItem {
   text-align: center;
+}
+
+.star{
+  color: rgb(255, 166, 0);
 }
 
 .moviePoster {

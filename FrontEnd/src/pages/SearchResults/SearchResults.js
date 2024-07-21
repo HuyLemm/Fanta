@@ -243,8 +243,8 @@ const SearchResults = () => {
                   <div className={styles.topRatedMovie}>
                     <img src={movie.poster_url} alt={movie.title} className={styles.topRatedPoster} />
                     <div className={styles.topRatedDetails}>
-                      <p>{movie.title}</p>
-                      <p> ♥ {movie.averageRating.toFixed(1)}/5.0</p>
+                      <h1>{movie.title}</h1>
+                      <p> <FaStar className={styles.star} /> {movie.averageRating.toFixed(1)}/5.0</p>
                     </div>
                   </div>
                 </li>

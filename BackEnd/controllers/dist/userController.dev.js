@@ -542,63 +542,74 @@ exports.toggleWatchlist = function _callee9(req, res) {
           _context9.prev = 0;
           movieId = req.body.movieId;
           userId = req.user._id;
-          _context9.next = 5;
+
+          if (movieId) {
+            _context9.next = 5;
+            break;
+          }
+
+          return _context9.abrupt("return", res.status(400).json({
+            message: 'Movie ID is required'
+          }));
+
+        case 5:
+          _context9.next = 7;
           return regeneratorRuntime.awrap(WatchlistModel.findOne({
             user: userId,
             movie: movieId
           }));
 
-        case 5:
+        case 7:
           watchlistItem = _context9.sent;
 
           if (!watchlistItem) {
-            _context9.next = 12;
+            _context9.next = 14;
             break;
           }
 
-          _context9.next = 9;
+          _context9.next = 11;
           return regeneratorRuntime.awrap(WatchlistModel.deleteOne({
             _id: watchlistItem._id
           }));
 
-        case 9:
+        case 11:
           return _context9.abrupt("return", res.status(200).json({
             isFavourite: false,
             message: 'Removed from your watchlist successfully!'
           }));
 
-        case 12:
+        case 14:
           newWatchlistItem = new WatchlistModel({
             user: userId,
             movie: movieId
           });
-          _context9.next = 15;
+          _context9.next = 17;
           return regeneratorRuntime.awrap(newWatchlistItem.save());
 
-        case 15:
+        case 17:
           return _context9.abrupt("return", res.status(200).json({
             isFavourite: true,
             message: 'Added to your watchlist successfully!'
           }));
 
-        case 16:
-          _context9.next = 22;
+        case 18:
+          _context9.next = 24;
           break;
 
-        case 18:
-          _context9.prev = 18;
+        case 20:
+          _context9.prev = 20;
           _context9.t0 = _context9["catch"](0);
           console.error('Toggle watchlist error:', _context9.t0);
           res.status(500).json({
             message: 'Internal Server Error'
           });
 
-        case 22:
+        case 24:
         case "end":
           return _context9.stop();
       }
     }
-  }, null, null, [[0, 18]]);
+  }, null, null, [[0, 20]]);
 };
 
 exports.getFavorite = function _callee10(req, res) {
