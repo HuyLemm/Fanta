@@ -347,7 +347,7 @@ const GenreSection = ({ type, setCurrentFunction }) => {
                                         className={styles.star}
                                         onClick={() => handleRatingClick(movie._id, 1)}
                                         style={{
-                                          color: hoveredStarMovie === movie._id || (ratings[movie._id] || 0) >= 1 ? '#ffc107' : '#e4e5e9'
+                                          color:  (ratings[movie._id] || 0) >= 1 ? '#ffc107' : '#e4e5e9'
                                         }}
                                       />
                                     </div>
@@ -424,7 +424,7 @@ const GenreSection = ({ type, setCurrentFunction }) => {
                                         className={styles.star}
                                         onClick={() => handleRatingClick(movie._id, 1)}
                                         style={{
-                                          color: hoveredStarMovie === movie._id || (ratings[movie._id] || 0) >= 1 ? '#ffc107' : '#e4e5e9'
+                                          color: (ratings[movie._id] || 0) >= 1 ? '#ffc107' : '#e4e5e9'
                                         }}
                                       />
                                     </div>
@@ -498,7 +498,7 @@ const GenreSection = ({ type, setCurrentFunction }) => {
                                         className={styles.star}
                                         onClick={() => handleRatingClick(movie._id, 1)}
                                         style={{
-                                          color: hoveredStarMovie === movie._id || (ratings[movie._id] || 0) >= 1 ? '#ffc107' : '#e4e5e9'
+                                          color: (ratings[movie._id] || 0) >= 1 ? '#ffc107' : '#e4e5e9'
                                         }}
                                       />
                                     </div>

@@ -12,6 +12,7 @@ const publicRoutes = require('./routes/publicRoutes');
 const userRoutes = require('./routes/userRoutes');
 
 const adminController = require('./controllers/adminController');
+const userController = require('./controllers/userController');
 
 
 const app = express();
@@ -29,6 +30,7 @@ const corsOptions = {
 connectDB().then(() => {
   console.log('Connected to MongoDB');
   adminController.createAdmin(); // Tạo tài khoản admin khi kết nối thành công
+  userController.createUsers(); // Tạo người dùng khi kết nối này
 });
 
 // Middleware for parsing request bodies

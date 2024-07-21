@@ -8,6 +8,7 @@ import { FaPlay, FaCheckCircle, FaStar } from 'react-icons/fa';
 import { IoIosAddCircle } from "react-icons/io";
 import { getCookie } from '../../utils/Cookies';
 
+
 const GenreMovies = () => {
   const { genreName } = useParams();
   const [movies, setMovies] = useState([]);
@@ -261,8 +262,8 @@ const GenreMovies = () => {
                     <div className={styles.topRatedMovie}>
                       <img src={movie.poster_url} alt={movie.title} className={styles.topRatedPoster} />
                       <div className={styles.topRatedDetails}>
-                        <p>{movie.title}</p>
-                        <p> ♥ {movie.averageRating.toFixed(1)}/5.0</p>
+                        <h1>{movie.title}</h1>
+                        <p> <FaStar className={styles.star} /> {movie.averageRating.toFixed(1)}/5.0</p>
                       </div>
                     </div>
                   </li>

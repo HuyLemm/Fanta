@@ -1,8 +1,7 @@
-// History.js
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { getCookie } from '../../../../utils/Cookies';
 import { AuthContext } from '../../../../components/auth/AuthContext';
-import { FaRegClock } from "react-icons/fa6";
+import { FaRegClock, FaBoxOpen } from "react-icons/fa";
 import styles from './History.module.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -73,6 +72,16 @@ const History = ({ setCurrentFunction }) => {
     };
   }, []);
 
+  const handleMouseEnter = () => {
+    setShowHistory(true);
+  };
+
+  const handleMouseLeave = (event) => {
+    if (!historyRef.current.contains(event.relatedTarget)) {
+      setShowHistory(false);
+    }
+  };
+
   const handleHistoryClick = (movieId) => {
     sessionStorage.setItem('hasReloaded', 'false');
     navigate(`/streaming/${movieId}`);
@@ -85,27 +94,47 @@ const History = ({ setCurrentFunction }) => {
     navigate('/user');
   };
 
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
+  const handleDropdownClick = () => {
+    if (!authStatus.loggedIn) {
+      handleLoginClick();
+    }
+  };
+
   const displayedHistory = history.slice(0, 3);
 
   return (
-    <div className={styles.historyContainer} ref={historyRef}>
-      <button
-        className={styles.historyButton}
-        onMouseEnter={() => setShowHistory(true)}
-        onMouseLeave={() => setShowHistory(false)}
-      >
+    <div className={styles.historyContainer} ref={historyRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <button className={styles.historyButton}>
         <FaRegClock />
       </button>
+      <div className={styles.historyGap}></div> {/* Invisible gap */}
       {showHistory && (
         <div
           className={styles.historyDropdown}
-          onMouseEnter={() => setShowHistory(true)}
-          onMouseLeave={() => setShowHistory(false)}
+          onClick={handleDropdownClick} // Handle click on dropdown to navigate to login if not logged in
         >
-          {history.length === 0 ? (
-            <div className={styles.historyItem}>
-              <div className={styles.historyDetails}>
-                <h3>No history available</h3>
+          {!authStatus.loggedIn ? (
+            <div className={styles.historyMessage}>
+              <FaBoxOpen className={styles.historyMessageIcon} />
+              <div className={styles.historyMessageText}>
+                Login to track your watch history
+              </div>
+              <button
+                className={styles.historyLoginButton}
+                onClick={handleLoginClick}
+              >
+                Login
+              </button>
+            </div>
+          ) : history.length === 0 ? (
+            <div className={styles.historyMessage}>
+              <FaBoxOpen className={styles.historyMessageIcon} />
+              <div className={styles.historyMessageText}>
+                None of watch history are restored
               </div>
             </div>
           ) : (
