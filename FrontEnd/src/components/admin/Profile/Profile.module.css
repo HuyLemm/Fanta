@@ -30,15 +30,15 @@
     background-color: #2980b9;
 }
 
-/* .section {
+.section {
     margin: 0 auto;
     padding: 1.25rem;
     background: #005f73;
     border-radius: 2rem;
     box-shadow: white 0.1rem 0.1rem;
-} */
+} 
 
-/* .form-group {
+.form-group {
     margin-bottom: 1.25rem;
     border: white 0.2rem solid;
     padding: 0.5rem;
@@ -46,4 +46,4 @@
     transition: all 0.3s ease;
     background: #caf0f8;
     color: #2c3e50;
-} */
+}
