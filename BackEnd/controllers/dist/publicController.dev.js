@@ -1372,18 +1372,40 @@ exports.getTopRatedMoviesByGenre = function _callee22(req, res) {
 };
 
 exports.getTop10Movies = function _callee23(req, res) {
-  var topMovies;
+  var type, matchStage, topMovies;
   return regeneratorRuntime.async(function _callee23$(_context25) {
     while (1) {
       switch (_context25.prev = _context25.next) {
         case 0:
           _context25.prev = 0;
-          _context25.next = 3;
+          type = req.query.type;
+          matchStage = type ? {
+            type: type
+          } : {};
+          _context25.next = 5;
           return regeneratorRuntime.awrap(RatingModel.aggregate([{
+            $lookup: {
+              from: "movies",
+              localField: "movieId",
+              foreignField: "_id",
+              as: "movieDetails"
+            }
+          }, {
+            $unwind: "$movieDetails"
+          }, {
+            $match: {
+              "movieDetails.type": matchStage.type ? matchStage.type : {
+                $exists: true
+              }
+            }
+          }, {
             $group: {
               _id: "$movieId",
               averageRating: {
                 $avg: "$rating"
+              },
+              movieDetails: {
+                $first: "$movieDetails"
               }
             }
           }, {
@@ -1393,15 +1415,6 @@ exports.getTop10Movies = function _callee23(req, res) {
           }, {
             $limit: 10
           }, {
-            $lookup: {
-              from: "movies",
-              localField: "_id",
-              foreignField: "_id",
-              as: "movieDetails"
-            }
-          }, {
-            $unwind: "$movieDetails"
-          }, {
             $project: {
               _id: 0,
               movieDetails: 1,
@@ -1409,28 +1422,28 @@ exports.getTop10Movies = function _callee23(req, res) {
             }
           }]));
 
-        case 3:
+        case 5:
           topMovies = _context25.sent;
           res.json(topMovies.map(function (item) {
             return _objectSpread({}, item.movieDetails, {
               averageRating: item.averageRating
             });
           }));
-          _context25.next = 11;
+          _context25.next = 13;
           break;
 
-        case 7:
-          _context25.prev = 7;
+        case 9:
+          _context25.prev = 9;
           _context25.t0 = _context25["catch"](0);
-          console.error(_context25.t0);
+          console.error('Error fetching top movies:', _context25.t0);
           res.status(500).json({
             error: 'Failed to fetch top movies'
           });
 
-        case 11:
+        case 13:
         case "end":
           return _context25.stop();
       }
     }
-  }, null, null, [[0, 7]]);
+  }, null, null, [[0, 9]]);
 };

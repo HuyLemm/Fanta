@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+// Categories.js
+
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Categories.module.css';
 import Footer from '../../components/public/Footer/Footer';
@@ -7,7 +9,7 @@ import Loading from '../../components/public/LoadingEffect/Loading';
 import { FaPlay, FaCheckCircle, FaStar } from 'react-icons/fa';
 import { IoIosAddCircle } from "react-icons/io";
 import { getCookie } from '../../utils/Cookies';
-
+import CategoriesModal from './CategoriesModal/CategoriesModal';
 
 const GenreMovies = () => {
   const { genreName } = useParams();
@@ -21,6 +23,8 @@ const GenreMovies = () => {
   const [ratings, setRatings] = useState({});
   const [hoveredMovie, setHoveredMovie] = useState(null);
   const [hoveredStarMovie, setHoveredStarMovie] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null); // State to manage the selected movie
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal open/close
 
   useEffect(() => {
     const fetchGenreMovies = async () => {
@@ -52,41 +56,6 @@ const GenreMovies = () => {
     }
   }, [genreName]);
 
-  const handleWatchClick = (movieId) => {
-    navigate(`/movie/${movieId}`);
-  };
-
-  const handleFavoriteClick = async (movieId) => {
-    if (!token) {
-      notifyWarning('You need to log in first to archive');
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:5000/user/toggle-watchlist', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ movieId })
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      setWatchlists(prevWatchlists => ({
-        ...prevWatchlists,
-        [movieId]: data.isFavourite
-      }));
-      notifySuccess(data.message);
-    } catch (error) {
-      notifyError('Error updating favorites:', error);
-    }
-  };
-
   const fetchUserRating = async (movieId) => {
     try {
       const response = await fetch(`http://localhost:5000/public/get-rating-hover/${movieId}`, {
@@ -98,7 +67,6 @@ const GenreMovies = () => {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
       const data = await response.json();
-      console.log('Fetched rating for movie:', movieId, data);
       const userRate = data ? data.rating : 0;
       const newRatings = {
         ...ratings,
@@ -158,22 +126,54 @@ const GenreMovies = () => {
     return description;
   };
 
+  const handleWatchClick = (movieId) => {
+    navigate(`/movie/${movieId}`);
+  };
+
+  const handleFavoriteClick = async (movieId) => {
+    if (!token) {
+      notifyWarning('You need to log in first to archive');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/user/toggle-watchlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ movieId })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setWatchlists(prevWatchlists => ({
+        ...prevWatchlists,
+        [movieId]: data.isFavourite
+      }));
+      notifySuccess(data.message);
+    } catch (error) {
+      notifyError('Error updating favorites:', error);
+    }
+  };
+
   const handleMoreDetailsClick = (movieId) => {
     navigate(`/movie/${movieId}`);
   };
 
-  const indexOfLastMovie = currentPage * moviesPerPage;
-  const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
-  const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
-
-  const handleClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
+  const openModal = (movie) => {
+    setSelectedMovie(movie);
+    setIsModalOpen(true);
   };
 
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(movies.length / moviesPerPage); i++) {
-    pageNumbers.push(i);
-  }
+  const closeModal = () => {
+    setSelectedMovie(null);
+    setIsModalOpen(false);
+  };
 
   return (
     <div className={styles.genreMoviesPage}>
@@ -184,8 +184,8 @@ const GenreMovies = () => {
           <div className={styles.mainContent}>
             <h2 className={styles.h2}>Movies in {genreName}</h2>
             <div className={styles.moviesGrid}>
-              {currentMovies.length > 0 ? (
-                currentMovies.map((movie) => (
+              {movies.length > 0 ? (
+                movies.map((movie) => (
                   <div 
                     key={movie._id} 
                     className={styles.movieItem}
@@ -246,35 +246,37 @@ const GenreMovies = () => {
                 <div><Loading /></div>
               )}
             </div>
-            <div className={styles.pagination}>
-              {pageNumbers.map(number => (
-                <button key={number} onClick={() => handleClick(number)} className={styles.pageButton}>
-                  {number}
-                </button>
-              ))}
-            </div>
           </div>
           <div className={styles.sidebar}>
-              <h3 className={styles.topRatedHeader}>Top 5 in {genreName}</h3>
-              <ul className={styles.topRatedList}>
-                {topRatedMovies.map(movie => (
-                  <li key={movie._id} className={styles.topRatedItem}>
-                    <div className={styles.topRatedMovie}>
-                      <img src={movie.poster_url} alt={movie.title} className={styles.topRatedPoster} />
-                      <div className={styles.topRatedDetails}>
-                        <h1>{movie.title}</h1>
-                        <p> <FaStar className={styles.star} /> {movie.averageRating.toFixed(1)}/5.0</p>
-                      </div>
+            <h3 className={styles.topRatedHeader}>Top 5 in {genreName}</h3>
+            <ul className={styles.topRatedList}>
+              {topRatedMovies.map(movie => (
+                <li key={movie._id} className={styles.topRatedItem} onMouseEnter={() => setHoveredMovie(movie._id)} onMouseLeave={() => setHoveredMovie(null)}>
+                  <div className={styles.topRatedMovie}>
+                    <img src={movie.poster_url} alt={movie.title} className={styles.topRatedPoster} />
+                    <div className={styles.movieInfo}>
+                      <button className={styles.more} onClick={() => openModal(movie)}>See More</button>
                     </div>
-                  </li>
-                ))}
-              </ul>
+                    <div className={styles.topRatedDetails}>
+                      <h1>{movie.title}</h1>
+                      <p> <FaStar className={styles.star} /> {movie.averageRating.toFixed(1)}/5.0</p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
       <div className={styles.footerSection}><Footer /></div>
+      <CategoriesModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        movie={selectedMovie}
+      />
     </div>
   );
 };
 
 export default GenreMovies;
+

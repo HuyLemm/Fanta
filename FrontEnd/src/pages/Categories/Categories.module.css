@@ -81,12 +81,24 @@
 }
 
 .topRatedPoster {
+  display: absolute;
+  text-align: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  transition: opacity 0.3s ease;
   width: 8rem;
   height: auto;
   margin-right: 1rem;
   margin-bottom: 0.5rem;
 }
 
+.topRatedPoster:hover{
+    opacity: 1;
+
+}
 .topRatedDetails {
   display: flex;
   flex-direction: column;
@@ -212,6 +224,7 @@
 }
 
 .seeMore {
+  display: flex;
   color: #fb5607;
   cursor: pointer;
   font-weight: bold;
@@ -419,4 +432,21 @@ body {
 .pageButton:hover {
   background-color: aliceblue; /* White background on hover */
   color: #333; /* Dark text on hover */
+}
+
+.more {
+  display: flex;
+  background-color: #fb5607;
+  border: 0.0625rem solid #fb5607; /* Converted 1px to 0.0625rem */
+  color: white;
+  padding: 0.35rem 1rem;
+  font-size: 0.975rem;
+  cursor: pointer;
+  justify-content: center;
+  border-radius: 2rem;
+}
+
+.more:hover{
+  background-color: #333;
+  border: #333;
 }

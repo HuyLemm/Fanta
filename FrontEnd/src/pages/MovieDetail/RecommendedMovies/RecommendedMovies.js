@@ -7,7 +7,7 @@ import { getCookie } from '../../../utils/Cookies';
 import { notifyError, notifySuccess, notifyWarning } from '../../../components/public/Notification/Notification';
 import Loading from '../../../components/public/LoadingEffect/Loading';
 
-const RecommendedMovies = () => {
+const RecommendedMovies = ({ genres, currentMovieId }) => {
   const [recommendedMovies, setRecommendedMovies] = useState([]);
   const [watchlists, setWatchlists] = useState({});
   const [ratings, setRatings] = useState({});
@@ -21,12 +21,14 @@ const RecommendedMovies = () => {
   useEffect(() => {
     const fetchRecommendedMovies = async () => {
       try {
+        console.log('Fetching recommended movies for genres:', genres, 'and current movie ID:', currentMovieId);
         const response = await fetch('http://localhost:5000/public/get-recommended-movies', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
-          }
+          },
+          body: JSON.stringify({ genres, currentMovieId })
         });
         const data = await response.json();
         console.log('Fetched recommended movies:', data);
@@ -44,7 +46,7 @@ const RecommendedMovies = () => {
     };
 
     fetchRecommendedMovies();
-  }, [token]);
+  }, [genres, currentMovieId, token]);
 
   const handleNextClick = (index) => {
     const genreItems = genreItemsRef.current[index];
@@ -103,7 +105,7 @@ const RecommendedMovies = () => {
 
   const truncateDescription = (description, movieId) => {
     if (!description) return '';
-    
+
     const lines = description.split(' ');
     if (lines.length > 10) {
       return (
@@ -215,8 +217,8 @@ const RecommendedMovies = () => {
             <div className={styles.recommendedItems} ref={(el) => genreItemsRef.current[0] = el}>
               {recommendedMovies.length > 0 ? (
                 recommendedMovies.map((recommendedMovie) => (
-                  <div 
-                    key={recommendedMovie._id} 
+                  <div
+                    key={recommendedMovie._id}
                     className={styles.recommendedItem}
                     onMouseEnter={() => {
                       setHoveredMovie(recommendedMovie._id);
@@ -236,7 +238,7 @@ const RecommendedMovies = () => {
                               <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(recommendedMovie._id)}>
                                 {watchlists[recommendedMovie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
                               </button>
-                              <div 
+                              <div
                                 className={styles.ratingContainer}
                                 onMouseEnter={() => setHoveredStarMovie(recommendedMovie._id)}
                                 onMouseLeave={() => setHoveredStarMovie(null)}

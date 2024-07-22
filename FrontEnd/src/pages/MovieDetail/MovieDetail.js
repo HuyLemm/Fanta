@@ -5,7 +5,7 @@ import RecommendedMovies from './RecommendedMovies/RecommendedMovies';
 import styles from './MovieDetail.module.css';
 import Footer from '../../components/public/Footer/Footer';
 import Loading from '../../components/public/LoadingEffect/Loading';
-import Notification, { notifySuccess, notifyError, notifyWarning, notifyInfo } from '../../components/public/Notification/Notification';
+import Notification, { notifyError } from '../../components/public/Notification/Notification';
 import { getCookie } from '../../utils/Cookies';
 
 const MovieDetail = () => {
@@ -40,6 +40,7 @@ const MovieDetail = () => {
 
     const fetchRecommendedMovies = async (genres, currentMovieId) => {
       try {
+        console.log('Fetching recommended movies with genres:', genres, 'and current movie ID:', currentMovieId);
         const response = await fetch(`http://localhost:5000/public/get-recommended-movies`, {
           method: 'POST',
           headers: {
@@ -51,6 +52,7 @@ const MovieDetail = () => {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
+        console.log('Fetched recommended movies:', data);
         setRecommendedMovies(data); // Update state with recommended movies
       } catch (error) {
         notifyError('Fetch recommended movies error:', error);
@@ -144,7 +146,8 @@ const MovieDetail = () => {
       <MainContent movie={movie} handleWatchClick={handleWatchClick} />
       {/* Section for recommended movies */}
       <RecommendedMovies
-        recommendedMovies={recommendedMovies}
+        genres={movie.genre} // Pass the genres to the RecommendedMovies component
+        currentMovieId={movie._id} // Pass the current movie ID to the RecommendedMovies component
         genreItemsRef={genreItemsRef}
         handleNextClick={handleNextClick}
         handlePrevClick={handlePrevClick}

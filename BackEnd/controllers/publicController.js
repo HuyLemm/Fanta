@@ -553,11 +553,25 @@ exports.getTopRatedMoviesByGenre = async (req, res) => {
 
 exports.getTop10Movies = async (req, res) => {
   try {
+    const { type } = req.query;
+    const matchStage = type ? { type: type } : {};
+
     const topMovies = await RatingModel.aggregate([
+      {
+        $lookup: {
+          from: "movies",
+          localField: "movieId",
+          foreignField: "_id",
+          as: "movieDetails"
+        }
+      },
+      { $unwind: "$movieDetails" },
+      { $match: { "movieDetails.type": matchStage.type ? matchStage.type : { $exists: true } } },
       {
         $group: {
           _id: "$movieId",
-          averageRating: { $avg: "$rating" }
+          averageRating: { $avg: "$rating" },
+          movieDetails: { $first: "$movieDetails" }
         }
       },
       {
@@ -565,17 +579,6 @@ exports.getTop10Movies = async (req, res) => {
       },
       {
         $limit: 10
-      },
-      {
-        $lookup: {
-          from: "movies",
-          localField: "_id",
-          foreignField: "_id",
-          as: "movieDetails"
-        }
-      },
-      {
-        $unwind: "$movieDetails"
       },
       {
         $project: {
@@ -591,7 +594,7 @@ exports.getTop10Movies = async (req, res) => {
       averageRating: item.averageRating
     })));
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching top movies:', error);
     res.status(500).json({ error: 'Failed to fetch top movies' });
   }
-}
+};

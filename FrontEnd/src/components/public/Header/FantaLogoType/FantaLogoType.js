@@ -14,9 +14,13 @@ const FantaLogoType = () => {
     navigate('/?type=series');
   };
 
+  const handleHomeClick = () => {
+    navigate('/');
+  };
+
   return (
     <header className={styles.header}>
-      <a href="/">
+      <a href="/" onClick={handleHomeClick}>
         <img src={fantaImage} className={styles.fanta} alt="Fanta" />
       </a>
       <div className={styles.typeButtons}>

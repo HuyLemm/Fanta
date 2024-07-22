@@ -1,0 +1,196 @@
+.modal {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60rem;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+  color: white;
+  outline: none;
+  overflow: hidden;
+  height: auto;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2.5rem;
+  background: none;
+  border: none;
+  color: gray ;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  overflow: hidden;
+  margin: 0; /* Remove any margin */
+}
+
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Disable interactions */
+}
+
+.buttons {
+  position: absolute;
+  bottom: 1rem;
+  left: 9%;
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+}
+
+.playButton { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -4rem;
+  color: white;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  border-radius: 0.5rem;
+  background-color: #fb5607;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.8rem;
+  transition: all 0.4s ease;
+  padding: 0.5rem 1rem;
+}
+
+.addToListButton, .muteButton, .starButton {
+  color: white;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  border-radius: 50%;
+  background-color: #fb5607;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.8rem;
+  transition: all 0.4s ease;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.playButton:hover, .addToListButton:hover, .starButton:hover, .muteButton:hover {
+  background: #333;
+}
+
+.muteButtonContainer {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.5%;
+  z-index: 2;
+}
+
+.details {
+  z-index: 2;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  margin-top: -20px; /* Adjust this value to reduce gap */
+  display: flex;
+  margin-right: 3rem;
+  padding-left: 3rem;
+  height: auto;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fb5607;
+}
+
+.sect {
+  font-size: 1.2rem;
+  color: gray;
+}
+
+.description {
+  margin-bottom: 1rem; /* Adjust margin */
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  text-align: left;
+}
+
+.meta {
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 10px 0;
+  width: 30%;
+  align-items: start;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-right: 5rem;
+  width: 70%;
+  align-items: center;
+}
+
+.cast {
+  margin: 20px 0;
+  display: flex;
+}
+
+.metaitem {
+  display: flex;
+  justify-content: row;
+}
+
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  margin-left: 9rem;
+}
+
+.starButton .star {
+  cursor: pointer;
+  transition: color 0.2s;
+  border: none;
+  background-color: transparent;
+}
+
+.starContainer .star:hover,
+.ratingContainer:hover .starContainer .star {
+  color: orange;
+}
+
+.ratingContainer:hover .hiddenStars {
+  display: flex;
+} 

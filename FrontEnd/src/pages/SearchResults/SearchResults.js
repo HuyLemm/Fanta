@@ -7,6 +7,7 @@ import Loading from '../../components/public/LoadingEffect/Loading';
 import { FaPlay, FaCheckCircle, FaStar } from 'react-icons/fa';
 import { IoIosAddCircle } from "react-icons/io";
 import { getCookie } from '../../utils/Cookies';
+import MovieModal from '../HomePage/MovieModal/MovieModal'; // Import your modal component
 
 const SearchResults = () => {
   const [movies, setMovies] = useState([]);
@@ -15,6 +16,8 @@ const SearchResults = () => {
   const [hoveredStarMovie, setHoveredStarMovie] = useState(null);
   const [watchlists, setWatchlists] = useState({});
   const [ratings, setRatings] = useState({});
+  const [selectedMovie, setSelectedMovie] = useState(null); // State to manage the selected movie
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal open/close
   const token = getCookie('jwt');
   const navigate = useNavigate();
 
@@ -150,7 +153,7 @@ const SearchResults = () => {
       return (
         <>
           {lines.slice(0, 12).join(' ')}...{' '}
-          <div className={styles.seeMore} onClick={() => handleMoreDetailsClick(movieId)}>
+          <div className={styles.seeMore} onClick={() => openModal(movieId)}>
             More Details
           </div>
         </>
@@ -161,6 +164,16 @@ const SearchResults = () => {
 
   const handleMoreDetailsClick = (movieId) => {
     navigate(`/movie/${movieId}`);
+  };
+
+  const openModal = (movie) => {
+    setSelectedMovie(movie);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedMovie(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -242,6 +255,9 @@ const SearchResults = () => {
                 <li key={movie._id} className={styles.topRatedItem}>
                   <div className={styles.topRatedMovie}>
                     <img src={movie.poster_url} alt={movie.title} className={styles.topRatedPoster} />
+                    <div className={styles.movieInfo}>
+                      <button className={styles.more} onClick={() => openModal(movie)}>See More</button>
+                    </div>
                     <div className={styles.topRatedDetails}>
                       <h1>{movie.title}</h1>
                       <p> <FaStar className={styles.star} /> {movie.averageRating.toFixed(1)}/5.0</p>
@@ -254,6 +270,11 @@ const SearchResults = () => {
         </div>
       </div>
       <div className={styles.footerSection}><Footer /></div>
+      <MovieModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        movie={selectedMovie}
+      />
     </div>
   );
 };

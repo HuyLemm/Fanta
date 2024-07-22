@@ -395,6 +395,7 @@
 
 .moreMain {
   display: flex;
+  align-items: center;
   background-color: #fb5607;
   border: 0.0625rem solid #fb5607; /* Converted 1px to 0.0625rem */
   color: white;
