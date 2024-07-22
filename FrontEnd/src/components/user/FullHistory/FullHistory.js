@@ -117,7 +117,7 @@ const FullHistory = () => {
         <div className={styles.noHistory}>No history available</div>
       ) : (
         <div className={styles.fixedHeader}>
-          <h1 className={styles.h2}>Your Watch History</h1>
+          <h1 className={styles.h2}>History</h1>
           <div className={styles.buttonGroup}>
             {isSelecting && (
               <>

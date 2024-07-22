@@ -17,7 +17,7 @@ const Favourite = () => {
 
   return (
     <div className={styles.favouriteContainer}>
-      <button className={styles.favoriteButton} onClick={handleFavoriteClick}>My Favorite</button>
+      <button className={styles.favoriteButton} onClick={handleFavoriteClick}>My List</button>
     </div>
   );
 };

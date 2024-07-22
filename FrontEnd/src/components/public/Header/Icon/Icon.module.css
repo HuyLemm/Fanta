@@ -10,14 +10,14 @@
 }
 
 .userIcon img {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 2rem;
 }
 
 .dropdown {
   position: absolute;
-  top: 3rem;
+  top: 3.5rem;
   left: 50%; /* Căn giữa dropbox theo chiều ngang */
   transform: translateX(-50%) translateY(-0.625rem); /* Dịch chuyển dropbox để căn giữa và áp dụng hiệu ứng đi xuống */
   background-color: #333;
@@ -40,10 +40,10 @@
   pointer-events: auto;
 }
 
-.loginButton, .adminButton, .userButton, .logoutButton {
+.loginButton, .adminButton, .userButton, .watchlaterButton, .logoutButton {
   margin-top: 0.3125rem;
-  width: 7.5rem;
-  height: 2.5rem;
+  width: 8rem;
+  height: 3rem;
   border-radius: 0.3125rem;
   background-color: #fb5607;
   border: none;
@@ -56,6 +56,7 @@
   padding: 0.3125rem 0.625rem;
   display: flex;
   align-items: center;  
+  margin-bottom: 0.3rem;
 }
 
 .loginButton{
@@ -65,7 +66,8 @@
 .loginButton:hover,
 .userButton:hover,
 .adminButton:hover,
-.logoutButton:hover {
+.logoutButton:hover,
+.watchlaterButton:hover {
   background-color: #333;
   color: #fb5607;
 }
@@ -76,8 +78,17 @@
 
 .icon {
   margin-right: 0.5rem;
+  font-size: 1.25rem;
 }
 
+.watchlatericon{
+  margin-left: -0.3rem;
+  margin-right: 0.2rem;
+  font-size: 2rem;
+
+}
 .logouticon{
-  margin-right: 1.5rem;
+  margin-left: 0.1rem;
+  font-size: 1.4rem;
+  margin-right: 1.3rem;
 }

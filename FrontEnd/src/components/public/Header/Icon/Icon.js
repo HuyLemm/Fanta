@@ -7,6 +7,8 @@ import adminIcon from '../../../../assets/images/admin.jpg';
 import styles from './Icon.module.css';
 import { AuthContext } from '../../../../components/auth/AuthContext';
 import Loading from '../../../public/LoadingEffect/Loading';
+import { MdBookmarkAdd } from "react-icons/md";
+import { HiMiniQuestionMarkCircle } from "react-icons/hi2"
 
 const UserIcon = () => {
   const { authStatus, setAuthStatus } = useContext(AuthContext);
@@ -43,6 +45,10 @@ const UserIcon = () => {
     navigate('/user');
   };
 
+  const handleWatchLaterClick = () => {
+    navigate('/favorite');
+  }
+
   const handleLogout = async () => {
     try {
       const response = await fetch('http://localhost:5000/auth/logout', {
@@ -65,7 +71,6 @@ const UserIcon = () => {
       console.error('Error logging out:', error);
     }
   };
-
   const renderUserIcon = () => {
     if (authStatus.checking) {
       return <div><Loading/></div>;
@@ -119,6 +124,12 @@ const UserIcon = () => {
           <div className={`${styles.dropdown} ${showDropdown ? styles.dropdownVisible : ''}`}>
             <button onClick={handleUserClick} className={styles.userButton}>
               <FaUser className={styles.icon} /> User Profile
+            </button>
+            <button onClick={handleWatchLaterClick} className={styles.watchlaterButton}>
+              <MdBookmarkAdd className={styles.watchlatericon} /> Watch Later
+            </button>
+            <button onClick={handleWatchLaterClick} className={styles.watchlaterButton}>
+              <HiMiniQuestionMarkCircle className={styles.watchlatericon} /> Help Center
             </button>
             <button onClick={handleLogout} className={styles.logoutButton}>
               <FaSignOutAlt className={styles.logouticon} /> Logout

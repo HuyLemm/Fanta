@@ -15,10 +15,10 @@ const Header = ({ setCurrentFunction }) => {
       <Notification />
       <FantaLogoType />
       <div className={styles.navContainer}>
+        <Favourite />
         <Categories />
         <Search />
         <History setCurrentFunction={setCurrentFunction} />
-        <Favourite />
         <UserIcon />
       </div>
     </header>

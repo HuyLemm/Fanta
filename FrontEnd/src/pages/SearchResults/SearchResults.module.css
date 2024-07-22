@@ -3,7 +3,7 @@
   font-family: 'Hatton', sans-serif;
   font-size: 2.5rem;
   margin-top: 3rem;
-  margin-left: 20rem;
+  margin-left: 16rem;
   color: aliceblue;
   z-index: 1;
 }
@@ -46,6 +46,7 @@
   background: rgba(128, 128, 128, 0.8); /* Màu xám với độ mờ */
 }
 .sidebar {
+  border: 0.1rem solid white;
   margin-top: 3rem;
   z-index: 1;
   padding: 1rem;
@@ -100,7 +101,7 @@
 }
 .moviesGrid {
   margin-top: 1rem;
-  margin-left: 20rem;
+  margin-left: 16rem;
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* Ensure 5 columns */
   gap: 1rem;
@@ -376,4 +377,28 @@ body {
 /* Footer section styles */
 .footerSection {
   z-index: 2;
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center; /* Center the pagination buttons */
+  align-items: center; /* Center the buttons vertically */
+  margin: 1rem 0;
+}
+
+.pageButton {
+  background-color: transparent;
+  color: aliceblue;
+  border: 1px solid aliceblue;
+  border-radius: 0.25rem; /* Rounded corners */
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem; /* Space between buttons */
+  cursor: pointer;
+  font-family: 'Hatton', sans-serif;
+}
+
+.pageButton:hover {
+  background-color: aliceblue; /* White background on hover */
+  color: #333; /* Dark text on hover */
 }

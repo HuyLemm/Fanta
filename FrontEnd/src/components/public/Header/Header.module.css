@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   position: fixed;
-  top: 0.75rem;
+  top: 0.5rem;
   z-index: 1000;
   padding: 0.625rem 1.875rem;
 }
@@ -15,6 +15,4 @@
   flex-grow: 1;
 }
 
-.fav{
-  margin-right: 2rem;
-}
+

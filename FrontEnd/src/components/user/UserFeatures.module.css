@@ -12,7 +12,7 @@
     color: white;
 }
 
-.user-features {
+.userfeatures {
     width: 100%;
     height: 100%;
     display: flex;
@@ -21,7 +21,7 @@
     padding: 1.25rem; /* Converted 20px to 1.25rem */
 }
 
-.user-container {
+.usercontainer {
     display: flex;
     width: 95rem; /* Converted 1200px to 75rem */
     background: transparent;
@@ -29,13 +29,13 @@
     overflow: hidden;
     position: relative;
     border-radius: 0.625rem; /* Converted 10px to 0.625rem */
-    margin-top: 3.125rem; /* Converted 50px to 3.125rem */
+    margin-top: 4.8rem; /* Converted 50px to 3.125rem */
     backdrop-filter: blur(1rem);
     border: 0.1rem solid white;
     height: 47.5rem;
 }
 
-.user-content {
+.usercontent {
     flex-grow: 3;
     padding: 1.25rem; /* Converted 20px to 1.25rem */
     display: flex;

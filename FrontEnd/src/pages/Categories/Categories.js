@@ -175,6 +175,19 @@ const GenreMovies = () => {
     setIsModalOpen(false);
   };
 
+  const indexOfLastMovie = currentPage * moviesPerPage;
+  const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
+  const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
+
+  const handleClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(movies.length / moviesPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
   return (
     <div className={styles.genreMoviesPage}>
       <Notification />
@@ -184,8 +197,8 @@ const GenreMovies = () => {
           <div className={styles.mainContent}>
             <h2 className={styles.h2}>Movies in {genreName}</h2>
             <div className={styles.moviesGrid}>
-              {movies.length > 0 ? (
-                movies.map((movie) => (
+              {currentMovies.length > 0 ? (
+                currentMovies.map((movie) => (
                   <div 
                     key={movie._id} 
                     className={styles.movieItem}
@@ -246,7 +259,15 @@ const GenreMovies = () => {
                 <div><Loading /></div>
               )}
             </div>
+            <div className={styles.pagination}>
+              {pageNumbers.map(number => (
+                <button key={number} onClick={() => handleClick(number)} className={styles.pageButton}>
+                  {number}
+                </button>
+              ))}
+            </div>
           </div>
+
           <div className={styles.sidebar}>
             <h3 className={styles.topRatedHeader}>Top 5 in {genreName}</h3>
             <ul className={styles.topRatedList}>

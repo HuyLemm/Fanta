@@ -11,19 +11,87 @@
     border-bottom-left-radius: 0.625rem; /* Converted 10px to 0.625rem */
 }
 
-.sidebar .btn {
-    display: block;
+
+.backButton:hover, .accountButton:hover, .historyButton:hover, .watchlaterButton:hover  {
+    background-color: #457b9d;
+}
+
+.backButton {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
     width: 125%;
-    margin-bottom: 0.625rem; /* Converted 10px to 0.625rem */
-    padding: 0.625rem; /* Converted 10px to 0.625rem */
+    height: 2.5rem;
     color: #fff;
     border: none;
     cursor: pointer; 
     background: transparent;
-    font-size: larger;
+    font-size: 1rem;
     transition: all 0.3s ease;
 }
 
-.sidebar .btn:hover {
-    background-color: #457b9d;
+.accountButton {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    width: 125%;
+    height: 3rem;
+    color: #fff;
+    border: none;
+    cursor: pointer; 
+    background: transparent;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.historyButton{
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    width: 125%;
+    height: 3rem;
+    color: #fff;
+    border: none;
+    cursor: pointer; 
+    background: transparent;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.watchlaterButton{
+    display: flex;
+    align-items: center;
+    width: 125%;
+    height: 3rem;
+    color: #fff;
+    border: none;
+    cursor: pointer; 
+    background: transparent;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+
+.backIcon {
+    font-size: 1.5rem;
+    margin-left: 1.5rem;
+    margin-right: 0.4rem;
+}
+
+.accountIcon{
+    font-size: 1.2rem;
+    margin-left: 1.3rem;
+    margin-right: 0.7rem;
+}
+
+.historyIcon{
+    font-size: 1.5rem;
+    margin-left: 1.2rem;
+    margin-right: 1.5rem;
+}
+
+.watchlaterIcon{
+    font-size: 1.8rem;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
 }

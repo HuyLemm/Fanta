@@ -10,6 +10,8 @@ import { getCookie } from '../../utils/Cookies';
 import MovieModal from '../HomePage/MovieModal/MovieModal'; // Import your modal component
 
 const SearchResults = () => {
+  const moviesPerPage = 25;
+  const [currentPage, setCurrentPage] = useState(1);
   const [movies, setMovies] = useState([]);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [hoveredMovie, setHoveredMovie] = useState(null);
@@ -153,7 +155,7 @@ const SearchResults = () => {
       return (
         <>
           {lines.slice(0, 12).join(' ')}...{' '}
-          <div className={styles.seeMore} onClick={() => openModal(movieId)}>
+          <div className={styles.seeMore} onClick={() => handleMoreDetailsClick(movieId)}>
             More Details
           </div>
         </>
@@ -175,6 +177,19 @@ const SearchResults = () => {
     setSelectedMovie(null);
     setIsModalOpen(false);
   };
+
+  const indexOfLastMovie = currentPage * moviesPerPage;
+  const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
+  const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
+
+  const handleClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(movies.length / moviesPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
   return (
     <div className={styles.searchResultsPage}>
@@ -246,6 +261,13 @@ const SearchResults = () => {
               ) : (
                 <div>No movies found</div>
               )}
+            </div>
+            <div className={styles.pagination}>
+              {pageNumbers.map(number => (
+                <button key={number} onClick={() => handleClick(number)} className={styles.pageButton}>
+                  {number}
+                </button>
+              ))}
             </div>
           </div>
           <div className={`${styles.sidebar} ${styles.background}`}>
