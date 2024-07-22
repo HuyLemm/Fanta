@@ -6,6 +6,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { FaPlay, FaPlusCircle, FaStar, FaVolumeMute, FaVolumeUp, FaCheckCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { notifyError, notifySuccess, notifyWarning } from '../../../components/public/Notification/Notification';
+import { capitalizeFirstLetter } from '../../../utils/Function';
 import { getCookie } from '../../../utils/Cookies';
 
 Modal.setAppElement('#root');
@@ -280,6 +281,12 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
         </div>
         <div className={styles.details}>
           <div className={styles.left}>
+            <p className={styles.metaFrame}>
+              <span className={styles.quality}>HD</span>
+              <span className={styles.genres}>{movie.genre.join(', ')}</span>
+              <span className={styles.releaseDate}>{new Date(movie.release_date).getFullYear()}</span>
+              <span className={styles.releaseDate}>{capitalizeFirstLetter(movie.type)}</span>
+            </p>
             <h1 className={styles.title}>{movie.title}</h1>
             <p className={styles.description}>{movie.brief_description}</p>
           </div>

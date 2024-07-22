@@ -127,7 +127,7 @@ const Favourite = () => {
   }
 
   return (
-    <div className={styles.body}>
+    <div className={styles.bodyFav}>
       <div className={`${styles.favoriteContainer} ${isSelecting ? styles.selecting : ''}`}>
         <Notification />
         <div className={styles.fixedHeader}>
