@@ -194,3 +194,21 @@
 .ratingContainer:hover .hiddenStars {
   display: flex;
 }
+
+.metaFrame{
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.metaFrame span {
+  margin-right: 0.9375rem; /* Converted 15px to 0.9375rem */
+  font-size: 1rem; 
+  padding: 0.3125rem 0.625rem; 
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 0.3125rem; 
+}
+
+.genres{
+  flex-wrap: nowrap;
+}

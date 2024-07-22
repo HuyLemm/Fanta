@@ -1,10 +1,13 @@
-
-
+.bodyFav{
+  background: url(../../assets/images/streaming.jpg);
+  width: 100dvw;
+  height: 100vh;
+  padding-top: 4.5rem;
+}
 /* Container for the entire favorite movies section */
 .favoriteContainer {
   color: white;
   padding: 20px;
-  margin-top: 5rem;
   width: 70vw;
   height: 90vh; 
   background-color: rgba(0, 0, 0, 0.5); 
