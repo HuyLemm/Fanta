@@ -1401,3 +1401,53 @@ exports.getTop10Movies = function _callee22(req, res) {
     }
   }, null, null, [[0, 9]]);
 };
+
+exports.getMoreLikeThis = function _callee23(req, res) {
+  var _req$body4, genres, currentMovieId, movies, sortedMovies;
+
+  return regeneratorRuntime.async(function _callee23$(_context25) {
+    while (1) {
+      switch (_context25.prev = _context25.next) {
+        case 0:
+          _context25.prev = 0;
+          _req$body4 = req.body, genres = _req$body4.genres, currentMovieId = _req$body4.currentMovieId;
+          _context25.next = 4;
+          return regeneratorRuntime.awrap(MovieModel.find({
+            _id: {
+              $ne: currentMovieId
+            },
+            // Exclude the current movie
+            genre: {
+              $in: genres
+            }
+          }));
+
+        case 4:
+          movies = _context25.sent;
+          // Sort movies based on the number of matching genres
+          sortedMovies = movies.sort(function (a, b) {
+            var aMatches = a.genre.filter(function (genre) {
+              return genres.includes(genre);
+            }).length;
+            var bMatches = b.genre.filter(function (genre) {
+              return genres.includes(genre);
+            }).length;
+            return bMatches - aMatches;
+          });
+          res.json(sortedMovies.slice(0, 9)); // Limit to top 10 movies
+
+          _context25.next = 12;
+          break;
+
+        case 9:
+          _context25.prev = 9;
+          _context25.t0 = _context25["catch"](0);
+          res.status(500).send('Server Error');
+
+        case 12:
+        case "end":
+          return _context25.stop();
+      }
+    }
+  }, null, null, [[0, 9]]);
+};

@@ -1,15 +1,18 @@
 .modal {
-  position: relative;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 60rem;
+  max-height: 90vh; /* Max height to ensure it doesn't exceed the viewport */
   background: rgba(0, 0, 0, 0.75);
   border-radius: 10px;
   color: white;
   outline: none;
-  overflow: hidden;
-  height: auto;
+  overflow-y: auto; /* Make the modal scrollable */
+  padding: 20px; /* Add padding for better spacing */
+  z-index: 2; /* Ensure modal is above the overlay */
+  overflow-x: hidden;
 }
 
 .overlay {
@@ -19,10 +22,10 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.8);
+  z-index: 1; /* Ensure overlay is below the modal */
 }
 
 .content {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,9 +40,9 @@
   font-size: 2.5rem;
   background: none;
   border: none;
-  color: gray ;
+  color: gray;
   cursor: pointer;
-  z-index: 3;
+  z-index: 1001;
 }
 
 .videoWrapper {
@@ -65,7 +68,7 @@
   left: 9%;
   display: flex;
   gap: 10px;
-  z-index: 2;
+  z-index: 1002;
 }
 
 .playButton { 
@@ -112,23 +115,23 @@
   position: absolute;
   bottom: 1rem;
   right: 1.5%;
-  z-index: 2;
+  z-index: 1002;
 }
 
 .details {
-  z-index: 2;
+  z-index: 1002;
   padding: 20px;
   border-radius: 10px;
   width: 100%;
   margin-top: 1rem; /* Adjust this value to reduce gap */
   display: flex;
-  margin-right: 3rem;
-  padding-left: 3rem;
-  height: auto;
+  flex-wrap: wrap; /* Allow wrapping to handle overflow */
+  gap: 20px;
 }
 
 .title {
   font-size: 2rem;
+  margin-right: 1rem;
   font-weight: bold;
   color: #fb5607;
 }
@@ -146,25 +149,23 @@
 }
 
 .right {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  width: 40%;
 }
 
 .left {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-right: 5rem;
-  width: 60%;
   align-items: center;
+  width:60%;
 }
 
 .cast, .metaitem {
   margin-bottom: 10px; /* Add some space between sections */
   display: inline;
 }
-
 
 .cast h2, .metaitem h2 {
   text-align: left; /* Align text to the left */
@@ -205,4 +206,237 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.episodeSection {
+  width: 90%;
+  margin-top: 2rem;
+}
+
+.episodesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+
+
+.episodeIndex {
+  
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fb5607;
+
+}
+
+.episodeThumbnail{
+  position: relative;
+  width: 12rem;
+  height: 7rem;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.episodeThumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.episodeDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.episodeDetails h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.episodeDetails p {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.875rem;
+  color: rgb(204, 200, 200);
+}
+
+.episodeDuration {
+  font-size: 1rem;
+  color: whitesmoke;
+}
+
+.recommendedSection {
+  width: 50rem;
+  height: auto;
+  margin-top: 2rem;
+}
+
+.sectionTitle {
+  text-align: left;
+  color: #fb5607;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.recommendedMovies {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 movies per row */
+  gap: 2rem;
+  padding-bottom: 1rem;
+}
+
+.episodeItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #333;
+  border-radius: 10px;
+  cursor:pointer;
+  transition: transform 0.2s;
+  overflow: hidden;
+  position: relative;
+
+}
+
+.recommendedMovie {
+  flex: 0 0 30%; /* 3 movies per row */
+  display: flex;
+  flex-direction: column;
+  background-color: #333;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+  position: relative;
+}
+
+.durationRec {
+  position: absolute;
+  margin-top: -8.5rem;
+  margin-left: 4rem;
+  font-size: 1rem;
+  background-color: #444;
+  padding: 3px;
+  border-radius: 20%;
+}
+
+.episodeRec {
+  position: absolute;
+  margin-top: -8.5rem;
+  margin-left: 1rem;
+  font-size: 1rem;
+  background-color: #444;
+  padding: 3px;
+  border-radius: 20%;
+}
+
+.playButtonOverlay {
+  position: absolute;
+  margin-left: 3.2rem;
+  margin-top: 1.6rem; 
+  font-size: 3rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.playEpisodeButton{
+  position: absolute;
+  margin-top: -2.75rem;
+  margin-left: 2.25rem;
+  font-size: 3rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.recommendedMovie:hover, .episodeItem:hover {
+  transform: scale(1.05);
+}
+
+.recommendedMovie:hover .playButtonOverlay, .episodeItem:hover .playEpisodeButton{
+  opacity: 1; /* Show on hover */
+}
+
+.poster {
+  width: 16rem;
+  height: 9rem;
+}
+
+.movieInfo {
+  padding: 0.5rem 0;
+  color: white;
+  text-align: left;
+}
+
+.movieInfo h3 {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #fb5607;
+}
+
+.movieInfo p {
+  margin: 0.5rem 0 0 0;
+  font-size: 1rem;
+  color: gray;
+}
+
+.metaData {
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.metaData span {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 0.3125rem; 
+  padding: 0.3rem 0.5rem; 
+  margin-right: 0.5rem;
+  margin-top: -1.5rem;
+}
+
+.metaData .year, .metaData .description {
+  font-size: 0.9rem; /* Adjust font size for year and description */
+  color: gray;
+}
+
+.briefdescription {
+  display: flex;
+  margin-top: -1rem;
+  font-weight: lighter;
+  font-size: 0.9rem;
+  margin-left: 1rem;
+}
+
+.addButt {
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  color: white; /* Set icon color to white */
+  font-size: 3.5rem; /* Adjust font size if needed */
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-left: 4rem;
+}
+
+.addButt:hover {
+  color: #fb5607; /* Change color on hover for better visibility */
+}
+
+.modal::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background-color: #fb5607;
+  border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-track {
+  background-color: rgb(0,0,0,0.5);
 }

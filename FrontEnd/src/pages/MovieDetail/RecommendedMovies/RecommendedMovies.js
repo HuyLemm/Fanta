@@ -17,6 +17,28 @@ const RecommendedMovies = ({ genres, currentMovieId }) => {
   const token = getCookie('jwt');
   const navigate = useNavigate();
 
+  const checkIfWatchlisted = async (movieId) => {
+    if (!token) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setWatchlists(prevWatchlists => ({
+        ...prevWatchlists,
+        [movieId]: data.isFavourite
+      }));
+    } catch (error) {
+      console.log('Check if watchlisted error:', error);
+    }
+  };
+
   useEffect(() => {
     const fetchRecommendedMovies = async () => {
       try {
@@ -35,7 +57,8 @@ const RecommendedMovies = ({ genres, currentMovieId }) => {
         setRecommendedMovies(data);
         if (token) {
           const fetchAllRatings = data.map(movie => fetchUserRating(movie._id));
-          await Promise.all(fetchAllRatings);
+          const checkAllWatchlists = data.map(movie => checkIfWatchlisted(movie._id));
+          await Promise.all([...fetchAllRatings, ...checkAllWatchlists]);
         }
       } catch (error) {
         console.log('Error fetching recommended movies:', error);

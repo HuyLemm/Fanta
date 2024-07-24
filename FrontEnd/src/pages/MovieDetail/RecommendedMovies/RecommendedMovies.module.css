@@ -11,6 +11,8 @@
   font-family: 'Hatton', sans-serif;
   display: inline-block;
   position: relative;
+  color: white;
+  font-size: 2rem;
 }
 
 .recommendedTitle:hover .exploreButton {

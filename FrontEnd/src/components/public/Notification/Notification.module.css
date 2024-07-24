@@ -6,7 +6,7 @@
   justify-content: center; /* Căn giữa theo chiều ngang */
   align-items: center; /* Căn giữa theo chiều dọc */
   text-align: center; /* Căn giữa nội dung văn bản */
-
+  z-index: 100000;
 }
 
 .Toastify__toast-body {

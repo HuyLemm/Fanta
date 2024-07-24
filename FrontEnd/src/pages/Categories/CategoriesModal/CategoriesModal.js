@@ -3,14 +3,33 @@ import Modal from 'react-modal';
 import YouTube from 'react-youtube';
 import styles from './CategoriesModal.module.css';
 import { IoIosCloseCircle } from "react-icons/io";
-import { FaPlay, FaPlusCircle, FaStar, FaVolumeMute, FaVolumeUp, FaCheckCircle } from 'react-icons/fa';
+import { FaPlay, FaStar, FaVolumeMute, FaVolumeUp, FaCheckCircle, FaClock, FaPlusCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { notifyError, notifySuccess, notifyWarning } from '../../../components/public/Notification/Notification';
+import Notification, { notifyError, notifyInfo, notifySuccess, notifyWarning } from '../../../components/public/Notification/Notification';
+import { capitalizeFirstLetter } from '../../../utils/Function';
 import { getCookie } from '../../../utils/Cookies';
+import { CiCircleCheck, CiCirclePlus } from "react-icons/ci";
+import { BsPlayCircle } from "react-icons/bs";
 
+// Setting the app element for accessibility
 Modal.setAppElement('#root');
 
-const CategoriesModal = ({ isOpen, onRequestClose, movie }) => {
+// Helper function to convert minutes to hours and minutes
+const formatDuration = (minutes) => {
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  if (hours === 0) {
+    return `${remainingMinutes}m`;
+  }
+  if (remainingMinutes === 0) {
+    return `${hours}h`;
+  }
+  return `${hours}h ${remainingMinutes}m`;
+};
+
+const MovieModal = ({ isOpen, onRequestClose, movie }) => {
+  const [fullMovie, setfullMovie] = useState({});
+  const [averageRating, setAverageRating] = useState(0); 
   const [isMuted, setIsMuted] = useState(true);
   const playerRef = useRef(null);
   const navigate = useNavigate();
@@ -18,6 +37,21 @@ const CategoriesModal = ({ isOpen, onRequestClose, movie }) => {
   const [watchlists, setWatchlists] = useState({});
   const [ratings, setRatings] = useState({});
   const [hoveredStar, setHoveredStar] = useState(false);
+  const [recommendedMovies, setRecommendedMovies] = useState([]);
+  const [episodeImages, setEpisodeImages] = useState([]); // New state for episode images
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'; // Prevent scrolling outside modal
+      fetchMovie();
+      fetchRecommendedMovies();
+      if (movie.type === 'series') {
+        fetchEpisodeImages(); // Fetch episode images if it's a series
+      }
+    } else {
+      document.body.style.overflow = 'auto'; // Re-enable scrolling when modal is closed
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (playerRef.current && playerRef.current.getIframe()) {
@@ -30,9 +64,16 @@ const CategoriesModal = ({ isOpen, onRequestClose, movie }) => {
   }, [isMuted]);
 
   useEffect(() => {
+    if (movie) {
+      fetchAverageRating(movie._id);
+    }
+  }, [movie]);
+
+  useEffect(() => {
     if (movie && token) {
       fetchFavoriteStatus(movie._id);
       fetchUserRating(movie._id);
+      checkIfWatchlisted(movie._id);
     }
   }, [movie, token]);
 
@@ -84,6 +125,57 @@ const CategoriesModal = ({ isOpen, onRequestClose, movie }) => {
     }
   };
 
+  const fetchRecommendedMovies = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-more-like-this`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ genres: movie.genre, currentMovieId: movie._id })
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setRecommendedMovies(data);
+      if (token) {
+        for (const recMovie of data) {
+          await checkIfWatchlisted(recMovie._id);
+        }
+      }
+    } catch (error) {
+      console.error('Fetch recommended movies error:', error);
+    }
+  };
+
+  const fetchMovie = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-movie-by-id/${movie._id}`);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setfullMovie(data);
+    } catch (error) {
+      console.log('Fetch movie error:', error);
+      console.log(error.message);
+    } 
+  };
+
+  const fetchAverageRating = async (movieId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-average-rating/${movieId}`);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setAverageRating(data.averageRating);
+    } catch (error) {
+      notifyError('Fetch average rating error:', error);
+    }
+  };
+
   const handleWatchClick = async (movieId) => {
     const fetchWatchHistory = async (movieId) => {
       try {
@@ -116,10 +208,13 @@ const CategoriesModal = ({ isOpen, onRequestClose, movie }) => {
     }
   };
 
+  const handleEpisodeClick = (movieId, episodeIndex) => {
+    navigate(`/streaming/${movieId}`, { state: { time: 0, episode: episodeIndex } });
+  };
+
   const handleFavoriteClick = async (movieId) => {
     if (!token) {
-      notifyWarning('You need to log in first to archive');
-      return;
+      notifyInfo('You need to log in first to archive');
     }
 
     try {
@@ -141,9 +236,9 @@ const CategoriesModal = ({ isOpen, onRequestClose, movie }) => {
         ...prevWatchlists,
         [movieId]: data.isFavourite
       }));
-      notifySuccess(data.message);
+      notifyInfo('Saved to your watchlist!');
     } catch (error) {
-      notifyError('Error updating favorites:', error);
+      console.log('Error updating favorites:', error);
     }
   };
 
@@ -164,6 +259,28 @@ const CategoriesModal = ({ isOpen, onRequestClose, movie }) => {
       }));
     } catch (error) {
       console.error('Fetch favorite status error:', error);
+    }
+  };
+
+  const checkIfWatchlisted = async (movieId) => {
+    if (!token) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setWatchlists(prevWatchlists => ({
+        ...prevWatchlists,
+        [movieId]: data.isFavourite
+      }));
+    } catch (error) {
+      console.log('Check if watchlisted error:', error);
     }
   };
 
@@ -218,6 +335,25 @@ const CategoriesModal = ({ isOpen, onRequestClose, movie }) => {
     }
   };
 
+  // New function to fetch episode images
+  const fetchEpisodeImages = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-tmdb-episode-images/${movie._id}`);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setEpisodeImages(data);
+    } catch (error) {
+      console.error('Error fetching episode images:', error);
+    }
+  };
+
+  // Calculate average duration for series
+  const averageDuration = fullMovie.type === 'series' && fullMovie.episodes && fullMovie.episodes.length > 0
+    ? Math.round(fullMovie.episodes.reduce((total, episode) => total + episode.duration, 0) / fullMovie.episodes.length)
+    : null;
+
   return (
     <Modal
       isOpen={isOpen}
@@ -257,7 +393,7 @@ const CategoriesModal = ({ isOpen, onRequestClose, movie }) => {
                   }}
                 />
               </div>
-              {hoveredStar  && (
+              {hoveredStar && (
                 [...Array(4)].map((_, i) => (
                   <div key={i} className={styles.starButton}>
                     <FaStar
@@ -280,22 +416,92 @@ const CategoriesModal = ({ isOpen, onRequestClose, movie }) => {
         </div>
         <div className={styles.details}>
           <div className={styles.left}>
+            <p className={styles.metaFrame}>
+              <span className={styles.quality}>HD</span>
+              <span className={styles.rating}>{averageRating.toFixed(1)}&nbsp;<FaStar className={styles.staricon} /></span>
+              <span className={styles.releaseDate}>{new Date(movie.release_date).getFullYear()}</span>
+              {movie.type === 'movie' ? (
+                <span className={styles.rating}><FaClock className={styles.clockicon}/>&nbsp;{formatDuration(movie.duration)}</span>
+              ) : (
+                <span className={styles.rating}><FaClock className={styles.clockicon}/>&nbsp;{averageDuration}mins/episode</span>
+              )}
+              <span className={styles.releaseDate}>{capitalizeFirstLetter(movie.type)}</span>
+            </p>
             <h1 className={styles.title}>{movie.title}</h1>
             <p className={styles.description}>{movie.brief_description}</p>
           </div>
-          <div className={styles.meta}>
+          <div className={styles.right}>
             <div className={styles.metaitem}>
-              <h2 className={styles.sect}>Date: </h2><p> {movie.release_date}</p>
-            </div>
-            <div className={styles.metaitem}>
-              <h2 className={styles.sect}>Genre: </h2><p> {movie.genre.join(', ')}</p>
+              <h2 className={styles.sect}>Genre:</h2>
+              <p>{movie.genre.join(', ')}</p>
             </div>
             <div className={styles.cast}>
-              <h2 className={styles.sect}>Cast:</h2><p>{movie.cast.join(', ')}</p>
+              <h2 className={styles.sect}>Cast: </h2>
+              <p>{movie.cast.join(', ')}</p>
             </div>
             <div className={styles.metaitem}>
-              <h2 className={styles.sect}>Director: </h2><p> {movie.director.join(', ')}</p>
+              <h2 className={styles.sect}>Director: </h2>
+              <p>{movie.director.join(', ')}</p>
             </div>
+          </div>
+        </div>
+        {movie.type === 'series' && (
+          <div className={styles.episodeSection}>
+            <h2 className={styles.sectionTitle}>Episodes</h2>
+            <div className={styles.episodesList}>
+              {episodeImages.map((episode, index) => (
+                <div key={episode.id} className={styles.episodeItem} onClick={() => handleEpisodeClick(movie._id, index)}>
+                  <div className={styles.episodeIndex}>{index + 1}</div>
+                  <div className={styles.episodeThumbnail}>
+                    <img src={episode.image_url} alt={`Episode ${index + 1}`} />
+                    <div className={styles.playEpisodeButton}>
+                      <BsPlayCircle className={styles.playEpisodeButton} />
+                    </div>
+                  </div>
+                  <div className={styles.episodeDetails}>
+                    <h3>Episode {index + 1}</h3>
+                    <p>{episode.overview}</p>
+                  </div>
+                  <div className={styles.episodeDuration}>{formatDuration(episode.runtime)}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        <div className={styles.recommendedSection}>
+          <h2 className={styles.sectionTitle}>More Like This</h2>
+          <div className={styles.recommendedMovies}>  
+            {recommendedMovies.map(recMovie => (
+              <div key={recMovie._id} className={styles.recommendedMovie} onClick={() => handleWatchClick(recMovie._id)}>
+                <img src={recMovie.background_url} alt={recMovie.title} className={styles.poster} />
+                <div>
+                  {recMovie.type === 'movie' ? (
+                    <span className={styles.durationRec}>{formatDuration(recMovie.duration)}</span>
+                  ) : (
+                    <span className={styles.episodeRec}>{recMovie.episodes.length} episodes</span>
+                  )}
+                </div>
+                <div className={styles.playButtonOverlay}>
+                  <BsPlayCircle className={styles.playButtonOverlay}/>
+                </div>
+                <div className={styles.movieInfo}>
+                  <h3>{recMovie.title}</h3> 
+                  <div className={styles.metaData}>
+                    <span>HD</span>
+                    <span>{new Date(recMovie.release_date).getFullYear()}</span>
+                    <button className={styles.addButt} 
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent the click from triggering the movie click handler
+                      handleFavoriteClick(recMovie._id);
+                    }}
+                    >
+                      {watchlists[recMovie._id] ? <CiCircleCheck /> : <CiCirclePlus />}
+                    </button>
+                  </div>
+                  <span className={styles.briefdescription}>{recMovie.brief_description}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -303,4 +509,4 @@ const CategoriesModal = ({ isOpen, onRequestClose, movie }) => {
   );
 };
 
-export default CategoriesModal;
+export default MovieModal;

@@ -7,7 +7,12 @@ import { useNavigate } from 'react-router-dom';
 
 const Activity = ({ setCurrentFunction }) => {
   const [activities, setActivities] = useState([]);
+  const [filteredActivities, setFilteredActivities] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedActivities, setSelectedActivities] = useState([]);
+  const [selectMode, setSelectMode] = useState(false);
+  const [filter, setFilter] = useState('all');
+  const [timeFilter, setTimeFilter] = useState('all');
   const token = getCookie('jwt');
   const navigate = useNavigate();
 
@@ -23,6 +28,7 @@ const Activity = ({ setCurrentFunction }) => {
       }
       const data = await response.json();
       setActivities(data);
+      setFilteredActivities(data);
     } catch (error) {
       notifyError(error.message);
       console.error('Error fetching activity:', error);
@@ -31,35 +37,95 @@ const Activity = ({ setCurrentFunction }) => {
     }
   };
 
-  const handleRemoveActivity = async (activityId, e) => {
-    e.stopPropagation();
-    try {
-      const response = await fetch(`http://localhost:5000/user/delete-activity/${activityId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
-      notifySuccess('Activity removed successfully');
-      setActivities(activities.filter(activity => activity._id !== activityId));
-    } catch (error) {
-      notifyError(error.message);
-      console.error('Error removing activity:', error);
-    }
-  };
-
   useEffect(() => {
     fetchActivity();
   }, [token]);
+
+  useEffect(() => {
+    filterActivities();
+  }, [filter, timeFilter, activities]);
+
+  const filterActivities = () => {
+    let filtered = activities;
+
+    if (filter !== 'all') {
+      filtered = filtered.filter(activity => activity.action === filter);
+    }
+
+    if (timeFilter !== 'all') {
+      const now = new Date();
+      filtered = filtered.filter(activity => {
+        const activityDate = new Date(activity.createdAt);
+        switch (timeFilter) {
+          case '1hour':
+            return (now - activityDate) / 1000 / 60 <= 60;
+          case '1day':
+            return (now - activityDate) / 1000 / 60 / 60 <= 24;
+          case '1week':
+            return (now - activityDate) / 1000 / 60 / 60 / 24 <= 7;
+          case '1month':
+            return (now - activityDate) / 1000 / 60 / 60 / 24 <= 30;
+          default:
+            return true;
+        }
+      });
+    }
+
+    setFilteredActivities(filtered);
+  };
 
   if (loading) {
     return <Loading />;
   }
 
-  const groupedActivities = activities.reduce((groups, activity) => {
+  const handleSelectClick = () => {
+    setSelectMode(!selectMode);
+    setSelectedActivities([]);
+  };
+
+  const handleSelectActivity = (id) => {
+    if (selectedActivities.includes(id)) {
+      setSelectedActivities(selectedActivities.filter(activityId => activityId !== id));
+    } else {
+      setSelectedActivities([...selectedActivities, id]);
+    }
+  };
+
+  const handleSelectAll = () => {
+    if (selectedActivities.length === filteredActivities.length) {
+      setSelectedActivities([]);
+    } else {
+      setSelectedActivities(filteredActivities.map(activity => activity._id));
+    }
+  };
+
+  const handleDeleteSelected = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/user/delete-activities', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ activityIds: selectedActivities }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setActivities(activities.filter(activity => !selectedActivities.includes(activity._id)));
+      setSelectedActivities([]);
+      setSelectMode(false);
+      notifySuccess(data.message);
+    } catch (error) {
+      notifyError(error.message);
+      console.error('Error deleting activities:', error);
+    }
+  };
+
+  const groupedActivities = filteredActivities.reduce((groups, activity) => {
     const date = new Date(activity.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
     if (!groups[date]) {
       groups[date] = [];
@@ -69,7 +135,6 @@ const Activity = ({ setCurrentFunction }) => {
   }, {});
 
   const handleClick = (activityAction, activitymovieId) => {
-    console.log(activityAction, activitymovieId);
     switch (activityAction) {
       case 'addRating':
         navigate(`/streaming/${activitymovieId}`);
@@ -78,6 +143,9 @@ const Activity = ({ setCurrentFunction }) => {
         navigate(`/streaming/${activitymovieId}`);
         break;
       case 'updateProfile':
+        if (setCurrentFunction) {
+          setCurrentFunction('Profile');
+        }
         navigate('/user');
         break;
       case 'addToWatchlist':
@@ -97,16 +165,63 @@ const Activity = ({ setCurrentFunction }) => {
   return (
     <div className={styles.activityContainer}>
       <Notification />
-      <h1 className={styles.heading}>Activity</h1>
+      <div className={styles.fixedHeader}>
+        <div className={styles.leftGroup}>
+          <select value={filter} onChange={(e) => setFilter(e.target.value)} className={styles.filterSelect}>
+            <option value="all">All Activity</option>
+            <option value="addRating">Rating</option>
+            <option value="addReview">Review</option>
+            <option value="saveHistory">Watching History</option>
+            <option value="addToWatchlist">Watchlist</option>
+            <option value="updateProfile">User Profile</option>
+          </select>
+          <select value={timeFilter} onChange={(e) => setTimeFilter(e.target.value)} className={styles.timeFilterSelect}>
+            <option value="all">All Time</option>
+            <option value="1hour">Last 1 Hour</option>
+            <option value="1day">Last 1 Day</option>
+            <option value="1week">Last 1 Week</option>
+            <option value="1month">Last 1 Month</option>
+          </select>
+        </div>
+        <h1 className={styles.h2}>Activity</h1>
+        <div className={styles.rightGroup}>
+          {!selectMode && (
+            <button className={styles.selectButton} onClick={handleSelectClick}>Select</button>
+          )}
+          {selectMode && (
+            <>
+              <input
+                type="checkbox"
+                className={styles.checkboxAll}
+                checked={selectedActivities.length === filteredActivities.length}
+                onChange={handleSelectAll}
+              />
+              <span>Select All</span>
+              <button className={styles.deleteSelectedButton} onClick={handleDeleteSelected} disabled={selectedActivities.length === 0}>
+                Delete Selected
+              </button>
+              <button className={styles.cancelButton} onClick={handleSelectClick}>Cancel</button>
+            </>
+          )}
+        </div>
+      </div>
       {Object.keys(groupedActivities).map(date => (
         <div key={date}>
           <h2 className={styles.dateHeader}>{date}</h2>
           {groupedActivities[date].map((activity, index) => (
             <div
               key={index}
-              className={styles.activityItem}
-              onClick={() => handleClick(activity.action, activity.movieId)}
+              className={`${styles.activityItem} ${selectMode && styles.selectMode}`}
+              onClick={() => !selectMode && handleClick(activity.action, activity.movieId)}
             >
+              {selectMode && (
+                <input
+                  type="checkbox"
+                  className={styles.checkbox}
+                  checked={selectedActivities.includes(activity._id)}
+                  onChange={() => handleSelectActivity(activity._id)}
+                />
+              )}
               <div className={styles.activityContentWrapper}>
                 <img src={activity.avatar} alt="User Avatar" className={styles.avatar} />
                 <div className={styles.activityContent}>
@@ -115,7 +230,6 @@ const Activity = ({ setCurrentFunction }) => {
                   <p className={styles.time}>{new Date(activity.createdAt).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</p>
                 </div>
               </div>
-              <button className={styles.removeButton} onClick={(e) => handleRemoveActivity(activity._id, e)}>Remove</button>
             </div>
           ))}
         </div>

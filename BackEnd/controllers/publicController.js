@@ -580,3 +580,26 @@ exports.getTop10Movies = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch top movies' });
   }
 };
+
+
+exports.getMoreLikeThis = async (req, res) => {
+  try {
+    const { genres, currentMovieId } = req.body;
+
+    const movies = await MovieModel.find({
+      _id: { $ne: currentMovieId }, // Exclude the current movie
+      genre: { $in: genres }
+    });
+
+    // Sort movies based on the number of matching genres
+    const sortedMovies = movies.sort((a, b) => {
+      const aMatches = a.genre.filter(genre => genres.includes(genre)).length;
+      const bMatches = b.genre.filter(genre => genres.includes(genre)).length;
+      return bMatches - aMatches;
+    });
+
+    res.json(sortedMovies.slice(0, 9)); // Limit to top 10 movies
+  } catch (error) {
+    res.status(500).send('Server Error');
+  }
+}
