@@ -120,7 +120,7 @@
   padding: 20px;
   border-radius: 10px;
   width: 100%;
-  margin-top: -20px; /* Adjust this value to reduce gap */
+  margin-top: 1rem; /* Adjust this value to reduce gap */
   display: flex;
   margin-right: 3rem;
   padding-left: 3rem;
@@ -145,12 +145,10 @@
   text-align: left;
 }
 
-.meta {
+.right {
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  margin: 10px 0;
-  width: 30%;
-  align-items: start;
+  width: 40%;
 }
 
 .left {
@@ -158,44 +156,26 @@
   flex-direction: column;
   justify-content: flex-start;
   margin-right: 5rem;
-  width: 70%;
+  width: 60%;
   align-items: center;
 }
 
-.cast {
-  margin: 20px 0;
-  display: flex;
+.cast, .metaitem {
+  margin-bottom: 10px; /* Add some space between sections */
+  display: inline;
 }
 
-.metaitem {
-  display: flex;
-  justify-content: row;
+
+.cast h2, .metaitem h2 {
+  text-align: left; /* Align text to the left */
 }
 
-.ratingContainer {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  margin-left: 9rem;
+.metaitem p, .cast p {
+  margin-top: -0.5rem;
+  text-align: left; /* Align text to the left */
 }
 
-.starButton .star {
-  cursor: pointer;
-  transition: color 0.2s;
-  border: none;
-  background-color: transparent;
-}
-
-.starContainer .star:hover,
-.ratingContainer:hover .starContainer .star {
-  color: orange;
-}
-
-.ratingContainer:hover .hiddenStars {
-  display: flex;
-}
-
-.metaFrame{
+.metaFrame {
   display: flex;
   align-items: center;
   margin-bottom: 1.25rem;
@@ -209,6 +189,20 @@
   border-radius: 0.3125rem; 
 }
 
-.genres{
-  flex-wrap: nowrap;
+.ratingContainer, .rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.staricon {
+  color: orange;
+}
+
+.clockicon {
+  font-size: 1rem;
+  color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

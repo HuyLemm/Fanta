@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+"use strict";
 
-const RatingSchema = new Schema({
+var mongoose = require('mongoose');
+
+var Schema = mongoose.Schema;
+var RatingSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'accounts',
@@ -17,15 +19,12 @@ const RatingSchema = new Schema({
     min: 1,
     max: 5
   },
-  
-  updatedAt: { 
-    type: Date, 
-    default: Date.now 
+  updatedAt: {
+    type: Date,
+    "default": Date.now
   }
 }, {
   collection: 'ratings'
 });
-
-const RatingModel = mongoose.model('ratings', RatingSchema);
-
+var RatingModel = mongoose.model('ratings', RatingSchema);
 module.exports = RatingModel;

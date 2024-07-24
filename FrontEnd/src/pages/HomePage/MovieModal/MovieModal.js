@@ -3,15 +3,18 @@ import Modal from 'react-modal';
 import YouTube from 'react-youtube';
 import styles from './MovieModal.module.css';
 import { IoIosCloseCircle } from "react-icons/io";
-import { FaPlay, FaPlusCircle, FaStar, FaVolumeMute, FaVolumeUp, FaCheckCircle } from 'react-icons/fa';
+import { FaPlay, FaPlusCircle, FaStar, FaVolumeMute, FaVolumeUp, FaCheckCircle, FaClock } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { notifyError, notifySuccess, notifyWarning } from '../../../components/public/Notification/Notification';
 import { capitalizeFirstLetter } from '../../../utils/Function';
 import { getCookie } from '../../../utils/Cookies';
 
+
 Modal.setAppElement('#root');
 
 const MovieModal = ({ isOpen, onRequestClose, movie }) => {
+  const [fullMovie, setfullMovie] = useState({});
+  const [averageRating, setAverageRating] = useState(0); 
   const [isMuted, setIsMuted] = useState(true);
   const playerRef = useRef(null);
   const navigate = useNavigate();
@@ -19,6 +22,27 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
   const [watchlists, setWatchlists] = useState({});
   const [ratings, setRatings] = useState({});
   const [hoveredStar, setHoveredStar] = useState(false);
+
+
+  const fetchMovie = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-movie-by-id/${movie.id}`);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setfullMovie(data);
+    } catch (error) {
+      console.log('Fetch movie error:', error);
+      console.log(error.message);
+    } 
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchMovie();
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (playerRef.current && playerRef.current.getIframe()) {
@@ -34,6 +58,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
     if (movie && token) {
       fetchFavoriteStatus(movie.id);
       fetchUserRating(movie.id);
+      fetchAverageRating(movie.id)
     }
   }, [movie, token]);
 
@@ -82,6 +107,19 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
         playerRef.current.mute();
       }
       setIsMuted(!isMuted);
+    }
+  };
+
+  const fetchAverageRating = async (movieId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-average-rating/${movieId}`);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setAverageRating(data.averageRating);
+    } catch (error) {
+      notifyError('Fetch average rating error:', error);
     }
   };
 
@@ -219,6 +257,10 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
     }
   };
 
+  const averageDuration = fullMovie.type === 'series' && fullMovie.episodes && fullMovie.episodes.length > 0
+    ? Math.round(fullMovie.episodes.reduce((total, episode) => total + episode.duration, 0) / fullMovie.episodes.length)
+    : null;
+
   return (
     <Modal
       isOpen={isOpen}
@@ -283,25 +325,30 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
           <div className={styles.left}>
             <p className={styles.metaFrame}>
               <span className={styles.quality}>HD</span>
-              <span className={styles.genres}>{movie.genre.join(', ')}</span>
+              <span className={styles.rating}>{averageRating.toFixed(1)}&nbsp;<FaStar className={styles.staricon} /></span>
               <span className={styles.releaseDate}>{new Date(movie.release_date).getFullYear()}</span>
+              {movie.type === 'movie' ? (
+                <span className={styles.rating}><FaClock className={styles.clockicon}/>&nbsp;{movie.duration}mins</span>
+              ) : (
+                <span className={styles.rating}><FaClock className={styles.clockicon}/>&nbsp;{averageDuration}mins/episode</span>
+              )}
               <span className={styles.releaseDate}>{capitalizeFirstLetter(movie.type)}</span>
             </p>
             <h1 className={styles.title}>{movie.title}</h1>
             <p className={styles.description}>{movie.brief_description}</p>
           </div>
-          <div className={styles.meta}>
+          <div className={styles.right}>
             <div className={styles.metaitem}>
-              <h2 className={styles.sect}>Date: </h2><p> {movie.release_date}</p>
-            </div>
-            <div className={styles.metaitem}>
-              <h2 className={styles.sect}>Genre: </h2><p> {movie.genre.join(', ')}</p>
+              <h2 className={styles.sect}>Genre:</h2>
+              <p>{movie.genre.join(', ')}</p>
             </div>
             <div className={styles.cast}>
-              <h2 className={styles.sect}>Cast:</h2><p>{movie.cast.join(', ')}</p>
+              <h2 className={styles.sect}>Cast: </h2>
+              <p>{movie.cast.join(', ')}</p>
             </div>
             <div className={styles.metaitem}>
-              <h2 className={styles.sect}>Director: </h2><p> {movie.director.join(', ')}</p>
+              <h2 className={styles.sect}>Director: </h2>
+              <p>{movie.director.join(', ')}</p>
             </div>
           </div>
         </div>

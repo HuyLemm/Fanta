@@ -7,6 +7,7 @@ import Notification from '../public/Notification/Notification';
 import FullHistory from './FullHistory/FullHistory';
 import { useNavigate } from 'react-router-dom';
 import WatchLater from './WatchLater/WatchLater';
+import Activity from './Activity/Activity';
 
 const UserFeatures = ({ currentFunction, setCurrentFunction }) => {
     const navigate = useNavigate();
@@ -20,6 +21,10 @@ const UserFeatures = ({ currentFunction, setCurrentFunction }) => {
                 return <FullHistory />;
             case 'Watch Later':
                 return <WatchLater />;
+            case 'Activity':
+                return <Activity setCurrentFunction={setCurrentFunction} />;
+            case 'Help Center':
+                return <Notification />;
             default:
                 return <SeeProfile />;
         }

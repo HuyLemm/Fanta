@@ -4,6 +4,7 @@ import styles from './MainContent.module.css';
 import { getCookie } from '../../../utils/Cookies';
 import { capitalizeFirstLetter } from '../../../utils/Function';
 import { notifyInfo, notifySuccess, notifyWarning, notifyError } from '../../../components/public/Notification/Notification';
+import { FaClock } from 'react-icons/fa';
 
 const MainContent = ({ movie, handleWatchClick }) => {
   const [averageRating, setAverageRating] = useState(0); 
@@ -110,9 +111,9 @@ const MainContent = ({ movie, handleWatchClick }) => {
               <span className={styles.releaseDate}>{new Date(movie.release_date).getFullYear()}</span>
               <span className={styles.releaseDate}>{capitalizeFirstLetter(movie.type)}</span>
               {movie.type === 'movie' ? (
-                <span className={styles.duration}>{movie.duration} mins</span>
+                <span className={styles.duration}><FaClock className={styles.clockicon}/>&nbsp;{movie.duration}mins</span>
               ) : (
-                <span className={styles.duration}>{averageDuration} mins/episode</span>
+                <span className={styles.duration}><FaClock className={styles.clockicon}/>&nbsp;{averageDuration}mins/episode</span>
               )}
             </p>
             {/* Rating information */}

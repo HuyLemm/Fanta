@@ -387,24 +387,6 @@ exports.getTMDBEpisodeImages = async (req, res) => {
 };
 
 // controllers/publicController.js
-exports.saveHistory = async (req, res) => {
-  const { videoId, currentTime, latestEpisode } = req.body;
-  const userId = req.user._id;
-
-  try {
-    const history = await HistoryModel.findOneAndUpdate(
-      { userId, movieId: videoId },
-      { currentTime, latestEpisode, updatedAt: Date.now() },
-      { upsert: true, new: true }
-    );
-    res.status(200).json(history);
-  } catch (err) {
-    console.error('Failed to save history:', err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
-
-// controllers/publicController.js
 exports.getHistory = async (req, res) => {
   const { videoId } = req.params;
   const userId = req.user._id;

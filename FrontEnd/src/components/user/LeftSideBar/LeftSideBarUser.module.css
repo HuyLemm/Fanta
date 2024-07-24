@@ -12,7 +12,7 @@
 }
 
 
-.backButton:hover, .accountButton:hover, .historyButton:hover, .watchlaterButton:hover  {
+.backButton:hover, .accountButton:hover, .historyButton:hover, .watchlaterButton:hover, .activityButton:hover, .helpcenterButton:hover {
     background-color: #457b9d;
 }
 
@@ -59,6 +59,7 @@
 }
 
 .watchlaterButton{
+    margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
     width: 125%;
@@ -71,6 +72,33 @@
     transition: all 0.3s ease;
 }
 
+.activityButton{
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    width: 125%;
+    height: 3rem;
+    color: #fff;
+    border: none;
+    cursor: pointer; 
+    background: transparent;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.helpcenterButton{
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    width: 125%;
+    height: 3rem;
+    color: #fff;
+    border: none;
+    cursor: pointer; 
+    background: transparent;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
 
 .backIcon {
     font-size: 1.5rem;
@@ -94,4 +122,16 @@
     font-size: 1.8rem;
     margin-left: 1rem;
     margin-right: 0.5rem;
+}
+
+.activityIcon{
+    font-size: 1.4rem;
+    margin-left: 1.2rem;
+    margin-right: 1.5rem;
+}
+
+.helpcenterIcon{
+    font-size: 2rem;
+    margin-left: 0.9rem;
+    margin-right: 0.6rem;
 }

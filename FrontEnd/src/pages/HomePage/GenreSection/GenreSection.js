@@ -35,6 +35,7 @@ const GenreSection = ({ setCurrentFunction }) => {
         }
         const data = await response.json();
         setTopMovies(data);
+        data.forEach(movie => checkIfWatchlisted(movie._id)); // Update watchlist status
       } catch (error) {
         console.log('Error fetching top items:', error);
       }
@@ -51,7 +52,7 @@ const GenreSection = ({ setCurrentFunction }) => {
         });
 
         const sortedGenres = data.sort((a, b) => b.movies.length - a.movies.length);
-        const topGenres = sortedGenres.slice(0, 3);
+        const topGenres = sortedGenres.slice(0, 7);
 
         setGenres(topGenres);
         if (token) {
@@ -60,6 +61,11 @@ const GenreSection = ({ setCurrentFunction }) => {
           );
           await Promise.all(fetchAllRatings);
         }
+
+        // Update watchlist statuses for genres
+        topGenres.forEach(genre => {
+          genre.movies.forEach(movie => checkIfWatchlisted(movie._id));
+        });
       } catch (error) {
         console.log('Error fetching genres:', error);
       } finally {
@@ -96,8 +102,37 @@ const GenreSection = ({ setCurrentFunction }) => {
         }
         const data = await response.json();
         setMyList(data);
+
+        // Update watchlist statuses for my list
+        data.forEach(item => checkIfWatchlisted(item.movie._id));
       } catch (error) {
         console.log('Error fetching my list:', error);
+      }
+    };
+
+    const fetchHistory = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/public/get-history-for-user', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setHistory(data);
+
+          // Update watchlist statuses for history
+          data.forEach(historyItem => checkIfWatchlisted(historyItem.movie._id));
+        } else {
+          setHistory([]);
+        }
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -108,36 +143,13 @@ const GenreSection = ({ setCurrentFunction }) => {
     fetchMyList();
   }, [token, queryType]);
 
-  const fetchHistory = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/public/get-history-for-user', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        setHistory(data);
-      } else {
-        setHistory([]);
-      }
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     if (hoveredMovie) {
       fetchUserRating(hoveredMovie);
     }
   }, [hoveredMovie]);
 
-  const checkIfWatchlisted = async (movieId, token) => {
+  const checkIfWatchlisted = async (movieId) => {
     if (!token) return;
 
     try {
@@ -158,28 +170,6 @@ const GenreSection = ({ setCurrentFunction }) => {
       console.log('Check if watchlisted error:', error);
     }
   };
-
-  const updateWatchlistStatuses = async () => {
-    if (!token) return;
-
-    try {
-      for (const genre of genres) {
-        for (const movie of genre.movies) {
-          await checkIfWatchlisted(movie._id, token);
-        }
-      }
-    } catch (error) {
-      console.error('Error updating watchlist statuses:', error);
-    }
-  };
-
-  useEffect(() => {
-    if (token && genres.length > 0) {
-      const interval = setInterval(updateWatchlistStatuses, 60000); // Update every 60 seconds
-
-      return () => clearInterval(interval);
-    }
-  }, [token, genres]);
 
   const scrollAmount = 200;
 

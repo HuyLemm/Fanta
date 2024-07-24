@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './RecommendedMovies.module.css';
-import { FaPlay, FaCheckCircle, FaStar } from 'react-icons/fa';
-import { IoIosAddCircle } from "react-icons/io";
+import { FaPlay, FaCheckCircle, FaStar, FaPlusCircle } from 'react-icons/fa';
 import { getCookie } from '../../../utils/Cookies';
 import { notifyError, notifySuccess, notifyWarning } from '../../../components/public/Notification/Notification';
 import Loading from '../../../components/public/LoadingEffect/Loading';
@@ -236,7 +235,7 @@ const RecommendedMovies = ({ genres, currentMovieId }) => {
                             <div className={styles.buttonComb}>
                               <button className={styles.watchButton} onClick={() => handleWatchClickRecommended(recommendedMovie._id)}><FaPlay /></button>
                               <button className={styles.addToFavoritesButton} onClick={() => handleFavoriteClick(recommendedMovie._id)}>
-                                {watchlists[recommendedMovie._id] ? <FaCheckCircle /> : <IoIosAddCircle className={styles.plus} />}
+                                {watchlists[recommendedMovie._id] ? <FaCheckCircle /> : <FaPlusCircle className={styles.plus} />}
                               </button>
                               <div
                                 className={styles.ratingContainer}

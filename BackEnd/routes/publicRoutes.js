@@ -25,7 +25,6 @@ router.get('/get-top-rated-movies-by-genre', publicController.getTopRatedMoviesB
 router.get('/get-top-10-movies', publicController.getTop10Movies);
 
 // POST
-router.post('/save-history', authMiddleware.authenticateToken, publicController.saveHistory);
 router.post('/get-cast-and-director-images', publicController.getCastAndDirectorImages);
 router.post('/get-recommended-movies', publicController.getRecommendedMovies)
 router.post('/get-top-6-movies', publicController.getTop6SimilarMoviesAndTopRated)

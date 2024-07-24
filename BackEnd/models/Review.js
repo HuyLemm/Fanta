@@ -18,10 +18,12 @@ const ReviewSchema = new Schema({
   comment: {
     type: String,
   },
-  created_at: {
+
+  updatedAt: {
     type: Date,
     default: Date.now
   }
+
 }, {
   collection: 'reviews'
 });

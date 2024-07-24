@@ -1,0 +1,106 @@
+.activityContainer {
+  padding: 20px;
+  color: #fff;
+  padding-left: 5rem;
+  overflow-y: auto; 
+
+}
+
+.heading {
+  font-family: 'Hatton', sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  margin-right: 2rem;
+  text-align: center;
+}
+
+.dateHeader {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #aaa;
+  font-weight: bold;
+}
+
+.activityItem {
+  display: flex;
+  align-items: center;
+  background: #333;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.activityItem:hover {
+  background-color: #555;
+  cursor: pointer;
+  
+}
+
+.activityContentWrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.activityContent {
+  flex: 1;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 1.05rem;
+  margin: 0;
+  display: inline;
+}
+
+.details {
+  margin: 0;
+  display: inline;
+  margin-left: 5px;
+}
+
+.time {
+  color: #aaa;
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+.removeButton {
+  font-size: 1rem;
+  background: #fb5607;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  position: absolute;
+  right: 10px;
+}
+
+.removeButton:hover {
+  background: #333;
+}
+
+
+.activityContainer::-webkit-scrollbar {
+  width: 0.7rem;
+}
+
+.activityContainer::-webkit-scrollbar-thumb {
+  background-color: #fb5607;
+  border-radius: 10px;
+}
+
+.activityContainer::-webkit-scrollbar-track {
+  background:transparent;
+}

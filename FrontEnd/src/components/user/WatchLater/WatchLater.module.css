@@ -2,6 +2,7 @@
   padding: 20px;
   color: #fff;
   padding-left: 5rem;
+  overflow-y:auto;
 }
 
 .noFavorites {
@@ -15,13 +16,13 @@
   display: flex; 
   align-items: center;
   justify-content: center; 
-  position: sticky; 
+  position: relative; 
   top: 20px; 
   left: 20px; 
   right: 20px; 
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .h2 {
@@ -30,7 +31,8 @@
   color: aliceblue;
   z-index: 1;
   flex-grow: 1; 
-  margin-left: -8.5rem;
+  margin-top: -2rem;
+  margin-left: -10.5rem;
   text-align: center;
 }
 
@@ -42,6 +44,9 @@
   top: 50%;
   transform: translateY(-50%); 
   z-index: 1;
+  margin-right: 2rem;
+  margin-top: -0.5rem;
+
 }
 
 .gridContainer {
@@ -183,4 +188,17 @@
 
 .imageContainer.selecting .overlay {
   opacity: 1;
+}
+
+.watchLaterContainer::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.watchLaterContainer::-webkit-scrollbar-thumb {
+  background-color: #fb5607;
+  border-radius: 10px;
+}
+
+.watchLaterContainer::-webkit-scrollbar-track {
+  background:transparent;
 }

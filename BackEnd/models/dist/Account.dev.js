@@ -1,9 +1,10 @@
-const mongoose = require('mongoose');
+"use strict";
 
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
 
-// Define Account schema
-const AccountSchema = new Schema({
+var Schema = mongoose.Schema; // Define Account schema
+
+var AccountSchema = new Schema({
   email: {
     type: String,
     required: true,
@@ -23,25 +24,20 @@ const AccountSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'admin'],
-    default: 'user'
+    "enum": ['user', 'admin'],
+    "default": 'user'
   },
-  
   bannedUntil: {
     type: Date,
-    default: null
+    "default": null
   },
-
   updatedAt: {
     type: Date,
-    default: Date.now
-  },
-  
+    "default": Date.now
+  }
 }, {
   collection: 'accounts'
-});
+}); // Create Account model
 
-// Create Account model
-const AccountModel = mongoose.model('accounts', AccountSchema);
-
+var AccountModel = mongoose.model('accounts', AccountSchema);
 module.exports = AccountModel;

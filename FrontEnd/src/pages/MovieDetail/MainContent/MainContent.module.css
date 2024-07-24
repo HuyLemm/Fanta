@@ -89,6 +89,9 @@
 
 .releaseDate, .duration {
   background-color: #999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Styles for director and cast information */
@@ -227,4 +230,12 @@
   display: flex;
   align-items: center;
   width: 100dvw;
+}
+
+.clockicon {
+  font-size: 1rem;
+  color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

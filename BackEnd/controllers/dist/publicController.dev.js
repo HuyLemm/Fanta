@@ -1012,109 +1012,63 @@ exports.getTMDBEpisodeImages = function _callee16(req, res) {
 }; // controllers/publicController.js
 
 
-exports.saveHistory = function _callee17(req, res) {
-  var _req$body3, videoId, currentTime, latestEpisode, userId, history;
-
+exports.getHistory = function _callee17(req, res) {
+  var videoId, userId, history;
   return regeneratorRuntime.async(function _callee17$(_context19) {
     while (1) {
       switch (_context19.prev = _context19.next) {
         case 0:
-          _req$body3 = req.body, videoId = _req$body3.videoId, currentTime = _req$body3.currentTime, latestEpisode = _req$body3.latestEpisode;
+          videoId = req.params.videoId;
           userId = req.user._id;
           _context19.prev = 2;
           _context19.next = 5;
-          return regeneratorRuntime.awrap(HistoryModel.findOneAndUpdate({
-            userId: userId,
-            movieId: videoId
-          }, {
-            currentTime: currentTime,
-            latestEpisode: latestEpisode,
-            updatedAt: Date.now()
-          }, {
-            upsert: true,
-            "new": true
-          }));
-
-        case 5:
-          history = _context19.sent;
-          res.status(200).json(history);
-          _context19.next = 13;
-          break;
-
-        case 9:
-          _context19.prev = 9;
-          _context19.t0 = _context19["catch"](2);
-          console.error('Failed to save history:', _context19.t0);
-          res.status(500).json({
-            error: 'Internal server error'
-          });
-
-        case 13:
-        case "end":
-          return _context19.stop();
-      }
-    }
-  }, null, null, [[2, 9]]);
-}; // controllers/publicController.js
-
-
-exports.getHistory = function _callee18(req, res) {
-  var videoId, userId, history;
-  return regeneratorRuntime.async(function _callee18$(_context20) {
-    while (1) {
-      switch (_context20.prev = _context20.next) {
-        case 0:
-          videoId = req.params.videoId;
-          userId = req.user._id;
-          _context20.prev = 2;
-          _context20.next = 5;
           return regeneratorRuntime.awrap(HistoryModel.findOne({
             userId: userId,
             movieId: videoId
           }));
 
         case 5:
-          history = _context20.sent;
+          history = _context19.sent;
 
           if (history) {
-            _context20.next = 8;
+            _context19.next = 8;
             break;
           }
 
-          return _context20.abrupt("return", res.status(404).json({
+          return _context19.abrupt("return", res.status(404).json({
             error: 'History not found'
           }));
 
         case 8:
           res.status(200).json(history);
-          _context20.next = 15;
+          _context19.next = 15;
           break;
 
         case 11:
-          _context20.prev = 11;
-          _context20.t0 = _context20["catch"](2);
-          console.error('Failed to fetch history:', _context20.t0);
+          _context19.prev = 11;
+          _context19.t0 = _context19["catch"](2);
+          console.error('Failed to fetch history:', _context19.t0);
           res.status(500).json({
             error: 'Internal server error'
           });
 
         case 15:
         case "end":
-          return _context20.stop();
+          return _context19.stop();
       }
     }
   }, null, null, [[2, 11]]);
 };
 
-exports.getHistoryForUser = function _callee19(req, res) {
+exports.getHistoryForUser = function _callee18(req, res) {
   var userId, history, movieIds, movies, historyWithMovies;
-  return regeneratorRuntime.async(function _callee19$(_context21) {
+  return regeneratorRuntime.async(function _callee18$(_context20) {
     while (1) {
-      switch (_context21.prev = _context21.next) {
+      switch (_context20.prev = _context20.next) {
         case 0:
-          _context21.prev = 0;
+          _context20.prev = 0;
           userId = req.user._id;
-          _context21.next = 4;
+          _context20.next = 4;
           return regeneratorRuntime.awrap(HistoryModel.find({
             userId: userId
           }).sort({
@@ -1122,11 +1076,11 @@ exports.getHistoryForUser = function _callee19(req, res) {
           }).exec());
 
         case 4:
-          history = _context21.sent;
+          history = _context20.sent;
           movieIds = history.map(function (h) {
             return h.movieId;
           });
-          _context21.next = 8;
+          _context20.next = 8;
           return regeneratorRuntime.awrap(MovieModel.find({
             _id: {
               $in: movieIds
@@ -1134,7 +1088,7 @@ exports.getHistoryForUser = function _callee19(req, res) {
           }).exec());
 
         case 8:
-          movies = _context21.sent;
+          movies = _context20.sent;
           historyWithMovies = history.map(function (h) {
             var movie = movies.find(function (m) {
               return m._id.toString() === h.movieId.toString();
@@ -1158,56 +1112,56 @@ exports.getHistoryForUser = function _callee19(req, res) {
             });
           });
           res.status(200).json(historyWithMovies);
-          _context21.next = 17;
+          _context20.next = 17;
           break;
 
         case 13:
-          _context21.prev = 13;
-          _context21.t0 = _context21["catch"](0);
-          console.error('Failed to fetch history:', _context21.t0);
+          _context20.prev = 13;
+          _context20.t0 = _context20["catch"](0);
+          console.error('Failed to fetch history:', _context20.t0);
           res.status(500).json({
             error: 'Failed to fetch history'
           });
 
         case 17:
         case "end":
-          return _context21.stop();
+          return _context20.stop();
       }
     }
   }, null, null, [[0, 13]]);
 };
 
-exports.getTop6SimilarMoviesAndTopRated = function _callee21(req, res) {
-  var _req$body4, genres, currentMovieId, movies;
+exports.getTop6SimilarMoviesAndTopRated = function _callee20(req, res) {
+  var _req$body3, genres, currentMovieId, movies;
 
-  return regeneratorRuntime.async(function _callee21$(_context23) {
+  return regeneratorRuntime.async(function _callee20$(_context22) {
     while (1) {
-      switch (_context23.prev = _context23.next) {
+      switch (_context22.prev = _context22.next) {
         case 0:
-          _context23.prev = 0;
-          _req$body4 = req.body, genres = _req$body4.genres, currentMovieId = _req$body4.currentMovieId; // Lấy danh sách thể loại và ID phim hiện tại từ yêu cầu
+          _context22.prev = 0;
+          _req$body3 = req.body, genres = _req$body3.genres, currentMovieId = _req$body3.currentMovieId; // Lấy danh sách thể loại và ID phim hiện tại từ yêu cầu
 
           if (!(!genres || !Array.isArray(genres) || genres.length === 0)) {
-            _context23.next = 4;
+            _context22.next = 4;
             break;
           }
 
-          return _context23.abrupt("return", res.status(400).json({
+          return _context22.abrupt("return", res.status(400).json({
             message: 'Genres are required and must be an array.'
           }));
 
         case 4:
           if (currentMovieId) {
-            _context23.next = 6;
+            _context22.next = 6;
             break;
           }
 
-          return _context23.abrupt("return", res.status(400).json({
+          return _context22.abrupt("return", res.status(400).json({
             message: 'Current movie ID is required.'
           }));
 
         case 6:
-          _context23.next = 8;
+          _context22.next = 8;
           return regeneratorRuntime.awrap(MovieModel.find({
             _id: {
               $ne: currentMovieId
@@ -1219,42 +1173,42 @@ exports.getTop6SimilarMoviesAndTopRated = function _callee21(req, res) {
           }));
 
         case 8:
-          movies = _context23.sent;
-          _context23.next = 11;
-          return regeneratorRuntime.awrap(Promise.all(movies.map(function _callee20(movie) {
+          movies = _context22.sent;
+          _context22.next = 11;
+          return regeneratorRuntime.awrap(Promise.all(movies.map(function _callee19(movie) {
             var matchedGenres, ratings, averageRating;
-            return regeneratorRuntime.async(function _callee20$(_context22) {
+            return regeneratorRuntime.async(function _callee19$(_context21) {
               while (1) {
-                switch (_context22.prev = _context22.next) {
+                switch (_context21.prev = _context21.next) {
                   case 0:
                     matchedGenres = movie.genre.filter(function (genre) {
                       return genres.includes(genre);
                     }).length;
-                    _context22.next = 3;
+                    _context21.next = 3;
                     return regeneratorRuntime.awrap(RatingModel.find({
                       movieId: movie._id
                     }));
 
                   case 3:
-                    ratings = _context22.sent;
+                    ratings = _context21.sent;
                     averageRating = ratings.length ? ratings.reduce(function (acc, rating) {
                       return acc + rating.rating;
                     }, 0) / ratings.length : 0;
-                    return _context22.abrupt("return", _objectSpread({}, movie._doc, {
+                    return _context21.abrupt("return", _objectSpread({}, movie._doc, {
                       matchedGenres: matchedGenres,
                       averageRating: averageRating
                     }));
 
                   case 6:
                   case "end":
-                    return _context22.stop();
+                    return _context21.stop();
                 }
               }
             });
           })));
 
         case 11:
-          movies = _context23.sent;
+          movies = _context22.sent;
           // Sắp xếp các phim dựa trên số lượng thể loại khớp và rating trung bình
           movies.sort(function (a, b) {
             if (b.matchedGenres !== a.matchedGenres) {
@@ -1265,55 +1219,55 @@ exports.getTop6SimilarMoviesAndTopRated = function _callee21(req, res) {
           });
           res.json(movies.slice(0, 8)); // Giới hạn kết quả đến 6 phim
 
-          _context23.next = 20;
+          _context22.next = 20;
           break;
 
         case 16:
-          _context23.prev = 16;
-          _context23.t0 = _context23["catch"](0);
-          console.error('Error fetching similar movies:', _context23.t0);
+          _context22.prev = 16;
+          _context22.t0 = _context22["catch"](0);
+          console.error('Error fetching similar movies:', _context22.t0);
           res.status(500).send('Server Error');
 
         case 20:
         case "end":
-          return _context23.stop();
+          return _context22.stop();
       }
     }
   }, null, null, [[0, 16]]);
 };
 
-exports.getTopRatedMoviesByGenre = function _callee22(req, res) {
+exports.getTopRatedMoviesByGenre = function _callee21(req, res) {
   var genre, movies, movieIds, topRatedMovies, result;
-  return regeneratorRuntime.async(function _callee22$(_context24) {
+  return regeneratorRuntime.async(function _callee21$(_context23) {
     while (1) {
-      switch (_context24.prev = _context24.next) {
+      switch (_context23.prev = _context23.next) {
         case 0:
-          _context24.prev = 0;
+          _context23.prev = 0;
           genre = req.query.genre;
 
           if (genre) {
-            _context24.next = 4;
+            _context23.next = 4;
             break;
           }
 
-          return _context24.abrupt("return", res.status(400).json({
+          return _context23.abrupt("return", res.status(400).json({
             message: 'Genre is required'
           }));
 
         case 4:
-          _context24.next = 6;
+          _context23.next = 6;
           return regeneratorRuntime.awrap(MovieModel.find({
             genre: genre
           }));
 
         case 6:
-          movies = _context24.sent;
+          movies = _context23.sent;
           // Lấy danh sách các movieId
           movieIds = movies.map(function (movie) {
             return movie._id;
           }); // Tính trung bình rating của từng movie và sắp xếp theo rating giảm dần
 
-          _context24.next = 10;
+          _context23.next = 10;
           return regeneratorRuntime.awrap(RatingModel.aggregate([{
             $match: {
               movieId: {
@@ -1345,44 +1299,44 @@ exports.getTopRatedMoviesByGenre = function _callee22(req, res) {
           }]));
 
         case 10:
-          topRatedMovies = _context24.sent;
+          topRatedMovies = _context23.sent;
           result = topRatedMovies.map(function (item) {
             return _objectSpread({}, item.movie, {
               averageRating: item.averageRating
             });
           });
           res.status(200).json(result);
-          _context24.next = 19;
+          _context23.next = 19;
           break;
 
         case 15:
-          _context24.prev = 15;
-          _context24.t0 = _context24["catch"](0);
-          console.error('Error fetching top rated movies:', _context24.t0);
+          _context23.prev = 15;
+          _context23.t0 = _context23["catch"](0);
+          console.error('Error fetching top rated movies:', _context23.t0);
           res.status(500).json({
             message: 'Internal server error'
           });
 
         case 19:
         case "end":
-          return _context24.stop();
+          return _context23.stop();
       }
     }
   }, null, null, [[0, 15]]);
 };
 
-exports.getTop10Movies = function _callee23(req, res) {
+exports.getTop10Movies = function _callee22(req, res) {
   var type, matchStage, topMovies;
-  return regeneratorRuntime.async(function _callee23$(_context25) {
+  return regeneratorRuntime.async(function _callee22$(_context24) {
     while (1) {
-      switch (_context25.prev = _context25.next) {
+      switch (_context24.prev = _context24.next) {
         case 0:
-          _context25.prev = 0;
+          _context24.prev = 0;
           type = req.query.type;
           matchStage = type ? {
             type: type
           } : {};
-          _context25.next = 5;
+          _context24.next = 5;
           return regeneratorRuntime.awrap(RatingModel.aggregate([{
             $lookup: {
               from: "movies",
@@ -1423,26 +1377,26 @@ exports.getTop10Movies = function _callee23(req, res) {
           }]));
 
         case 5:
-          topMovies = _context25.sent;
+          topMovies = _context24.sent;
           res.json(topMovies.map(function (item) {
             return _objectSpread({}, item.movieDetails, {
               averageRating: item.averageRating
             });
           }));
-          _context25.next = 13;
+          _context24.next = 13;
           break;
 
         case 9:
-          _context25.prev = 9;
-          _context25.t0 = _context25["catch"](0);
-          console.error('Error fetching top movies:', _context25.t0);
+          _context24.prev = 9;
+          _context24.t0 = _context24["catch"](0);
+          console.error('Error fetching top movies:', _context24.t0);
           res.status(500).json({
             error: 'Failed to fetch top movies'
           });
 
         case 13:
         case "end":
-          return _context25.stop();
+          return _context24.stop();
       }
     }
   }, null, null, [[0, 9]]);
