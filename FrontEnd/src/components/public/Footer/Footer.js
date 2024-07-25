@@ -35,7 +35,7 @@ const Footer = () => {
         </div>
         <div className={styles.serviceCode}>Service Code</div>
         <div className={styles.copyright}>
-            &copy; 2024 Your Company. All Rights Reserved.
+          Copyright &#169; 2024 Alvin♥Paoi/Ethan Nguyen/Ekusos. All Rights Reserved
         </div>
     </footer>
   );
