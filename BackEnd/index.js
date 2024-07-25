@@ -19,7 +19,7 @@ const app = express();
 
 // Khởi tạo cấu hình CORS cho server
 const corsOptions = {
-  origin: 'http://localhost:3000', // URL frontend của bạn
+  origin: 'https://fanta.vercel.app/', // URL frontend của bạn
   credentials: true, // Cho phép gửi cookie
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
   allowedHeaders: ['Content-Type', 'Authorization'],
