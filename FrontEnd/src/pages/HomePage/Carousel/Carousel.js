@@ -23,7 +23,7 @@ const Carousel = ({ type }) => {
     const fetchMovies = async () => {
       try {
         setLoading(true); 
-        const response = await fetch(`https://fanta-alpha.vercel.app/public/get-top-rated-movies?type=${type || ''}`);
+        const response = await fetch(`http://localhost:5000/public/get-top-rated-movies?type=${type || ''}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
