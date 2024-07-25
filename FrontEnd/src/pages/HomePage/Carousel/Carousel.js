@@ -23,12 +23,12 @@ const Carousel = ({ type }) => {
     const fetchMovies = async () => {
       try {
         setLoading(true); 
-        const response = await fetch(`http://localhost:5000/public/get-top-rated-movies?type=${type || ''}`);
+        const response = await fetch(`https://fanta-alpha.vercel.app/public/get-top-rated-movies?type=${type || ''}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        
+        console.log(data);
         // Filter movies based on type if specified
         const filteredMovies = data.filter(movie => !type || movie.type === type);
         setMovies(filteredMovies);
