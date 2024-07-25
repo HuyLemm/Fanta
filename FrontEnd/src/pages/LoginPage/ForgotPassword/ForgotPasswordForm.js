@@ -36,7 +36,7 @@ const ForgotPassword = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('http://localhost:5000/auth/forgot-password', {
+            const response = await fetch('https://fanta-kappa.vercel.app/auth/forgot-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ const ForgotPassword = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('http://localhost:5000/auth/verify-forgot', {
+            const response = await fetch('https://fanta-kappa.vercel.app/auth/verify-forgot', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const ForgotPassword = () => {
     const handleResendCode = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/auth/resend-forgot', {
+            const response = await fetch('https://fanta-kappa.vercel.app/auth/resend-forgot', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ const ForgotPassword = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/auth/reset-password', {
+            const response = await fetch('https://fanta-kappa.vercel.app/auth/reset-password', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

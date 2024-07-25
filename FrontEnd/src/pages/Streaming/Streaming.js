@@ -37,7 +37,7 @@ const Streaming = () => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const response = await fetch('http://localhost:5000/public/get-current-user', {
+        const response = await fetch('https://fanta-kappa.vercel.app/public/get-current-user', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -54,7 +54,7 @@ const Streaming = () => {
 
     const fetchMovie = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-movie-by-id/${id}`);
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-movie-by-id/${id}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
@@ -68,7 +68,7 @@ const Streaming = () => {
     const fetchInitialTime = async (movieId) => {
       try {
         console.log('Fetching initial time for movieId:', movieId);
-        const response = await fetch(`http://localhost:5000/public/get-history/${movieId}`, {
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-history/${movieId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

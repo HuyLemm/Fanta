@@ -22,7 +22,7 @@ const SeeProfile = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await fetch('http://localhost:5000/admin/get-profile', {
+                const response = await fetch('https://fanta-kappa.vercel.app/admin/get-profile', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const SeeProfile = () => {
 
     const handleUpdate = async (field, value) => {
         try {
-            const response = await fetch(`http://localhost:5000/admin/update-profile`, {
+            const response = await fetch(`https://fanta-kappa.vercel.app/admin/update-profile`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const SeeProfile = () => {
             return;
         }
         try {
-            const response = await fetch('http://localhost:5000/admin/update-password', {
+            const response = await fetch('https://fanta-kappa.vercel.app/admin/update-password', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

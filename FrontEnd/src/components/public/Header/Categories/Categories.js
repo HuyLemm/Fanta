@@ -11,7 +11,7 @@ const Categories = () => {
   useEffect(() => {
     const fetchGenres = async () => {
       try {
-        const response = await fetch('http://localhost:5000/public/get-genres-movie');
+        const response = await fetch('https://fanta-kappa.vercel.app/public/get-genres-movie');
         const data = await response.json();
         setGenres(data);
       } catch (error) {

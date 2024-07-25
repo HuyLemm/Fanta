@@ -14,7 +14,7 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
   useEffect(() => {
     const fetchUserRating = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-rating/${id}`);
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-rating/${id}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
@@ -37,7 +37,7 @@ const RatingsDescription = ({ movie, id, currentUser }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/user/add-and-update-rating/${id}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/user/add-and-update-rating/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -27,7 +27,7 @@ const CreateMovie = () => {
     // Gọi API về backend để xử lý
     const handleCreateMovie = async () => {
         try {
-            const response = await fetch('http://localhost:5000/admin/create-movie', {
+            const response = await fetch('https://fanta-kappa.vercel.app/admin/create-movie', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

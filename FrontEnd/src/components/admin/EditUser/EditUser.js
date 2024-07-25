@@ -12,7 +12,7 @@ const EditUser = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('http://localhost:5000/admin/get-users', {
+                const response = await fetch('https://fanta-kappa.vercel.app/admin/get-users', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const EditUser = () => {
 
     const handleUserClick = async (userId) => {
         try {
-            const response = await fetch(`http://localhost:5000/admin/get-user-by-id/${userId}`, {
+            const response = await fetch(`https://fanta-kappa.vercel.app/admin/get-user-by-id/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ const EditUser = () => {
 
     const handleUserUpdate = async (field, value) => {
         try {
-            const response = await fetch(`http://localhost:5000/admin/update-user-by-id/${selectedUser._id}`, {
+            const response = await fetch(`https://fanta-kappa.vercel.app/admin/update-user-by-id/${selectedUser._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const EditUser = () => {
 
     const handleDeleteUser = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/admin/delete-user-by-id/${selectedUser._id}`, {
+            const response = await fetch(`https://fanta-kappa.vercel.app/admin/delete-user-by-id/${selectedUser._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

@@ -29,7 +29,7 @@ const GenreSection = ({ setCurrentFunction }) => {
   useEffect(() => {
     const fetchTopItems = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-top-10-movies?type=${queryType || ''}`);
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-top-10-movies?type=${queryType || ''}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
@@ -43,7 +43,7 @@ const GenreSection = ({ setCurrentFunction }) => {
 
     const fetchGenres = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-genres-movie?type=${queryType || ''}`);
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-genres-movie?type=${queryType || ''}`);
         let data = await response.json();
 
         // Shuffle movies within each genre
@@ -75,7 +75,7 @@ const GenreSection = ({ setCurrentFunction }) => {
 
     const fetchCurrentUser = async () => {
       try {
-        const response = await fetch('http://localhost:5000/public/get-current-user', {
+        const response = await fetch('https://fanta-kappa.vercel.app/public/get-current-user', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -92,7 +92,7 @@ const GenreSection = ({ setCurrentFunction }) => {
 
     const fetchMyList = async () => {
       try {
-        const response = await fetch('http://localhost:5000/user/get-favorite', {
+        const response = await fetch('https://fanta-kappa.vercel.app/user/get-favorite', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -112,7 +112,7 @@ const GenreSection = ({ setCurrentFunction }) => {
 
     const fetchHistory = async () => {
       try {
-        const response = await fetch('http://localhost:5000/public/get-history-for-user', {
+        const response = await fetch('https://fanta-kappa.vercel.app/public/get-history-for-user', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -153,7 +153,7 @@ const GenreSection = ({ setCurrentFunction }) => {
     if (!token) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-watchlist/${movieId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -195,7 +195,7 @@ const GenreSection = ({ setCurrentFunction }) => {
   const handleWatchClick = async (movieId) => {
     const fetchWatchHistory = async (movieId) => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-history/${movieId}`, {
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-history/${movieId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -252,7 +252,7 @@ const GenreSection = ({ setCurrentFunction }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/user/toggle-watchlist', {
+      const response = await fetch('https://fanta-kappa.vercel.app/user/toggle-watchlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -278,7 +278,7 @@ const GenreSection = ({ setCurrentFunction }) => {
 
   const fetchUserRating = async (movieId) => {
     try {
-      const response = await fetch(`http://localhost:5000/public/get-rating-hover/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-rating-hover/${movieId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -305,7 +305,7 @@ const GenreSection = ({ setCurrentFunction }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/user/add-and-update-rating/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/user/add-and-update-rating/${movieId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

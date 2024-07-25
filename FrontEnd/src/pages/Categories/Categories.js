@@ -29,7 +29,7 @@ const GenreMovies = () => {
   useEffect(() => {
     const fetchGenreMovies = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-movies-by-genre?genre=${genreName}`);
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-movies-by-genre?genre=${genreName}`);
         const data = await response.json();
         setMovies(data);
         data.forEach(movie => {
@@ -42,7 +42,7 @@ const GenreMovies = () => {
 
     const fetchTopRatedMovies = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-top-rated-movies-by-genre?genre=${genreName}`);
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-top-rated-movies-by-genre?genre=${genreName}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -65,7 +65,7 @@ const GenreMovies = () => {
   
   const fetchUserRating = async (movieId) => {
     try {
-      const response = await fetch(`http://localhost:5000/public/get-rating-hover/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-rating-hover/${movieId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -92,7 +92,7 @@ const GenreMovies = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/user/add-and-update-rating/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/user/add-and-update-rating/${movieId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ const GenreMovies = () => {
     if (!token) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-watchlist/${movieId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -165,7 +165,7 @@ const GenreMovies = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/user/toggle-watchlist', {
+      const response = await fetch('https://fanta-kappa.vercel.app/user/toggle-watchlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

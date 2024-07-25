@@ -21,7 +21,7 @@ const Comments = ({ movieId, currentUser }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-reviews-movie-id/${movieId}`);
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-reviews-movie-id/${movieId}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
@@ -43,7 +43,7 @@ const Comments = ({ movieId, currentUser }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/user/add-reviews/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/user/add-reviews/${movieId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -74,8 +74,8 @@ const Comments = ({ movieId, currentUser }) => {
   const handleDeleteComment = async (commentId) => {
     try {
       const url = currentUser?.role === 'admin'
-        ? `http://localhost:5000/admin/delete-reviews/${commentId}`
-        : `http://localhost:5000/user/delete-reviews/${commentId}`;
+        ? `https://fanta-kappa.vercel.app/admin/delete-reviews/${commentId}`
+        : `https://fanta-kappa.vercel.app/user/delete-reviews/${commentId}`;
 
       const response = await fetch(url, {
         method: 'DELETE',
@@ -97,7 +97,7 @@ const Comments = ({ movieId, currentUser }) => {
   // Chỉnh sửa bình luận
   const handleEditComment = async (commentId) => {
     try {
-      const response = await fetch(`http://localhost:5000/user/update-reviews/${commentId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/user/update-reviews/${commentId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ const Comments = ({ movieId, currentUser }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/admin/ban-user', {
+      const response = await fetch('https://fanta-kappa.vercel.app/admin/ban-user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

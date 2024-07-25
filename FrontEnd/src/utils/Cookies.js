@@ -32,7 +32,7 @@ function getCookie(cname) {
         };
       }
   
-      const response = await fetch('http://localhost:5000/public/check-role', {
+      const response = await fetch('https://fanta-kappa.vercel.app/public/check-role', {
         method: 'GET',
         credentials: 'include',
         headers: {

@@ -34,7 +34,7 @@ const RegisterForm = () => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/auth/register', {
+            const response = await fetch('https://fanta-kappa.vercel.app/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ const RegisterForm = () => {
         setIsLoading(true);
         
         try {
-            const response = await fetch('http://localhost:5000/auth/verify-register', {
+            const response = await fetch('https://fanta-kappa.vercel.app/auth/verify-register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ const RegisterForm = () => {
     const handleResendCode = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch('http://localhost:5000/auth/resend-register', {
+            const response = await fetch('https://fanta-kappa.vercel.app/auth/resend-register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

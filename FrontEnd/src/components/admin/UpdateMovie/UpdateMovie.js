@@ -30,7 +30,7 @@ const UpdateMovie = () => {
 
     const handleSearchMovie = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/admin/find-movie`, {
+            const response = await fetch(`https://fanta-kappa.vercel.app/admin/find-movie`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const UpdateMovie = () => {
                 }
             }
 
-            const response = await fetch(`http://localhost:5000/admin/update-movie`, {
+            const response = await fetch(`https://fanta-kappa.vercel.app/admin/update-movie`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

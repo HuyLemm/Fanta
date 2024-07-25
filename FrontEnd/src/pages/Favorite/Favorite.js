@@ -21,7 +21,7 @@ const Favourite = () => {
   useEffect(() => {
     const fetchWatchlist = async () => {
       try {
-        const response = await fetch('http://localhost:5000/user/get-favorite', {
+        const response = await fetch('https://fanta-kappa.vercel.app/user/get-favorite', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -48,7 +48,7 @@ const Favourite = () => {
 
   const handleRemoveFromFavorite = async (movieIds) => {
     try {
-      const response = await fetch('http://localhost:5000/user/remove-from-favorite', {
+      const response = await fetch('https://fanta-kappa.vercel.app/user/remove-from-favorite', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -31,7 +31,7 @@ const SearchResults = () => {
     const query = getQuery();
     const fetchSearchResults = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/public/search-movies?query=${query}`);
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/search-movies?query=${query}`);
         const data = await response.json();
         setMovies(data);
 
@@ -46,7 +46,7 @@ const SearchResults = () => {
 
     const fetchTopRatedMovies = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-top-rated-movies`);
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-top-rated-movies`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -79,7 +79,7 @@ const SearchResults = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/user/toggle-watchlist', {
+      const response = await fetch('https://fanta-kappa.vercel.app/user/toggle-watchlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ const SearchResults = () => {
 
   const fetchUserRating = async (movieId) => {
     try {
-      const response = await fetch(`http://localhost:5000/public/get-rating-hover/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-rating-hover/${movieId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -133,7 +133,7 @@ const SearchResults = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/user/add-and-update-rating/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/user/add-and-update-rating/${movieId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -205,7 +205,7 @@ const SearchResults = () => {
     if (!token) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-watchlist/${movieId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

@@ -27,7 +27,7 @@ const History = ({ setCurrentFunction }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/public/get-history-for-user', {
+      const response = await fetch('https://fanta-kappa.vercel.app/public/get-history-for-user', {
         headers: {
           'Authorization': `Bearer ${token}`
         }

@@ -15,7 +15,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
     // Fetch average rating of the movie
     const fetchAverageRating = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-average-rating/${movie._id}`);
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-average-rating/${movie._id}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
@@ -30,7 +30,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
     // Check if the movie is in the user's favourite list
     const checkIfFavourite = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-watchlist/${movie._id}`, {
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-watchlist/${movie._id}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -61,7 +61,7 @@ const MainContent = ({ movie, handleWatchClick }) => {
   // Handle add to favourite button click
   const handleAddToFavourite = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/user/toggle-watchlist`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/user/toggle-watchlist`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

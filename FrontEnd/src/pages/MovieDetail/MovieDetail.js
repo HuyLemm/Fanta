@@ -22,7 +22,7 @@ const MovieDetail = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-movie-by-id/${id}`);
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-movie-by-id/${id}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
@@ -41,7 +41,7 @@ const MovieDetail = () => {
     const fetchRecommendedMovies = async (genres, currentMovieId) => {
       try {
         console.log('Fetching recommended movies with genres:', genres, 'and current movie ID:', currentMovieId);
-        const response = await fetch(`http://localhost:5000/public/get-recommended-movies`, {
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-recommended-movies`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ const MovieDetail = () => {
 
     const fetchWatchHistory = async (movieId) => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-history/${movieId}`, {
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-history/${movieId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

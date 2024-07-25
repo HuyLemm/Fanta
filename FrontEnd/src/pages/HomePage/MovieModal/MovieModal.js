@@ -127,7 +127,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
 
   const fetchRecommendedMovies = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/public/get-more-like-this`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-more-like-this`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
 
   const fetchMovie = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/public/get-movie-by-id/${movie.id}`);
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-movie-by-id/${movie.id}`);
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
@@ -165,7 +165,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
 
   const fetchAverageRating = async (movieId) => {
     try {
-      const response = await fetch(`http://localhost:5000/public/get-average-rating/${movieId}`);
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-average-rating/${movieId}`);
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
@@ -179,7 +179,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
   const handleWatchClick = async (movieId) => {
     const fetchWatchHistory = async (movieId) => {
       try {
-        const response = await fetch(`http://localhost:5000/public/get-history/${movieId}`, {
+        const response = await fetch(`https://fanta-kappa.vercel.app/public/get-history/${movieId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -219,7 +219,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/user/toggle-watchlist', {
+      const response = await fetch('https://fanta-kappa.vercel.app/user/toggle-watchlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -245,7 +245,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
 
   const fetchFavoriteStatus = async (movieId) => {
     try {
-      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-watchlist/${movieId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -267,7 +267,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
     if (!token) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-watchlist/${movieId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -292,7 +292,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/user/add-and-update-rating/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/user/add-and-update-rating/${movieId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -317,7 +317,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
 
   const fetchUserRating = async (movieId) => {
     try {
-      const response = await fetch(`http://localhost:5000/public/get-rating-hover/${movieId}`, {
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-rating-hover/${movieId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -339,7 +339,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
   // New function to fetch episode images
   const fetchEpisodeImages = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/public/get-tmdb-episode-images/${movie.id}`);
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-tmdb-episode-images/${movie.id}`);
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }

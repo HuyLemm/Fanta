@@ -22,7 +22,7 @@ const Episode = ({ movieId, episodes, type, initialEpisode, initialTime, genres,
 
   const fetchEpisodeImages = async (movieId) => {
     try {
-      const response = await fetch(`http://localhost:5000/public/get-tmdb-episode-images/${movieId}`);
+      const response = await fetch(`https://fanta-kappa.vercel.app/public/get-tmdb-episode-images/${movieId}`);
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
@@ -39,7 +39,7 @@ const Episode = ({ movieId, episodes, type, initialEpisode, initialTime, genres,
 
   const fetchSimilarMovies = async (genres, currentMovieId) => {
     try {
-      const response = await fetch('http://localhost:5000/public/get-top-6-movies', {
+      const response = await fetch('https://fanta-kappa.vercel.app/public/get-top-6-movies', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const Episode = ({ movieId, episodes, type, initialEpisode, initialTime, genres,
 
   const saveCurrentTime = async (videoId, currentTime, latestEpisode) => {
     try {
-      const response = await fetch('http://localhost:5000/public/save-history', {
+      const response = await fetch('https://fanta-kappa.vercel.app/public/save-history', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

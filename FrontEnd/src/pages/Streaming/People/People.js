@@ -9,7 +9,7 @@ const People = ({ movie }) => {
 
   const getCastAndDirectorImages = async (cast, director) => {
     try {
-      const response = await fetch('http://localhost:5000/public/get-cast-and-director-images', {
+      const response = await fetch('https://fanta-kappa.vercel.app/public/get-cast-and-director-images', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
