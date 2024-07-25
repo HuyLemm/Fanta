@@ -10,7 +10,7 @@ const HelpCenter = () => {
                 <div className={styles.searchBox}>
                     <input
                         type="text"
-                        placeholder="Type a question, topic or issue"
+                        placeholder= " (ò_ô) Type a question, topic or issue"
                         className={styles.searchInput}
                     />
                 </div>

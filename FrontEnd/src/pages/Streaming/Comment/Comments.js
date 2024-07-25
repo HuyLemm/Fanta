@@ -276,8 +276,10 @@ const Comments = ({ movieId, currentUser }) => {
               <option value="years">Years</option>
             </select>
           </label>
-          <button onClick={handleBanUser} className={styles.comButton}>Ban</button>
-          <button onClick={closeBanModal} className={styles.comButton}>Cancel</button>
+          <div>
+            <button onClick={handleBanUser} className={styles.comButton}>Ban</button>
+            <button onClick={closeBanModal} className={styles.comButton}>Cancel</button>
+          </div>
         </div>
       </Modal>
     </div>

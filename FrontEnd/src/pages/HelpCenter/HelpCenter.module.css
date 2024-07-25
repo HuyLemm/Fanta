@@ -3,7 +3,6 @@
 .helpCenterPage {
     margin: 0;
     text-align: center;
-    background: linear-gradient(135deg, rgb(167, 150, 54), #fb5607);
     min-height: 100vh;
     color: white;
     padding: 2rem;
@@ -14,7 +13,7 @@
 .helpCenterText {
     font-size: 3rem;
     font-family: 'Hatton', sans-serif;
-    color: #fff;
+    color: #fb5607;
     font-weight: bold;
     margin-bottom: 2rem;
 }
@@ -33,7 +32,6 @@
 h1 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    font-weight: bold;
 }
 
 .searchBox {
@@ -59,6 +57,7 @@ h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
     color: #fff;
+    font-weight: lighter;
 }
 
 .recommended ul {
@@ -82,14 +81,9 @@ h1 {
     text-decoration: none;
     color: #fff;
     font-size: 1.2rem;
-    font-weight: bold;
 }
 
-.explore {
-    margin-top: 3rem;
-    font-size: 2rem;
-    font-weight: bold;
-}
+
 
 .arrow {
     font-size: 3rem;
@@ -99,16 +93,19 @@ h1 {
 .footer {
     margin-top: 5rem;
     padding: 2rem;
-    background: rgba(0, 0, 0, 0.8);
     color: #fff;
     border-radius: 10px;
     text-align: center;
 }
 
 .footer a {
+    font-size: 1.2rem;
     color: #fff;
     text-decoration: none;
     margin: 0 1rem;
+    background: black;
+    border-radius: 10%;
+    padding: 0.5rem 1rem;
 }
 
 .footer a:hover {

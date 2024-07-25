@@ -173,3 +173,47 @@
 .username {
   color: rgb(255,255,255,0.86);
 }
+
+.modal {
+  width: 300px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modalContent label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalContent input,
+.modalContent select {
+  margin-left: 10px;
+}
+
+.modalContent button {
+  align-self: flex-end;
+  margin-top: 10px;
+}
