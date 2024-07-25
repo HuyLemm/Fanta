@@ -12,6 +12,7 @@ import SearchResults from '../pages/SearchResults/SearchResults';
 import Categories from '../pages/Categories/Categories';
 import Streaming from '../pages/Streaming/Streaming';
 import Favorite from '../pages/Favorite/Favorite';
+import HelpCenter from '../pages/HelpCenter/HelpCenter';
 import Test from '../pages/Tests/Test';
 
 function AppRouter({ currentFunction, setCurrentFunction }) {
@@ -24,6 +25,7 @@ function AppRouter({ currentFunction, setCurrentFunction }) {
         <Route path="/genre/:genreName" element={<Categories />} />
         <Route path="/streaming/:id" element={<Streaming />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/help-center" element={<HelpCenter/>} />
 
         {/* Authentication Routes */}
         <Route path="/register" element={<RegisterPage />} />

@@ -109,7 +109,7 @@ const History = ({ setCurrentFunction }) => {
   return (
     <div className={styles.historyContainer} ref={historyRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <button className={styles.historyButton}>
-        <FaRegClock />
+        <FaRegClock className={styles.historyIcon}/>
       </button>
       <div className={styles.historyGap}></div> {/* Invisible gap */}
       {showHistory && (

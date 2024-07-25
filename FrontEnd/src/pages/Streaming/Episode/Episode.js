@@ -39,7 +39,6 @@ const Episode = ({ movieId, episodes, type, initialEpisode, initialTime, genres,
 
   const fetchSimilarMovies = async (genres, currentMovieId) => {
     try {
-      console.log('Fetching similar movies for genres:', genres, 'and current movie ID:', currentMovieId);
       const response = await fetch('http://localhost:5000/public/get-top-6-movies', {
         method: 'POST',
         headers: {
@@ -61,7 +60,6 @@ const Episode = ({ movieId, episodes, type, initialEpisode, initialTime, genres,
 
   const saveCurrentTime = async (videoId, currentTime, latestEpisode) => {
     try {
-      console.log(`Saving current time: ${currentTime} and latest episode: ${latestEpisode} for movieId: ${videoId}`);
       const response = await fetch('http://localhost:5000/public/save-history', {
         method: 'POST',
         headers: {

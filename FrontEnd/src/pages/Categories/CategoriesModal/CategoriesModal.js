@@ -172,7 +172,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
       const data = await response.json();
       setAverageRating(data.averageRating);
     } catch (error) {
-      notifyError('Fetch average rating error:', error);
+      console.log('Fetch average rating error:', error);
     }
   };
 
@@ -310,7 +310,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
         [movieId]: newRating.rating
       }));
     } catch (error) {
-      notifyError('Add rating error:', error);
+      console.log('Add rating error:', error);
     }
   };
 

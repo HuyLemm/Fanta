@@ -49,6 +49,11 @@ const UserIcon = () => {
     navigate('/favorite');
   }
 
+
+  const handleHelpCenterClick = () => {
+    navigate('/help-center');
+  }
+
   const handleLogout = async () => {
     try {
       const response = await fetch('http://localhost:5000/auth/logout', {
@@ -128,7 +133,7 @@ const UserIcon = () => {
             <button onClick={handleWatchLaterClick} className={styles.watchlaterButton}>
               <MdBookmarkAdd className={styles.watchlatericon} /> Watch Later
             </button>
-            <button onClick={handleWatchLaterClick} className={styles.watchlaterButton}>
+            <button onClick={handleHelpCenterClick} className={styles.watchlaterButton}>
               <HiMiniQuestionMarkCircle className={styles.watchlatericon} /> Help Center
             </button>
             <button onClick={handleLogout} className={styles.logoutButton}>

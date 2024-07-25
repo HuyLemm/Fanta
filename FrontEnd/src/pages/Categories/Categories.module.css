@@ -76,6 +76,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .topRatedMovie {
@@ -437,18 +438,24 @@ body {
 }
 
 .more {
-  display: flex;
+  margin-top: 2.5rem;
+  margin-left: -8.2rem;
+  position:absolute;
   background-color: #fb5607;
   border: 0.0625rem solid #fb5607; /* Converted 1px to 0.0625rem */
   color: white;
   padding: 0.35rem 1rem;
-  font-size: 0.975rem;
+  font-size: 0.9rem;
   cursor: pointer;
   justify-content: center;
   border-radius: 2rem;
+  opacity: 0;
+  transition: 0.3s ease;
 }
 
-.more:hover{
-  background-color: #333;
-  border: #333;
+.topRatedItem:hover .topRatedPoster{
+  opacity: 0.45;
+}
+.topRatedItem:hover .more {
+  opacity: 1;
 }

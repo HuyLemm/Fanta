@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import styles from './SearchResults.module.css';
 import Footer from '../../components/public/Footer/Footer';
 import Notification, { notifyError, notifyWarning, notifySuccess } from '../../components/public/Notification/Notification';
@@ -7,7 +7,7 @@ import Loading from '../../components/public/LoadingEffect/Loading';
 import { FaPlay, FaCheckCircle, FaStar } from 'react-icons/fa';
 import { IoIosAddCircle } from "react-icons/io";
 import { getCookie } from '../../utils/Cookies';
-import MovieModal from '../HomePage/MovieModal/MovieModal'; // Import your modal component
+import MovieModal from  '../HomePage/MovieModal/MovieModal';
 
 const SearchResults = () => {
   const moviesPerPage = 25;
@@ -34,8 +34,13 @@ const SearchResults = () => {
         const response = await fetch(`http://localhost:5000/public/search-movies?query=${query}`);
         const data = await response.json();
         setMovies(data);
+
+        // Check if each movie is in watchlist
+        data.forEach(movie => {
+          checkIfWatchlisted(movie._id);
+        });
       } catch (error) {
-        notifyError('Error fetching search results:', error);
+        console.log('Error fetching search results:', error);
       }
     };
 
@@ -47,8 +52,13 @@ const SearchResults = () => {
         }
         const data = await response.json();
         setTopRatedMovies(data);
+
+        // Check if each movie is in watchlist
+        data.forEach(movie => {
+          checkIfWatchlisted(movie.id);
+        });
       } catch (error) {
-        notifyError('Error fetching top rated movies:', error);
+        console.log('Error fetching top rated movies:', error);
       }
     };
 
@@ -89,7 +99,7 @@ const SearchResults = () => {
       }));
       notifySuccess(data.message);
     } catch (error) {
-      notifyError('Error updating favorites:', error);
+      console.log('Error updating favorites:', error);
     }
   };
 
@@ -143,7 +153,7 @@ const SearchResults = () => {
       };
       setRatings(updatedRatings);
     } catch (error) {
-      notifyError('Add rating error:', error);
+      console.log('Add rating error:', error);
     }
   };
 
@@ -190,6 +200,28 @@ const SearchResults = () => {
   for (let i = 1; i <= Math.ceil(movies.length / moviesPerPage); i++) {
     pageNumbers.push(i);
   }
+
+  const checkIfWatchlisted = async (movieId) => {
+    if (!token) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setWatchlists(prevWatchlists => ({
+        ...prevWatchlists,
+        [movieId]: data.isFavourite
+      }));
+    } catch (error) {
+      console.log('Check if watchlisted error:', error);
+    }
+  };
 
   return (
     <div className={styles.searchResultsPage}>
@@ -274,7 +306,12 @@ const SearchResults = () => {
             <h3 className={styles.topRatedHeader}>Trending Movies</h3>
             <ul className={styles.topRatedList}>
               {topRatedMovies.map(movie => (
-                <li key={movie._id} className={styles.topRatedItem}>
+                <li key={movie.id} className={styles.topRatedItem} onMouseEnter={() => setHoveredMovie(movie.id)} onMouseLeave={() => setHoveredMovie(null)}
+                onClick={(e)=>{
+                  if (e.target.tagName !== 'BUTTON') {
+                  handleMoreDetailsClick(movie.id);
+                }}}
+                >
                   <div className={styles.topRatedMovie}>
                     <img src={movie.poster_url} alt={movie.title} className={styles.topRatedPoster} />
                     <div className={styles.movieInfo}>

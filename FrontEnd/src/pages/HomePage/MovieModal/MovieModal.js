@@ -209,6 +209,7 @@ const MovieModal = ({ isOpen, onRequestClose, movie }) => {
   };
 
   const handleEpisodeClick = (movieId, episodeIndex) => {
+    
     navigate(`/streaming/${movieId}`, { state: { time: 0, episode: episodeIndex } });
   };
 

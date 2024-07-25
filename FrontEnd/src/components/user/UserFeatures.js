@@ -24,7 +24,7 @@ const UserFeatures = ({ currentFunction, setCurrentFunction }) => {
             case 'Activity':
                 return <Activity setCurrentFunction={setCurrentFunction} />;
             case 'Help Center':
-                return <Notification />;
+                navigate('/help-center');
             default:
                 return <SeeProfile />;
         }

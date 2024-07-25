@@ -32,6 +32,9 @@ const GenreMovies = () => {
         const response = await fetch(`http://localhost:5000/public/get-movies-by-genre?genre=${genreName}`);
         const data = await response.json();
         setMovies(data);
+        data.forEach(movie => {
+          checkIfWatchlisted(movie._id);
+        });
       } catch (error) {
         notifyError('Error fetching movies:', error);
       }
@@ -45,6 +48,9 @@ const GenreMovies = () => {
         }
         const data = await response.json();
         setTopRatedMovies(data);
+        data.forEach(movie => {
+          checkIfWatchlisted(movie._id);
+        });
       } catch (error) {
         notifyError('Error fetching top rated movies:', error);
       }
@@ -56,6 +62,7 @@ const GenreMovies = () => {
     }
   }, [genreName]);
 
+  
   const fetchUserRating = async (movieId) => {
     try {
       const response = await fetch(`http://localhost:5000/public/get-rating-hover/${movieId}`, {
@@ -126,6 +133,27 @@ const GenreMovies = () => {
     return description;
   };
 
+  const checkIfWatchlisted = async (movieId) => {
+    if (!token) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/public/get-watchlist/${movieId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      setWatchlists(prevWatchlists => ({
+        ...prevWatchlists,
+        [movieId]: data.isFavourite
+      }));
+    } catch (error) {
+      console.log('Check if watchlisted error:', error);
+    }
+  };
   const handleWatchClick = (movieId) => {
     navigate(`/movie/${movieId}`);
   };
@@ -272,7 +300,12 @@ const GenreMovies = () => {
             <h3 className={styles.topRatedHeader}>Top 5 in {genreName}</h3>
             <ul className={styles.topRatedList}>
               {topRatedMovies.map(movie => (
-                <li key={movie._id} className={styles.topRatedItem} onMouseEnter={() => setHoveredMovie(movie._id)} onMouseLeave={() => setHoveredMovie(null)}>
+                <li key={movie._id} className={styles.topRatedItem} onMouseEnter={() => setHoveredMovie(movie._id)} onMouseLeave={() => setHoveredMovie(null)} 
+                  onClick={(e)=>{
+                    if (e.target.tagName !== 'BUTTON') {
+                    handleMoreDetailsClick(movie._id);
+                  }}}
+                >
                   <div className={styles.topRatedMovie}>
                     <img src={movie.poster_url} alt={movie.title} className={styles.topRatedPoster} />
                     <div className={styles.movieInfo}>
