@@ -1,7 +1,7 @@
 {
     "build": {
-      "commands": {
-        "install": "npm install --force"
+      "env": {
+        "NPM_FLAGS": "--legacy-peer-deps"
       }
     }
   }
