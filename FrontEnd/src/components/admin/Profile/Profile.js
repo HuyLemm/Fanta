@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { getCookie } from '../../../utils/Cookies';
 import styles from './Profile.module.css';
-import { notifyError, notifySuccess, notifyInfo,notifyWarning } from '../../public/Notification/Notification';
+import { notifyError, notifySuccess, notifyInfo, notifyWarning } from '../../public/Notification/Notification';
 
-// Xử lý chức năng Profile của admin
 const SeeProfile = () => {
     const [profile, setProfile] = useState({
         email: '',
         username: '',
-        password: ''
+        password: '',
+        avatar: ''
     });
     const [passwords, setPasswords] = useState({
         currentPassword: '',
@@ -20,7 +20,6 @@ const SeeProfile = () => {
     const token = getCookie('jwt');
 
     useEffect(() => {
-        // Gọi API về BackEnd để lấy profile
         const fetchProfile = async () => {
             try {
                 const response = await fetch('http://localhost:5000/admin/get-profile', {
@@ -43,12 +42,11 @@ const SeeProfile = () => {
             }
         };
         fetchProfile();
-    }, []);
+    }, [token]);
 
-    // Gọi API về backend để thực hiện thay đổi profile
     const handleUpdate = async (field, value) => {
         try {
-            const response = await fetch('http://localhost:5000/admin/update-profile', {
+            const response = await fetch(`http://localhost:5000/admin/update-profile`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,7 +68,6 @@ const SeeProfile = () => {
         }
     };
 
-    // Gọi API về backend để thực hiện thay đổi password
     const handlePasswordUpdate = async () => {
         if (passwords.newPassword !== passwords.confirmPassword) {
             notifyWarning('New password and confirm password do not match.');
@@ -99,22 +96,16 @@ const SeeProfile = () => {
                 notifyError(`Error updating password: ${data.error}`);
             }
         } catch (error) {
-            notifyInfo(`Error updating password: ${error.message}`);
+            notifyError(`Error updating password: ${error.message}`);
         }
     };
 
     const handleFieldChange = (e) => {
-        setProfile({
-            ...profile,
-            [e.target.name]: e.target.value
-        });
+        setProfile({ ...profile, [e.target.name]: e.target.value });
     };
 
     const handlePasswordFieldChange = (e) => {
-        setPasswords({
-            ...passwords,
-            [e.target.name]: e.target.value
-        });
+        setPasswords({ ...passwords, [e.target.name]: e.target.value });
     };
 
     const handleCancel = () => {
@@ -131,94 +122,96 @@ const SeeProfile = () => {
     }
 
     return (
-
-        <div className={styles.outer}> 
-            <h2 className={styles.h2}>Admin Profile</h2>
-            {/* Section Email */}
-            <div className={styles.section}>
-                <div className={styles['form-group']}>
-                    <label>Email: </label>
-                    {editField === 'email' ? (
-                        <>
-                            <input
-                                type="email"
-                                name="email"
-                                value={profile.email}
-                                onChange={handleFieldChange}
-                                className={styles.inputField}
-                            />
-                            <button onClick={() => handleUpdate('email', profile.email)} className={styles.btn}>Confirm</button>
-                            <button onClick={handleCancel} className={styles.btn}>Cancel</button>
-                        </>
-                    ) : (
-                        <>
-                            <span>{profile.email}</span>
-                            <button onClick={() => setEditField('email')} className={styles.btn}>Update</button>
-                        </>
-                    )}
+        <div className={styles.profileContainer}>
+            <div className={styles.profileHeader}>
+                <h2 className={styles.username}>{profile.username}</h2>
+            </div>
+            <div className={styles.profileSection}>
+                <div className={styles.section}>
+                    <h3 className={styles.sectionTitle}>Email</h3>
+                    <div className={styles.formGroup}>
+                        {editField === 'email' ? (
+                            <>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={profile.email}
+                                    onChange={handleFieldChange}
+                                    className={styles.inputField}
+                                />
+                                <button onClick={() => handleUpdate('email', profile.email)} className={styles.btn}>Confirm</button>
+                                <button onClick={handleCancel} className={styles.btn}>Cancel</button>
+                            </>
+                        ) : (
+                            <>
+                                <span>{profile.email}</span>
+                                <button onClick={() => setEditField('email')} className={styles.btn}>Update</button>
+                            </>
+                        )}
+                    </div>
                 </div>
-
-                {/* Section username */}
-                <div className={styles['form-group']}>
-                    <label>Username: </label>
-                    {editField === 'username' ? (
-                        <>
-                            <input
-                                type="text"
-                                name="username"
-                                value={profile.username}
-                                onChange={handleFieldChange}
-                                className={styles.inputField}
-                            />
-                            <button onClick={() => handleUpdate('username', profile.username)} className={styles.btn}>Confirm</button>
-                            <button onClick={handleCancel} className={styles.btn}>Cancel</button>
-                        </>
-                    ) : (
-                        <>
-                            <span>{profile.username}</span>
-                            <button onClick={() => setEditField('username')} className={styles.btn}>Update</button>
-                        </>
-                    )}
+                <div className={styles.section}>
+                    <h3 className={styles.sectionTitle}>Username</h3>
+                    <div className={styles.formGroup}>
+                        {editField === 'username' ? (
+                            <>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    value={profile.username}
+                                    onChange={handleFieldChange}
+                                    className={styles.inputField}
+                                />
+                                <button onClick={() => handleUpdate('username', profile.username)} className={styles.btn}>Confirm</button>
+                                <button onClick={handleCancel} className={styles.btn}>Cancel</button>
+                            </>
+                        ) : (
+                            <>
+                                <span>{profile.username}</span>
+                                <button onClick={() => setEditField('username')} className={styles.btn}>Update</button>
+                            </>
+                        )}
+                    </div>
                 </div>
-
-                {/* Section password */}
-                <div className={styles['form-group']}>
-                    <label>Password: </label>
-                    {editField === 'password' ? (
-                        <>
-                            <input
-                                type="password"
-                                name="currentPassword"
-                                value={passwords.currentPassword}
-                                onChange={handlePasswordFieldChange}
-                                placeholder="Current Password"
-                                className={styles.inputField}
-                            />
-                            <input
-                                type="password"
-                                name="newPassword"
-                                value={passwords.newPassword}
-                                onChange={handlePasswordFieldChange}
-                                placeholder="New Password"
-                                className={styles.inputField}
-                            />
-                            <input
-                                type="password"
-                                name="confirmPassword"
-                                value={passwords.confirmPassword}
-                                onChange={handlePasswordFieldChange}
-                                placeholder="Confirm New Password"
-                                className={styles.inputField}
-                            />
-                            <button onClick={handlePasswordUpdate} className={styles.btn}>Confirm</button>
-                            <button onClick={handleCancel} className={styles.btn}>Cancel</button>
-                        </>
-                    ) : (
-                        <>
-                            <span>********</span>
-                            <button onClick={() => setEditField('password')} className={styles.btn}>Update</button>
-                        </>
-                    )}
+                <div className={styles.section}>
+                    <h3 className={styles.sectionTitle}>Password</h3>
+                    <div className={styles.formGroup}>
+                        {editField === 'password' ? (
+                            <>
+                                <input
+                                    type="password"
+                                    name="currentPassword"
+                                    value={passwords.currentPassword}
+                                    onChange={handlePasswordFieldChange}
+                                    placeholder="Current Password"
+                                    className={styles.inputField}
+                                />
+                                <input
+                                    type="password"
+                                    name="newPassword"
+                                    value={passwords.newPassword}
+                                    onChange={handlePasswordFieldChange}
+                                    placeholder="New Password"
+                                    className={styles.inputField}
+                                />
+                                <input
+                                    type="password"
+                                    name="confirmPassword"
+                                    value={passwords.confirmPassword}
+                                    onChange={handlePasswordFieldChange}
+                                    placeholder="Confirm New Password"
+                                    className={styles.inputField}
+                                />
+                                <button onClick={handlePasswordUpdate} className={styles.btn}>Confirm</button>
+                                <button onClick={handleCancel} className={styles.btn}>Cancel</button>
+                            </>
+                        ) : (
+                            <>
+                                <span>********</span>
+                                <button onClick={() => setEditField('password')} className={styles.btn}>Update</button>
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

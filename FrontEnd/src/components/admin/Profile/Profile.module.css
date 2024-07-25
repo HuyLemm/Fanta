@@ -1,49 +1,94 @@
-.h2 {
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     color: white;
-    margin-left: 1rem;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    margin: 0 auto;
 }
 
-/* Input field styles */
-.inputField {
+.username {
+    font-size: 1.5rem;
+    margin-bottom: 5rem;
+    color: white;
+}
+
+
+.profileSection {
     width: 100%;
-    padding: 0.625rem;
-    margin-bottom: 1.25rem;
-    border: 0.0625rem solid #ccc;
-    border-radius: 1rem;
-    font-size: 1.2rem;
-}
-
-/* Button styles */
-.btn {
-    padding: 0.625rem 1.25rem;
-    border: none;
-    border-radius: 0.25rem;
-    background-color: #3498db;
-    color: white;
-    cursor: pointer;
-    margin: 0.625rem;
-    transition: background-color 0.2s;
-    font-size: large;
-}
-
-.btn:hover {
-    background-color: #2980b9;
 }
 
 .section {
-    margin: 0 auto;
-    padding: 1.25rem;
-    background: #005f73;
-    border-radius: 2rem;
-    box-shadow: white 0.1rem 0.1rem;
-} 
+    background-color: #2c2c2c;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    border: 0.1rem white solid;
+}
 
-.form-group {
-    margin-bottom: 1.25rem;
-    border: white 0.2rem solid;
-    padding: 0.5rem;
-    border-radius: 1.5rem;
-    transition: all 0.3s ease;
-    background: #caf0f8;
-    color: #2c3e50;
+.sectionTitle {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background-color: #1c1c1c;
+    padding: 0 10px;
+    font-size: 1.2rem;
+    color: #f0f0f0;
+    border-radius: 1rem;
+}
+
+.formGroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+.inputField {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    border-radius: 1rem;
+    margin-top: 0.5rem;
+}
+
+textarea.inputField {
+    height: 100px;
+}
+
+.btn {
+    padding: 10px 20px;
+    margin-left: 5px;
+    background-color:#007bff ;
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: rgb(255,255,255,0.5);
+}
+
+.submitBtn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submitBtn:hover {
+    background-color: #0056b3;
 }

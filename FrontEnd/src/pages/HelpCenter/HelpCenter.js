@@ -1,4 +1,3 @@
-// HelpCenter.js
 import React from 'react';
 import styles from './HelpCenter.module.css';
 
@@ -23,10 +22,11 @@ const HelpCenter = () => {
                         <li><a href="#">How to change your plan</a></li>
                     </ul>
                 </div>
-                <div className={styles.explore}>
-                    <p>Explore Topics</p>
-                    <div className={styles.arrow}>↓</div>
-                </div>
+            </div>
+            <div className={styles.footer}>
+                <a href="#">Contact Us</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
             </div>
         </div>
     );

@@ -1,90 +1,141 @@
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.profileHeader {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
 .h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
     color: white;
-    margin-left: 1rem;
 }
 
-.inputField {
-    width: 100%;
-    padding: 0.625rem;
-    margin-bottom: 1.25rem;
-    border: 0.0625rem solid #ccc;
-    border-radius: 1rem;
-    font-size: 1.2rem;
-}
-
-
-.btn {
-    padding: 0.625rem 1.25rem;
+.changePhotoBtn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
     border: none;
-    border-radius: 0.25rem;
-    background-color: #3498db;
-    color: white;
+    border-radius: 1rem;
     cursor: pointer;
-    margin: 0.625rem;
-    transition: background-color 0.2s;
-    font-size: large;
+    margin: 0 1rem;
 }
 
-.btn:hover {
-    background-color: #2980b9;
+.changePhotoBtn:hover {
+    background-color: #0056b3;
+}
+
+.profileSection {
+    width: 100%;
 }
 
 .section {
-    margin: 0 auto;
-    padding: 1.25rem;
-    background: #005f73;
+    background-color: #2c2c2c;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    border: 0.1rem white solid;
+}
+
+.sectionTitle {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background-color: #1c1c1c;
+    padding: 0 10px;
+    font-size: 1.2rem;
+    color: #f0f0f0;
+    border-radius: 1rem;
+}
+
+.formGroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+.inputField {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    border-radius: 1rem;
+    margin-top: 0.5rem;
+}
+
+textarea.inputField {
+    height: 100px;
+}
+
+.btn {
+    padding: 10px 20px;
+    margin-left: 5px;
+    background-color:#007bff ;
+    color: white;
+    border: none;
     border-radius: 2rem;
-    box-shadow: white 0.1rem 0.1rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: rgb(255,255,255,0.5);
+}
+
+.submitBtn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submitBtn:hover {
+    background-color: #0056b3;
+}
+
+.table-container {
+    margin-top: 20px;
 }
 
 .table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 1.25rem;
-    margin-top: 1.25rem;
-    background-color: #fff;
-    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1);
-    border-radius: 0.3125rem;
-    overflow: hidden;
-    color: black;
+    margin-bottom: 20px;
 }
 
 .table th, .table td {
-    padding: 0.625rem;
+    padding: 10px;
+    border: 1px solid #ccc;
     text-align: left;
-    border-bottom: 0.0625rem solid #ddd;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
-.table th {
-    background-color: #2c3e50;
-    color: #ecf0f1;
-}
-
-.table td {
-    background-color: #f9f9f9;
-}
-
-.table th, .table td {
-    width: 9.375rem;
-}
-
-.table-container {
-    overflow-x: auto;
-}
-
-.table .fixed-width {
-    width: 9.375rem;
-}
-
-.form-group {
-    margin-bottom: 1.25rem;
-    border: white 0.2rem solid;
-    padding: 0.5rem;
-    border-radius: 1.5rem;
-    transition: all 0.3s ease;
-    background: #caf0f8;
-    color: #2c3e50;
+.fixed-width {
+    width: 150px;
 }
