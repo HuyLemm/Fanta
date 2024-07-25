@@ -28,7 +28,7 @@ var userController = require('./controllers/userController');
 var app = express(); // Khởi tạo cấu hình CORS cho server
 
 var corsOptions = {
-  origin: 'https://fanta-cutie.vercel.app/',
+  origin: '*',
   // URL frontend của bạn
   credentials: true,
   // Cho phép gửi cookie
