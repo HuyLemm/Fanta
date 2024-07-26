@@ -459,3 +459,70 @@ body {
 .topRatedItem:hover .more {
   opacity: 1;
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .h2 {
+    font-size: 1.5rem;
+  }
+
+  .genreMoviesPage {
+    flex-direction: column;
+  }
+
+  .genreMoviesContainer {
+    flex-direction: column;
+    padding-top: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .mainContent {
+    margin: 1rem 0;
+    padding: 1rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .sidebar {
+    width: 100%;
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+
+  .moviesGrid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
+  }
+
+  .moviePoster {
+    height: auto;
+  }
+
+  .hoverSection {
+    transform: scale(1);
+  }
+  
+  .seeMore {
+    right: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .pagination {
+    flex-direction: column;
+  }
+
+  .pageButton {
+    margin: 0.25rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .moviesGrid {
+    grid-template-columns: 1fr; /* 1 column for very small devices */
+  }
+
+  .h2 {
+    font-size: 1.2rem;
+  }
+}

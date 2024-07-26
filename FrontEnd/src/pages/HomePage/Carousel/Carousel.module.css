@@ -410,3 +410,45 @@
   background-color: #333;
   border: #333;
 }
+
+@media screen and (max-width: 768px) {
+  .carousel {
+    height: auto;
+    margin-top: 0;
+  }
+
+  .list .item {
+    position: relative;
+    height: auto;
+  }
+
+  .list .item img {
+    object-fit: contain;
+  }
+
+  .list .item .content {
+    width: 90%;
+    padding-right: 0;
+  }
+
+  .list .item .title,
+  .list .item .topic {
+    font-size: 2rem; /* Adjust font size for mobile */
+  }
+
+  .thumbnail .item {
+    width: 7.5rem; /* Adjust width for mobile */
+    height: 11.25rem; /* Adjust height for mobile */
+  }
+
+  .thumbnail {
+    bottom: 1.25rem; /* Adjust bottom spacing for mobile */
+  }
+
+  .arrows {
+    top: 90%;
+    right: 5%;
+    width: 15rem;
+    max-width: 100%;
+  }
+}

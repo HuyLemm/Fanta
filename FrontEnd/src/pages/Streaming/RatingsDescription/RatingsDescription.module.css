@@ -84,3 +84,65 @@
 .rotateUp {
   transform: rotate(180deg);
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .ratingSection h2 {
+    font-size: 1.5rem;
+  }
+
+  .stars {
+    margin-left: 0.5rem;
+  }
+
+  .star, .starFilled {
+    font-size: 1.5rem;
+  }
+
+  .descriptionSection {
+    margin-top: 1rem;
+  }
+
+  .headerDescription {
+    font-size: 1.5rem;
+  }
+
+  .descriptionText {
+    font-size: 1rem;
+  }
+
+  .toggleButton {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ratingSection h2 {
+    font-size: 1.2rem;
+  }
+
+  .stars {
+    margin-left: 0.5rem;
+  }
+
+  .star, .starFilled {
+    font-size: 1.2rem;
+  }
+
+  .descriptionSection {
+    margin-top: 0.5rem;
+  }
+
+  .headerDescription {
+    font-size: 1.2rem;
+  }
+
+  .descriptionText {
+    font-size: 0.9rem;
+  }
+
+  .toggleButton {
+    font-size: 0.8rem;
+  }
+}

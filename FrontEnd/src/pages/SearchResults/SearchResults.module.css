@@ -426,3 +426,79 @@ body {
   background-color: aliceblue; /* White background on hover */
   color: #333; /* Dark text on hover */
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .h2 {
+    font-size: 2rem;
+    margin-left: 2rem;
+    margin-top: 2rem;
+  }
+
+  .searchResultsContainer {
+    flex-direction: column;
+    padding-top: 2rem;
+  }
+
+  .mainContent {
+    padding: 1rem;
+    margin-right: 0;
+  }
+
+  .sidebar {
+    width: 90%;
+    margin: 2rem auto;
+    padding: 1rem;
+    max-height: none;
+    margin-right: 0;
+  }
+
+  .moviesGrid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+    margin-left: 2rem;
+  }
+
+  .moviePoster {
+    height: 12rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .h2 {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    margin-top: 1rem;
+  }
+
+  .mainContent {
+    padding: 0.5rem;
+    margin-right: 0;
+  }
+
+  .sidebar {
+    width: 90%;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    max-height: none;
+    margin-right: 0;
+  }
+
+  .moviesGrid {
+    grid-template-columns: 1fr; /* 1 column for mobile */
+    margin-left: 1rem;
+  }
+
+  .moviePoster {
+    height: 10rem;
+  }
+
+  .hoverSection {
+    height: 100%;
+    transform: scale(1.1);
+  }
+
+  .hoverSection:hover {
+    transform: scale(1.1);
+  }
+}

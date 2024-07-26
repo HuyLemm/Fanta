@@ -13,3 +13,16 @@
     object-fit: contain;
   }
   
+  /* Existing styles */
+
+@media (max-width: 768px) {
+  .streamingVideo {
+    height: 30vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .streamingVideo {
+    height: auto;
+  }
+}

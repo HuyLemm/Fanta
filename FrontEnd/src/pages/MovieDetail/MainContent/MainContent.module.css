@@ -1,4 +1,4 @@
-/* Container for the main section */
+/* Base styles for the MainContent component */
 .mainSection {
   position: relative;
   z-index: 1;
@@ -238,4 +238,68 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .mainSection {
+    height: 100vh;
+    padding: 1rem; /* Add padding for mobile view */
+  }
+
+  .background {
+    background-size: cover;
+    background-position: center;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    margin: 2rem 1rem;
+  }
+
+  .poster {
+    width: 12rem;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .details {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .meta {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .meta span {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .director, .cast, .description {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .watchNowButton {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+
+  .trailerSection {
+    padding: 1rem;
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+    visibility: hidden;
+  }
 }

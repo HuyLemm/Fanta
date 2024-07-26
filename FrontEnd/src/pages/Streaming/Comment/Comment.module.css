@@ -173,3 +173,73 @@
 .username {
   color: rgb(255,255,255,0.86);
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .commentsSection {
+    padding: 0.5rem;
+  }
+
+  .comment {
+    padding: 0.5rem 0;
+  }
+
+  .commentContent {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .commentInfo {
+    margin-left: 0;
+  }
+
+  .commentActions {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  .edittext {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .commentsSection {
+    padding: 0.25rem;
+  }
+
+  .comment {
+    padding: 0.25rem 0;
+  }
+
+  .commentContent {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .commentInfo {
+    margin-left: 0;
+  }
+
+  .commentActions {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 0.25rem;
+  }
+
+  .avatar {
+    width: 20px;
+    height: 20px;
+  }
+
+  .edittext {
+    font-size: 0.9rem;
+  }
+}

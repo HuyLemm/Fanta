@@ -92,3 +92,63 @@
   font-size: 1.4rem;
   margin-right: 1.3rem;
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .userContainer {
+    margin-right: 2rem;
+  }
+
+  .userIcon img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .dropdown {
+    top: 3rem;
+  }
+
+  .loginButton, .adminButton, .userButton, .watchlaterButton, .logoutButton {
+    width: 7rem;
+    height: 2.5rem;
+    font-size: 0.75rem;
+  }
+
+  .icon {
+    font-size: 1rem;
+  }
+
+  .watchlatericon, .logouticon {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .userContainer {
+    margin-right: 1rem;
+  }
+
+  .userIcon img {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .dropdown {
+    top: 2.5rem;
+  }
+
+  .loginButton, .adminButton, .userButton, .watchlaterButton, .logoutButton {
+    width: 6rem;
+    height: 2rem;
+    font-size: 0.7rem;
+  }
+
+  .icon {
+    font-size: 0.9rem;
+  }
+
+  .watchlatericon, .logouticon {
+    font-size: 1.2rem;
+  }
+}

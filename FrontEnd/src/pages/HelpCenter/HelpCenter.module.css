@@ -114,3 +114,96 @@ h1 {
 .footer a:hover {
     text-decoration: underline;
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+    .helpCenterPage {
+      padding: 1rem;
+      padding-top: 5rem;
+    }
+  
+    .helpCenterText {
+      font-size: 2rem;
+    }
+  
+    .content {
+      margin-top: 2rem;
+      padding: 1rem;
+    }
+  
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    .searchInput {
+      font-size: 1rem;
+      padding: 0.8rem;
+    }
+  
+    .recommended h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  
+    .recommended li {
+      padding: 0.8rem;
+      margin: 0.8rem 0;
+    }
+  
+    .recommended a {
+      font-size: 1rem;
+    }
+  
+    .footer {
+      margin-top: 3rem;
+      padding: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .helpCenterPage {
+      padding: 0.5rem;
+      padding-top: 3rem;
+    }
+  
+    .helpCenterText {
+      font-size: 1.5rem;
+    }
+  
+    .content {
+      margin-top: 1rem;
+      padding: 0.5rem;
+    }
+  
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  
+    .searchInput {
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+  
+    .recommended h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+  
+    .recommended li {
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+    }
+  
+    .recommended a {
+      font-size: 0.9rem;
+    }
+  
+    .footer {
+      margin-top: 2rem;
+      padding: 0.5rem;
+    }
+  }
+  

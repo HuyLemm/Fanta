@@ -440,3 +440,66 @@
 .modal::-webkit-scrollbar-track {
   background-color: rgb(0,0,0,0.5);
 }
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .modal {
+    width: 90%;
+    max-height: 80vh;
+    padding: 10px;
+  }
+
+  .closeButton {
+    font-size: 2rem;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .buttons {
+    bottom: 0.5rem;
+    left: 5%;
+  }
+
+  .playButton {
+    font-size: 1.2rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .addToListButton, .muteButton, .starButton {
+    font-size: 1.2rem;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .details {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .left, .right {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .metaFrame span {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .recommendedSection {
+    width: 100%;
+  }
+
+  .recommendedMovies {
+    grid-template-columns: repeat(2, 1fr); /* 2 movies per row */
+    gap: 1rem;
+  }
+}

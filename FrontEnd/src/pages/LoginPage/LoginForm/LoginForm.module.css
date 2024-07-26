@@ -193,3 +193,73 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .login-section {
+    max-width: 20rem;
+    padding: 1.5rem 2rem;
+  }
+
+  .login-form h1 {
+    font-size: 2rem;
+  }
+
+  .login-form .inputbox {
+    margin: 1rem 0;
+  }
+
+  .login-form .inputbox input {
+    height: 3rem;
+    padding: 0 1.5rem 0 0.3125rem;
+  }
+
+  .login-form button {
+    width: 5rem;
+    height: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .login-form .register {
+    font-size: 0.8rem;
+  }
+
+  .login-form .forget1 a {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-section {
+    max-width: 18rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .login-form h1 {
+    font-size: 1.5rem;
+  }
+
+  .login-form .inputbox {
+    margin: 0.5rem 0;
+  }
+
+  .login-form .inputbox input {
+    height: 2.5rem;
+    padding: 0 1rem 0 0.3125rem;
+  }
+
+  .login-form button {
+    width: 4rem;
+    height: 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  .login-form .register {
+    font-size: 0.7rem;
+  }
+
+  .login-form .forget1 a {
+    font-size: 0.7rem;
+  }
+}

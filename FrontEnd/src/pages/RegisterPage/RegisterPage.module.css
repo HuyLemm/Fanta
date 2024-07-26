@@ -7,3 +7,19 @@
     align-items: center;
     display: flex;
 }
+
+
+@media (max-width: 768px) {
+    .registerPage {
+      padding: 1rem;
+      background-size: contain;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .registerPage {
+      padding: 0.5rem;
+      background-size: cover;
+    }
+  }
+  

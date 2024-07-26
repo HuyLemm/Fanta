@@ -441,3 +441,42 @@
 .modal::-webkit-scrollbar-track {
   background-color: rgb(0,0,0,0.5);
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .modal {
+    width: 90%;
+    max-height: 80vh;
+  }
+
+  .details {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .left, .right {
+    width: 100%;
+  }
+
+  .recommendedMovies {
+    grid-template-columns: 1fr; /* 1 movie per row */
+  }
+
+  .episodeThumbnail {
+    width: 8rem;
+    height: 5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .playButton, .addToListButton, .starButton, .muteButton {
+    font-size: 1.2rem;
+    padding: 0.3rem;
+  }
+}
