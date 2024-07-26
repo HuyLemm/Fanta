@@ -19,7 +19,7 @@ const app = express();
 
 // Khởi tạo cấu hình CORS cho server
 const corsOptions = {
-  origin: '*', // URL frontend của bạn
+  origin: 'https://fanta-cutie.vercel.app', // URL frontend của bạn
   credentials: true, // Cho phép gửi cookie
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
   allowedHeaders: ['Content-Type', 'Authorization'],
