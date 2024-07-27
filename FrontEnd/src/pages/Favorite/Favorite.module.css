@@ -1,7 +1,7 @@
 .bodyFav{
   background: url(../../assets/images/streaming.jpg);
   width: 100dvw;
-  height: 100vh;
+  background-size: cover;
   padding-top: 6rem;
 }
 /* Container for the entire favorite movies section */
