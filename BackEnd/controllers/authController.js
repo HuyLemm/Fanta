@@ -191,7 +191,12 @@ exports.logout = async (req, res) => {
       tokenStore.removeToken(token);
 
       // Xóa cookie trên client
-      res.clearCookie('jwt')
+      res.clearCookie('jwt', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV, // Sử dụng secure cookies nếu NODE_ENV là production
+        sameSite: 'None',
+      });
+      
       return res.json({ message: 'Logged out successfully' });
     } else {
       return res.status(401).json({ message: 'Unauthorized' });

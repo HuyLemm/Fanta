@@ -47,6 +47,7 @@ app.use('/admin', adminRoutes)
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
+  console.log('NODE_ENV:', process.env.NODE_ENV);
   console.log(`Server started at http://localhost:${PORT}`);
 });
 
