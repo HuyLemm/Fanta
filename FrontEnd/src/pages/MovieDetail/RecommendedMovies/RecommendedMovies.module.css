@@ -1,4 +1,4 @@
-/* Base styles for the recommended movies section */
+/* Base styles for the RecommendedMovies component */
 .recommendedSection {
   padding: 1.25rem;
   background-color: #111;
@@ -331,4 +331,49 @@ body {
   padding: 5px;
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .recommendedSection {
+    padding: 1rem 0.5rem;
+  }
+
+  .recommendedTitle {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .recommendedList {
+    gap: 0.5rem;
+    padding: 0 1rem;
+    justify-content: center;
+  }
+
+  .recommendedItem {
+    width: 8rem;
+  }
+
+  .recommendedImageContainer {
+    height: 10rem;
+  }
+
+  .hoverSection {
+    font-size: 0.875rem;
+  }
+
+  .watchButton, .addToFavoritesButton, .starContainer {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .progressBarHover {
+    height: 3px;
+  }
+
+  .posterRanking {
+    font-size: 1rem;
+    padding: 0.25rem;
+  }
 }

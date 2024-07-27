@@ -149,3 +149,74 @@
     margin-top: 0.9375rem; /* Converted 15px to 0.9375rem */
     color: #fb5607;
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+    .register-section {
+      max-width: 20rem;
+      padding: 1.5rem 2rem;
+    }
+  
+    .register-form h1 {
+      font-size: 2rem;
+    }
+  
+    .register-form .inputbox {
+      margin: 1rem 0;
+    }
+  
+    .register-form .inputbox input {
+      height: 3rem;
+      padding: 0 1.5rem 0 0.3125rem;
+    }
+  
+    .register-form button {
+      width: 7rem;
+      height: 2rem;
+      font-size: 0.9rem;
+    }
+  
+    .register-form .message {
+      font-size: 0.9rem;
+    }
+  
+    .show-password {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .register-section {
+      max-width: 18rem;
+      padding: 1rem 1.5rem;
+    }
+  
+    .register-form h1 {
+      font-size: 1.5rem;
+    }
+  
+    .register-form .inputbox {
+      margin: 0.5rem 0;
+    }
+  
+    .register-form .inputbox input {
+      height: 2.5rem;
+      padding: 0 1rem 0 0.3125rem;
+    }
+  
+    .register-form button {
+      width: 6rem;
+      height: 1.5rem;
+      font-size: 0.8rem;
+    }
+  
+    .register-form .message {
+      font-size: 0.8rem;
+    }
+  
+    .show-password {
+      font-size: 0.8rem;
+    }
+  }
+  

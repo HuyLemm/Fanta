@@ -356,3 +356,56 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
 }
+
+@media screen and (max-width: 768px) {
+  .genreSection {
+    padding: 0.625rem;
+  }
+
+  .titleContainer h2 {
+    font-size: 1.25rem;
+  }
+
+  .exploreButton {
+    font-size: 0.875rem;
+  }
+
+  .genreList {
+    gap: 0.625rem;
+  }
+
+  .item {
+    width: 8rem;
+    height: 12rem;
+  }
+
+  .imageContainer {
+    height: 10rem;
+  }
+
+  .hoverSection {
+    font-size: 0.875rem;
+  }
+
+  .genre{
+    display: none;
+  }
+
+  .watchButton,
+  .addToFavoritesButton,
+  .starContainer {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .progressBar,
+  .progressBarHover {
+    height: 3px;
+  }
+
+  .posterRanking {
+    font-size: 1rem;
+    padding: 0.25rem;
+  }
+}

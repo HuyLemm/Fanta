@@ -69,3 +69,37 @@
   margin-top: 2rem;
   text-align: center;
 }
+
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 1rem;
+  }
+
+  .socialMedia {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .footerLinks {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .footerLinks div {
+    align-items: center;
+  }
+
+  .serviceCode {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .copyright {
+    margin-top: 1rem;
+    text-align: center;
+  }
+}

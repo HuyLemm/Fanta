@@ -10,3 +10,11 @@
   flex-direction: column; /* Ensure the sections stack vertically */
   overflow: hidden;
 }
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .movieDetailContainer {
+    padding: 0.5rem;
+    overflow-x: hidden;
+  }
+}

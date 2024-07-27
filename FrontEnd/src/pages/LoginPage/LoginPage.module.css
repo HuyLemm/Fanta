@@ -8,3 +8,20 @@
     align-items: center;
     display: flex;
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+    .loginPage {
+      padding: 1rem;
+      background-size: contain;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .loginPage {
+      padding: 0.5rem;
+      background-size: cover;
+    }
+  }
+  

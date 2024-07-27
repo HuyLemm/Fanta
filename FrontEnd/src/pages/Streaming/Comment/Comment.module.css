@@ -174,46 +174,72 @@
   color: rgb(255,255,255,0.86);
 }
 
-.modal {
-  width: 300px;
-  margin: auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .commentsSection {
+    padding: 0.5rem;
+  }
+
+  .comment {
+    padding: 0.5rem 0;
+  }
+
+  .commentContent {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .commentInfo {
+    margin-left: 0;
+  }
+
+  .commentActions {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  .edittext {
+    font-size: 1rem;
+  }
 }
 
-.overlay {
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+@media (max-width: 480px) {
+  .commentsSection {
+    padding: 0.25rem;
+  }
 
-.modalContent {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+  .comment {
+    padding: 0.25rem 0;
+  }
 
-.modalContent label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .commentContent {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-.modalContent input,
-.modalContent select {
-  margin-left: 10px;
-}
+  .commentInfo {
+    margin-left: 0;
+  }
 
-.modalContent button {
-  align-self: flex-end;
-  margin-top: 10px;
+  .commentActions {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 0.25rem;
+  }
+
+  .avatar {
+    width: 20px;
+    height: 20px;
+  }
+
+  .edittext {
+    font-size: 0.9rem;
+  }
 }

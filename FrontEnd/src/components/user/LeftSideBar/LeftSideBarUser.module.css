@@ -135,3 +135,36 @@
     margin-left: 0.9rem;
     margin-right: 0.6rem;
 }
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 0.625rem;
+        border-radius: 0.625rem;
+        margin-bottom: 1rem;
+        padding-left: 4rem;
+    }
+
+    .sidebar .btn {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.625rem;
+    }
+
+    .sidebar .btn:hover {
+        background-color: #457b9d;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        padding: 0.5rem;
+    }
+
+    .sidebar .btn {
+        width: 100%;
+        font-size: 0.875rem;
+        padding: 0.5rem;
+    }
+}

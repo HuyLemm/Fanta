@@ -55,3 +55,64 @@
 .categoryItem:hover {
   background-color: #fb5607;
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .categoriesContainer {
+    margin-right: 2rem;
+  }
+
+  .categoriesButton {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .categoriesDropdown {
+    top: 2rem;
+    left: 0;
+    padding: 0.5rem;
+  }
+
+  .categoryColumn {
+    margin-right: 0.5rem;
+  }
+
+  .categoryItem {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .categoriesContainer {
+    margin-right: 1rem;
+  }
+
+  .categoriesButton {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .categoriesDropdown {
+    top: 1.5rem;
+    left: 0;
+    padding: 0.3rem;
+  }
+
+  .categoryColumn {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
+    max-width: 120px; 
+  }
+
+  .categoryColumn {
+    margin-right: 0.3rem;
+  }
+
+  .categoryItem {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+}

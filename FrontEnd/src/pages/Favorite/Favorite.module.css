@@ -1,7 +1,7 @@
 .bodyFav{
   background: url(../../assets/images/streaming.jpg);
   width: 100dvw;
-  height: 100vh;
+  background-size: cover;
   padding-top: 6rem;
 }
 /* Container for the entire favorite movies section */
@@ -325,4 +325,133 @@
 
 .selectButton:hover {
   background-color: #333;
+}
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .bodyFav {
+    padding-top: 3rem;
+  }
+
+  .favoriteContainer {
+    width: 90vw;
+    height: auto;
+    padding: 10px;
+  }
+
+  .h2 {
+    font-size: 1.5rem;
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .fixedHeader {
+    flex-direction: column;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+  }
+
+  .buttonGroup {
+    position: static;
+    margin-top: 10px;
+  }
+
+  .scrollableContent {
+    height: auto;
+    padding: 5px;
+  }
+
+  .movieRow {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .posterContainer {
+    margin-bottom: 10px;
+  }
+
+  .poster {
+    width: 100px;
+    height: auto;
+  }
+
+  .watchButton {
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .movieInfo {
+    width: 100%;
+  }
+
+  .movieInfo p {
+    width: 100%;
+  }
+
+  .editButton {
+    right: 10px;
+    top: 5px;
+    padding: 5px 10px;
+  }
+
+  .dropdown {
+    right: 10px;
+    top: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bodyFav {
+    padding-top: 2rem;
+  }
+
+  .favoriteContainer {
+    width: 95vw;
+    padding: 5px;
+  }
+
+  .h2 {
+    font-size: 1.2rem;
+  }
+
+  .fixedHeader {
+    top: 5px;
+    left: 5px;
+    right: 5px;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .scrollableContent {
+    padding: 5px;
+  }
+
+  .movieRow {
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+
+  .poster {
+    width: 80px;
+  }
+
+  .watchButton {
+    padding: 5px 10px;
+  }
+
+  .editButton {
+    padding: 5px;
+  }
+
+  .dropdown {
+    top: 25px;
+  }
 }

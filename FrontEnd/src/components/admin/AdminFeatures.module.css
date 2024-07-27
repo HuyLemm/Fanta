@@ -36,6 +36,58 @@
     color: white;
 }
 
+@media (max-width: 768px) {
+    .panelPage {
+        flex-direction: column;
+        justify-content: flex-start;
+        height: auto;
+        padding: 1rem;
+    }
 
+    .admin-container {
+        width: 100%;
+        flex-direction: column;
+        margin-top: 2rem;
+        height: auto;
+        border-radius: 0.625rem;
+    }
+
+    .admin-content {
+        width: 100%;
+        padding: 0.625rem;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-radius: 0.625rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .panelPage {
+        padding: 0.5rem;
+    }
+
+    .admin-container {
+        width: 100%;
+        flex-direction: column;
+        margin-top: 1.5rem;
+        height: auto;
+    }
+
+    .admin-content {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+}
 
 

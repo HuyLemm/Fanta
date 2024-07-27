@@ -1,15 +1,28 @@
 .videoContainer {
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .streamingVideo {
-    width: 300%;
-    max-width: 100rem;
-    height: 44rem; /* You can adjust this height based on your needs */
-    object-fit: contain;
-  }
-  
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.streamingVideo {
+  width: 300%;
+  max-width: 100rem;
+  height: 44rem; /* You can adjust this height based on your needs */
+  object-fit: contain;
+}
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+.streamingVideo {
+  height: 30vh;
+}
+}
+
+@media (max-width: 480px) {
+.streamingVideo {
+  height: auto;
+}
+}

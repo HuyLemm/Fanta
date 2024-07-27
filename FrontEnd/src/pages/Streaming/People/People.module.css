@@ -34,3 +34,44 @@
   font-style: italic;
   color: gray;
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .peopleContainer {
+    justify-content: center;
+  }
+
+  .personImage {
+    width: 80px;
+    height: 80px;
+  }
+
+  .personName {
+    font-size: 0.9rem;
+  }
+
+  .personRole {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .peopleContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .personImage {
+    width: 60px;
+    height: 60px;
+  }
+
+  .personName {
+    font-size: 0.8rem;
+  }
+
+  .personRole {
+    font-size: 0.7rem;
+  }
+}

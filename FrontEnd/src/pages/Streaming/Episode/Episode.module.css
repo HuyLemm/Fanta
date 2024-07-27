@@ -134,3 +134,54 @@
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 10px;
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .episodesSection, .recommendedSection {
+    width: 100%;
+    max-height: none;
+    margin-top: 2rem;
+  }
+
+  .episodeImage, .moviePoster {
+    width: 100px;
+  }
+
+  .episodeTitle, .movieTitle {
+    font-size: 0.9rem;
+  }
+
+  .episodeNumber, .movieGenre {
+    font-size: 0.8rem;
+  }
+
+  .playButton, .playButtonMovie {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .episodesSection, .recommendedSection {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .episodeImage, .moviePoster {
+    width: 80px;
+  }
+
+  .episodeTitle, .movieTitle {
+    font-size: 0.8rem;
+  }
+
+  .episodeNumber, .movieGenre {
+    font-size: 0.7rem;
+  }
+
+  .playButton, .playButtonMovie {
+    width: 20px;
+    height: 20px;
+  }
+}

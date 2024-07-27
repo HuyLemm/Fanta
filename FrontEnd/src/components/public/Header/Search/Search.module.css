@@ -35,3 +35,35 @@
 .searchButton:hover {
   background-color: #333;
 }
+
+/* Existing styles */
+
+@media (max-width: 768px) {
+  .searchForm {
+    margin-right: 3rem;
+  }
+
+  .searchInput {
+    width: 15rem; /* Adjust width for tablets */
+    padding: 0.5rem;
+  }
+
+  .searchButton {
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchForm {
+    margin-right: 1rem;
+  }
+
+  .searchInput {
+    width: 12rem; /* Adjust width for mobile */
+    padding: 0.4rem;
+  }
+
+  .searchButton {
+    padding: 0.4rem 0.8rem;
+  }
+}
