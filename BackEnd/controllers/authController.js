@@ -185,11 +185,6 @@ exports.logout = async (req, res) => {
   }
 
   try {
-    // Kiểm tra token có trong tokenStore không
-    if (tokenStore.hasToken(token)) {
-      // Xóa token khỏi bộ nhớ
-      tokenStore.removeToken(token);
-
       // Xóa cookie trên client
       res.clearCookie('jwt', {
         httpOnly: true,
@@ -198,9 +193,6 @@ exports.logout = async (req, res) => {
       });
       
       return res.json({ message: 'Logged out successfully' });
-    } else {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
   } catch (error) {
     console.error('Logout error:', error);
     res.status(500).json({ message: 'Server error' });
