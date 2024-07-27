@@ -24,7 +24,7 @@ const FullHistory = () => {
 
   const fetchHistory = async () => {
     try {
-      const response = await fetch('http://localhost:5000/public/get-history-for-user', {
+      const response = await fetch('https://fanta-kappa.vercel.app/public/get-history-for-user', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -64,7 +64,7 @@ const FullHistory = () => {
 
   const handleDeleteSelected = async () => {
     try {
-      const response = await fetch('http://localhost:5000/user/remove-history', {
+      const response = await fetch('https://fanta-kappa.vercel.app/user/remove-history', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

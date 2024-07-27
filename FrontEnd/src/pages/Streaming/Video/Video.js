@@ -13,7 +13,7 @@ const Video = ({ url, type, videoId, initialTime, currentEpisode, setInitialTime
     try {
       const latestEpisode = episode + 1;
       console.log(`Saving current time: ${currentTime} and latest episode: ${latestEpisode} for videoId: ${videoId}`);
-      const response = await fetch('http://localhost:5000/user/save-history', {
+      const response = await fetch('https://fanta-kappa.vercel.app/user/save-history', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

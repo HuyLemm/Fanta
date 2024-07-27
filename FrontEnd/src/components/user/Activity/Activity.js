@@ -18,7 +18,7 @@ const Activity = ({ setCurrentFunction }) => {
 
   const fetchActivity = async () => {
     try {
-      const response = await fetch('http://localhost:5000/user/get-activity', {
+      const response = await fetch('https://fanta-kappa.vercel.app/user/get-activity', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -101,7 +101,7 @@ const Activity = ({ setCurrentFunction }) => {
 
   const handleDeleteSelected = async () => {
     try {
-      const response = await fetch('http://localhost:5000/user/delete-activities', {
+      const response = await fetch('https://fanta-kappa.vercel.app/user/delete-activities', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
