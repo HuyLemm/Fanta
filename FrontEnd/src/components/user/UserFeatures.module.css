@@ -116,3 +116,74 @@ h2 {
     color: white;
     text-align: center;
 }
+
+@media (max-width: 768px) {
+    .panelPage {
+        flex-direction: column;
+        justify-content: flex-start;
+        height: auto;
+        padding: 1rem;
+    }
+
+    .userfeatures {
+        padding: 0.625rem;
+    }
+
+    .usercontainer {
+        width: 100%;
+        flex-direction: column;
+        margin-top: 2rem;
+        height: auto;
+    }
+
+    .usercontent {
+        width: 100%;
+        padding: 0.625rem;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0.625rem;
+        border-bottom-right-radius: 0.625rem;
+        margin-bottom: 1rem;
+    }
+
+    .sidebar .btn {
+        font-size: medium;
+    }
+}
+
+@media (max-width: 480px) {
+    .panelPage {
+        padding: 0.5rem;
+    }
+
+    .userfeatures {
+        padding: 0.5rem;
+    }
+
+    .usercontainer {
+        width: 100%;
+        flex-direction: column;
+        margin-top: 1.5rem;
+        height: auto;
+    }
+
+    .usercontent {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .sidebar .btn {
+        font-size: small;
+        padding: 0.5rem;
+    }
+}

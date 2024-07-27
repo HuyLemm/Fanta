@@ -250,3 +250,91 @@
 .historyContainer::-webkit-scrollbar-track {
   background:transparent;
 }
+
+@media (max-width: 768px) {
+  .historyContainer {
+      padding: 1rem;
+      padding-left: 1rem;
+  }
+
+  .fixedHeader {
+      padding: 0.625rem;
+  }
+
+  .h2 {
+      font-size: 1.5rem;
+      margin-top: -1.5rem;
+      margin-left: -7rem;
+  }
+
+  .buttonGroup {
+      margin-right: 1rem;
+  }
+
+  .gridContainer {
+      gap: 1rem;
+  }
+
+  .gridItem {
+      width: 10rem;
+  }
+
+  .backgroundImage {
+      width: 10rem;
+      height: 6rem;
+  }
+
+  .overlay {
+      width: 10rem;
+      height: 6rem;
+  }
+
+  .checkbox {
+      width: 1.5rem;
+      height: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .historyContainer {
+      padding: 0.5rem;
+      padding-left: 0.5rem;
+  }
+
+  .fixedHeader {
+      padding: 0.5rem;
+  }
+
+  .h2 {
+      font-size: 1.25rem;
+      margin-top: -1.25rem;
+      margin-left: -5rem;
+  }
+
+  .buttonGroup {
+      margin-right: 0.5rem;
+  }
+
+  .gridContainer {
+      gap: 0.5rem;
+  }
+
+  .gridItem {
+      width: 8rem;
+  }
+
+  .backgroundImage {
+      width: 8rem;
+      height: 4.5rem;
+  }
+
+  .overlay {
+      width: 8rem;
+      height: 4.5rem;
+  }
+
+  .checkbox {
+      width: 1.25rem;
+      height: 1.25rem;
+  }
+}

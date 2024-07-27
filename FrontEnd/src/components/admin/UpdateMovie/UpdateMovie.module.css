@@ -30,10 +30,25 @@
     background-color: #2980b9;
 }
 
-/* .section {
-    margin: 0 auto;
-    padding: 1.25rem;
-    background: #005f73;
-    border-radius: 2rem;
-    box-shadow: white 0.1rem 0.1rem;
-} */
+@media (max-width: 768px) {
+    .inputField, .btn {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .episodeContainer {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .inputField, .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .episodeContainer {
+        margin-bottom: 0.5rem;
+    }
+}
+

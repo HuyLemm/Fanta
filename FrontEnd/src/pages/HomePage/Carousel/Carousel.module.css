@@ -443,6 +443,7 @@
 
   .thumbnail {
     bottom: 1.25rem; /* Adjust bottom spacing for mobile */
+    visibility: hidden;
   }
 
   .arrows {
@@ -450,5 +451,6 @@
     right: 5%;
     width: 15rem;
     max-width: 100%;
+    visibility: hidden;
   }
 }

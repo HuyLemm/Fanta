@@ -67,3 +67,17 @@
     height: 10rem; /* initial height */
     resize: vertical; /* allow vertical resize only */
 }
+
+@media (max-width: 768px) {
+    .inputField, .btn, .textAreaFieldbrief, .textAreaFieldfull {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .inputField, .btn, .textAreaFieldbrief, .textAreaFieldfull {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}

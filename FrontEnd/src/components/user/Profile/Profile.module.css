@@ -119,3 +119,99 @@ textarea.inputField {
 .submitBtn:hover {
     background-color: #0056b3;
 }
+
+@media (max-width: 768px) {
+    .profileContainer {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .profileHeader {
+        margin-bottom: 1rem;
+    }
+
+    .avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .username {
+        font-size: 1.2rem;
+    }
+
+    .changePhotoBtn {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+
+    .section {
+        padding: 1rem;
+    }
+
+    .sectionTitle {
+        font-size: 1rem;
+        top: -0.5rem;
+    }
+
+    .formGroup {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .inputField {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .profileContainer {
+        padding: 0.5rem;
+    }
+
+    .profileHeader {
+        margin-bottom: 0.5rem;
+    }
+
+    .avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .username {
+        font-size: 1rem;
+    }
+
+    .changePhotoBtn {
+        padding: 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .section {
+        padding: 0.5rem;
+    }
+
+    .sectionTitle {
+        font-size: 0.875rem;
+    }
+
+    .formGroup {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .inputField {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}

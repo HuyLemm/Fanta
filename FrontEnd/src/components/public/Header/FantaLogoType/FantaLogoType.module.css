@@ -44,8 +44,7 @@
 
 @media (max-width: 768px) {
   .header {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
   }
 
   .fanta {
@@ -55,31 +54,11 @@
 
   .typeButtons {
     margin-top: 1rem;
+    visibility: hidden;
   }
 
   .movies, .series {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .header {
-    padding: 0.5rem;
-    flex-direction: column;
-  }
-
-  .fanta {
-    width: 5rem; /* Adjust logo size for mobile */
-    height: 2.5rem;
-  }
-
-  .typeButtons {
-    margin-top: 0.5rem;
-  }
-
-  .movies, .series {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
   }
 }
