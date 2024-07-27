@@ -43,7 +43,6 @@ const Episode = ({ movieId, episodes, type, initialEpisode, initialTime, genres,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ genres, currentMovieId })
       });
