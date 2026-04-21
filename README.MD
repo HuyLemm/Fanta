@@ -137,3 +137,72 @@ Admin
 ## License
 
 This project is for educational purposes.
+
+
+# Movie AI Chatbox Template
+
+Project mẫu tách file rõ ràng cho chatbox gợi ý phim dùng TMDB.
+
+## Tính năng
+- UI chatbox riêng
+- API route riêng (`/api/chat`)
+- TMDB service riêng
+- Intent detection + keyword extraction
+- Local vector search để semantic matching cơ bản
+- Ranking theo vector score + keyword overlap + rating
+
+## Cấu trúc
+
+```bash
+app/
+  api/chat/route.ts
+  layout.tsx
+  page.tsx
+components/chat/
+  ChatShell.tsx
+  MovieCard.tsx
+  PromptSuggestions.tsx
+lib/
+  nlp/
+    normalize.ts
+    keywords.ts
+    intent.ts
+  services/
+    tmdb.ts
+    recommendation.ts
+  vector/
+    localVectorDb.ts
+  types/
+    movie.ts
+```
+
+## Cách chạy
+1. Cài package:
+   ```bash
+   npm install
+   ```
+2. Tạo file `.env.local` từ `.env.example`
+3. Điền `TMDB_BEARER_TOKEN`
+4. Chạy:
+   ```bash
+   npm run dev
+   ```
+
+## Luồng xử lý
+1. User nhập message
+2. API `/api/chat` nhận request
+3. `parseUserQuery()` phân tích intent + keywords
+4. `tmdb.ts` lấy candidate movies từ TMDB
+5. `LocalVectorDB` tính cosine similarity cục bộ
+6. `recommendation.ts` rerank và trả lời
+
+## Mở rộng tiếp theo
+- Thêm filter theo actor / director / year range
+- Thay `LocalVectorDB` bằng Pinecone, Qdrant, Weaviate, FAISS
+- Thêm movie details modal
+- Thêm conversation history lưu server-side
+- Thêm LLM để sinh câu trả lời tự nhiên hơn
+
+## Lưu ý
+TMDB hiện hỗ trợ Bearer token trong header `Authorization`, có endpoint `/search/movie` để tìm theo tên, `/discover/movie` để lọc phim theo nhiều điều kiện, và ảnh được dựng từ `base_url + size + file_path`. citeturn564750search0turn564750search1turn564750search2turn564750search3
+
